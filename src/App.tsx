@@ -1,14 +1,16 @@
 import './App.css';
-import { Button } from './stories/Button';
+import { ButtonGroup } from './stories/buttonGroup'; 
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+          UIUC's Computer Science Society
         </p>
-        <Button size='large' primary={true} label="Member Login"/>
+        <div className="Button-group">
+          <ButtonGroup />
+        </div>
       </header>
     </div>
   );

@@ -1,15 +1,21 @@
 import './App.css';
-import { ButtonGroup } from './stories/buttonGroup'; 
+import { Button } from './stories/Button'; 
+import {SocialIcon } from 'react-social-icons';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>
+        <h1>
           UIUC's Computer Science Society
+        </h1>
+        <p>
+          Write something here
         </p>
         <div className="Button-group">
-          <ButtonGroup />
+          <Button size='large' primary={true} label="Member Login" />
+          <SocialIcon url="https://discord.com" bgColor="#ffffff" fgColor="#5D3A80" className='Discord-icon'/>
+          <SocialIcon url="https://slack.com" bgColor="#ffffff" fgColor="#5D3A80" className='Slack-icon'/>
         </div>
       </header>
     </div>

@@ -2,14 +2,6 @@
   text-align: center;
 }
 
-/*.App-logo {
-  width: 253px;
-  height: 200px;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-}*/
-
 .App-header {
   /* below is from figma; incorporate later?
   position: relative;
@@ -21,9 +13,4 @@
   display: flex;
   flex-direction: column;
   color: white;
-}
-
-/* Not working */
-.App-header > .Button-group {
-  min-height: 5000px;
 }

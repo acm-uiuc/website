@@ -3,36 +3,34 @@
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+  width: 253px;
+  height: 200px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.group-10 {
+  position: absolute;
+  width: 525px;
+  height: 236px;
+  left: 361px;
+  top: 189px;
 }
 
 .App-header {
-  background-color: #282c34;
+  /* below is from figma; incorporate later
+  position: relative;
+  width: 1440px;
+  height: 2548px;
+  */
+  background: linear-gradient(180deg, #3E486F 0%, #5D3A80 38.02%);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
 }
 
 .App-link {
   color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }

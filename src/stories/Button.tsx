@@ -1,6 +1,4 @@
-import React from 'react';
 import './button.css';
-
 interface ButtonProps {
   /**
    * Is this the principal call to action on the page?
@@ -13,7 +11,7 @@ interface ButtonProps {
   /**
    * How large should the button be?
    */
-  size?: 'small' | 'medium' | 'large';
+  size?: 'small' | 'large';
   /**
    * Button contents
    */
@@ -29,7 +27,7 @@ interface ButtonProps {
  */
 export const Button = ({
   primary = false,
-  size = 'medium',
+  size = 'large',
   backgroundColor,
   label,
   ...props

@@ -3,7 +3,7 @@
 }
 
 .App-header {
-  /* below is from figma; incorporate later?
+  /* below is from figma; incorporate later
   position: relative;
   width: 1440px;
   height: 2548px;
@@ -13,4 +13,49 @@
   display: flex;
   flex-direction: column;
   color: white;
+}
+
+.App-header > h1 {
+  position: absolute;
+  width: 525px;
+  height: 236px;
+  top: 189px;
+  
+  font-family: 'Avenir';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 48px;
+  line-height: 66px;
+  
+  color: #FFFFFF;
+}  
+
+.App-header > p {
+  position: absolute;
+  width: 501px;
+  height: 79px;
+  top: 333px;
+
+  font-family: 'Avenir';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 25px;
+
+  color: #DDDDDD;
+}
+
+
+.App-header > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 10px;
+
+  position: absolute;
+  width: 354px;
+  height: 63px;
+  left: 100px;
+  top: 444px;
 }

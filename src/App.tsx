@@ -1,16 +1,20 @@
 import './App.css';
 import { Button } from './stories/Button'; 
 import {SocialIcon } from 'react-social-icons';
+import { Header } from './stories/Header';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <Header />
         <h1>
-          UIUC's Computer Science Society
+          UIUC’s Computer Science Society
         </h1>
         <p>
-          Write something here
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+        Cras quis varius elit. Quisque ex diam, consectetur pharetra 
+        sem vel, finibus pulvinar elit. 
         </p>
         <div className="Button-group">
           <Button size='large' primary={true} label="Member Login" />

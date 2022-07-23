@@ -23,6 +23,6 @@
 .storybook-button--small {
   font-size: 12px;
   padding: 10px 16px;
-  background-color: #3E486F;
+  background-color: transparent;
   color: white;
 }

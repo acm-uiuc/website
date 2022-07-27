@@ -1,4 +1,5 @@
 import './button.css';
+
 interface ButtonProps {
   /**
    * Is this the principal call to action on the page?
@@ -22,9 +23,11 @@ interface ButtonProps {
   onClick?: () => void;
 }
 
-/**
- * Primary UI component for user interaction
- */
+export default {
+  title: 'Button',
+};
+
+
 export const Button = ({
   primary = false,
   size = 'large',
@@ -38,6 +41,25 @@ export const Button = ({
       type="button"
       className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
       style={{ backgroundColor }}
+      {...props}
+    >
+      {label}
+    </button>
+  );
+};
+
+export const Example = ({
+  primary = false,
+  size = 'large',
+  backgroundColor,
+  label,
+  ...props
+}: ButtonProps) => {
+  const mode = primary ? 'storybook-button--primary' : 'storybook-button--first';
+  return (
+    <button
+      type="button"
+      className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
       {...props}
     >
       {label}

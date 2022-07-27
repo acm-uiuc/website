@@ -1,6 +1,6 @@
 import './App.css';
 import { Button } from '../components/Button'; 
-import {SocialIcon } from 'react-social-icons';
+import { SocialIcon } from 'react-social-icons';
 import { Header } from '../components/Header';
 
 function App() {

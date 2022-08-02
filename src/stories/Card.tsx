@@ -21,15 +21,17 @@ const Image = styled.img`
 const Layout = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     padding: 16px;
+    justify-content: space-between;
+    height: 100%;
 `
 
 const MiddleText = styled.div`
     display: flex;
     flex-direction: column;
     padding: 0;
-    align-items: flex-start;
+    align-items: center;
 `
 
 const Title = styled.h2`
@@ -40,12 +42,30 @@ const Title = styled.h2`
     padding-bottom: 10px;
 `
 
+const Description = styled.p`
+    font-size: 14px;
+    line-height: 24px;
+    margin: 0px;
+    color: #9c9c9c;
+`
+
+const LowerLayout = styled.div``
+
+const Link = styled.span`
+    border-radius: 12px;
+    color: blue;
+    line-height: 20px;
+    font-size: 14px;
+`
+
 
 interface CardProps {
     title: string
+    description: string
+    link: string
 }
 
-const Card: React.FC<CardProps> = ({ title }) => (
+const Card: React.FC<CardProps> = ({ title, description, link }) => (
     <Container>
         <Image src='https://sigpwny.com/images/logo.png' />
         <Layout>
@@ -53,7 +73,15 @@ const Card: React.FC<CardProps> = ({ title }) => (
                 <Title>
                     {title}
                 </Title>
+                <Description>
+                    {description}
+                </Description>
             </MiddleText>
+            <LowerLayout>
+                <Link>
+                    <a href={link} target='_blank' rel='noreferrer'>{link}</a>
+                </Link>
+            </LowerLayout>
         </Layout>
     </Container>
 )

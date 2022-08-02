@@ -9,7 +9,12 @@ const Container = styled.div`
 
 storiesOf('Components/Card', module).add('Primary', () => (
     <Container>
-        <Card title="SIGPwny" />
+        <Card title="SIGPwny" 
+        description="SIGPwny is a friendly but elite club focused on cybersecurity. They host 
+                    weekly learning meetings, participate in CTFs, and do 
+                    cutting-edge cybersecurity research."
+        link="https://sigpwny.com/"
+        />
     </Container>
     
 ))

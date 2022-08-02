@@ -8,6 +8,7 @@ const Container = styled.article`
     flex-direction: column;
     overflow: hidden;
     height: 450px;
+    background-color: #ededed;
 `
 
 const Image = styled.img`
@@ -49,7 +50,8 @@ const Description = styled.p`
     color: #9c9c9c;
 `
 
-const LowerLayout = styled.div``
+const LowerLayout = styled.div`
+`
 
 const Link = styled.span`
     border-radius: 12px;
@@ -59,20 +61,22 @@ const Link = styled.span`
 `
 
 const Href = styled.a`
-  &:link, &:visited {
-  background-color: white;
-  color: black;
-  border: 2px solid green;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-}
-
-&:hover, &:active {
-  background-color: green;
-  color: white;
-}
+    display: inline-flex;
+    background-color: transparent;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    line-height: 1.75;
+    padding: 5px 15px;
+    border-radius: 8px;
+    color: #1976d2;
+    border: 1px solid #1976d2;
+    transition: all 0.4s ease;
+    &:hover {
+        transform: translateY(-2px);
+        background-color: rgba(25, 118, 210, 0.04);
+        border: 1px solid #1976d2;
+    }
 `
 
 const LinkPlaceholder = styled.div`
@@ -86,9 +90,10 @@ interface CardProps {
     description: string
     link: string
     Imagesrc: string
+    linktext: string
 }
 
-const Card: React.FC<CardProps> = ({ title, description, link, Imagesrc }) => (
+const Card: React.FC<CardProps> = ({ title, description, link, linktext, Imagesrc }) => (
     <Container>
         <Image src={Imagesrc} />
         <Layout>
@@ -103,7 +108,7 @@ const Card: React.FC<CardProps> = ({ title, description, link, Imagesrc }) => (
             <LowerLayout>
                 <Link>
                     <Href href={link} target='_blank' rel='noreferrer'>
-                        {link}
+                        {linktext}
                     </Href>
                 </Link>
                 <LinkPlaceholder>

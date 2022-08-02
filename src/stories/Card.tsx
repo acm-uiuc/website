@@ -7,7 +7,7 @@ const Container = styled.article`
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    height: 400px;
+    height: 450px;
 `
 
 const Image = styled.img`
@@ -58,16 +58,39 @@ const Link = styled.span`
     font-size: 14px;
 `
 
+const Href = styled.a`
+  &:link, &:visited {
+  background-color: white;
+  color: black;
+  border: 2px solid green;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+&:hover, &:active {
+  background-color: green;
+  color: white;
+}
+`
+
+const LinkPlaceholder = styled.div`
+    display: flex;
+    flex-direction: row;
+    padding-top: 16px;
+`
 
 interface CardProps {
     title: string
     description: string
     link: string
+    Imagesrc: string
 }
 
-const Card: React.FC<CardProps> = ({ title, description, link }) => (
+const Card: React.FC<CardProps> = ({ title, description, link, Imagesrc }) => (
     <Container>
-        <Image src='https://sigpwny.com/images/logo.png' />
+        <Image src={Imagesrc} />
         <Layout>
             <MiddleText>
                 <Title>
@@ -79,8 +102,13 @@ const Card: React.FC<CardProps> = ({ title, description, link }) => (
             </MiddleText>
             <LowerLayout>
                 <Link>
-                    <a href={link} target='_blank' rel='noreferrer'>{link}</a>
+                    <Href href={link} target='_blank' rel='noreferrer'>
+                        {link}
+                    </Href>
                 </Link>
+                <LinkPlaceholder>
+                    LinkPlaceholder
+                </LinkPlaceholder>
             </LowerLayout>
         </Layout>
     </Container>

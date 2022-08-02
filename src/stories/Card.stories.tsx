@@ -14,6 +14,7 @@ storiesOf('Components/Card', module).add('Primary', () => (
                     weekly learning meetings, participate in CTFs, and do 
                     cutting-edge cybersecurity research."
         link="https://sigpwny.com/"
+        Imagesrc="https://sigpwny.com/images/logo.png"
         />
     </Container>
     

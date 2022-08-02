@@ -9,7 +9,7 @@ const Container = styled.div`
 
 storiesOf('Components/Card', module).add('Primary', () => (
     <Container>
-        <Card />
+        <Card title="SIGPwny" />
     </Container>
     
 ))

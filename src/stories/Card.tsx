@@ -21,20 +21,39 @@ const Image = styled.img`
 const Layout = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     padding: 16px;
+`
+
+const MiddleText = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    align-items: flex-start;
+`
+
+const Title = styled.h2`
+    font-family: Inter;
+    font-weight: 600;
+    line-height: 22px;
+    margin: 0px;
+    padding-bottom: 10px;
 `
 
 
 interface CardProps {
-
+    title: string
 }
 
-const Card: React.FC<CardProps> = ({ }) => (
+const Card: React.FC<CardProps> = ({ title }) => (
     <Container>
         <Image src='https://sigpwny.com/images/logo.png' />
         <Layout>
-            CARD
+            <MiddleText>
+                <Title>
+                    {title}
+                </Title>
+            </MiddleText>
         </Layout>
     </Container>
 )

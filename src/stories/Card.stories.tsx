@@ -15,7 +15,7 @@ storiesOf('Components/Card', module).add('Primary', () => (
                     cutting-edge cybersecurity research."
         link="https://sigpwny.com/"
         Imagesrc="https://sigpwny.com/images/logo.png"
-        linktext="Sigpwny's website"
+        linktext="Website"
         />
     </Container>
     

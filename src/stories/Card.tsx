@@ -7,7 +7,8 @@ const Container = styled.article`
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    height: 400px;
+    height: 260px;
+    width: 312px;
     &:hover {
         transform: translateY(-2px);
     }
@@ -15,7 +16,8 @@ const Container = styled.article`
 `
 
 const Image = styled.img`
-    height: 150px;
+    //height: 150px;
+    height: 50px;
     object-fit: contain;
     width: 100%;
     border-top-left-radius: 15px;
@@ -44,13 +46,17 @@ const Title = styled.h2`
     line-height: 22px;
     margin: 0px;
     padding-bottom: 10px;
+    font-family: sans-serif;
 `
 
 const Description = styled.p`
     font-size: 14px;
     line-height: 24px;
     margin: 0px;
-    color: #9c9c9c;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 `
 
 const LowerLayout = styled.div`
@@ -71,8 +77,8 @@ const Href = styled.a`
     cursor: pointer;
     text-decoration: none;
     font-family: "Roboto","Helvetica","Arial",sans-serif;
-    font-weight: 500;
-    font-size: 0.8125rem;
+    font-weight: 1000;
+    font-size: 1rem;
     line-height: 1.75;
     letter-spacing: 0.02857em;
     text-transform: uppercase;
@@ -80,7 +86,7 @@ const Href = styled.a`
     border-radius: 4px;
     color: #1976d2;
     text-transform: uppercase;
-    border: 1px solid #1976d2;
+    //border: 1px solid #1976d2;
     transition: all 0.4s ease;
     &:hover {
         transform: translateY(-2px);
@@ -101,10 +107,11 @@ interface CardProps {
     description: string
     link: string
     Imagesrc: string
-    linktext: string
+    linktext1: string
+    linktext2: string
 }
 
-const Card: React.FC<CardProps> = ({ title, description, link, linktext, Imagesrc }) => (
+const Card: React.FC<CardProps> = ({ title, description, link, linktext1, linktext2, Imagesrc }) => (
     <Container>
         <Image src={Imagesrc} />
         <Layout>
@@ -119,12 +126,12 @@ const Card: React.FC<CardProps> = ({ title, description, link, linktext, Imagesr
             <LowerLayout>
                 <Link>
                     <Href href={link} target='_blank' rel='noreferrer'>
-                        {linktext}
+                        {linktext1}
                     </Href>
                 </Link>
                 <LinkPlaceholder>
-                    <Href href=''>
-                        All SIGs
+                    <Href href={link} target='_blank' rel='noreferrer'>
+                        {linktext2}
                     </Href>
                 </LinkPlaceholder>
             </LowerLayout>

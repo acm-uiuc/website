@@ -1,7 +1,3 @@
-body {
-  background-color: purple;
-}
-
 .App {
   text-align: center;
 }
@@ -15,6 +11,10 @@ body {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+
+.header {
+  height: 150px;
 }
 
 .App-header {

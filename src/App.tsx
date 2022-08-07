@@ -1,5 +1,5 @@
 import './App.css';
-import HomeSigs from "./sections/home/Home.Sigs";
+import HomeSigs from "./sections/home/Sigs";
 
 function App() {
   return (

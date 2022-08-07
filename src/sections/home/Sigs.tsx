@@ -1,9 +1,8 @@
-import styled from "styled-components";
-import Card from "../../stories/Card";
-import pwny8 from '../../pwny8.svg';
+import styled from "styled-components"
+import Card from "../../stories/Card"
+import pwny8 from '../../pwny8.svg'
 
-const Container = styled.section`
-`
+const Container = styled.section``
 
 const Title = styled.h1`
     font-size: 40px;
@@ -33,8 +32,7 @@ const Grid = styled.div`
     }
 `
 
-const LinkContainer = styled.div`
-`
+const LinkContainer = styled.div``
 
 const AllSigs = styled.a`
     cursor: pointer;
@@ -45,8 +43,8 @@ const AllSigs = styled.a`
     }
 `
 
-function Sigs() {
-    return (
+const Sigs = (props: any) => {
+  return (
       <Container>
         <Title>Special Interest Groups (SIGs)</Title>
         <SubTitle>Explore any of your Computer Science interests in over 10 SIGs!</SubTitle>
@@ -55,7 +53,8 @@ function Sigs() {
           description="A friendly but elite club focused on cybersecurity. They host 
                       weekly learning meetings, participate in CTFs, and do 
                       cutting-edge cybersecurity research."
-          link="https://sigpwny.com/"
+          link1="https://sigpwny.com/"
+          link2="https://sigpwny.com/discord"
           Imagesrc={pwny8}
           linktext1="Website" 
           linktext2="Discord"
@@ -63,35 +62,40 @@ function Sigs() {
           <Card title="SIGAIDA"
           description="We are the premier data science student organization at the University of Illinois
           "
-          link="https://aida.acm.illinois.edu/"
+          link1="https://aida.acm.illinois.edu/"
+          link2="https://discord.gg/GEMh8umbe7"
           Imagesrc="https://aida.acm.illinois.edu/static/adsa-logo-notext-9b02fdddd07f33d7ef3b4cd6a2e52ddb.png"
           linktext1="Website" 
           linktext2="Discord"
           />
           <Card title="SIGMobile" 
           description="Special Interest Group for Mobile Development."
-          link="http://github.com/SIGMobileUIUC"
+          link1="http://github.com/SIGMobileUIUC"
+          link2="https://discord.gg/WN7pRp5PmW"
           Imagesrc="https://avatars.githubusercontent.com/u/11053426?s=200&v=4"
           linktext1="Github" 
           linktext2="Discord"
           />
           <Card title="SIGMobile" 
           description="Special Interest Group for Mobile Development."
-          link="http://github.com/SIGMobileUIUC"
+          link1="http://github.com/SIGMobileUIUC"
+          link2="https://discord.gg/WN7pRp5PmW"
           Imagesrc="https://avatars.githubusercontent.com/u/11053426?s=200&v=4"
           linktext1="Github" 
           linktext2="Discord"
           />
           <Card title="SIGMobile" 
           description="Special Interest Group for Mobile Development."
-          link="http://github.com/SIGMobileUIUC"
+          link1="http://github.com/SIGMobileUIUC"
+          link2="https://discord.gg/WN7pRp5PmW"
           Imagesrc="https://avatars.githubusercontent.com/u/11053426?s=200&v=4"
           linktext1="Github" 
           linktext2="Discord"
           />
           <Card title="SIGMobile" 
           description="Special Interest Group for Mobile Development."
-          link="http://github.com/SIGMobileUIUC"
+          link1="http://github.com/SIGMobileUIUC"
+          link2="https://discord.gg/WN7pRp5PmW"
           Imagesrc="https://avatars.githubusercontent.com/u/11053426?s=200&v=4"
           linktext1="Github" 
           linktext2="Discord"
@@ -101,7 +105,7 @@ function Sigs() {
             <AllSigs href="">See All Sigs »</AllSigs>
         </LinkContainer>
       </Container>
-    );
-  }
-
-  export default Sigs;
+  )
+}
+  
+export default Sigs

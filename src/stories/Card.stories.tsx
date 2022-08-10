@@ -7,7 +7,7 @@ export default {
     component: Card,
 } as ComponentMeta<typeof Card>;
 
-const Template: ComponentStory<typeof Card> = (args) => <Card {...args} />;
+const Template: ComponentStory<typeof Card> = args => <Card {...args} />;
 
 export const SIGPwny = Template.bind({});
 SIGPwny.args = { 

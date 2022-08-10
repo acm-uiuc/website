@@ -2,21 +2,25 @@ import styled from "styled-components"
 
 const Container = styled.div`
     height: fit-content;
-    width: 100%;
     display: inline-flex;
     min-height: 560px;
+    max-height: 600px;
     margin-top: 100px;
 `
 
 const SmallerContainer = styled.div`
     display: flex;
-    width: 100%;
-    justify-content: center;
+    height: 600px;
 `
 
 const SigLogo = styled.a`
-    width: 230px;
+    min-width: 230px;
+    height: 250px;
     margin: 70px;
+    justify-content: center;
+    @media screen and (max-width: 1000px) {
+        display: none;
+    }
 `
 
 const ImageSrc = styled.img`
@@ -29,11 +33,8 @@ const ImageSrc = styled.img`
 
 const TitleTextLinks = styled.div`
     color: ${props => props.color};
-    width: 570px;
-    display: flex;
+    max-width: 570px;
     flex-direction: column;
-    justify-content: flex-start;
-    height: fit-content;
 `
 
 const Title = styled.h1`
@@ -49,13 +50,20 @@ const Text = styled.p`
     font-size: 18px;
     margin-bottom: 30px;
     line-height: 1.875rem;
-
+    max-height: 600px;
+    @media screen and (max-width: 560px) {
+        width: 475px;
+        margin-left: 10px;
+    }
 `
 
-const VerticalLineDiv = styled.div`
+const ColDiv = styled.div`
     width: 300px;
-    margin-top: 170px;
-    margin-bottom: 70px;
+    height: 500px;
+    margin-top: 42px;
+    @media screen and (max-width: 1200px) {
+        display: none;
+    }
 `
 
 const VerticalLine = styled.div`
@@ -72,16 +80,22 @@ const ColText = styled.p`
     margin-top: -370px;
 `
 
-const LinkDiv = styled(VerticalLineDiv)`
+const LinkDiv = styled(ColDiv)`
     height: 40px;
     width: inherit;
     margin-top: 100px;
+    display: flex;
 `
 
 const Bar = styled.div`
     height: 70px;
     width: 770px;
-    background-color: #84e899;
+    @media screen and (max-width: 1000px) {
+        width: 570px;
+    }
+    @media screen and (max-width: 560px) {
+        width: 475px;
+    }
 `
 
 const Href = styled.a`
@@ -94,7 +108,7 @@ const Href = styled.a`
     line-height: 1.75;
     letter-spacing: 0.02857em;
     text-transform: uppercase;
-    padding: 4px 5px;
+    padding: 4px 8px;
     background-image: linear-gradient(${props => props.color},${props => props.color});
     background-position: bottom;
     background-repeat: no-repeat;
@@ -114,6 +128,8 @@ interface ListingProps {
     link: string
     color: string
     barcolor: string
+    chairs: string
+    time: string
 }
 
 export const SigListing = ({
@@ -124,6 +140,8 @@ export const SigListing = ({
     link,
     color,
     barcolor,
+    chairs,
+    time,
 }: ListingProps) => (
     <Container>
         <SmallerContainer>
@@ -144,36 +162,36 @@ export const SigListing = ({
                 </Text>
                 <Bar style={{backgroundColor: barcolor}}/>
             </TitleTextLinks>
-            <VerticalLineDiv>
+            <ColDiv>
                 <VerticalLine />
                 <ColText>
                     SIG Chairs:
-
+                    <br />
+                    <br />
+                    {chairs}
                     <br/>
                     <br/>
                     <br/>
                     <br/>
                     <br/>
                     Meeting time:
-
                     <br/>
                     <br/>
-                    <br/>
-                    <br/>
+                    {time}
                     <br/>
                     <LinkDiv>
-                    <Href href="aad" target='_blank' rel='noreferrer' style={{marginRight: '50px'}} color={color}>
-                        link
-                    </Href>
-                    <Href href="aad" target='_blank' rel='noreferrer' color={color}>
-                        link
-                    </Href>
-                    <Href href="aad" target='_blank' rel='noreferrer' style={{marginLeft: '50px'}} color={color}>
-                        link
-                    </Href>
+                        <Href href="aad" target='_blank' rel='noreferrer' style={{marginRight: '0px'}} color={color}>
+                            Website
+                        </Href>
+                        <Href href="aad" target='_blank' rel='noreferrer' color={color}>
+                            Discord
+                        </Href>
+                        <Href href="aad" target='_blank' rel='noreferrer' style={{marginLeft: '0px'}} color={color}>
+                            Email
+                        </Href>
                     </LinkDiv>
                 </ColText>
-            </VerticalLineDiv>
+            </ColDiv>
         </SmallerContainer>
     </Container>    
 )

@@ -13,7 +13,6 @@ export const Default = Template.bind({});
 Default.args = {
     title: 'SIG Pwny',
     color: '#3c5',
-    //color: '#283a2c',
     barcolor: "#84e899",
     paragraph1: "We're a student-run interest group and \
     CTF team at the University of Illinois at Urbana-Champaign \
@@ -32,6 +31,9 @@ Default.args = {
     paragraph2: "",
     Image: pwny8,
     link: "https://sigpwny.com/",
+    chairs: "Thomas Quig, Nathan Farlow",
+    time: "Thursday 6:00 PM - 7:00 PM",
+
 }
 
 export const Copy = Template.bind({});
@@ -57,4 +59,6 @@ Copy.args = {
     paragraph2: "",
     Image: "https://aida.acm.illinois.edu/static/adsa-logo-notext-9b02fdddd07f33d7ef3b4cd6a2e52ddb.png",
     link: "https://aida.acm.illinois.edu/",
+    chairs: "Jeffrey Tang and Jacob Levine",
+    time: "Sunday 1:00 PM - 4:00 PM",
 }

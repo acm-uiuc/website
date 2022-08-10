@@ -22,6 +22,8 @@ const SigListingSection = () => {
         We're proudest of our library of recorded meetings."
         Image={pwny8}
         link="https://sigpwny.com/"
+        chairs="Thomas Quig, Nathan Farlow"
+        time="Thursday 6:00 PM - 7:00 PM"
         />
         <SigListing 
         title='SIG AIDA'
@@ -41,6 +43,8 @@ const SigListingSection = () => {
         We're proudest of our library of recorded meetings."
         Image="https://aida.acm.illinois.edu/static/adsa-logo-notext-9b02fdddd07f33d7ef3b4cd6a2e52ddb.png"
         link="https://aida.acm.illinois.edu/"
+        chairs="Jeffrey Tang and Jacob Levine"
+        time="Sunday 1:00 PM - 4:00 PM"
         />
         </div>
     )   

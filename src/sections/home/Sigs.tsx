@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import Card from "../../stories/Card"
-import pwny8 from '../../pwny8.svg'
+import pwny8 from "../../pwny8.svg"
 
 const Container = styled.section``
 

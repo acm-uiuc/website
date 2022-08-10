@@ -15,7 +15,7 @@ Default.args = {
     color: '#3c5',
     //color: '#283a2c',
     barcolor: "#84e899",
-    description: "We're a student-run interest group and \
+    paragraph1: "We're a student-run interest group and \
     CTF team at the University of Illinois at Urbana-Champaign \
     focused on information security. All are welcome! We have \
     a strong focus on kind and collaborative learning, because \
@@ -29,8 +29,7 @@ Default.args = {
     While we regularly place in CTF competitions, \
     we're a multidisciplinary club with students from many different \
     majors. This gives us a competitive edge that can't be beat!",
-
-    p2: "",
+    paragraph2: "",
     Image: pwny8,
     link: "https://sigpwny.com/",
 }
@@ -41,7 +40,7 @@ Copy.args = {
     color: '#51c0c0',
     //color: '#283a2c',
     barcolor: "#deffff",
-    description: "We're a student-run interest group and \
+    paragraph1: "We're a student-run interest group and \
     CTF team at the University of Illinois at Urbana-Champaign \
     focused on information security. All are welcome! We have \
     a strong focus on kind and collaborative learning, because \
@@ -55,8 +54,7 @@ Copy.args = {
     While we regularly place in CTF competitions, \
     we're a multidisciplinary club with students from many different \
     majors. This gives us a competitive edge that can't be beat!",
-
-    p2: "",
+    paragraph2: "",
     Image: "https://aida.acm.illinois.edu/static/adsa-logo-notext-9b02fdddd07f33d7ef3b4cd6a2e52ddb.png",
     link: "https://aida.acm.illinois.edu/",
 }

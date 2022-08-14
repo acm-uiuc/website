@@ -1,7 +1,7 @@
 import './App.css'
 import HomeSigs from "./sections/home/Sigs"
 import SigListingSection from './sections/SigListingPage/SigListingSection'
-//import pwny8 from './pwny8.svg'
+import Footersection from './sections/Footersection'
 
 function App() {
   return (
@@ -9,6 +9,7 @@ function App() {
       <header className='header'>insert header here</header>
         <HomeSigs />
         <SigListingSection />
+        <Footersection />
     </div>
   )
 }

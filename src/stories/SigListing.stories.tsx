@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
-import pwny8 from '../pwny8.svg'
+import pwny8 from '../stories/assets/pwny8.svg'
 import SigListing from './SigListing'
 
 export default {

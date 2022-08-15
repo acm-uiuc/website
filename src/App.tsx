@@ -1,5 +1,5 @@
 import './App.css'
-import HomeSigs from "./sections/home/Sigs"
+import HomeSigs from "./sections/home/Sigscard"
 import SigListingSection from './sections/SigListingPage/SigListingSection'
 import Footersection from './sections/Footersection'
 

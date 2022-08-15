@@ -85,14 +85,10 @@ export const Href = styled.a`
     padding: 4px 5px;
     border-radius: 4px;
     color: #1976d2;
-    text-transform: uppercase;
-    //border: 1px solid #1976d2;
     transition: all 0.4s ease;
     &:hover {
         transform: translateY(-2px);
-        //background-color: rgba(25, 118, 210, 0.04);
         background-color: #eceaea;
-        //border: 1px solid #1976d2;
     }
 `
 

@@ -14,8 +14,8 @@ const SmallerContainer = styled.div`
 `
 
 const SigLogo = styled.a`
-    min-width: 230px;
-    height: 250px;
+    min-width: 200px;
+    height: 260px;
     margin: 70px;
     justify-content: center;
     @media screen and (max-width: 1000px) {
@@ -24,6 +24,8 @@ const SigLogo = styled.a`
 `
 
 const ImageSrc = styled.img`
+    width: 200px;
+    margin-top: 20px;
     &:hover {
         cursor: pointer;
         transition: transform 0.2s;
@@ -52,8 +54,8 @@ const Text = styled.p`
     line-height: 1.875rem;
     max-height: 600px;
     @media screen and (max-width: 560px) {
-        width: 475px;
-        margin-left: 10px;
+        width: 430px;
+        margin-left: 30px;
     }
 `
 
@@ -61,7 +63,7 @@ const ColDiv = styled.div`
     width: 300px;
     height: 500px;
     margin-top: 42px;
-    @media screen and (max-width: 1200px) {
+    @media screen and (max-width: 1300px) {
         display: none;
     }
 `
@@ -90,10 +92,7 @@ const LinkDiv = styled(ColDiv)`
 const Bar = styled.div`
     height: 70px;
     width: 770px;
-    @media screen and (max-width: 1000px) {
-        width: 570px;
-    }
-    @media screen and (max-width: 560px) {
+    @media screen and (max-width: 1300px) {
         width: 475px;
     }
 `

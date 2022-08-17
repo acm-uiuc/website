@@ -1,5 +1,5 @@
 import Card from "./Card";
-import pwny8 from '../pwny8.svg'
+import pwny8 from '../stories/assets/pwny8.svg';
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 export default {

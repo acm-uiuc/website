@@ -3,14 +3,17 @@ import styled from "styled-components"
 const Container = styled.div`
     height: fit-content;
     display: inline-flex;
-    min-height: 560px;
     max-height: 600px;
-    margin-top: 100px;
+    margin-top: 10px;
 `
 
 const SmallerContainer = styled.div`
     display: flex;
     height: 600px;
+    max-width: 1220px;
+    @media screen and (max-width: 1250px) {
+        height: fit-content;
+    }
 `
 
 const SigLogo = styled.a`
@@ -33,16 +36,27 @@ const ImageSrc = styled.img`
     }
 `
 
-const TitleTextLinks = styled.div`
+const TitleText = styled.div`
     color: ${props => props.color};
-    max-width: 570px;
+    width: 580px;
+    min-height: 500px;
     flex-direction: column;
+    display: block;
+    position: relative;
+    @media screen and (max-width: 1250px) {
+        min-height: 0;
+        height: fit-content;
+    }
 `
 
 const Title = styled.h1`
     font-weight: 500;
     font-family: sans-serif;
     font-size: 3.8rem;
+    @media screen and (max-width: 560px) {
+        width: 430px;
+        margin-left: 30px;
+    }
 `
 
 const Text = styled.p`
@@ -60,31 +74,35 @@ const Text = styled.p`
 `
 
 const ColDiv = styled.div`
-    width: 300px;
-    height: 500px;
-    margin-top: 42px;
-    @media screen and (max-width: 1300px) {
+    width: 280px;
+    margin-left: 20px;
+    height: 490px;
+    margin-top: 110px;
+    @media screen and (max-width: 1250px) {
         display: none;
     }
 `
 
 const VerticalLine = styled.div`
-    height: 95%;
-    width: 0;
     border-left: 1px solid black;
+    height: 450px;
+    width: 0;
+    margin-top: 50px;
     margin-left: 10px;
+    @media screen and (max-width: 1250px) {
+        display: none;
+    }
 `
 
 const ColText = styled.p`
     font-size: 18px;
-    height: 100%;
-    margin-left: 20px;
-    margin-top: -370px;
+    margin-left: 0px;
 `
 
 const LinkDiv = styled(ColDiv)`
     height: 40px;
     width: inherit;
+    margin-left: 0;
     margin-top: 100px;
     display: flex;
 `
@@ -92,8 +110,15 @@ const LinkDiv = styled(ColDiv)`
 const Bar = styled.div`
     height: 70px;
     width: 770px;
-    @media screen and (max-width: 1300px) {
+    position: absolute;
+    bottom: 0;
+    @media screen and (max-width: 1250px) {
         width: 475px;
+        position: relative;
+
+    }
+    @media screen and (max-width: 560px) {
+        display: none;
     }
 `
 
@@ -125,6 +150,8 @@ interface ListingProps {
     paragraph2: string
     Image: string
     link: string
+    link2: string
+    link3: string
     color: string
     barcolor: string
     chairs: string
@@ -137,6 +164,8 @@ export const SigListing = ({
     paragraph2,
     Image,
     link,
+    link2,
+    link3,
     color,
     barcolor,
     chairs,
@@ -147,7 +176,7 @@ export const SigListing = ({
             <SigLogo href={link} target='_blank' rel='noreferrer'>
                 <ImageSrc src={Image} />
             </SigLogo>
-            <TitleTextLinks color={color}>
+            <TitleText color={color}>
                 <Title>
                     <a href={link} style={{color: "inherit", textDecoration: "none"}}>
                         {title}
@@ -155,37 +184,30 @@ export const SigListing = ({
                 </Title>
                 <Text>
                     {paragraph1}
-                    <br />
-                    <br />
+                    <br/><br/>
                     {paragraph2}
                 </Text>
                 <Bar style={{backgroundColor: barcolor}}/>
-            </TitleTextLinks>
+            </TitleText>
+            <VerticalLine />
             <ColDiv>
-                <VerticalLine />
                 <ColText>
                     SIG Chairs:
-                    <br />
-                    <br />
+                    <br/><br/>
                     {chairs}
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
+                    <br/><br/><br/><br/><br/>
                     Meeting time:
-                    <br/>
-                    <br/>
+                    <br/><br/>
                     {time}
                     <br/>
-                    <LinkDiv>
-                        <Href href="aad" target='_blank' rel='noreferrer' style={{marginRight: '0px'}} color={color}>
+                    <LinkDiv> {/* This can be another story/component */}
+                        <Href href={link} target='_blank' rel='noreferrer' color={color}>
                             Website
                         </Href>
-                        <Href href="aad" target='_blank' rel='noreferrer' color={color}>
+                        <Href href={link2} target='_blank' rel='noreferrer' color={color}>
                             Discord
                         </Href>
-                        <Href href="aad" target='_blank' rel='noreferrer' style={{marginLeft: '0px'}} color={color}>
+                        <Href href={link3} target='_blank' rel='noreferrer' color={color}>
                             Email
                         </Href>
                     </LinkDiv>

@@ -1,9 +1,9 @@
 import styled from "styled-components"
 import Card from "../../stories/Card"
-import pwny8 from "../../pwny8.svg"
-import geebee from "../../geebee-01.png"
-import siggraphlogo from "../../siggraphlogo.png"
-import icpclogo from "../../icpclogo.png"
+import pwny8 from "../../stories/assets/pwny8.svg"
+import geebee from "../../stories/assets/geebee-01.png"
+import siggraphlogo from "../../stories/assets/siggraphlogo.png"
+import icpclogo from "../../stories/assets/icpclogo.png"
 
 const Container = styled.section``
 
@@ -46,7 +46,7 @@ const AllSigs = styled.a`
     }
 `
 
-const Sigs = (props: any) => {
+const Sigscard = (props: any) => {
   return (
       <Container>
         <Title>Special Interest Groups (SIGs)</Title>
@@ -115,4 +115,4 @@ const Sigs = (props: any) => {
   )
 }
   
-export default Sigs
+export default Sigscard

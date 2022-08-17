@@ -1,6 +1,12 @@
 import styled from "styled-components"
 
-const Container = styled.div``
+const Container = styled.div`
+    height: 200px;
+    background-color: #333;
+    color: white;
+    position: relative;
+    margin-top: 40px;
+`
 
 const FooterContainer = styled.div`
     display: flex;

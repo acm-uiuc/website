@@ -1,6 +1,7 @@
-# Getting Started with Create React App
+# ACM Website
+ACM @ UIUC's website. Mainly contains frontend presentational pages right now. The folder src/stories are the components of the website. Sections contain stories and might be stories themselves. Pages then contain the sections and could be stories too.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Contribute with Create React App
 
 ## Available Scripts
 

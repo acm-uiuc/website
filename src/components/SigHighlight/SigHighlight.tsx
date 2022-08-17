@@ -16,6 +16,7 @@ import Header from '../Header/Header';
 };*/
 
 const SigHeader = styled(Header)`
+  margin-top: 20px;
   margin-bottom: 20px;
 `;
 

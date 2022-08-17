@@ -8,6 +8,7 @@ import Transition from './components/Transition/Transition';
 import SigHighlight from './components/SigHighlight/SigHighlight';
 import Footersection from './sections/Footersection';
 import Sigscard from './sections/home/Sigscard';
+import Sponsors from './components/Sponsors/Sponsors';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Transition to="white" />
         <SigHighlight />
         <Sigscard />
+        <Sponsors />
         <Footersection />
       </ThemeProvider>
     </>

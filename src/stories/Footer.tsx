@@ -1,96 +1,105 @@
-import styled from "styled-components"
+import styled from 'styled-components';
+import Header from '../components/Header/Header';
+import Transition from '../components/Transition/Transition';
+import Text from '../components/Text/Text';
 
 const Container = styled.div`
-    height: 200px;
-    background-color: #333;
-    color: white;
-    position: relative;
-    margin-top: 40px;
-    text-align: center;
-`
+  background-color: ${(props) => props.theme.colors.acmDark};
+  color: white;
+  position: relative;
+  text-align: center;
+  padding-bottom: 20px;
+`;
 
 const FooterContainer = styled.div`
-    display: flex;
-`
+  display: flex;
+`;
 
 const AllContent = styled.div`
-    width: 100%;
-    height: 100%;
-`
+  width: 100%;
+  height: 100%;
+`;
 
-const Title = styled.h2`
-    font-size: 20px;
-    font-weight: 650;
-    padding-top: 10px;
-`
+const Title = styled((props) => <Header level={3} {...props} />)`
+  color: ${(props) => props.theme.fontColors.bodyLight};
+`;
 
 const ExternalLinkDiv = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: center;
-`
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  justify-content: space-around;
+  max-width: ${(props) => props.theme.breakpoints.lg}px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+`;
 
 const SingleLinkDiv = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 250px;
-    height: 50px;
-    margin: 15px 5px;
-`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
-const Href = styled.a`
-    cursor: pointer;
-    text-decoration: none;
-    font-family: "Roboto","Helvetica","Arial",sans-serif;
-    font-weight: 1000;
-    font-size: 1rem;
-    letter-spacing: 0.02857em;
-    text-transform: uppercase;
-    color: white;
-    &:hover {
-        color: #b6b5b5;
-    }
-`
+const Href = styled((props) => <Text as="a" {...props} />)`
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+  color: ${(props) => props.theme.fontColors.bodyLight};
+`;
 
-const Copyright = styled.h5``
+const Copyright = styled.h5``;
 
 export const Footer = () => (
+  <>
+    <Transition to={'#3E486F'} />
     <Container>
-        <FooterContainer>
-            <AllContent>
-                <Title>Connect with ACM @ UIUC</Title>
-                <ExternalLinkDiv>
-                    <SingleLinkDiv>
-                        <Href href="https://discord.gg/strhfywPdw" target='_blank' rel='noreferrer'>
-                            Discord
-                        </Href>
-                    </SingleLinkDiv>
-                    <SingleLinkDiv>
-                        <Href href="https://www.facebook.com/acmuiuc" target='_blank' rel='noreferrer'>
-                            Facebook
-                        </Href>
-                    </SingleLinkDiv>
-                    <SingleLinkDiv>
-                        <Href href="https://instagram.com/acm.uiuc" target='_blank' rel='noreferrer'>
-                            Instagram
-                        </Href>
-                    </SingleLinkDiv>
-                    <SingleLinkDiv>
-                        <Href href="https://github.com/acm-uiuc" target='_blank' rel='noreferrer'>
-                            Github
-                        </Href>
-                    </SingleLinkDiv>
-                    <SingleLinkDiv>
-                        <Href href="https://acm-uiuc.slack.com/" target='_blank' rel='noreferrer'>
-                            Slack
-                        </Href>
-                    </SingleLinkDiv>
-                </ExternalLinkDiv>
-            </AllContent>
-        </FooterContainer>
-        <Copyright>© {new Date().getFullYear()} ACM</Copyright>
-    </Container>
-)
+      <FooterContainer>
+        <AllContent>
+          <Title>Connect with ACM @ UIUC</Title>
+          <ExternalLinkDiv>
+            <Href
+              href="https://discord.gg/strhfywPdw"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Discord
+            </Href>
 
-export default Footer
+            <Href
+              href="https://www.facebook.com/acmuiuc"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Facebook
+            </Href>
+
+            <Href
+              href="https://instagram.com/acm.uiuc"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Instagram
+            </Href>
+            <Href
+              href="https://github.com/acm-uiuc"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Github
+            </Href>
+            <Href
+              href="https://acm-uiuc.slack.com/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Slack
+            </Href>
+          </ExternalLinkDiv>
+        </AllContent>
+      </FooterContainer>
+    </Container>
+  </>
+);
+
+export default Footer;

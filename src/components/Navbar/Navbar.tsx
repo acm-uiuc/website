@@ -162,7 +162,7 @@ const NavContainer = styled.div`
   background-color: ${(props) => props.theme.colors.acmDark};
 `;
 
-const SiteTitle = styled((props) => <Text {...props} />)`
+const SiteTitle = styled((props: any) => <Text {...props} />)`
   color: '#ffffff';
   height: 105px;
   overflow: hidden;
@@ -173,7 +173,7 @@ function Navbar() {
     <NavContainer>
       <NavHeader>
         <SiteTitle as="a" href="#" className="logo">
-          <img src={require('./logo.png')} />
+          <img src={require('./logo.png')} alt="logo" />
         </SiteTitle>
 
         <input className="side-menu" type="checkbox" id="side-menu" />

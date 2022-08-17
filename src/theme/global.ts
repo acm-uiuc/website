@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
 
 @font-face {
     font-family: "Eau Naturelle Sans";
-    src("eau_sans_black.otf") format ("opentype");
+    src: ("eau_sans_black.otf") format ("opentype");
     font-weight: 600;
 }
 

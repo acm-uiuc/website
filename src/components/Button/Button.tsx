@@ -26,7 +26,7 @@ export default styled(Button)`
   border: none;
   background-color: ${(props) => props.theme.colors[props.variant + 'Bg']};
   color: ${(props) =>
-    props.variant == 'neutral'
+    props.variant === 'neutral'
       ? props.theme.fontColors.bodyLight
       : props.theme.fontColors.default} !important;
   padding: 5px 20px;

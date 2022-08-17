@@ -6,6 +6,8 @@ import GlobalStyle from './theme/global';
 import Hero from './components/Hero/Hero';
 import Transition from './components/Transition/Transition';
 import SigHighlight from './components/SigHighlight/SigHighlight';
+import Footersection from './sections/Footersection';
+import Sigscard from './sections/home/Sigscard';
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
         <Hero />
         <Transition to="white" />
         <SigHighlight />
+        <Sigscard />
+        <Footersection />
       </ThemeProvider>
     </>
   );

@@ -3,17 +3,17 @@ import Content from '../Content/Content';
 import Text from '../Text/Text';
 import Header from '../Header/Header';
 
-type Sig = {
+/*type Sig = {
   logo: any;
   name: string;
   chairs: string;
   meetingTime: string;
   link: string;
-};
+};*/
 
-type Props = {
+/*type Props = {
   sigs: Sig[];
-};
+};*/
 
 const SigHeader = styled(Header)`
   margin-bottom: 20px;
@@ -24,14 +24,14 @@ const SigText = styled(Text)`
   max-width: ${(props) => props.theme.breakpoints.md}px;
 `;
 
-const Card = styled.div`
+/*const Card = styled.div`
   background-color: ${(props) => props.theme.colors.white};
   border-radius: 18px;
   max-width: 100%;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.35);
-`;
+`;*/
 
-const SigGrid = styled.ul`
+/*const SigGrid = styled.ul`
   list-style-type: none;
   padding: 0px;
   margin: 0px;
@@ -40,7 +40,7 @@ const SigGrid = styled.ul`
   grid-auto-columns: 1fr;
   gap: 20px;
   margin-top: 40px;
-`;
+`;*/
 
 function SigHighlight() {
   return (
@@ -52,11 +52,11 @@ function SigHighlight() {
         competitive programming. All our SIGs are beginner-friendly and are a
         great way to meet other members and explore computer science.
       </SigText>
-      <SigGrid>
+      {/*<SigGrid>
         <Card> Hi</Card>
         <Card>Hi</Card>
         <Card>Hi</Card>
-      </SigGrid>
+      </SigGrid>*/}
     </Content>
   );
 }

@@ -178,10 +178,14 @@ function Hero() {
                 Join Now
               </JoinButton>
               <Icon>
-                <IconImage src="instagram.svg" />
+                <a href="https://instagram.com/acm.uiuc" target='_blank' rel='noreferrer'>
+                  <IconImage src="instagram.svg" />  
+                </a>
               </Icon>
               <Icon>
-                <IconImage src="discord.svg" />
+                <a href="https://discord.gg/strhfywPdw" target='_blank' rel='noreferrer'>
+                  <IconImage src="discord.svg" />
+                </a>
               </Icon>
             </ButtonRow>
           </IntroText>

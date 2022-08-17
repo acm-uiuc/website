@@ -1,6 +1,7 @@
-# Getting Started with Create React App
+# ACM Website
+ACM @ UIUC's website. Mainly contains frontend presentational pages right now.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Contribute with Create React App
 
 ## Available Scripts
 

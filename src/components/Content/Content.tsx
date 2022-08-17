@@ -30,7 +30,7 @@ export default styled(Content)`
     width: ${(props) => 0.95 * props.theme.breakpoints.lg}px;
   }
 
-  @media (min-width: ${(props) => props.theme.breakpoints.md}px) px {
+  @media (min-width: ${(props) => props.theme.breakpoints.md}px) {
     width: ${(props) => 0.95 * props.theme.breakpoints.md}px;
   }
 

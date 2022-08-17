@@ -25,18 +25,20 @@ const Title = styled((props) => <Header level={3} {...props} />)`
 `;
 
 const ExternalLinkDiv = styled.div`
-  width: 100%;
   display: flex;
   justify-content: center;
+  flex-direction: row;
+  justify-content: space-around;
+  max-width: ${(props) => props.theme.breakpoints.lg}px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 const SingleLinkDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 250px;
-  height: 25px;
-  margin: 15px 5px;
 `;
 
 const Href = styled((props) => <Text as="a" {...props} />)`
@@ -56,51 +58,43 @@ export const Footer = () => (
         <AllContent>
           <Title>Connect with ACM @ UIUC</Title>
           <ExternalLinkDiv>
-            <SingleLinkDiv>
-              <Href
-                href="https://discord.gg/strhfywPdw"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Discord
-              </Href>
-            </SingleLinkDiv>
-            <SingleLinkDiv>
-              <Href
-                href="https://www.facebook.com/acmuiuc"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Facebook
-              </Href>
-            </SingleLinkDiv>
-            <SingleLinkDiv>
-              <Href
-                href="https://instagram.com/acm.uiuc"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Instagram
-              </Href>
-            </SingleLinkDiv>
-            <SingleLinkDiv>
-              <Href
-                href="https://github.com/acm-uiuc"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Github
-              </Href>
-            </SingleLinkDiv>
-            <SingleLinkDiv>
-              <Href
-                href="https://acm-uiuc.slack.com/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Slack
-              </Href>
-            </SingleLinkDiv>
+            <Href
+              href="https://discord.gg/strhfywPdw"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Discord
+            </Href>
+
+            <Href
+              href="https://www.facebook.com/acmuiuc"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Facebook
+            </Href>
+
+            <Href
+              href="https://instagram.com/acm.uiuc"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Instagram
+            </Href>
+            <Href
+              href="https://github.com/acm-uiuc"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Github
+            </Href>
+            <Href
+              href="https://acm-uiuc.slack.com/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Slack
+            </Href>
           </ExternalLinkDiv>
         </AllContent>
       </FooterContainer>

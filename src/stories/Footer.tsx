@@ -6,6 +6,7 @@ const Container = styled.div`
     color: white;
     position: relative;
     margin-top: 40px;
+    text-align: center;
 `
 
 const FooterContainer = styled.div`
@@ -71,8 +72,8 @@ export const Footer = () => (
                         </Href>
                     </SingleLinkDiv>
                     <SingleLinkDiv>
-                        <Href href="https://twitter.com/acmuiuc" target='_blank' rel='noreferrer'>
-                            Twitter
+                        <Href href="https://instagram.com/acm.uiuc" target='_blank' rel='noreferrer'>
+                            Instagram
                         </Href>
                     </SingleLinkDiv>
                     <SingleLinkDiv>

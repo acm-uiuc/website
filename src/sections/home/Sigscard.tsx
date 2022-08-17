@@ -5,14 +5,8 @@ import geebee from "../../stories/assets/geebee-01.png"
 import siggraphlogo from "../../stories/assets/siggraphlogo.png"
 import icpclogo from "../../stories/assets/icpclogo.png"
 
-const Container = styled.section``
-
-const Title = styled.h1`
-    font-size: 40px;
-`
-
-const SubTitle = styled.p`
-    font-size: 25px;
+const Container = styled.section`
+    text-align: center;
 `
 
 const Grid = styled.div`
@@ -39,8 +33,9 @@ const LinkContainer = styled.div``
 
 const AllSigs = styled.a`
     cursor: pointer;
-    color: black;
+    color: #333;
     text-decoration: none;
+    font-size: 20px;
     &:hover {
         color: #1976d2;
     }
@@ -49,8 +44,6 @@ const AllSigs = styled.a`
 const Sigscard = (props: any) => {
   return (
       <Container>
-        <Title>Special Interest Groups (SIGs)</Title>
-        <SubTitle>Explore any of your Computer Science interests in over 10 SIGs!</SubTitle>
         <Grid>
            <Card title="SIGPwny"
           description="A friendly but elite club focused on cybersecurity. They host 

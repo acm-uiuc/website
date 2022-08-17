@@ -1,5 +1,5 @@
 # ACM Website
-ACM @ UIUC's website. Mainly contains frontend presentational pages right now. The folder src/stories are the components of the website. Sections contain stories and might be stories themselves. Pages then contain the sections and could be stories too.
+ACM @ UIUC's website. Mainly contains frontend presentational pages right now.
 
 ## Contribute with Create React App
 

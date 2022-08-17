@@ -8,6 +8,7 @@ const Container = styled.div`
   color: white;
   position: relative;
   text-align: center;
+  padding-bottom: 20px;
 `;
 
 const FooterContainer = styled.div`

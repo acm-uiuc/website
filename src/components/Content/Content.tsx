@@ -4,7 +4,6 @@ import styled from 'styled-components';
 type Props<C extends React.ElementType> = {
   children: ReactNode;
   as?: C;
-  background?: string;
 } & React.ComponentPropsWithoutRef<C>;
 
 function Content<C extends React.ElementType>({
@@ -28,10 +27,6 @@ export default styled(Content)`
 
   @media (min-width: ${(props) => props.theme.breakpoints.lg}px) {
     width: ${(props) => 0.95 * props.theme.breakpoints.lg}px;
-  }
-
-  @media (min-width: ${(props) => props.theme.breakpoints.md}px) {
-    width: ${(props) => 0.95 * props.theme.breakpoints.md}px;
   }
 
   margin-left: auto;

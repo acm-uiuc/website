@@ -46,7 +46,9 @@ const SigText = styled(Text)`
 function SigHighlight() {
   return (
     <Content as="section">
-      <SigHeader level={1}>Special Interest Groups</SigHeader>
+      <SigHeader level={1} id="sighighlight">
+        Special Interest Groups
+      </SigHeader>
       <SigText>
         SIGs, or Special Interest Groups, are student-run groups exploring
         different areas of computer science, from theory and algorithms to

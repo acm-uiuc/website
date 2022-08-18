@@ -96,9 +96,9 @@ const About = () => {
                 image= {reflections}
                 people=""
                 title="We provide a forum to share and learn about current advancements 
-                in computer science and its applications. We have tech talks from 
+                in computer science and its applications, with tech talks from 
                 across the industry and academia, workshops and puzzle-solving events 
-                for attendees, Mechmania and Diversity × Tech."
+                for attendees, Mechmania, and Diversity × Tech. Visit the link above the image!"
                 contactinfo=""
             />
           <a href='https://hackillinois.org/' style={{textDecoration: 'none'}}>
@@ -138,7 +138,8 @@ const About = () => {
             <Committee 
                 image= {infra_pic}
                 people=""
-                title="The infra team maintains ACM@UIUC's infrastructure and engineering efforts, like this website."
+                title="The infra team maintains ACM@UIUC's infrastructure and engineering efforts
+                like this website."
                 contactinfo=""
             />
       </Content>

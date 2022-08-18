@@ -1,17 +1,25 @@
 import styled from "styled-components"
 
 const Container = styled.div`
-    width: 1080px;
+    width: 900px;
     height: 350px;
     display: flex;
     border-top: 1px solid grey;
+    @media screen and (max-width: 963px) {
+        display: flex;
+        max-width: 100%;
+    }
 `
 
 const Imagediv = styled(Container)`
-    width: 600px;
-    height: 100%;
+    width: 378px;
+    height: 90%;
     padding: 24px 0;
     border-top: none;
+    @media screen and (max-width: 963px) {
+        display: none;
+        max-width: 100%;
+    }
 `
 
 const Image = styled.img`
@@ -74,9 +82,10 @@ export const Committee = ({
             </Text>
             <Contact>
                 <div>
-                    <p>
-                        Contact the committee: {contactinfo}. 
-                    </p>
+                    <a href={contactinfo}>
+                        {/*Contact the committee: {contactinfo}.*/}
+                        {contactinfo}
+                    </a>
                 </div>
             </Contact>
             </div>

@@ -1,4 +1,7 @@
 import styled from "styled-components"
+import Committee from "../../stories/Committee";
+import infra_pic from '../../stories/assets/infra_pic.png';
+import social from '../stories/assets/social.jpg';
 
 const Section = styled.section`
     display: flex;
@@ -36,7 +39,7 @@ const Image = styled.img`
 const CommitteeSection = () => {
     return (
         <Section>
-            <ContentDiv>
+            {/*<ContentDiv>
                 <Title>ACM at UIUC</Title>
                 <Text>
                     The Association for Computing Machinery at UIUC welcomes everyone to 
@@ -47,7 +50,23 @@ const CommitteeSection = () => {
             </ContentDiv>
             <Imagediv>
                 <Image src="https://acm.illinois.edu/static/images/acm-logo-flat.svg" />
-            </Imagediv>
+                </Imagediv>*/}
+            <ContentDiv>
+            <Committee 
+                image= {infra_pic}
+                people="[People in charge of committee]"
+                title="Infrastructure Committee: Together we make ACM function
+                      by building cool projects such as this website"
+                contactinfo="[insert email]"
+            />
+            <Committee 
+                image= {infra_pic}
+                people="[People in charge of committee]"
+                title="Infrastructure Committee: Together we make ACM function
+                      by building cool projects such as this website"
+                contactinfo="[insert email]"
+            />
+            </ContentDiv>
         </Section>
     )
 }

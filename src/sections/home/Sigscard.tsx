@@ -15,10 +15,6 @@ import quiuclogo from '../../stories/assets/quiuclogo.png';
 import Content from '../../components/Content/Content';
 import Button from '../../components/Button/Button';
 
-const Container = styled.section`
-  text-align: center;
-`;
-
 const Grid = styled.div`
   display: grid;
   margin-left: -20px;
@@ -46,7 +42,7 @@ const LinkContainer = styled.div`
 `;
 
 const AllSigs = styled((props) => (
-  <Button as="a" large variant="neutral" {...props} />
+  <Button as="a" to large variant="neutral" {...props} />
 ))`
   text-decoration: none;
   margin-top: 15px;
@@ -152,7 +148,7 @@ const Sigscard = (props: any) => {
           title="SIGQuantum"
           description="Our SIG provides inclusive environment for 
           students to discover and disrupt the Quantum Computing community."
-          link1=""
+          link1="/#sighighlight"
           link2="https://discord.com/invite/PmaXeHPaFs"
           Imagesrc={quiuclogo}
           linktext1="——"
@@ -162,7 +158,7 @@ const Sigscard = (props: any) => {
           title="SIGma"
           description="The place to learn and compete on the topics like mathematics, 
           computer science, and algorithms."
-          link1=""
+          link1="/#sighighlight"
           link2="https://discord.com/invite/kepXvpZXrs"
           Imagesrc={sigmalogo}
           linktext1="——"
@@ -172,15 +168,15 @@ const Sigscard = (props: any) => {
           title="SIGNLL"
           description="Natural language processing theory: projects, workshops, 
           and learning techniques at this SIG."
-          link1=""
-          link2="https://discord.gg/kepXvpZXrs"
+          link1="/#sighighlight"
+          link2="/#sighighlight"
           Imagesrc={signll_logo}
           linktext1="——"
           linktext2="——"
         />
       </Grid>
       <LinkContainer>
-        <AllSigs href="">See All SIGs »</AllSigs>
+        {/*<AllSigs>See All SIGs »</AllSigs>*/}
       </LinkContainer>
     </Content>
   );

@@ -43,12 +43,12 @@ export const Card = ({
             </MiddleText>
             <LowerLayout>
                 <Link>
-                    <Href href={link1} target='_blank' rel='noreferrer'>
+                    <Href href={link1}> {/*target='_blank' rel='noreferrer'*/}
                         {linktext1}
                     </Href>
                 </Link>
                 <LinkPlaceholder>
-                    <Href href={link2} target='_blank' rel='noreferrer'>
+                    <Href href={link2}>
                         {linktext2}
                     </Href>
                 </LinkPlaceholder>

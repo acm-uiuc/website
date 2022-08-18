@@ -199,7 +199,7 @@ function Hero() {
           <Event
             title="ACM Scavenger Hunt"
             description="Join ACM to make new friends and explore some famous UIUC landmarks! The group that completes the most challenges will win some sweet prizes!"
-            date="Thursday, Aug 25, 4-6PM"
+            date="Thurs., Aug 25, 4-6PM"
             location="Siebel Center for CS"
           />
           <Event

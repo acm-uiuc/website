@@ -49,13 +49,13 @@ const Sigscard = (props: any) => {
   return (
     <Content as="div" style={{ marginBottom: 60 }}>
       <Grid>
-        <Card
+      <Card
           title="SIGPwny"
-          description="A friendly but elite club focused on cybersecurity. They host 
-                      weekly learning meetings, participate in CTFs, and do 
-                      cutting-edge cybersecurity research."
+          description="A SIG focused on cybersecurity. We host 
+                      learning meetings, participate in CTFs, and do 
+                      cutting-edge research."
           link1="https://sigpwny.com/"
-          link2="https://sigpwny.com/discord"
+          link2="https://discord.com/invite/cWcZ6a9"
           Imagesrc={pwny8}
           linktext1="Website"
           linktext2="Discord"
@@ -73,7 +73,7 @@ const Sigscard = (props: any) => {
         <Card
           title="SIGMobile"
           description="A mobile development club with Android tutorials, iOS tutorials,
-          guest lectures, and group projects. No experience required!"
+          guest lectures, and group projects."
           link1="https://github.com/SIGMobileUIUC"
           link2="https://discord.gg/2uhJztdtwu"
           Imagesrc="https://avatars.githubusercontent.com/u/11053426?s=200&v=4"
@@ -92,8 +92,8 @@ const Sigscard = (props: any) => {
         />
         <Card
           title="SIGGRAPH"
-          description="Learn computer graphics in guided projects, 3D rendering,
-          animation, physics simulation, etc. Create your own projects."
+          description="Learn computer graphics in guided projects, 3D renderings,
+          animations, physics simulations, and more."
           link1="https://siggraph.acm.illinois.edu/#/"
           link2="https://discord.gg/QtKSUBgJe3"
           Imagesrc={siggraphlogo}
@@ -109,6 +109,56 @@ const Sigscard = (props: any) => {
           Imagesrc={icpclogo}
           linktext1="Website"
           linktext2="Campuswire"
+        />
+        <Card
+          title="SIGCHI"
+          description="Learn about human-computer interaction in research,
+          projects, and workshops while meeting new people."
+          link1="https://sigchi.acm.illinois.edu/"
+          link2="https://discord.com/invite/7JGRSJv"
+          Imagesrc={siggraphlogo}
+          linktext1="Website"
+          linktext2="Discord"
+        />
+        <Card
+          title="GLUG"
+          description="Immerse in Linux-based operating systems and the 
+          wider open source world."
+          link1="http://lug.acm.illinois.edu/"
+          link2="https://discord.gg/Rgf82yh7jU"
+          Imagesrc={siggraphlogo}
+          linktext1="Website"
+          linktext2="Discord"
+        />
+        <Card
+          title="SIGMusic"
+          description="We are a project-based SIG with presentations 
+          focused on audio synthesis, algorithmic composition, etc."
+          link1="http://sigmusic.acm.illinois.edu/"
+          link2="https://discord.com/invite/zMtv6Qz"
+          Imagesrc={siggraphlogo}
+          linktext1="Website"
+          linktext2="Discord"
+        />
+        <Card
+          title="SIGQuantum"
+          description="Our SIG provides inclusive environment for 
+          students to discover and disrupt the Quantum Computing community."
+          link1=""
+          link2="https://discord.gg/PmaXeHPaFs"
+          Imagesrc={siggraphlogo}
+          linktext1="TBD"
+          linktext2="Discord"
+        />
+        <Card
+          title="SIGma"
+          description="Natural language processing theory: do projects, workshops, and learn about
+          it and its techniques."
+          link1=""
+          link2="https://discord.gg/kepXvpZXrs"
+          Imagesrc={siggraphlogo}
+          linktext1="TBD"
+          linktext2="Discord"
         />
       </Grid>
       <LinkContainer>

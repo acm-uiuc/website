@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Text from '../Text/Text';
 import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 
 const NavHeader = styled.header`
   height: 105px;
@@ -190,22 +191,22 @@ function Navbar({ ...rest }: any) {
               </NavLink>
             </li>
             <li>
-              <NavLink as={Link} to="/#sighighlight" className="navLink">
+              <NavLink smooth as={HashLink} to="/#sighighlight" className="navLink">
                 SIGs
               </NavLink>
             </li>
             <li>
-              <NavLink as="a" href="#" className="navLink">
+              {/*<NavLink as="a" href="#" className="navLink">
                 Reflections | Projections
-              </NavLink>
+                </NavLink>*/}
             </li>
             <li>
-              <NavLink as="a" href="#" className="navLink">
+              {/*<NavLink as="a" href="#" className="navLink">
                 HackIllinois
-              </NavLink>
+              </NavLink>*/}
             </li>
             <li>
-              <NavLink as="a" href="#" className="navLink">
+              <NavLink smooth as={HashLink} to="/#sponsors" className="navLink">
                 Sponsors
               </NavLink>
             </li>

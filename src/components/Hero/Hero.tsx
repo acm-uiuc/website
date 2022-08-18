@@ -171,9 +171,10 @@ function Hero() {
               UIUC's Largest Computer Science Organization
             </HeroHeader>
             <HeaderText>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras quis
-              varius elit. Quisque ex diam, consectetur pharetra sem vel,
-              finibus pulvinar elit.
+              For over 50 years, ACM@UIUC has been a hub for innovation
+              and leadership for students everywhere. Our inclusivity 
+              has created a strong network of students and alumni, bringing 
+              their diverse interests to ACM.
             </HeaderText>
             <ButtonRow>
               <JoinButton large variant="neutral">

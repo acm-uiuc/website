@@ -44,7 +44,9 @@ function Sponsors() {
       <Transition to="#efefef" />
       <ContentContainer>
         <Content as="section">
-          <SponsorsHeader level={1}>Sponsors</SponsorsHeader>
+          <SponsorsHeader level={1} id="sponsors">
+            Sponsors
+          </SponsorsHeader>
           <Description>
             ACM is thankful to these generous companies who support our
             organization. Sponsor companies get access to our resume book and

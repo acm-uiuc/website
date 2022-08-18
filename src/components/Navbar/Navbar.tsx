@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Text from '../Text/Text';
+import { Link } from 'react-router-dom';
 
 const NavHeader = styled.header`
   height: 105px;
@@ -168,11 +169,11 @@ const SiteTitle = styled((props: any) => <Text {...props} />)`
   overflow: hidden;
 `;
 
-function Navbar() {
+function Navbar({ ...rest }: any) {
   return (
-    <NavContainer>
+    <NavContainer {...rest}>
       <NavHeader>
-        <SiteTitle as="a" href="#" className="logo">
+        <SiteTitle as={Link} to="/" className="logo">
           <img src={require('./logo.png')} alt="logo" />
         </SiteTitle>
 
@@ -184,12 +185,12 @@ function Navbar() {
         <nav className="nav">
           <ul className="menu">
             <li>
-              <NavLink as="a" href="#" className="navLink">
+              <NavLink as={Link} to="/about" className="navLink">
                 About
               </NavLink>
             </li>
             <li>
-              <NavLink as="a" href="#" className="navLink">
+              <NavLink as={Link} to="/#sighighlight" className="navLink">
                 SIGs
               </NavLink>
             </li>

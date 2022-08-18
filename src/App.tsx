@@ -1,27 +1,25 @@
-import './App.css';
-import Navbar from './components/Navbar/Navbar';
 import { ThemeProvider } from 'styled-components';
 import light from './theme/light';
 import GlobalStyle from './theme/global';
-import Hero from './components/Hero/Hero';
-import Transition from './components/Transition/Transition';
-import SigHighlight from './components/SigHighlight/SigHighlight';
-import Footersection from './sections/Footersection';
-import Sigscard from './sections/home/Sigscard';
-import Sponsors from './components/Sponsors/Sponsors';
+import Home from './pages/Home';
+import About from './pages/About';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
     <>
       <GlobalStyle />
       <ThemeProvider theme={light}>
-        <Navbar />
-        <Hero />
-        <Transition to="white" />
-        <SigHighlight />
-        <Sigscard />
-        <Sponsors />
-        <Footersection />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/">
+              <Route index element={<Home />} />
+            </Route>
+            <Route path="/about">
+              <Route index element={<About />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
       </ThemeProvider>
     </>
   );

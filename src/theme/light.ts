@@ -32,6 +32,7 @@ export const theme = {
     'punch-throughBg': '#ffffe',
     'punch-throughBgAccent': '#ffffe',
     cardLight: '#ffefff',
+    offWhite: '#efefef',
   },
   transitions: {
     height: 20,

@@ -46,7 +46,7 @@ const IntroText = styled.div`
 `;
 
 const Card = styled.div`
-  background-color: ${(props) => props.theme.colors.cardLight};
+  background-color: ${(props) => props.theme.colors.offWhite};
   border-radius: 18px;
   max-width: 100%;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.35);
@@ -78,6 +78,7 @@ const Icon = styled((props) => <Button {...props} variant="punch-through" />)`
   width: 55px;
   height: 55px;
   margin-left: 20px;
+  background-color: white;
 `;
 
 const IconImage = styled.img`
@@ -85,6 +86,7 @@ const IconImage = styled.img`
   height: 35px;
   margin-top: 5px;
   margin-left: -10px;
+  filter: invert(37%) sepia(59%) saturate(1996%) hue-rotate(211deg) brightness(100%) contrast(85%);
 `;
 
 const Left = styled.div`
@@ -196,7 +198,7 @@ function Hero() {
         <EventsContainer>
           <Event
             title="ACM Scavenger Hunt"
-            description="Join ACM as we make new friends and explore some famous UIUC landmarks! The group that completes the most challenges will win some sweet prizes!"
+            description="Join ACM to make new friends and explore some famous UIUC landmarks! The group that completes the most challenges will win some sweet prizes!"
             date="Thursday, Aug 25, 4-6PM"
             location="Siebel Center for CS"
           />

@@ -51,7 +51,7 @@ function Sponsors() {
             ACM is thankful to these generous companies who support our
             organization. Sponsor companies get access to our resume book and
             some other cool things. If you're interested in sponsoring ACM,
-            email drshika2@illinois.edu.
+            email yipengy2@illinois.edu.
           </Description>
           <SponsorsGrid>
             <a href="https://numerade.com">

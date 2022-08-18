@@ -201,7 +201,7 @@ function Navbar({ ...rest }: any) {
                 </NavLink>
             </li>
             <li>
-              <NavLink as="a" href="/about/#hackillinois" className="navLink">
+              <NavLink as={HashLink} to="/about/#hackillinois" className="navLink">
                 HackIllinois
               </NavLink>
             </li>

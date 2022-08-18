@@ -19,7 +19,7 @@ const Imagediv = styled(Container)`
     padding: 24px 0;
     border-top: none;
     @media screen and (max-width: 963px) {
-        padding: 12px 0;
+  
     }
 `
 
@@ -27,7 +27,7 @@ const Image = styled.img`
     width: inherit;
     height: inherit;
     @media screen and (max-width: 963px) {
-        height: 400px;
+        height: 250px;
     }
 `
 

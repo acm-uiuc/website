@@ -1,6 +1,6 @@
 import SigListing from "../../stories/SigListing"
-import pwny8 from '../../stories/assets/pwny8.svg'
-import geebee from "../../stories/assets/geebee-01.png"
+import sigpwnylogo from '../../stories/assets/sigpwnylogo.svg'
+import gamebuildlogo from "../../stories/assets/gamebuildlogo.png"
 import siggraphlogo from "../../stories/assets/siggraphlogo.png"
 import icpclogo from "../../stories/assets/icpclogo.png"
 
@@ -28,7 +28,7 @@ const SigListingSection = () => {
             weekly for more in-depth exploration in topics like embedded
             device security, penetration testing, and fuzzing research.
             We're proudest of our library of recorded meetings." // max 350 characters
-            Image={pwny8}
+            Image={sigpwnylogo}
             link="https://sigpwny.com/"
             link2="https://discord.gg/GEMh8umbe7"
             link3="mailto:tquig2@illinois.edu"
@@ -59,7 +59,7 @@ const SigListingSection = () => {
             paragraph2="Our community is really friendly, so feel free to ask for advice related to 
             anything and ask people to share the games they've made. Visit us at the links to the right
             (small screens press the SIG title)."
-            Image={geebee}
+            Image={gamebuildlogo}
             link="https://gamebuilders.acm.illinois.edu/"
             link2="https://discord.gg/g8VCGmm"
             link3="mailto:jt37@illinois.edu"

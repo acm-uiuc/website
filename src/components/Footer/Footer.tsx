@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import Header from '../components/Header/Header';
-import Transition from '../components/Transition/Transition';
-import Text from '../components/Text/Text';
+import Header from '../Header/Header';
+import Transition from '../Transition/Transition';
+import Text from '../Text/Text';
 
 const Container = styled.div`
   background-color: ${(props) => props.theme.colors.acmDark};
@@ -59,7 +59,7 @@ export const Footer = () => (
           <Title>Connect with ACM @ UIUC</Title>
           <ExternalLinkDiv>
             <Href
-              href="https://discord.gg/strhfywPdw"
+              href="https://discord.com/invite/strhfywPdw"
               target="_blank"
               rel="noreferrer"
             >

@@ -1,4 +1,4 @@
-import Card from "./Card";
+import Card from "../components/Card/Card";
 import pwny8 from '../stories/assets/pwny8.svg';
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 

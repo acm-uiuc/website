@@ -1,4 +1,4 @@
-import Footer from "../stories/Footer"
+import Footer from "../components/Footer/Footer"
 import styled from "styled-components"
 
 const Container = styled.div``

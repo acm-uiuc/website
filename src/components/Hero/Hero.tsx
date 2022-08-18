@@ -171,9 +171,10 @@ function Hero() {
               UIUC's Largest Computer Science Organization
             </HeroHeader>
             <HeaderText>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras quis
-              varius elit. Quisque ex diam, consectetur pharetra sem vel,
-              finibus pulvinar elit.
+              For over 50 years, ACM@UIUC has been a hub for innovation
+              and leadership for students everywhere. Our inclusivity 
+              has created a strong network of students and alumni, bringing 
+              their diverse interests to ACM.
             </HeaderText>
             <ButtonRow>
               <JoinButton large variant="neutral">
@@ -199,7 +200,7 @@ function Hero() {
           <Event
             title="ACM Scavenger Hunt"
             description="Join ACM to make new friends and explore some famous UIUC landmarks! The group that completes the most challenges will win some sweet prizes!"
-            date="Thursday, Aug 25, 4-6PM"
+            date="Thurs., Aug 25, 4-6PM"
             location="Siebel Center for CS"
           />
           <Event

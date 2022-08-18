@@ -112,7 +112,7 @@ const Sigscard = (props: any) => {
         />
       </Grid>
       <LinkContainer>
-        <AllSigs href="">See All Sigs »</AllSigs>
+        <AllSigs href="">See All SIGs »</AllSigs>
       </LinkContainer>
     </Content>
   );

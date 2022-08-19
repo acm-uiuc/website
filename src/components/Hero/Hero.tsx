@@ -5,6 +5,7 @@ import Header from '../Header/Header';
 import Text from '../Text/Text';
 import React from 'react';
 import { FaDiscord, FaInstagram, FaLocationArrow, FaRegCalendarAlt } from 'react-icons/fa';
+import { string } from 'prop-types';
 
 const HeroBackground = styled.section`
   background-color: ${(props) => props.theme.colors.acmDark};
@@ -130,7 +131,7 @@ const EventCard = styled(Card)`
   }
 `;
 
-const EventDetails = styled(Header)`
+const EventDetails = styled(({ link, ...rest }) => link ? <a href={link}><Header {...rest}/></a> : <Header {...rest}/> )<{ link?: string }>`
   margin-top: 5px;
   margin-bottom: 0px;
   color: ${(props) => props.theme.fontColors.bodyMedium};
@@ -156,20 +157,22 @@ const EventText = styled(Text)`
 
 type EventProps = {
   location: string;
+  locationLink?: string;
   date: string;
+  dateLink?: string;
   title: string;
   description: string;
 };
-function Event({ location, date, title, description }: EventProps) {
+function Event({ location, date, title, description, locationLink, dateLink }: EventProps) {
   return (
     <EventCard>
       <EventTitle level={3}>{title}</EventTitle>
       <EventText>{description}</EventText>
       <div>
-        <EventDetails level={6}>
+        <EventDetails level={6} link={locationLink}>
           <FaLocationArrow/> {location}
         </EventDetails>
-        <EventDetails level={6}>
+        <EventDetails level={6} link={dateLink}>
           <FaRegCalendarAlt/> {date}
         </EventDetails>
       </div>
@@ -232,6 +235,7 @@ function Hero() {
             description="Join ACM to make new friends and explore some famous UIUC landmarks! The group that completes the most challenges will win some sweet prizes!"
             date="Thurs., Aug 25, 4-6PM"
             location="Siebel Center for CS"
+            locationLink="https://goo.gl/maps/Kpeno5y8F5QWXwpc8"
           />
           <Event
             title="Weekly Happy Hour"

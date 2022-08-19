@@ -115,12 +115,15 @@ const Right = styled.div`
 `;
 
 const EventCard = styled(Card)`
+  display: flex;
+  flex-direction: column;
   padding: 15px;
   @media (max-width: 600px) {
     margin-bottom: 20px;
   }
   transition: 0.3s;
   box-shadow: none;
+
   &:hover {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.35);
     transform: translateY(-3px);
@@ -128,8 +131,8 @@ const EventCard = styled(Card)`
 `;
 
 const EventDetails = styled(Header)`
-  margin-top: 0px;
-  margin-bottom: 5px;
+  margin-top: 5px;
+  margin-bottom: 0px;
   color: ${(props) => props.theme.fontColors.bodyMedium};
   
   display: flex;
@@ -148,6 +151,7 @@ const EventTitle = styled(Header)`
 const EventText = styled(Text)`
   margin-bottom: 5px;
   margin-top: 0px;
+  flex-grow: 1;
 `;
 
 type EventProps = {
@@ -161,12 +165,14 @@ function Event({ location, date, title, description }: EventProps) {
     <EventCard>
       <EventTitle level={3}>{title}</EventTitle>
       <EventText>{description}</EventText>
-      <EventDetails level={6}>
-        <FaLocationArrow/> {location}
-      </EventDetails>
-      <EventDetails level={6} style={{marginBottom: 0}}>
-        <FaRegCalendarAlt/> {date}
-      </EventDetails>
+      <div>
+        <EventDetails level={6}>
+          <FaLocationArrow/> {location}
+        </EventDetails>
+        <EventDetails level={6}>
+          <FaRegCalendarAlt/> {date}
+        </EventDetails>
+      </div>
     </EventCard>
   );
 }

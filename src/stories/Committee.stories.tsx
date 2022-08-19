@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react"
-import Committee from "./Committee"
+import Committee from "../components/Committee/Committee"
 import infra_pic from "../stories/assets/infra_pic.png"
 import social from "../stories/assets/social.jpeg"
 

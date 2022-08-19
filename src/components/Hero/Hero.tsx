@@ -1,8 +1,10 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Button from '../Button/Button';
 import Content from '../Content/Content';
 import Header from '../Header/Header';
 import Text from '../Text/Text';
+import React from 'react';
+import { FaDiscord, FaInstagram, FaLocationArrow, FaRegCalendarAlt } from 'react-icons/fa';
 
 const HeroBackground = styled.section`
   background-color: ${(props) => props.theme.colors.acmDark};
@@ -81,12 +83,20 @@ const Icon = styled((props) => <Button {...props} variant="punch-through" />)`
   background-color: white;
 `;
 
-const IconImage = styled.img`
+const IconImage = css`
   width: 35px;
   height: 35px;
   margin-top: 5px;
   margin-left: -10px;
   filter: invert(37%) sepia(59%) saturate(1996%) hue-rotate(211deg) brightness(100%) contrast(85%);
+`;
+
+const IconInstagram = styled(FaInstagram)`
+  ${IconImage}
+`;
+
+const IconDiscord = styled(FaDiscord)`
+  ${IconImage}
 `;
 
 const Left = styled.div`
@@ -105,16 +115,27 @@ const Right = styled.div`
 `;
 
 const EventCard = styled(Card)`
-  padding: 10px;
+  padding: 15px;
   @media (max-width: 600px) {
     margin-bottom: 20px;
+  }
+  transition: 0.3s;
+  box-shadow: none;
+  &:hover {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.35);
+    transform: translateY(-3px);
   }
 `;
 
 const EventDetails = styled(Header)`
   margin-top: 0px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   color: ${(props) => props.theme.fontColors.bodyMedium};
+  
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2%
 `;
 
 const EventTitle = styled(Header)`
@@ -138,11 +159,14 @@ type EventProps = {
 function Event({ location, date, title, description }: EventProps) {
   return (
     <EventCard>
-      <EventDetails level={6}>
-        {location}, {date}
-      </EventDetails>
       <EventTitle level={3}>{title}</EventTitle>
       <EventText>{description}</EventText>
+      <EventDetails level={6}>
+        <FaLocationArrow/> {location}
+      </EventDetails>
+      <EventDetails level={6} style={{marginBottom: 0}}>
+        <FaRegCalendarAlt/> {date}
+      </EventDetails>
     </EventCard>
   );
 }
@@ -182,12 +206,12 @@ function Hero() {
               </JoinButton>
               <Icon>
                 <a href="https://instagram.com/acm.uiuc" target='_blank' rel='noreferrer'>
-                  <IconImage src="instagram.svg" />  
+                  <IconInstagram/>
                 </a>
               </Icon>
               <Icon>
                 <a href="https://discord.gg/strhfywPdw" target='_blank' rel='noreferrer'>
-                  <IconImage src="discord.svg" />
+                  <IconDiscord/>
                 </a>
               </Icon>
             </ButtonRow>

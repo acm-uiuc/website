@@ -191,22 +191,22 @@ function Navbar({ ...rest }: any) {
               </NavLink>
             </li>
             <li>
-              <NavLink as={HashLink} to="/#sighighlight" className="navLink">
+              <NavLink smooth as={HashLink} to="/#sighighlight" className="navLink">
                 SIGs
               </NavLink>
             </li>
             <li>
-              <NavLink as={HashLink} to="/about/#reflections" className="navLink">
+              <NavLink smooth as={HashLink} to="/about/#reflections" className="navLink">
                   Reflections | Projections
                 </NavLink>
             </li>
             <li>
-              <NavLink as={HashLink} to="/about/#hackillinois" className="navLink">
+              <NavLink smooth as={HashLink} to="/about/#hackillinois" className="navLink">
                 HackIllinois
               </NavLink>
             </li>
             <li>
-              <NavLink as={HashLink} to="/#sponsors" className="navLink">
+              <NavLink smooth as={HashLink} to="/#sponsors" className="navLink">
                 Sponsors
               </NavLink>
             </li>

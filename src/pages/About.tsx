@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar/Navbar';
 import Content from '../components/Content/Content';
 import Transition from '../components/Transition/Transition';
 import CommitteeSection from '../sections/about/CommitteeSection';
-import Committee from '../stories/Committee';
+import Committee from '../components/Committee/Committee';
 import infra_pic from '../stories/assets/infra_pic.png';
 import social from '../stories/assets/social.jpg';
 import capitalone from '../stories/assets/capitalone.png';
@@ -29,10 +29,6 @@ const AboutHeader = styled(Header)`
   margin-bottom: 20px;
 `;
 
-const Padding = styled.div`
-  height: 100px;
-
-`
 
 const About = () => {
   return (
@@ -98,7 +94,7 @@ const About = () => {
                 title="We provide a forum to share and learn about current advancements 
                 in computer science and its applications, with tech talks from 
                 across the industry and academia, workshops and puzzle-solving events 
-                for attendees, Mechmania, and Diversity × Tech. Visit the link above the image!"
+                for attendees, Mechmania, and Diversity × Tech."
                 contactinfo=""
             />
           <a href='https://hackillinois.org/' style={{textDecoration: 'none'}}>

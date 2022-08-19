@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import Committee from "../../stories/Committee";
+import Committee from "../../components/Committee/Committee";
 import infra_pic from '../../stories/assets/infra_pic.png';
 import social from '../stories/assets/social.jpg';
 

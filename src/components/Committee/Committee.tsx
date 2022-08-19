@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import Text from '../components/Text/Text';
+import Text from '../Text/Text';
 
 const Container = styled.div`
     width: 900px;
@@ -11,16 +11,16 @@ const Container = styled.div`
         height: fit-content;
         display: block;
     }
+    @media screen and (max-width: 500px) {
+        margin: auto;
+    }
 `
 
 const Imagediv = styled(Container)`
-    width: 378px;
+    width: fit-content;
     height: 90%;
     padding: 24px 0;
     border-top: none;
-    @media screen and (max-width: 963px) {
-  
-    }
 `
 
 const Image = styled.img`
@@ -28,6 +28,7 @@ const Image = styled.img`
     height: inherit;
     @media screen and (max-width: 963px) {
         height: 250px;
+        max-width: 100%;
     }
 `
 

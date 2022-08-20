@@ -17,9 +17,8 @@ function Home() {
       <ThemeProvider theme={light}>
         <Navbar />
         <Hero />
-        <Transition to="white" />
+        <Transition to="#fafafa"/>
         <SigHighlight />
-        <Sigscard />
         <Sponsors />
         <Footersection />
       </ThemeProvider>

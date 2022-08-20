@@ -20,7 +20,7 @@ function Content<C extends React.ElementType>({
 }
 
 export default styled(Content)`
-  width: 90%;
+  width: 100%;
   @media (min-width: ${(props) => props.theme.breakpoints.xl}px) {
     width: ${(props) => 0.95 * props.theme.breakpoints.xl}px;
   }

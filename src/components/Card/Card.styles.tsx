@@ -3,14 +3,23 @@ import Header from '../Header/Header';
 import Text from '../Text/Text';
 
 export const Container = styled.article`
-  background: #ffffff;
-  box-shadow: 2px 2px 10px 5px rgba(0, 0, 0, 0.1);
+  background-color: #fafafa;
+  border: 2px solid rgba(62, 72, 111, 0.1);
   border-radius: 15px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   height: 260px;
   transition: all 0.4s ease;
+
+  filter: grayscale(35%);
+  
+  &:hover {
+    border: 2px solid white;
+    filter: grayscale(0%) drop-shadow(0 4px 12px rgb(104 112 118 / 0.08)) drop-shadow(0 20px 8px rgb(104 112 118 / 0.04));
+    transform: translateY(-1px);
+    background-color: white;
+  }
 `;
 
 export const Image = styled.img`

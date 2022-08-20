@@ -89,7 +89,8 @@ const IconImage = css`
   height: 35px;
   margin-top: 5px;
   margin-left: -10px;
-  filter: invert(37%) sepia(59%) saturate(1996%) hue-rotate(211deg) brightness(100%) contrast(85%);
+  //filter: invert(37%) sepia(59%) saturate(1996%) hue-rotate(211deg) brightness(100%) contrast(85%);
+  color: ${(props) => props.theme.colors.neutralBgAccent};
 `;
 
 const IconInstagram = styled(FaInstagram)`

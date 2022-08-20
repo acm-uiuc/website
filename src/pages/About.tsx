@@ -113,7 +113,7 @@ const About = () => {
             <Committee 
                 image= {capitalone}
                 title="The corporate team handles communication with ACM@UIUC's sponsors, 
-                which include Numerade, IMC, and more."
+                including Numerade, IMC, and more."
             />
           <Header level={3}>Social</Header>
             <Committee 

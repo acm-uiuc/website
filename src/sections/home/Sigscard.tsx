@@ -54,9 +54,8 @@ const Sigscard = (props: any) => {
       <Grid>
       <Card
           title="SIGPwny"
-          description="A SIG focused on cybersecurity. We host 
-          learning meetings, participate in CTFs, and do 
-          cutting-edge research."
+          description="Learn cybersecurity from the ground up, compete in Capture-The-Flags, 
+          and do research. Beginners welcome!"
           link1="https://sigpwny.com/"
           link2="https://discord.com/invite/cWcZ6a9"
           Imagesrc={sigpwnylogo}
@@ -150,17 +149,17 @@ const Sigscard = (props: any) => {
           link1="/#sighighlight"
           link2="https://discord.com/invite/PmaXeHPaFs"
           Imagesrc={quiuclogo}
-          linktext1="——"
+          linktext1="—"
           linktext2="Discord"
         />
         <Card
           title="SIGma"
-          description="The place to learn and compete on the topics like mathematics, 
-          computer science, and algorithms."
+          description="The place to learn about math and algorithms in CS. 
+          Open to everyone regardless of mathematical background."
           link1="/#sighighlight"
           link2="https://discord.com/invite/kepXvpZXrs"
           Imagesrc={sigmalogo}
-          linktext1="——"
+          linktext1="—"
           linktext2="Discord"
         />
         <Card
@@ -170,8 +169,8 @@ const Sigscard = (props: any) => {
           link1="/#sighighlight"
           link2="/#sighighlight"
           Imagesrc={signll_logo}
-          linktext1="——"
-          linktext2="——"
+          linktext1="—"
+          linktext2="—"
         />
       </Grid>
       <LinkContainer>

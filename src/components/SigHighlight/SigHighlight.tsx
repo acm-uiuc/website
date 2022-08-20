@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Content from '../Content/Content';
 import Text from '../Text/Text';
 import Header from '../Header/Header';
+import Sigscard from '../../sections/home/Sigscard';
 
 /*type Sig = {
   logo: any;
@@ -16,7 +17,7 @@ import Header from '../Header/Header';
 };*/
 
 const SigHeader = styled(Header)`
-  margin-top: 20px;
+  margin-top: 0px;
   margin-bottom: 20px;
 `;
 
@@ -43,24 +44,29 @@ const SigText = styled(Text)`
   margin-top: 40px;
 `;*/
 
+const ContentContainer = styled.div`
+  background-color: #fafafa;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 40px;
+`;
+
 function SigHighlight() {
   return (
-    <Content as="section">
-      <SigHeader level={1} id="sighighlight">
-        Special Interest Groups
-      </SigHeader>
-      <SigText>
-        SIGs, or Special Interest Groups, are student-run groups exploring
-        different areas of computer science, from theory and algorithms to
-        competitive programming. All our SIGs are beginner-friendly and are a
-        great way to meet other members and explore computer science.
-      </SigText>
-      {/*<SigGrid>
-        <Card> Hi</Card>
-        <Card>Hi</Card>
-        <Card>Hi</Card>
-      </SigGrid>*/}
-    </Content>
+    <ContentContainer>
+      <Content as='section'>
+        <SigHeader level={1} id='sighighlight'>
+          Special Interest Groups
+        </SigHeader>
+        <SigText>
+          SIGs, or Special Interest Groups, are student-run groups exploring
+          different areas of computer science, from theory and algorithms to
+          competitive programming. All our SIGs are beginner-friendly and are a
+          great way to meet other members and explore computer science.
+        </SigText>
+      </Content>
+      <Sigscard />
+    </ContentContainer>
   );
 }
 

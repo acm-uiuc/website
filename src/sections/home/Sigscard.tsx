@@ -48,7 +48,6 @@ const AllSigs = styled((props) => (
   margin-top: 15px;
   font-size: ${(props) => props.theme.fontSizes.h3}px;
 `;
-
 const Sigscard = (props: any) => {
   return (
     <Content as="div" style={{ marginBottom: 60 }}>
@@ -56,8 +55,8 @@ const Sigscard = (props: any) => {
       <Card
           title="SIGPwny"
           description="A SIG focused on cybersecurity. We host 
-                      learning meetings, participate in CTFs, and do 
-                      cutting-edge research."
+          learning meetings, participate in CTFs, and do 
+          cutting-edge research."
           link1="https://sigpwny.com/"
           link2="https://discord.com/invite/cWcZ6a9"
           Imagesrc={sigpwnylogo}

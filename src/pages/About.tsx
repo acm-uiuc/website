@@ -6,13 +6,13 @@ import Content from '../components/Content/Content';
 import Transition from '../components/Transition/Transition';
 import CommitteeSection from '../sections/about/CommitteeSection';
 import Committee from '../components/Committee/Committee';
-import infra_pic from '../stories/assets/infra_pic.png';
 import social from '../stories/assets/social.jpg';
 import capitalone from '../stories/assets/capitalone.png';
 import Footersection from '../sections/Footersection';
 import instagram from '../stories/assets/instagram.png';
 import reflections from '../stories/assets/reflections.jpg';
 import hackillinoislogo from '../stories/assets/hackillinoislogo.png';
+import infrastructure from '../stories/assets/infrastructure.jpeg';
 
 const Main = styled.main`
   width: 1100px;
@@ -132,7 +132,7 @@ const About = () => {
             />
           <Header level={3}>Infrastructure</Header>
             <Committee 
-                image= {infra_pic}
+                image= {infrastructure}
                 people=""
                 title="The infra team maintains ACM@UIUC's infrastructure and engineering efforts
                 like this website."

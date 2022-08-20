@@ -4,7 +4,7 @@ import Text from '../Text/Text';
 
 export const Container = styled.article`
   background-color: #fafafa;
-  border: 2px solid rgba(62, 72, 111, 0.35);
+  border: 2px solid rgba(62, 72, 111, 0.1);
   border-radius: 15px;
   display: flex;
   flex-direction: column;

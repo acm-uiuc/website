@@ -12,7 +12,7 @@ export const Container = styled.article`
   height: 260px;
   transition: all 0.4s ease;
 
-  filter: grayscale(75%);
+  filter: grayscale(35%);
   
   &:hover {
     border: 2px solid white;

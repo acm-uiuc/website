@@ -14,7 +14,6 @@ export const Container = styled.article`
 `;
 
 export const Image = styled.img`
-  //height: 150px;
   height: 50px;
   object-fit: contain;
   width: 100%;

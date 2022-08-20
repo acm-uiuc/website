@@ -74,8 +74,8 @@ const Contact = styled.div`
 `
 
 interface CommitteeProps {
-    people: string
-    contactinfo: string
+    people?: string
+    contactinfo?: string
     title: string
     image: string
 }

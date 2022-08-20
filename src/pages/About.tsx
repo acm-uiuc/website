@@ -112,31 +112,25 @@ const About = () => {
           <Header level={3}>Corporate</Header>
             <Committee 
                 image= {capitalone}
-                people=""
-                title="The corporate team handles communication with ACM@UIUC's sponsors."
-                contactinfo=""
+                title="The corporate team handles communication with ACM@UIUC's sponsors, 
+                which include Numerade, IMC, and more."
             />
           <Header level={3}>Social</Header>
             <Committee 
                 image= {social}
-                people=""
-                title="The social team organizes fun events for ACM@UIUC."
-                contactinfo=""
+                title="The social team organizes fun events for ACM@UIUC such as 
+                picnics, activity weeks, game nights, and Happy Hour."
             />
           <Header level={3}>Marketing</Header>
             <Committee 
                 image= {instagram}
-                people=""
                 title="The marketing team organizes social media and branding for ACM@UIUC."
-                contactinfo=""
             />
           <Header level={3}>Infrastructure</Header>
             <Committee 
                 image= {infrastructure}
-                people=""
                 title="The infra team maintains ACM@UIUC's infrastructure and engineering efforts
                 like this website."
-                contactinfo=""
             />
       </Content>
       <Footersection />

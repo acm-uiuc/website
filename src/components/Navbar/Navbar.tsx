@@ -107,6 +107,12 @@ const NavHeader = styled.header`
     left: -1.5px;
   }
 
+  @media (max-width: ${(props) => props.theme.breakpoints.md}px) {
+    li a {
+      margin-right: 40px;
+    }
+  }
+
   /* Responsiveness */
 
   @media (min-width: ${(props) => props.theme.breakpoints.md}px) {
@@ -171,10 +177,28 @@ const SiteTitle = styled((props: any) => <Text {...props} />)`
 
 function Navbar({ ...rest }: any) {
   const checkbox = useRef<HTMLInputElement | null>(null);
+  const scrollLock = useRef<boolean>(false);
 
   const uncheck = () => {
     if (checkbox && checkbox.current != null) {
       checkbox.current.checked = false;
+    }
+    removeLockIfApplied();
+  };
+
+  const toggleLock = () => {
+    if (scrollLock.current) {
+      document.body.classList.remove('noscroll');
+    } else {
+      document.body.classList.add('noscroll');
+    }
+    scrollLock.current = !scrollLock.current;
+  };
+
+  const removeLockIfApplied = () => {
+    if (scrollLock.current) {
+      document.body.classList.remove('noscroll');
+      scrollLock.current = false;
     }
   };
 
@@ -191,7 +215,7 @@ function Navbar({ ...rest }: any) {
           id="side-menu"
           ref={checkbox}
         />
-        <label className="hamb" htmlFor="side-menu">
+        <label className="hamb" htmlFor="side-menu" onClick={toggleLock}>
           <span className="hamb-line"></span>
         </label>
 

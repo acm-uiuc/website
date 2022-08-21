@@ -88,13 +88,6 @@ export const Footer = () => (
             >
               Github
             </Href>
-            <Href
-              href="https://acm-uiuc.slack.com/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Slack
-            </Href>
           </ExternalLinkDiv>
         </AllContent>
       </FooterContainer>

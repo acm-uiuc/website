@@ -232,21 +232,23 @@ function Hero() {
               interests to ACM.
             </HeaderText>
             <ButtonRow>
-              <JoinButton
-                onClick={() =>
-                  (window.location.href = 'https://forms.gle/tdVXVewpbjNooqxSA')
-                }
+              <a
+                href="https://forms.gle/tdVXVewpbjNooqxSA"
+                target="_blank"
+                rel="noreferrer"
               >
+              <JoinButton>
                 Join Now
               </JoinButton>
+              </a>
               <Icon>
-                <a
-                  href="https://instagram.com/acm.uiuc"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <IconInstagram />
-                </a>
+              <a
+                href="https://instagram.com/acm.uiuc"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <IconInstagram />
+              </a>
               </Icon>
               <Icon>
                 <a

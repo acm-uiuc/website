@@ -25,6 +25,7 @@ const Imagediv = styled(Container)`
 
 const Image = styled.img`
   max-width: 100%;
+  height: 350px;
   display: block;
   margin-left: auto;
   margin-right: auto;

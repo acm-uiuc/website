@@ -20,7 +20,6 @@ const NavHeader = styled.header`
     display: inline-block;
     color: var(--white);
     font-size: 60px;
-    margin-left: -15px;
   }
 
   /* Nav menu */
@@ -28,7 +27,6 @@ const NavHeader = styled.header`
     width: 100%;
     height: 100%;
     position: fixed;
-    background-color: var(--black);
     overflow: hidden;
   }
 
@@ -130,7 +128,7 @@ const NavHeader = styled.header`
     }
   }
 
-  width: 90%;
+  width: 100%;
 
   @media (min-width: ${(props) => props.theme.breakpoints.xl}px) {
     width: ${(props) => 0.95 * props.theme.breakpoints.xl}px;

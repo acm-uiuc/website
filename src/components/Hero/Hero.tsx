@@ -242,12 +242,14 @@ function Hero() {
             description="Join ACM and chat with some of your fellow members! Enjoy free food on us as you get a chance to know your peers better!"
             date="Friday, Aug 26, 5PM"
             location="Legends"
+            locationLink="https://goo.gl/maps/CXESXd3otbGZNqFP7"
           />
           <Event
             title="Field Day"
             description="Run around with ACM as we participate in a gigantic Capture the Flag game. The winning team will receive an awesome prize!"
             date="Saturday, Aug 27, 12-2PM"
             location="South Quad"
+            locationLink="https://goo.gl/maps/RdK5EdXam2cuF8Ww9"
           />
         </EventsContainer>
       </Content>

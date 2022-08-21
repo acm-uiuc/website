@@ -54,7 +54,7 @@ const Sigscard = (props: any) => {
       <Grid>
       <Card
           title="SIGPwny"
-          description="Learn cybersecurity from the ground up, compete in Capture-The-Flags, 
+          description="Learn cybersecurity from the ground up, play in competitions, 
           and do research. Beginners welcome!"
           link1="https://sigpwny.com/"
           link2="https://discord.com/invite/cWcZ6a9"
@@ -155,7 +155,7 @@ const Sigscard = (props: any) => {
         <Card
           title="SIGma"
           description="The place to learn about math and algorithms in CS. 
-          Open to everyone regardless of mathematical background."
+          Open to all regardless of mathematical background."
           link1="/#sighighlight"
           link2="https://discord.com/invite/kepXvpZXrs"
           Imagesrc={sigmalogo}

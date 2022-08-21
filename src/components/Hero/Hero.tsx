@@ -4,7 +4,12 @@ import Content from '../Content/Content';
 import Header from '../Header/Header';
 import Text from '../Text/Text';
 import React from 'react';
-import { FaDiscord, FaInstagram, FaLocationArrow, FaRegCalendarAlt } from 'react-icons/fa';
+import {
+  FaDiscord,
+  FaInstagram,
+  FaLocationArrow,
+  FaRegCalendarAlt,
+} from 'react-icons/fa';
 import { string } from 'prop-types';
 
 const HeroBackground = styled.section`
@@ -67,7 +72,9 @@ const HeaderText = styled(Text)`
   }
 `;
 
-const JoinButton = styled(Button)`
+const JoinButton = styled((props: any) => (
+  <Button large variant="neutral" {...props} />
+))`
   font-size: ${(props) => props.theme.fontSizes.h3}px;
 `;
 
@@ -131,15 +138,23 @@ const EventCard = styled(Card)`
   }
 `;
 
-const EventDetails = styled(({ link, ...rest }) => link ? <a href={link}><Header {...rest}/></a> : <Header {...rest}/> )<{ link?: string }>`
+const EventDetails = styled(({ link, ...rest }) =>
+  link ? (
+    <a href={link}>
+      <Header {...rest} />
+    </a>
+  ) : (
+    <Header {...rest} />
+  )
+)<{ link?: string }>`
   margin-top: 5px;
   margin-bottom: 0px;
   color: ${(props) => props.theme.fontColors.bodyMedium};
-  
+
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 2%
+  gap: 2%;
 `;
 
 const EventTitle = styled(Header)`
@@ -163,17 +178,24 @@ type EventProps = {
   title: string;
   description: string;
 };
-function Event({ location, date, title, description, locationLink, dateLink }: EventProps) {
+function Event({
+  location,
+  date,
+  title,
+  description,
+  locationLink,
+  dateLink,
+}: EventProps) {
   return (
     <EventCard>
       <EventTitle level={3}>{title}</EventTitle>
       <EventText>{description}</EventText>
       <div>
         <EventDetails level={6} link={locationLink}>
-          <FaLocationArrow/> {location}
+          <FaLocationArrow /> {location}
         </EventDetails>
         <EventDetails level={6} link={dateLink}>
-          <FaRegCalendarAlt/> {date}
+          <FaRegCalendarAlt /> {date}
         </EventDetails>
       </div>
     </EventCard>
@@ -204,23 +226,35 @@ function Hero() {
               UIUC's Largest Computer Science Organization
             </HeroHeader>
             <HeaderText>
-              For over 50 years, ACM@UIUC has been a hub for innovation
-              and leadership for students everywhere. Our inclusivity 
-              has created a strong network of students and alumni, bringing 
-              their diverse interests to ACM.
+              For over 50 years, ACM@UIUC has been a hub for innovation and
+              leadership for students everywhere. Our inclusivity has created a
+              strong network of students and alumni, bringing their diverse
+              interests to ACM.
             </HeaderText>
             <ButtonRow>
-              <JoinButton large variant="neutral">
+              <JoinButton
+                onClick={() =>
+                  (window.location.href = 'https://forms.gle/tdVXVewpbjNooqxSA')
+                }
+              >
                 Join Now
               </JoinButton>
               <Icon>
-                <a href="https://instagram.com/acm.uiuc" target='_blank' rel='noreferrer'>
-                  <IconInstagram/>
+                <a
+                  href="https://instagram.com/acm.uiuc"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <IconInstagram />
                 </a>
               </Icon>
               <Icon>
-                <a href="https://discord.gg/strhfywPdw" target='_blank' rel='noreferrer'>
-                  <IconDiscord/>
+                <a
+                  href="https://discord.gg/strhfywPdw"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <IconDiscord />
                 </a>
               </Icon>
             </ButtonRow>

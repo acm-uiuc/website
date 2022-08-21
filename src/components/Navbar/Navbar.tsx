@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Text from '../Text/Text';
 import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
+import { useRef } from 'react';
 
 const NavHeader = styled.header`
   height: 105px;
@@ -171,6 +172,14 @@ const SiteTitle = styled((props: any) => <Text {...props} />)`
 `;
 
 function Navbar({ ...rest }: any) {
+  const checkbox = useRef<HTMLInputElement | null>(null);
+
+  const uncheck = () => {
+    if (checkbox && checkbox.current != null) {
+      checkbox.current.checked = false;
+    }
+  };
+
   return (
     <NavContainer {...rest}>
       <NavHeader>
@@ -178,7 +187,12 @@ function Navbar({ ...rest }: any) {
           <img src={require('./logo.png')} alt="logo" />
         </SiteTitle>
 
-        <input className="side-menu" type="checkbox" id="side-menu" />
+        <input
+          className="side-menu"
+          type="checkbox"
+          id="side-menu"
+          ref={checkbox}
+        />
         <label className="hamb" htmlFor="side-menu">
           <span className="hamb-line"></span>
         </label>
@@ -191,22 +205,46 @@ function Navbar({ ...rest }: any) {
               </NavLink>
             </li>
             <li>
-              <NavLink smooth as={HashLink} to="/#sighighlight" className="navLink">
+              <NavLink
+                smooth
+                as={HashLink}
+                to="/#sighighlight"
+                className="navLink"
+                onClick={uncheck}
+              >
                 SIGs
               </NavLink>
             </li>
             <li>
-              <NavLink smooth as={HashLink} to="/about/#reflections" className="navLink">
-                  Reflections | Projections
-                </NavLink>
+              <NavLink
+                smooth
+                as={HashLink}
+                to="/about/#reflections"
+                className="navLink"
+                onClick={uncheck}
+              >
+                Reflections | Projections
+              </NavLink>
             </li>
             <li>
-              <NavLink smooth as={HashLink} to="/about/#hackillinois" className="navLink">
+              <NavLink
+                smooth
+                as={HashLink}
+                to="/about/#hackillinois"
+                onClick={uncheck}
+                className="navLink"
+              >
                 HackIllinois
               </NavLink>
             </li>
             <li>
-              <NavLink smooth as={HashLink} to="/#sponsors" className="navLink">
+              <NavLink
+                smooth
+                as={HashLink}
+                to="/#sponsors"
+                className="navLink"
+                onClick={uncheck}
+              >
                 Sponsors
               </NavLink>
             </li>

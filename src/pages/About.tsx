@@ -29,6 +29,9 @@ const AboutHeader = styled(Header)`
   margin-bottom: 20px;
 `;
 
+const CommitteeHeader = styled(Header)`
+  margin-bottom: 10px;
+`;
 
 const About = () => {
   return (
@@ -53,85 +56,100 @@ const About = () => {
           exploring the possibilities of computers and learning more about how
           to use and develop them. ACM is divided into Special Interest Groups,
           or SIGs, which focus on specific interest areas in computer science
-          and computing. Each SIG holds its own meetings and is
-          responsible for organizing its own activities and determining its own
-          purpose. Several SIGs are project-based, with the majority of their
-          activities dedicated to computing projects in their area of interest,
-          often presented at Engineering Open House. Some SIGs run workshops and
-          tech talks to discuss topics related to their interest group. To find
-          out more about our SIGs, visit the home page and attend a meeting.
+          and computing. Each SIG holds its own meetings and is responsible for
+          organizing its own activities and determining its own purpose. Several
+          SIGs are project-based, with the majority of their activities
+          dedicated to computing projects in their area of interest, often
+          presented at Engineering Open House. Some SIGs run workshops and tech
+          talks to discuss topics related to their interest group. To find out
+          more about our SIGs, visit the home page and attend a meeting.
         </Text>
         <Text>
-          ACM also hosts several general events, including social activities such as
-          picnics, swim nights, activity weeks, game nights, outreach
+          ACM also hosts several general events, including social activities
+          such as picnics, swim nights, activity weeks, game nights, outreach
           activities such as ACM Open House, Student Lecture Series, and
-          educational activities for high school and middle school students,
-          and the annual Reflections | Projections conference. All ACM
-          activities and SIG meetings are open to the entire University
-          community, regardless of computer experience and background.
+          educational activities for high school and middle school students, and
+          the annual Reflections | Projections conference. All ACM activities
+          and SIG meetings are open to the entire University community,
+          regardless of computer experience and background.
         </Text>
         <Text>
-          Executive meetings occur every other week, at which the
-          direction of ACM is defined. Everyone is welcome to attend and make
-          suggestions for new ACM groups or events. Decisions about such events
-          and other important ACM matters are also made at these meetings.
+          Executive meetings occur every other week, at which the direction of
+          ACM is defined. Everyone is welcome to attend and make suggestions for
+          new ACM groups or events. Decisions about such events and other
+          important ACM matters are also made at these meetings.
         </Text>
-        <Text>
-          ACM@UIUC is a registered 501(c)(3) nonprofit organization.
-        </Text>
+        <Text>ACM@UIUC is a registered 501(c)(3) nonprofit organization.</Text>
         <Header level={1}>Leadership</Header>
-          <Text>Chair: Matt Geimer</Text>
-          <Text>Vice Chair: Nitya Sunkad</Text>
-          <Text>Treasurer: Evan Matthews</Text>
-          <Text>Secretary: Emily Crawford</Text>
-        <Header level={1} id="committees">Committees</Header>
-        <a href='https://www.reflectionsprojections.org/' style={{textDecoration: 'none'}}>
-          <Header level={3} id="reflections" style={{color: '#4577F8'}}>Reflections | Projections</Header>
+        <Text>Chair: Matt Geimer</Text>
+        <Text>Vice Chair: Nitya Sunkad</Text>
+        <Text>Treasurer: Evan Matthews</Text>
+        <Text>Secretary: Emily Crawford</Text>
+        <Header level={1} id="committees">
+          Committees
+        </Header>
+        <a
+          href="https://www.reflectionsprojections.org/"
+          style={{ textDecoration: 'none' }}
+        >
+          <CommitteeHeader
+            level={3}
+            id="reflections"
+            style={{ color: '#4577F8' }}
+          >
+            Reflections | Projections
+          </CommitteeHeader>
         </a>
-            <Committee 
-                image= {reflections}
-                people=""
-                title="We provide a forum to share and learn about current advancements 
+        <Committee
+          image={reflections}
+          people=""
+          title="We provide a forum to share and learn about current advancements 
                 in computer science and its applications, with tech talks from 
                 across the industry and academia, workshops and puzzle-solving events 
                 for attendees, Mechmania, and Diversity × Tech."
-                contactinfo=""
-            />
-          <a href='https://hackillinois.org/' style={{textDecoration: 'none'}}>
-            <Header level={3} id="hackillinois" style={{color: '#4577F8'}}>Hack Illinois</Header>
-          </a>
-            <Committee 
-                  image= {hackillinoislogo}
-                  people=""
-                  title="HackIllinois is the premier collegiate open source hackathon. 
+          contactinfo=""
+        />
+        <a href="https://hackillinois.org/" style={{ textDecoration: 'none' }}>
+          <CommitteeHeader
+            level={3}
+            id="hackillinois"
+            style={{ color: '#4577F8' }}
+          >
+            Hack Illinois
+          </CommitteeHeader>
+        </a>
+        <Committee
+          image={hackillinoislogo}
+          people=""
+          title="HackIllinois is the premier collegiate open source hackathon. 
                   With over 1000 attendees and 50 open source mentors in 2019, the hackathon 
                   has grown to become one of the largest and most well-regarded in the 
                   nation."
-                  contactinfo=""
-            />
-          <Header level={3}>Corporate</Header>
-            <Committee 
-                image= {capitalone}
-                title="The corporate team handles communication with ACM@UIUC's sponsors, 
+          contactinfo=""
+        />
+        <CommitteeHeader level={3}>Corporate</CommitteeHeader>
+        <Committee
+          image={capitalone}
+          title="The corporate team handles communication with ACM@UIUC's sponsors, 
                 including Numerade, IMC, and more."
-            />
-          <Header level={3}>Social</Header>
-            <Committee 
-                image= {social}
-                title="The social team organizes fun events for ACM@UIUC such as 
+        />
+        <CommitteeHeader level={3}>Social</CommitteeHeader>
+        <Committee
+          image={social}
+          title="The social team organizes fun events for ACM@UIUC such as 
                 picnics, activity weeks, game nights, and Happy Hour."
-            />
-          <Header level={3}>Marketing</Header>
-            <Committee 
-                image= {instagram}
-                title="The marketing team organizes social media and branding for ACM@UIUC."
-            />
-          <Header level={3}>Infrastructure</Header>
-            <Committee 
-                image= {infrastructure}
-                title="The infra team maintains ACM@UIUC's infrastructure and engineering efforts
+        />
+        <CommitteeHeader level={3}>Marketing</CommitteeHeader>
+        <Committee
+          image={instagram}
+          title="The marketing team organizes social media and branding for ACM@UIUC."
+        />
+        <CommitteeHeader level={3}>Infrastructure</CommitteeHeader>
+        <Committee
+          image={infrastructure}
+          title="The infra team maintains ACM@UIUC's infrastructure and engineering efforts
                 like this website."
-            />
+        />
       </Content>
       <Footersection />
     </>

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Card from '../../components/Card/Card';
-import sigpwnylogo from '../../stories/assets/sigpwnylogo.svg';
+import sigpwnylogo from '../../stories/assets/sigpwnylogo.png';
 import sigchilogo from '../../stories/assets/sigchilogo.png';
 import gamebuildlogo from '../../stories/assets/gamebuildlogo.png';
 import sigaidalogo from '../../stories/assets/sigaidalogo.png';

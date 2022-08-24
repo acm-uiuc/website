@@ -86,7 +86,7 @@ export const Footer = () => (
               target="_blank"
               rel="noreferrer"
             >
-              Github
+              GitHub
             </Href>
           </ExternalLinkDiv>
         </AllContent>

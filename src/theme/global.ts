@@ -18,6 +18,10 @@ body {
     padding: 0px;
     overflow-x: hidden;
 }
+
+.noscroll {
+    overflow-y: hidden;
+}
 `;
 
 export default GlobalStyle;

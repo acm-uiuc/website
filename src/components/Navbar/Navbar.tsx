@@ -177,7 +177,7 @@ const SiteTitle = styled((props: any) => <Text {...props} />)`
 
 function Navbar({ ...rest }: any) {
   const checkbox = useRef<HTMLInputElement | null>(null);
-  const scrollLock = useRef<boolean>(false);
+  const scrollLock = useRef(false);
 
   const uncheck = () => {
     if (checkbox && checkbox.current != null) {
@@ -222,7 +222,12 @@ function Navbar({ ...rest }: any) {
         <nav className="nav">
           <ul className="menu">
             <li>
-              <NavLink as={Link} to="/about" className="navLink">
+              <NavLink 
+                as={Link} 
+                to="/about" 
+                className="navLink"
+                onClick={uncheck}
+                >
                 About
               </NavLink>
             </li>

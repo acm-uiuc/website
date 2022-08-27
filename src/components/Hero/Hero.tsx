@@ -283,7 +283,7 @@ function Hero() {
           <Event
             title="Field Day"
             description="Run around with ACM as we participate in a gigantic Capture the Flag game. The winning team will receive an awesome prize!"
-            date="Saturday, Aug 27, 12-2PM"
+            date="Saturday, Aug 27, 4-6PM"
             location="South Quad"
             locationLink="https://goo.gl/maps/RdK5EdXam2cuF8Ww9"
           />

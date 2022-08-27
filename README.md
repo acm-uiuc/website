@@ -1,9 +1,11 @@
-# ACM Website
-ACM @ UIUC's website. Mainly contains frontend presentational pages right now.
+# ACM at UIUC's Website
+View the website at [acm.illinois.edu](https://illinois.edu/).
 
-## Contribute with Create React App
+The frontend source code for ACM's website is built mainly with Typescript and some React packages. Viewers can learn about our organization, upcoming events, Special Interest Groups, and committees. Sponsors are also listed.
 
-## Available Scripts
+## Contributing
+
+### Available Scripts
 
 In the project directory, you can run:
 

@@ -237,18 +237,16 @@ function Hero() {
                 target="_blank"
                 rel="noreferrer"
               >
-              <JoinButton>
-                Join Now
-              </JoinButton>
+                <JoinButton>Join Now</JoinButton>
               </a>
               <Icon>
-              <a
-                href="https://instagram.com/acm.uiuc"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <IconInstagram />
-              </a>
+                <a
+                  href="https://instagram.com/acm.uiuc"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <IconInstagram />
+                </a>
               </Icon>
               <Icon>
                 <a
@@ -267,25 +265,25 @@ function Hero() {
         </HeaderImageSplit>
         <EventsContainer>
           <Event
-            title="ACM Scavenger Hunt"
-            description="Join ACM to make new friends and explore some famous UIUC landmarks! The group that completes the most challenges will win some sweet prizes!"
-            date="Thursday, Aug 25, 4-6PM"
+            title="ACM Open House"
+            description="Come learn about everything you can do at ACM, including our Special Interest Groups! Afterwards, grab some free pizza and talk with SIGs and other ACM members."
+            date="Thursday, Sept 1, 6:30-9PM"
             location="Siebel Center for CS"
             locationLink="https://goo.gl/maps/Kpeno5y8F5QWXwpc8"
           />
           <Event
             title="Weekly Happy Hour"
             description="Join ACM and chat with some of your fellow members! Enjoy free food on us as you get a chance to know your peers better!"
-            date="Friday, Aug 26, 5PM"
+            date="Friday, Sept 2, 5PM"
             location="Legends"
             locationLink="https://goo.gl/maps/CXESXd3otbGZNqFP7"
           />
           <Event
-            title="Field Day"
-            description="Run around with ACM as we participate in a gigantic Capture the Flag game. The winning team will receive an awesome prize!"
-            date="Saturday, Aug 27, 4-6PM"
-            location="South Quad"
-            locationLink="https://goo.gl/maps/RdK5EdXam2cuF8Ww9"
+            title="Smores Roast"
+            description="Come hang out with us in Illini Grove! (behind PAR) Free food, friends, and fire."
+            date="Sunday, Sept 4th, 6-8PM"
+            location="Illini Grove"
+            locationLink="https://goo.gl/maps/S97F7cdA1HY7Nfff9"
           />
         </EventsContainer>
       </Content>

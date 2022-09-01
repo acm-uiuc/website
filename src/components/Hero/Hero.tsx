@@ -233,7 +233,7 @@ function Hero() {
             </HeaderText>
             <ButtonRow>
               <a
-                href="https://forms.gle/tdVXVewpbjNooqxSA"
+                href="/membership"
                 target="_blank"
                 rel="noreferrer"
               >

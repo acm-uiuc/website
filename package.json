@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@nextui-org/react": "^1.0.0-beta.10",
+    "@paypal/react-paypal-js": "^7.8.1",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
@@ -10,6 +12,8 @@
     "@types/node": "^16.11.43",
     "@types/react-dom": "^18.0.6",
     "@types/styled-components": "^5.1.26",
+    "axios": "^0.27.2",
+    "lottie-react": "^2.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",

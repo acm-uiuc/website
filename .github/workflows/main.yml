@@ -38,3 +38,15 @@ jobs:
           path: ./build/
           destination: bucket-acm-static-host
           parent: false
+      
+
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: '${{ secrets.SVC_ACCOUNT_JSON_KEY }}'
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v0'
+
+      - name: 'invalidate LB cache'
+        run: 'gcloud compute url-maps invalidate-cdn-cache core-lb --path "/*"'

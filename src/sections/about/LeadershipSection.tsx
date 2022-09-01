@@ -14,7 +14,7 @@ const GridModify = styled(Grid)`
   @media (min-width: 600px) {
     grid-template-columns: 1fr;
   }
-  @media (min-width: 700px) {
+  @media (min-width: 710px) {
     grid-template-columns: 1fr 1fr;
   }
   @media (min-width: 1200px) {

@@ -4,6 +4,7 @@ import GlobalStyle from './theme/global';
 import Home from './pages/Home';
 import About from './pages/About';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Payment from './pages/membership/Payment';
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
             </Route>
             <Route path="/about">
               <Route index element={<About />} />
+            </Route>
+            <Route path="/membership">
+              <Route index element={<Payment />} />
             </Route>
           </Routes>
         </BrowserRouter>

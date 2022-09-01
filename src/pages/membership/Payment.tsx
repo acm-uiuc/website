@@ -125,7 +125,7 @@ const Payment = () => {
           </Modal.Header>
           <Modal.Body>
             <PayPalScriptProvider
-              options={{ 'client-id': 'AaR-Hwm6ycr724dk2Z2D0FiHj4lI60zyzJpInnAbZ5odwR5xP8_CMdltEdqoqUHmKs8A_cotVujL8x2b' }}>
+              options={{ 'client-id': 'AeFhv1JIJ40uthOz37P201fUDw7rYfl-nHEDm4JOyP-abcaodBjtYm3DycUaNIXsQawOf4h3ibAUk5dO' }}>
               <PayPalButtons
                 createOrder={(data, actions) => {
                   return axios.post('https://api.acm.illinois.edu/orders', {

@@ -128,7 +128,7 @@ const Payment = () => {
               options={{ 'client-id': 'AeFhv1JIJ40uthOz37P201fUDw7rYfl-nHEDm4JOyP-abcaodBjtYm3DycUaNIXsQawOf4h3ibAUk5dO' }}>
               <PayPalButtons
                 createOrder={(data, actions) => {
-                  return axios.post('https://api.acm.illinois.edu/orders', {
+                  return axios.post('https://bifrost-api-qunch75qnq-uc.a.run.app/orders', {
                     netid: netId
                   }, {
                     validateStatus: (status) => status < 400
@@ -167,7 +167,7 @@ const Payment = () => {
                     });
                 }}
                 onApprove={(data, actions) => {
-                  return axios.post(`https://api.acm.illinois.edu/orders/${data.orderID}/capture`, {}, {
+                  return axios.post(`https://bifrost-api-qunch75qnq-uc.a.run.app/orders/${data.orderID}/capture`, {}, {
                     validateStatus: (status) => status < 400
                   })
                     .then((res) => {

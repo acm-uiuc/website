@@ -185,7 +185,7 @@ const Sigscard = (props: any) => {
         />
         <Card
           title="SIGPlan"
-          description="Learn about the theory behind programming languages and type systems, and then make awesome projects!"
+          description="Learn about the theory behind programming languages and type systems, and then make projects!"
           link1="/#sighighlight"
           link2="https://discord.gg/t4TmDRDf9c"
           Imagesrc={sigplanlogo}

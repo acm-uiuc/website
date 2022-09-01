@@ -34,7 +34,7 @@ jobs:
         # uses: google-github-actions/upload-cloud-storage@a42a4672297bff0f4a685fe7126e971ca1797559
         uses: google-github-actions/upload-cloud-storage@v0.10.2
         with:
-          credential: ${{ secrets.SVC_ACCOUNT_JSON_KEY }}
+          credentials: ${{ secrets.SVC_ACCOUNT_JSON_KEY }}
           path: ./build/
           destination: bucket-acm-static-host
           parent: false

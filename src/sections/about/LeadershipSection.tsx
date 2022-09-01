@@ -11,7 +11,15 @@ import styled from "styled-components";
 import purplelogo from "../../stories/assets/purplelogo.png"; // if someone doesn't have an image use 'purplelogo'
 
 const GridModify = styled(Grid)`
-  display: flex;
+  @media (min-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 700px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (min-width: 1200px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 `;
 
 const LeadSection = (props: any) => {

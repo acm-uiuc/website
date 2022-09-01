@@ -11,9 +11,9 @@ import Header from "../Header/Header";
 import Text from "../Text/Text";
 
 const LeaderContainer = styled(Container)`
-  width: 250px;
   height: 380px;
   background-color: white;
+  width: 270px;
   filter: none;
   transition: none;
   border: none;

@@ -12,7 +12,7 @@ import Text from "../Text/Text";
 
 const LeaderContainer = styled(Container)`
   width: 250px;
-  height: 350px;
+  height: 380px;
   background-color: white;
   filter: none;
   transition: none;
@@ -59,13 +59,14 @@ const Discord = styled(Href)`
 `;
 
 const Imagecontent = styled.img`
-  height: 200px;
-  width: 100%;
-  object-fit: contain;
+  height: 250px;
+  width: 250px;
+  object-fit: cover;
+  background-color: red;
 `;
 
 const IconLayout = styled(LowerLayout)`
-    padding-left: 25px;
+    text-align: center;
 `;
 
 interface LeadershipCardProps {

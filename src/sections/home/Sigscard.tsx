@@ -14,6 +14,8 @@ import sigmalogo from '../../stories/assets/sigmalogo.png';
 import quiuclogo from '../../stories/assets/quiuclogo.png';
 import Content from '../../components/Content/Content';
 import Button from '../../components/Button/Button';
+import sigecomlogo from '../../stories/assets/sigecomlogo.png';
+import sigplanlogo from '../../stories/assets/sigplanlogo.png';
 
 const Grid = styled.div`
   display: grid;
@@ -52,12 +54,12 @@ const Sigscard = (props: any) => {
   return (
     <Content as="div" style={{ marginBottom: 60 }}>
       <Grid>
-      <Card
+        <Card
           title="SIGPwny"
           description="Learn cybersecurity from the ground up, play in competitions, 
           and do research. Beginners welcome!"
           link1="https://sigpwny.com/"
-          link2="https://discord.com/invite/cWcZ6a9"
+          link2="https://sigpwny.com/discord"
           Imagesrc={sigpwnylogo}
           linktext1="Website"
           linktext2="Discord"
@@ -67,7 +69,7 @@ const Sigscard = (props: any) => {
           description="We are the premier data science
           organization at UIUC, inspiring students to reshape their perspective on data."
           link1="https://aida.acm.illinois.edu/"
-          link2="https://discord.com/invite/GEMh8umbe7"
+          link2="https://discord.gg/QBj8rh9sM8"
           Imagesrc={sigaidalogo}
           linktext1="Website"
           linktext2="Discord"
@@ -76,10 +78,10 @@ const Sigscard = (props: any) => {
           title="SIGMobile"
           description="A mobile development club with Android tutorials, iOS tutorials,
           guest lectures, and group projects."
-          link1="https://github.com/SIGMobileUIUC"
-          link2="https://discord.com/invite/2uhJztdtwu"
+          link1="https://apoorvaditya.notion.site/SIGMobile-dc12c5f971aa43ffbd5435d8fcae91fe"
+          link2="https://discord.gg/af6SvFWGSc"
           Imagesrc={sigmobilelogo}
-          linktext1="Github"
+          linktext1="Notion"
           linktext2="Discord"
         />
         <Card
@@ -87,7 +89,7 @@ const Sigscard = (props: any) => {
           description="Anything and everything related to game development
           and design. All skill levels and abilities are welcome."
           link1="https://gamebuilders.acm.illinois.edu/"
-          link2="https://discord.com/invite/g8VCGmm"
+          link2="https://discordapp.com/invite/2rND6FT"
           Imagesrc={gamebuildlogo}
           linktext1="Website"
           linktext2="Discord"
@@ -97,7 +99,7 @@ const Sigscard = (props: any) => {
           description="Learn computer graphics in guided projects on 3D renderings,
           animations, physics simulations, and more."
           link1="https://siggraph.acm.illinois.edu/#/"
-          link2="https://discord.com/invite/QtKSUBgJe3"
+          link2="https://discord.com/invite/a5U333fNMX"
           Imagesrc={siggraphlogo}
           linktext1="Website"
           linktext2="Discord"
@@ -117,7 +119,7 @@ const Sigscard = (props: any) => {
           description="Learn about human-computer interaction in research,
           projects, and workshops while meeting new people."
           link1="https://sigchi.acm.illinois.edu/"
-          link2="https://discord.com/invite/7JGRSJv"
+          link2="https://discord.gg/XRShsPCAQ3"
           Imagesrc={sigchilogo}
           linktext1="Website"
           linktext2="Discord"
@@ -127,7 +129,7 @@ const Sigscard = (props: any) => {
           description="Immerse yourself in Linux-based operating systems and the 
           wider open source world."
           link1="http://lug.acm.illinois.edu/"
-          link2="https://discord.com/invite/Rgf82yh7jU"
+          link2="https://discord.gg/sWD3zxPyc2"
           Imagesrc={gluglogo}
           linktext1="Website"
           linktext2="Discord"
@@ -137,7 +139,7 @@ const Sigscard = (props: any) => {
           description="A project-based SIG with presentations 
           focused on audio synthesis, algorithmic composition, audio plugins, and more."
           link1="http://sigmusic.acm.illinois.edu/"
-          link2="https://discord.com/invite/zMtv6Qz"
+          link2="https://discord.gg/ug9NdWzD"
           Imagesrc={sigmusiclogo}
           linktext1="Website"
           linktext2="Discord"
@@ -147,7 +149,7 @@ const Sigscard = (props: any) => {
           description="Our SIG provides inclusive environment for 
           students to discover and disrupt the Quantum Computing community."
           link1="/#sighighlight"
-          link2="https://discord.com/invite/PmaXeHPaFs"
+          link2="https://discord.gg/PmaXeHPaFs"
           Imagesrc={quiuclogo}
           linktext1="—"
           linktext2="Discord"
@@ -157,7 +159,7 @@ const Sigscard = (props: any) => {
           description="The place to learn about math and algorithms in CS. 
           Open to all regardless of mathematical background."
           link1="/#sighighlight"
-          link2="https://discord.com/invite/kepXvpZXrs"
+          link2="https://discord.gg/Sxf3h3pBbv"
           Imagesrc={sigmalogo}
           linktext1="—"
           linktext2="Discord"
@@ -167,15 +169,31 @@ const Sigscard = (props: any) => {
           description="Natural language processing theory: projects, workshops, 
           and learning techniques at this SIG."
           link1="/#sighighlight"
-          link2="/#sighighlight"
+          link2="https://discord.gg/wwYeewYkCG"
           Imagesrc={signll_logo}
           linktext1="—"
-          linktext2="—"
+          linktext2="Discord"
+        />
+        <Card
+          title="SIGEcom"
+          description="Learn about the intersection of economics and computation. Open to all regardless of background."
+          link1="/#sighighlight"
+          link2="https://discord.gg/usSzJqVKbd"
+          Imagesrc={sigecomlogo}
+          linktext1="—"
+          linktext2="Discord"
+        />
+        <Card
+          title="SIGPlan"
+          description="Learn about the theory behind programming languages and type systems, and then make awesome projects!"
+          link1="/#sighighlight"
+          link2="https://discord.gg/t4TmDRDf9c"
+          Imagesrc={sigplanlogo}
+          linktext1="—"
+          linktext2="Discord"
         />
       </Grid>
-      <LinkContainer>
-        {/*<AllSigs>See All SIGs »</AllSigs>*/}
-      </LinkContainer>
+      <LinkContainer>{/*<AllSigs>See All SIGs »</AllSigs>*/}</LinkContainer>
     </Content>
   );
 };

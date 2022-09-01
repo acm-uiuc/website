@@ -26,9 +26,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: 'npm'
-      - run: npm ci
-      - run: npm run build --if-present
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile
+      - run: yarn run build --if-present
       - name: Cloud Storage Uploader
         # You may pin to the exact commit or the version.
         # uses: google-github-actions/upload-cloud-storage@a42a4672297bff0f4a685fe7126e971ca1797559

@@ -15,7 +15,7 @@ import quiuclogo from '../../stories/assets/quiuclogo.png';
 import Content from '../../components/Content/Content';
 import Button from '../../components/Button/Button';
 
-const Grid = styled.div`
+export const Grid = styled.div`
   display: grid;
   margin-left: -20px;
   margin-top: -20px;

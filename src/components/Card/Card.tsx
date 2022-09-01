@@ -6,10 +6,10 @@ import {
     Title,
     Description,
     LowerLayout,
-    Link,
+    LinkLeft,
     Href,
-    LinkPlaceholder,
-} from './Card.styles'
+    LinkRight,
+} from './Card.styles';
 
 interface CardProps {
     title: string
@@ -42,19 +42,19 @@ export const Card = ({
                 </Description>
             </MiddleText>
             <LowerLayout>
-                <Link>
-                    <Href href={link1}> {/*target='_blank' rel='noreferrer'*/}
+                <LinkLeft>
+                    <Href href={link1}>
                         {linktext1}
                     </Href>
-                </Link>
-                <LinkPlaceholder>
+                </LinkLeft>
+                <LinkRight>
                     <Href href={link2}>
                         {linktext2}
                     </Href>
-                </LinkPlaceholder>
+                </LinkRight>
             </LowerLayout>
         </Layout>
     </Container>
-)
+);
 
-export default Card
+export default Card;

@@ -11,9 +11,7 @@ export const Container = styled.article`
   overflow: hidden;
   height: 260px;
   transition: all 0.4s ease;
-
   filter: grayscale(35%);
-  
   &:hover {
     border: 2px solid white;
     filter: grayscale(0%) drop-shadow(0 4px 12px rgb(104 112 118 / 0.08)) drop-shadow(0 20px 8px rgb(104 112 118 / 0.04));
@@ -58,9 +56,6 @@ export const Description = styled(Text)`
   line-height: 24px;
   margin: 0px;
   overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
 `;
 
 export const LowerLayout = styled.div`
@@ -68,7 +63,7 @@ export const LowerLayout = styled.div`
   width: 100%;
 `;
 
-export const Link = styled.span`
+export const LinkLeft = styled.span`
   border-radius: 12px;
   line-height: 20px;
   font-size: 14px;
@@ -91,7 +86,7 @@ export const Href = styled((props) => <Text as="a" {...props} />)`
   }
 `;
 
-export const LinkPlaceholder = styled.div`
+export const LinkRight = styled.div`
   display: flex;
   flex-direction: row;
   float: right;

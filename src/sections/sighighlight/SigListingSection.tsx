@@ -1,8 +1,8 @@
-import SigListing from "../../stories/SigListing"
-import sigpwnylogo from '../../stories/assets/sigpwnylogo.svg'
-import gamebuildlogo from "../../stories/assets/gamebuildlogo.png"
-import siggraphlogo from "../../stories/assets/siggraphlogo.png"
-import icpclogo from "../../stories/assets/icpclogo.png"
+import SigListing from "../../stories/SigListing";
+import sigpwnylogo from "../../stories/assets/sigpwnylogo.svg";
+import gamebuildlogo from "../../stories/assets/gamebuildlogo.png";
+import siggraphlogo from "../../stories/assets/siggraphlogo.png";
+import icpclogo from "../../stories/assets/icpclogo.png";
 
 const SigListingSection = () => {
     return (
@@ -15,7 +15,7 @@ const SigListingSection = () => {
             <SigListing 
             title='SIG Pwny'
             color="#3c5"
-            barcolor="#84e899" // max 280 characters
+            barcolor="#84e899" // maximum 29 characters per line for 3 lines
             paragraph1="We're a student-run interest group and
             CTF team at the University of Illinois at Urbana-Champaign
             focused on information security. All are welcome! We have
@@ -27,7 +27,7 @@ const SigListingSection = () => {
             friendly environments. In addition, we run weekly seminars
             weekly for more in-depth exploration in topics like embedded
             device security, penetration testing, and fuzzing research.
-            We're proudest of our library of recorded meetings." // max 350 characters
+            We're proudest of our library of recorded meetings."
             Image={sigpwnylogo}
             link="https://sigpwny.com/"
             link2="https://discord.gg/GEMh8umbe7"
@@ -113,7 +113,7 @@ const SigListingSection = () => {
             time=""
             />
         </div>
-    )   
+    );
 }
 
-export default SigListingSection
+export default SigListingSection;

@@ -13,6 +13,7 @@ import instagram from '../stories/assets/instagram.png';
 import reflections from '../stories/assets/reflections.jpg';
 import hackillinoislogo from '../stories/assets/hackillinoislogo.png';
 import infrastructure from '../stories/assets/infrastructure.jpeg';
+import LeadSection from '../sections/about/LeadershipSection';
 
 const Main = styled.main`
   width: 1100px;
@@ -81,10 +82,7 @@ const About = () => {
         </Text>
         <Text>ACM@UIUC is a registered 501(c)(3) nonprofit organization.</Text>
         <Header level={1}>Leadership</Header>
-        <Text>Chair: Matt Geimer</Text>
-        <Text>Vice Chair: Nitya Sunkad</Text>
-        <Text>Treasurer: Evan Matthews</Text>
-        <Text>Secretary: Emily Crawford</Text>
+        <LeadSection />
         <Header level={1} id="committees">
           Committees
         </Header>

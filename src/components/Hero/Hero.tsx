@@ -281,7 +281,7 @@ function Hero() {
           <Event
             title="Smores Roast"
             description="Come hang out with us in Illini Grove! (behind PAR) Free food, friends, and fire."
-            date="Sunday, Sept 4th, 6-8PM"
+            date="Saturday, Sept 3th, 6-8PM"
             location="Illini Grove"
             locationLink="https://goo.gl/maps/S97F7cdA1HY7Nfff9"
           />

@@ -100,12 +100,14 @@ const About = () => {
         </a>
         <Committee
           image={reflections}
-          people=""
-          title="We provide a forum to share and learn about current advancements 
-                in computer science and its applications, with tech talks from 
-                across the industry and academia, workshops and puzzle-solving events 
+          title="We provide a forum to share and learn about progress 
+                in computer science, with industry and academia 
+                tech talks, workshops and events 
                 for attendees, Mechmania, and Diversity × Tech."
-          contactinfo=""
+          position='Chair:'
+          people="[person]"
+          email="mailto:yipengy2@illinois.edu"
+          contactinfo="yipengy2@illinois.edu"
         />
         <a href="https://hackillinois.org/" style={{ textDecoration: 'none' }}>
           <CommitteeHeader
@@ -118,35 +120,53 @@ const About = () => {
         </a>
         <Committee
           image={hackillinoislogo}
-          people=""
-          title="HackIllinois is the premier collegiate open source hackathon. 
-                  With over 1000 attendees and 50 open source mentors in 2019, the hackathon 
-                  has grown to become one of the largest and most well-regarded in the 
+          title="HackIllinois is the premier collegiate hackathon. 
+                  With over 1000 attendees and 50 mentors in 2019, the hackathon 
+                  has become one of the largest and most well-regarded in the 
                   nation."
-          contactinfo=""
+          position='Chair:'
+          people="[person]"
+          email="mailto:yipengy2@illinois.edu"
+          contactinfo="yipengy2@illinois.edu"
         />
         <CommitteeHeader level={3}>Corporate</CommitteeHeader>
         <Committee
           image={capitalone}
           title="The corporate team handles communication with ACM@UIUC's sponsors, 
                 including Numerade, IMC, and more."
+          position='Chair:'
+          email="mailto:yipengy2@illinois.edu"
+          contactinfo="yipengy2@illinois.edu"
+          people="Yipeng Yang"
         />
         <CommitteeHeader level={3}>Social</CommitteeHeader>
         <Committee
           image={social}
           title="The social team organizes fun events for ACM@UIUC such as 
                 picnics, activity weeks, game nights, and Happy Hour."
+          position='Chair:'
+          people="[person]"
+          email="mailto:yipengy2@illinois.edu"
+          contactinfo="yipengy2@illinois.edu"
         />
         <CommitteeHeader level={3}>Marketing</CommitteeHeader>
         <Committee
           image={instagram}
           title="The marketing team organizes social media and branding for ACM@UIUC."
+          position='Chair:'
+          people="[person]"
+          email="mailto:yipengy2@illinois.edu"
+          contactinfo="yipengy2@illinois.edu"
         />
         <CommitteeHeader level={3}>Infrastructure</CommitteeHeader>
         <Committee
           image={infrastructure}
           title="The infra team maintains ACM@UIUC's infrastructure and engineering efforts
                 like this website."
+          position='Chair:'
+          people="[person]"
+          email="mailto:yipengy2@illinois.edu"
+          contactinfo="yipengy2@illinois.edu"
         />
       </Content>
       <Footersection />

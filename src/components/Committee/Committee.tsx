@@ -29,6 +29,7 @@ const Image = styled.img`
   display: block;
   margin-left: auto;
   margin-right: auto;
+  border-radius: 25px;
 `;
 
 const Contentdiv = styled(Container)`

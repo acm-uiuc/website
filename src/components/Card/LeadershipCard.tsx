@@ -62,6 +62,7 @@ const Imagecontent = styled.img`
   height: 250px;
   width: 250px;
   object-fit: cover;
+  border-radius: 125px;
 `;
 
 const IconLayout = styled(LowerLayout)`

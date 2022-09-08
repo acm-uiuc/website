@@ -15,14 +15,12 @@ Default.args = {
     image: infra_pic,
     people: "[People in charge of committee]",
     title: "Infrastructure Committee: Together we make ACM function \
-    by building cool projects such as this website",
-    contactinfo: "[insert email]"
+    by building cool projects such as this website"
 }
 export const Copy = Template.bind({})
 Copy.args = {
     image: social,
     people: "[People in charge of committee]",
     title: "Social Committee: The social team organizes fun events for \
-    ACM such as ...!",
-    contactinfo: "[insert email]"
+    ACM such as ...!"
 }

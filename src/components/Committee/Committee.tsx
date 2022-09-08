@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Text from '../Text/Text';
+import { string } from 'prop-types';
 
 const Container = styled.div`
   width: 900px;
@@ -74,16 +75,14 @@ const Contact = styled(Text)`
 
 interface CommitteeProps {
   people?: string;
-  contactinfo?: string;
   title: string;
   image: string;
-  email?: string;
+  email?: string | string[];
   position?: string;
 }
 
 export const Committee = ({
   people,
-  contactinfo,
   title,
   image,
   email,
@@ -98,7 +97,8 @@ export const Committee = ({
         <People>{position} {people}</People>
         <Description>{title}</Description>
         <Contact>
-          Contact: <a style={{ textDecoration: 'none', color: '#4577F8' }} href={email}>{contactinfo}</a>.
+          Contact: { typeof email === 'string' && <a style={{ textDecoration: 'none', color: '#4577F8' }} href={'mailto:' + email}>{email}</a> }
+          { typeof email !== 'string' && email?.map((email) => <a style={{ textDecoration: 'none', color: '#4577F8' }} href={'mailto:' + email}>{email}</a>).reduce((prev, curr) => <div>{prev}, {curr}</div>) }
         </Contact>
       </div>
     </Contentdiv>

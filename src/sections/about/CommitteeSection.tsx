@@ -57,14 +57,12 @@ const CommitteeSection = () => {
                 people="[People in charge of committee]"
                 title="Infrastructure Committee: Together we make ACM function
                       by building cool projects such as this website"
-                contactinfo="[insert email]"
             />
             <Committee 
                 image= {infra_pic}
                 people="[People in charge of committee]"
                 title="Infrastructure Committee: Together we make ACM function
                       by building cool projects such as this website"
-                contactinfo="[insert email]"
             />
             </ContentDiv>
         </Section>

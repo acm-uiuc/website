@@ -4,7 +4,6 @@ import Text from '../components/Text/Text';
 import Navbar from '../components/Navbar/Navbar';
 import Content from '../components/Content/Content';
 import Transition from '../components/Transition/Transition';
-import CommitteeSection from '../sections/about/CommitteeSection';
 import Committee from '../components/Committee/Committee';
 import social from '../stories/assets/social.jpg';
 import capitalone from '../stories/assets/capitalone.png';
@@ -106,8 +105,7 @@ const About = () => {
                 for attendees, Mechmania, and Diversity × Tech."
           position='Chair:'
           people="[person]"
-          email="mailto:yipengy2@illinois.edu"
-          contactinfo="yipengy2@illinois.edu"
+          email="yipengy2@illinois.edu"
         />
         <a href="https://hackillinois.org/" style={{ textDecoration: 'none' }}>
           <CommitteeHeader
@@ -127,7 +125,6 @@ const About = () => {
           position='Chair:'
           people="[person]"
           email="mailto:yipengy2@illinois.edu"
-          contactinfo="yipengy2@illinois.edu"
         />
         <CommitteeHeader level={3}>Corporate</CommitteeHeader>
         <Committee
@@ -135,8 +132,7 @@ const About = () => {
           title="The corporate team handles communication with ACM@UIUC's sponsors, 
                 including Numerade, IMC, and more."
           position='Chair:'
-          email="mailto:yipengy2@illinois.edu"
-          contactinfo="yipengy2@illinois.edu"
+          email="yipengy2@illinois.edu"
           people="Yipeng Yang"
         />
         <CommitteeHeader level={3}>Social</CommitteeHeader>
@@ -146,8 +142,7 @@ const About = () => {
                 picnics, activity weeks, game nights, and Happy Hour."
           position='Chair:'
           people="[person]"
-          email="mailto:yipengy2@illinois.edu"
-          contactinfo="yipengy2@illinois.edu"
+          email="yipengy2@illinois.edu"
         />
         <CommitteeHeader level={3}>Marketing</CommitteeHeader>
         <Committee
@@ -155,18 +150,16 @@ const About = () => {
           title="The marketing team organizes social media and branding for ACM@UIUC."
           position='Chair:'
           people="[person]"
-          email="mailto:yipengy2@illinois.edu"
-          contactinfo="yipengy2@illinois.edu"
+          email="yipengy2@illinois.edu"
         />
         <CommitteeHeader level={3}>Infrastructure</CommitteeHeader>
         <Committee
           image={infrastructure}
           title="The infra team maintains ACM@UIUC's infrastructure and engineering efforts
                 like this website."
-          position='Chair:'
-          people="[person]"
-          email="mailto:yipengy2@illinois.edu"
-          contactinfo="yipengy2@illinois.edu"
+          position='Co-Chairs:'
+          people="Steven Gao, Ryan Ziegler"
+          email={['stevenhgao8@gmail.com', 'ryanjz2@illinois.edu']}
         />
       </Content>
       <Footersection />

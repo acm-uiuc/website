@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Text from '../Text/Text';
+import { string } from 'prop-types';
 
 const Container = styled.div`
   width: 900px;
@@ -13,6 +14,7 @@ const Container = styled.div`
   }
   @media screen and (max-width: 500px) {
     margin: auto;
+    display: grid;
   }
   padding-bottom: 60px;
 `;
@@ -38,7 +40,7 @@ const Contentdiv = styled(Container)`
   flex-direction: column;
   justify-content: space-between;
   width: 50%;
-  padding: 50px;
+  padding: 20px;
   border-top: none;
   text-align: left;
   @media screen and (max-width: 963px) {
@@ -48,10 +50,9 @@ const Contentdiv = styled(Container)`
   }
 `;
 
-const People = styled.p`
-  text-transform: uppercase;
+const People = styled(Text)`
   @media screen and (max-width: 963px) {
-    display: none;
+    
   }
 `;
 
@@ -64,27 +65,28 @@ const Description = styled(Text)`
   }
 `;
 
-const Contact = styled.div`
-  height: 150px;
+const Contact = styled(Text)`
   overflow: hidden;
   padding-top: 20px;
   @media screen and (max-width: 963px) {
-    display: none;
+    
   }
 `;
 
 interface CommitteeProps {
   people?: string;
-  contactinfo?: string;
   title: string;
   image: string;
+  email?: string | string[];
+  position?: string;
 }
 
 export const Committee = ({
   people,
-  contactinfo,
   title,
   image,
+  email,
+  position,
 }: CommitteeProps) => (
   <Container>
     <Imagediv>
@@ -92,15 +94,11 @@ export const Committee = ({
     </Imagediv>
     <Contentdiv>
       <div>
-        <People>{people}</People>
+        <People>{position} {people}</People>
         <Description>{title}</Description>
         <Contact>
-          <div>
-            <p>
-              {/*Contact the committee: {contactinfo}.*/}
-              {contactinfo}
-            </p>
-          </div>
+          Contact: { typeof email === 'string' && <a style={{ textDecoration: 'none', color: '#4577F8' }} href={'mailto:' + email}>{email}</a> }
+          { typeof email !== 'string' && email?.map((email) => <a style={{ textDecoration: 'none', color: '#4577F8' }} href={'mailto:' + email}>{email}</a>).reduce((prev, curr) => <div>{prev}, {curr}</div>) }
         </Contact>
       </div>
     </Contentdiv>

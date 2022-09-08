@@ -4,7 +4,6 @@ import Text from '../components/Text/Text';
 import Navbar from '../components/Navbar/Navbar';
 import Content from '../components/Content/Content';
 import Transition from '../components/Transition/Transition';
-import CommitteeSection from '../sections/about/CommitteeSection';
 import Committee from '../components/Committee/Committee';
 import social from '../stories/assets/social.jpg';
 import capitalone from '../stories/assets/capitalone.png';
@@ -100,12 +99,13 @@ const About = () => {
         </a>
         <Committee
           image={reflections}
-          people=""
-          title="We provide a forum to share and learn about current advancements 
-                in computer science and its applications, with tech talks from 
-                across the industry and academia, workshops and puzzle-solving events 
+          title="We provide a forum to share and learn about progress 
+                in computer science, with industry and academia 
+                tech talks, workshops and events 
                 for attendees, Mechmania, and Diversity × Tech."
-          contactinfo=""
+          position='Chairs:'
+          people="Garima Sharma, Sumedh Vaidyanathan"
+          email={['garimas2@illinois.edu', 'sumedhv2@illinois.edu']}
         />
         <a href="https://hackillinois.org/" style={{ textDecoration: 'none' }}>
           <CommitteeHeader
@@ -118,35 +118,48 @@ const About = () => {
         </a>
         <Committee
           image={hackillinoislogo}
-          people=""
-          title="HackIllinois is the premier collegiate open source hackathon. 
-                  With over 1000 attendees and 50 open source mentors in 2019, the hackathon 
-                  has grown to become one of the largest and most well-regarded in the 
+          title="HackIllinois is the premier collegiate hackathon. 
+                  With over 1000 attendees and 50 mentors in 2019, the hackathon 
+                  has become one of the largest and most well-regarded in the 
                   nation."
-          contactinfo=""
+          position='Chairs:'
+          people="Jonathan Gao, Deeya Bodas"
+          email={['jg48@illinois.edu', 'deeyaab2@illinois.edu']}
         />
         <CommitteeHeader level={3}>Corporate</CommitteeHeader>
         <Committee
           image={capitalone}
           title="The corporate team handles communication with ACM@UIUC's sponsors, 
                 including Numerade, IMC, and more."
+          position='Chair:'
+          email="yipengy2@illinois.edu"
+          people="Yipeng Yang"
         />
         <CommitteeHeader level={3}>Social</CommitteeHeader>
         <Committee
           image={social}
           title="The social team organizes fun events for ACM@UIUC such as 
                 picnics, activity weeks, game nights, and Happy Hour."
+          position='Chairs:'
+          people="Nora Batko, Akul Joshi"
+          email={['noranb2@illinois.edu', 'akulj2@illinois.edu']}
         />
         <CommitteeHeader level={3}>Marketing</CommitteeHeader>
         <Committee
           image={instagram}
           title="The marketing team organizes social media and branding for ACM@UIUC."
+          position='Chairs:'
+          people="Emma Hartman, Minh Duong, Riya Kulkarni"
+          email={['emmaih2@illinois.edu', 'minhd2@illinois.edu', 'riyark3@illinois.edu']}
         />
         <CommitteeHeader level={3}>Infrastructure</CommitteeHeader>
         <Committee
           image={infrastructure}
           title="The infra team maintains ACM@UIUC's infrastructure and engineering efforts
                 like this website."
+          position='Chairs:'
+          people="Steven Gao, Ryan Ziegler"
+          email={['hongyig3@illinois.edu', 'ryanjz2@illinois.edu']}
         />
       </Content>
       <Footersection />

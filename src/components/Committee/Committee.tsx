@@ -13,6 +13,7 @@ const Container = styled.div`
   }
   @media screen and (max-width: 500px) {
     margin: auto;
+    display: grid;
   }
   padding-bottom: 60px;
 `;
@@ -38,7 +39,7 @@ const Contentdiv = styled(Container)`
   flex-direction: column;
   justify-content: space-between;
   width: 50%;
-  padding: 50px;
+  padding: 20px;
   border-top: none;
   text-align: left;
   @media screen and (max-width: 963px) {
@@ -48,10 +49,9 @@ const Contentdiv = styled(Container)`
   }
 `;
 
-const People = styled.p`
-  text-transform: uppercase;
+const People = styled(Text)`
   @media screen and (max-width: 963px) {
-    display: none;
+    
   }
 `;
 
@@ -64,12 +64,11 @@ const Description = styled(Text)`
   }
 `;
 
-const Contact = styled.div`
-  height: 150px;
+const Contact = styled(Text)`
   overflow: hidden;
   padding-top: 20px;
   @media screen and (max-width: 963px) {
-    display: none;
+    
   }
 `;
 
@@ -78,6 +77,8 @@ interface CommitteeProps {
   contactinfo?: string;
   title: string;
   image: string;
+  email?: string;
+  position?: string;
 }
 
 export const Committee = ({
@@ -85,6 +86,8 @@ export const Committee = ({
   contactinfo,
   title,
   image,
+  email,
+  position,
 }: CommitteeProps) => (
   <Container>
     <Imagediv>
@@ -92,15 +95,10 @@ export const Committee = ({
     </Imagediv>
     <Contentdiv>
       <div>
-        <People>{people}</People>
+        <People>{position} {people}</People>
         <Description>{title}</Description>
         <Contact>
-          <div>
-            <p>
-              {/*Contact the committee: {contactinfo}.*/}
-              {contactinfo}
-            </p>
-          </div>
+          Contact: <a style={{ textDecoration: 'none', color: '#4577F8' }} href={email}>{contactinfo}</a>.
         </Contact>
       </div>
     </Contentdiv>

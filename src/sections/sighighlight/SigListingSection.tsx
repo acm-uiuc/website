@@ -15,7 +15,7 @@ const SigListingSection = () => {
             <SigListing 
             title='SIG Pwny'
             color="#3c5"
-            barcolor="#84e899" // maximum 29 characters per line for 3 lines
+            barcolor="#84e899"
             paragraph1="We're a student-run interest group and
             CTF team at the University of Illinois at Urbana-Champaign
             focused on information security. All are welcome! We have

@@ -103,9 +103,9 @@ const About = () => {
                 in computer science, with industry and academia 
                 tech talks, workshops and events 
                 for attendees, Mechmania, and Diversity × Tech."
-          position='Chair:'
-          people="[person]"
-          email="yipengy2@illinois.edu"
+          position='Chairs:'
+          people="Garima Sharma, Sumedh Vaidyanathan"
+          email={['garimas2@illinois.edu', 'sumedhv2@illinois.edu']}
         />
         <a href="https://hackillinois.org/" style={{ textDecoration: 'none' }}>
           <CommitteeHeader
@@ -122,9 +122,9 @@ const About = () => {
                   With over 1000 attendees and 50 mentors in 2019, the hackathon 
                   has become one of the largest and most well-regarded in the 
                   nation."
-          position='Chair:'
-          people="[person]"
-          email="mailto:yipengy2@illinois.edu"
+          position='Chairs:'
+          people="Jonathan Gao, Deeya Bodas"
+          email={['jg48@illinois.edu', 'deeyaab2@illinois.edu']}
         />
         <CommitteeHeader level={3}>Corporate</CommitteeHeader>
         <Committee
@@ -140,26 +140,26 @@ const About = () => {
           image={social}
           title="The social team organizes fun events for ACM@UIUC such as 
                 picnics, activity weeks, game nights, and Happy Hour."
-          position='Chair:'
-          people="[person]"
-          email="yipengy2@illinois.edu"
+          position='Chairs:'
+          people="Nora Batko, Akul Joshi"
+          email={['noranb2@illinois.edu', 'akulj2@illinois.edu']}
         />
         <CommitteeHeader level={3}>Marketing</CommitteeHeader>
         <Committee
           image={instagram}
           title="The marketing team organizes social media and branding for ACM@UIUC."
-          position='Chair:'
-          people="[person]"
-          email="yipengy2@illinois.edu"
+          position='Chairs:'
+          people="Emma Hartman, Minh Duong, Riya Kulkarni"
+          email={['emmaih2@illinois.edu', 'minhd2@illinois.edu', 'riyark3@illinois.edu']}
         />
         <CommitteeHeader level={3}>Infrastructure</CommitteeHeader>
         <Committee
           image={infrastructure}
           title="The infra team maintains ACM@UIUC's infrastructure and engineering efforts
                 like this website."
-          position='Co-Chairs:'
+          position='Chairs:'
           people="Steven Gao, Ryan Ziegler"
-          email={['stevenhgao8@gmail.com', 'ryanjz2@illinois.edu']}
+          email={['hongyig3@illinois.edu', 'ryanjz2@illinois.edu']}
         />
       </Content>
       <Footersection />

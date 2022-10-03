@@ -141,8 +141,8 @@ const About = () => {
           title="The social team organizes fun events for ACM@UIUC such as 
                 picnics, activity weeks, game nights, and Happy Hour."
           position='Chairs:'
-          people="Nora Batko, Akul Joshi"
-          email={['noranb2@illinois.edu', 'akulj2@illinois.edu']}
+          people="Sujit Varadhan, Akul Joshi"
+          email={['sujitv2@illinois.edu', 'akulj2@illinois.edu']}
         />
         <CommitteeHeader level={3}>Marketing</CommitteeHeader>
         <Committee

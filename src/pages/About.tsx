@@ -14,7 +14,6 @@ import hackillinoislogo from '../stories/assets/hackillinoislogo.png';
 import infrastructure from '../stories/assets/infrastructure.jpeg';
 import LeadSection from '../sections/about/LeadershipSection';
 import { NavLink } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 const PaddedNav = styled(Navbar)`
   padding-bottom: 20px;

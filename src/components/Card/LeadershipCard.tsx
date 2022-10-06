@@ -6,7 +6,6 @@ import {
     Href,
 } from "./Card.styles";
 import { HiOutlineMail } from "react-icons/hi";
-import { SiDiscord } from "react-icons/si";
 import Header from "../Header/Header";
 import Text from "../Text/Text";
 
@@ -74,7 +73,6 @@ interface LeadershipCardProps {
     name: string
     Imagesrc?: string
     email?: string
-    discord?: string
 }
 
 export const LeadershipCard = ({
@@ -82,7 +80,6 @@ export const LeadershipCard = ({
     name,
     Imagesrc,
     email,
-    discord,
 }: LeadershipCardProps) => (
     <LeaderContainer>
         <LeaderLayout>
@@ -99,11 +96,6 @@ export const LeadershipCard = ({
                 <Href href={email}>
                     <HiOutlineMail />
                 </Href>
-                {/*<Href>
-                    <SiDiscord />
-                </Href>
-                <Discord>{discord}</Discord>
-                */}
             </IconLayout>
         </LeaderLayout>
     </LeaderContainer>

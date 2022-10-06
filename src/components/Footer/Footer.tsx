@@ -48,8 +48,6 @@ const Href = styled((props) => <Text as="a" {...props} />)`
   color: ${(props) => props.theme.fontColors.bodyLight};
 `;
 
-const Copyright = styled.h5``;
-
 export const Footer = () => (
   <>
     <Transition to={'#3E486F'} />

@@ -85,7 +85,7 @@ const Sigscard = (props: any) => {
           linktext2="Discord"
         />
         <Card
-          title="SIGGamebuilders"
+          title="GameBuilders"
           description="Anything and everything related to game development
           and design. All skill levels and abilities are welcome."
           link1="https://gamebuilders.acm.illinois.edu/"
@@ -105,7 +105,7 @@ const Sigscard = (props: any) => {
           linktext2="Discord"
         />
         <Card
-          title="SIGICPC"
+          title="ICPC"
           description="Polish coding and problem solving skills to prepare
           for competitions/interviews at Illinois Programming League."
           link1="http://icpc.cs.illinois.edu/"
@@ -175,7 +175,7 @@ const Sigscard = (props: any) => {
           linktext2="Discord"
         />
         <Card
-          title="SIGEcom"
+          title="SIGecom"
           description="Learn about the intersection of economics and computation. Open to all regardless of background."
           link1="/#sighighlight"
           link2="https://discord.gg/usSzJqVKbd"
@@ -184,7 +184,7 @@ const Sigscard = (props: any) => {
           linktext2="Discord"
         />
         <Card
-          title="SIGPlan"
+          title="SIGPLAN"
           description="Learn about the theory behind programming languages and type systems, and then make projects!"
           link1="/#sighighlight"
           link2="https://discord.gg/t4TmDRDf9c"

@@ -8,7 +8,6 @@ import vicechair from "../../stories/assets/vicechair.jpg";
 import treasurer from "../../stories/assets/treasurer.jpeg";
 import secretary from "../../stories/assets/secretary.jpeg";
 import styled from "styled-components"; 
-import purplelogo from "../../stories/assets/purplelogo.png"; // if someone doesn't have an image use 'purplelogo'
 
 const GridModify = styled(Grid)`
   @media (min-width: 600px) {
@@ -31,7 +30,6 @@ const LeadSection = (props: any) => {
                 name="Matt Geimer"
                 Imagesrc={chair}
                 email="mailto:mgeimer2@illinois.edu"
-                discord="intel#8080"
                 />
                 <LeadershipCard 
                 title="Vice Chair"

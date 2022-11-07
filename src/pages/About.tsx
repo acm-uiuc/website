@@ -13,11 +13,7 @@ import reflections from '../stories/assets/reflections.jpg';
 import hackillinoislogo from '../stories/assets/hackillinoislogo.png';
 import infrastructure from '../stories/assets/infrastructure.jpeg';
 import LeadSection from '../sections/about/LeadershipSection';
-
-const Main = styled.main`
-  width: 1100px;
-  margin: 0 auto;
-`;
+import { NavLink } from 'react-router-dom';
 
 const PaddedNav = styled(Navbar)`
   padding-bottom: 20px;
@@ -41,43 +37,33 @@ const About = () => {
       <Content as="section">
         <AboutHeader level={1}>About us</AboutHeader>
         <Text>
-          ACM@UIUC is a student chapter of the Association for Computing
-          Machinery, a professional society dedicated to advancing human
-          capabilities through information technology. Founded in 1947, the
-          Association for Computing Machinery (ACM) is the largest and oldest
-          international scientific and educational computer society in the
-          industry today. Organized only a year after the unveiling of ENIAC,
-          the first general purpose electronic computer, ACM was established by
-          mathematicians and electrical engineers to advance the science and
-          application of information technology.
+        ACM@UIUC is the <a style={{ textDecoration: 'none', color: '#4577F8' }} href="https://www.acm.org/" target="_blank" rel="noreferrer">Association for Computing Machinery</a> student 
+        chapter, the world's largest scientific computer society. We are a group of 
+        dedicated people interested in exploring the possibilities of computers 
+        and discovering new ways to use them!
         </Text>
         <Text>
-          ACM@UIUC is a group of dedicated people who are interested in
-          exploring the possibilities of computers and learning more about how
-          to use and develop them. ACM is divided into Special Interest Groups,
-          or SIGs, which focus on specific interest areas in computer science
-          and computing. Each SIG holds its own meetings and is responsible for
-          organizing its own activities and determining its own purpose. Several
-          SIGs are project-based, with the majority of their activities
-          dedicated to computing projects in their area of interest, often
-          presented at Engineering Open House. Some SIGs run workshops and tech
-          talks to discuss topics related to their interest group. To find out
-          more about our SIGs, visit the home page and attend a meeting.
+        ACM contains Special Interest Groups, or SIGs, which focus on specific 
+        competencies in computer science. At our chapter, each SIG operates under 
+        ACM@UIUC with free range over its meetings, activities, and purpose. Some 
+        SIGs are project-based and devote time to building something innovative or 
+        spectacular to showcase. Others are dedicated to teaching, using talks and 
+        workshops to help their members understand a particular topic. You can learn 
+        more about each SIG on our <NavLink style={{ textDecoration: 'none', color: '#4577F8' }} to="/" className="navLink">home page</NavLink>!
         </Text>
         <Text>
-          ACM also hosts several general events, including social activities
-          such as picnics, swim nights, activity weeks, game nights, outreach
-          activities such as ACM Open House, Student Lecture Series, and
-          educational activities for high school and middle school students, and
-          the annual Reflections | Projections conference. All ACM activities
-          and SIG meetings are open to the entire University community,
-          regardless of computer experience and background.
+        ACM@UIUC also runs various events throughout the year, such as ACM Open House, 
+        which showcases all the different SIGs at the beginning of each semester, <a style={{ textDecoration: 'none', color: '#4577F8' }} href="https://www.reflectionsprojections.org/" target="_blank" rel="noreferrer">Reflections | Projections</a>, 
+        our annual computing conference, and <a style={{ textDecoration: 'none', color: '#4577F8' }} href="https://hackillinois.org/" target="_blank" rel="noreferrer">HackIllinois</a>, 
+        which is one of the largest hackathons in the nation. We also host a variety of 
+        outreach and social events, such as picnics, activity weeks, ACM Happy Hour, 
+        and our annual bar crawl. Our SIGs also run their own events! These events are 
+        open to all of UIUC, regardless of technical experience or background!
         </Text>
         <Text>
-          Executive meetings occur every other week, at which the direction of
-          ACM is defined. Everyone is welcome to attend and make suggestions for
-          new ACM groups or events. Decisions about such events and other
-          important ACM matters are also made at these meetings.
+        Our executive meetings occur every other week and are open to the public. 
+        The ACM officer board, as well as SIG and committee leads, drive discussion 
+        about important ACM matters and make decisions based on the consensus of meeting attendees.
         </Text>
         <Text>ACM@UIUC is a registered 501(c)(3) nonprofit organization.</Text>
         <Header level={1}>Leadership</Header>

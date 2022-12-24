@@ -118,8 +118,8 @@ const About = () => {
           title="The corporate team handles communication with ACM@UIUC's sponsors, 
                 including Numerade, IMC, and more."
           position='Chair:'
-          email="yipengy2@illinois.edu"
-          people="Yipeng Yang"
+          email="rwuh2@illinois.edu"
+          people="Rayna Wuh"
         />
         <CommitteeHeader level={3}>Social</CommitteeHeader>
         <Committee
@@ -134,9 +134,9 @@ const About = () => {
         <Committee
           image={instagram}
           title="The marketing team organizes social media and branding for ACM@UIUC."
-          position='Chairs:'
-          people="Emma Hartman, Minh Duong, Riya Kulkarni"
-          email={['emmaih2@illinois.edu', 'minhd2@illinois.edu', 'riyark3@illinois.edu']}
+          position='Chair:'
+          people="Emma Hartman"
+          email={['emmaih2@illinois.edu']}
         />
         <CommitteeHeader level={3}>Infrastructure</CommitteeHeader>
         <Committee

@@ -20,6 +20,7 @@ const NavHeader = styled.header`
     display: inline-block;
     color: var(--white);
     font-size: 60px;
+    padding-top: 0.2em;
   }
 
   /* Nav menu */

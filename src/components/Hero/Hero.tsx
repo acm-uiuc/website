@@ -285,7 +285,6 @@ function Hero() {
             location="Legends"
             locationLink="https://goo.gl/maps/CXESXd3otbGZNqFP7"
           />
-          
         </EventsContainer>
       </Content>
     </HeroBackground>

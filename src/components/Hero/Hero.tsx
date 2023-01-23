@@ -267,24 +267,25 @@ function Hero() {
           <Event
             title="ACM Open House"
             description="Come learn about everything you can do at ACM, including our Special Interest Groups! Afterwards, grab some free pizza and talk with SIGs and other ACM members."
-            date="Thursday, Sept 1, 6:30-9PM"
-            location="Siebel Center for CS"
-            locationLink="https://goo.gl/maps/Kpeno5y8F5QWXwpc8"
+            date="Thursday, January 26, 6-9PM, doors open at 6:30"
+            location="CIF 0027"
+            locationLink="https://goo.gl/maps/YmKwXawCmX6Pv16F6"
           />
           <Event
             title="Weekly Happy Hour"
             description="Join ACM and chat with some of your fellow members! Enjoy free food on us as you get a chance to know your peers better!"
-            date="Friday, Sept 2, 5PM"
+            date="Friday, January 27, 5PM"
             location="Legends"
             locationLink="https://goo.gl/maps/CXESXd3otbGZNqFP7"
           />
           <Event
-            title="Smores Roast"
-            description="Come hang out with us in Illini Grove! (behind PAR) Free food, friends, and fire."
-            date="Saturday, Sept 3th, 6-8PM"
-            location="Illini Grove"
-            locationLink="https://goo.gl/maps/S97F7cdA1HY7Nfff9"
+            title="Weekly Happy Hour"
+            description="Join ACM and chat with some of your fellow members! Enjoy free food on us as you get a chance to know your peers better!"
+            date="Friday, Feburary 03, 5PM"
+            location="Legends"
+            locationLink="https://goo.gl/maps/CXESXd3otbGZNqFP7"
           />
+          
         </EventsContainer>
       </Content>
     </HeroBackground>

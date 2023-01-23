@@ -144,8 +144,8 @@ const About = () => {
           title="The infra team maintains ACM@UIUC's infrastructure and engineering efforts
                 like this website."
           position='Chairs:'
-          people="Steven Gao, Ryan Ziegler"
-          email={['hongyig3@illinois.edu', 'ryanjz2@illinois.edu']}
+          people="Aydan Pirani, Hassam Uddin"
+          email={['apirani2@illinois.edu', 'hassamu2@illinois.edu']}
         />
       </Content>
       <Footersection />

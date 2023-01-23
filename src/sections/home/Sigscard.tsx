@@ -158,10 +158,10 @@ const Sigscard = (props: any) => {
           title="SIGma"
           description="The place to learn about math and algorithms in CS. 
           Open to all regardless of mathematical background."
-          link1="/#sighighlight"
+          link1="https://cstheory.org"
           link2="https://discord.gg/Sxf3h3pBbv"
           Imagesrc={sigmalogo}
-          linktext1="—"
+          linktext1="Website"
           linktext2="Discord"
         />
         <Card

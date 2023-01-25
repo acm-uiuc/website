@@ -267,7 +267,7 @@ function Hero() {
           <Event
             title="ACM Open House"
             description="Come learn about everything you can do at ACM, including our Special Interest Groups! Afterwards, grab some free pizza and talk with SIGs and other ACM members."
-            date="Thursday, January 26, 6-9PM, doors open at 6:30"
+            date="Thursday, January 26, 6-9PM, doors open at 5:30"
             location="CIF 0027"
             locationLink="https://goo.gl/maps/YmKwXawCmX6Pv16F6"
           />

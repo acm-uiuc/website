@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Layout from './Layout';
 import { Button, Card, Container, Input, Modal, Spacer, Text } from '@nextui-org/react';
-import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
 import successAnimation from './success.json';
 import Lottie from 'lottie-react';
 import axios from 'axios';
@@ -37,7 +36,34 @@ const Payment = () => {
   };
 
   const purchaseHandler = () => {
-    setModalVisible(true);
+    const url = `https://u6fhkp7s5vjfi6fktlmgerloha0ztoqu.lambda-url.us-east-1.on.aws?netid=${netId}`;
+    axios.get(url).then(response => {
+      window.location.replace(response.data);
+    }).catch((error) => {
+      if (error.response) {
+        if (error.response.status === 422) {
+          const errorObj = error.response.data;
+          setErrorMessage({
+            code: errorObj.details[0].issue,
+            message: errorObj.details[0].description
+          });
+          setErrorMessageVisible(true);
+        } else if (error.response.status === 400) {
+          const errorObj = error.response.data.errors;
+          setErrorMessage({
+            code: 400,
+            message: errorObj[0].msg + ' for ' + errorObj[0].param
+          });
+          setErrorMessageVisible(true);
+        } else {
+          setErrorMessage({
+            code: 500,
+            message: 'Internal server error: ' + error.response.data
+          });
+          setErrorMessageVisible(true);
+        }
+      }
+    });
   };
 
   const validateNetId = (value: string) => {
@@ -119,94 +145,6 @@ const Payment = () => {
             <Button disabled={!validated} onPress={purchaseHandler}>Purchase for $20.00</Button>
           </Card.Body>
         </Card>
-        <Modal aria-labelledby='payment-title' onClose={closeHandler} open={modalVisible} closeButton>
-          <Modal.Header>
-            <Text h4 id='payment-title'>Become a Paid Member</Text>
-          </Modal.Header>
-          <Modal.Body>
-            <PayPalScriptProvider
-              options={{ 'client-id': 'AeFhv1JIJ40uthOz37P201fUDw7rYfl-nHEDm4JOyP-abcaodBjtYm3DycUaNIXsQawOf4h3ibAUk5dO' }}>
-              <PayPalButtons
-                createOrder={(data, actions) => {
-                  return axios.post('https://bifrost-api-qunch75qnq-uc.a.run.app/orders', {
-                    netid: netId
-                  }, {
-                    validateStatus: (status) => status < 400
-                  })
-                    .then((res) => {
-                      console.log(res.data);
-                      return res.data.id;
-                    })
-                    .catch((error) => {
-                      if (error.response) {
-                        if (error.response.status === 422) {
-                          const errorObj = error.response.data;
-                          setModalVisible(false);
-                          setErrorMessage({
-                            code: errorObj.details[0].issue,
-                            message: errorObj.details[0].description
-                          });
-                          setErrorMessageVisible(true);
-                        } else if (error.response.status === 400) {
-                          const errorObj = error.response.data.errors;
-                          setModalVisible(false);
-                          setErrorMessage({
-                            code: 400,
-                            message: errorObj[0].msg + ' for ' + errorObj[0].param
-                          });
-                          setErrorMessageVisible(true);
-                        } else {
-                          setModalVisible(false);
-                          setErrorMessage({
-                            code: 500,
-                            message: 'Internal server error: ' + error.response.data
-                          });
-                          setErrorMessageVisible(true);
-                        }
-                      }
-                    });
-                }}
-                onApprove={(data, actions) => {
-                  return axios.post(`https://bifrost-api-qunch75qnq-uc.a.run.app/orders/${data.orderID}/capture`, {}, {
-                    validateStatus: (status) => status < 400
-                  })
-                    .then((res) => {
-                      setModalVisible(false);
-                      setConfirmationVisible(true);
-                    })
-                    .catch((error) => {
-                      if (error.response) {
-                        if (error.response.status === 422) {
-                          const errorObj = error.response.data;
-                          setModalVisible(false);
-                          setErrorMessage({
-                            code: errorObj.details[0].issue,
-                            message: errorObj.details[0].description
-                          });
-                          setErrorMessageVisible(true);
-                        } else if (error.response.status === 400) {
-                          const errorObj = error.response.data.errors;
-                          setModalVisible(false);
-                          setErrorMessage({
-                            code: 400,
-                            message: errorObj[0].msg + ' for ' + errorObj[0].param
-                          });
-                          setErrorMessageVisible(true);
-                        } else {
-                          setModalVisible(false);
-                          setErrorMessage({
-                            code: 500,
-                            message: 'Internal server error: ' + error.response.data
-                          });
-                          setErrorMessageVisible(true);
-                        }
-                      }
-                    });
-                }}
-              />
-            </PayPalScriptProvider>
-          </Modal.Body>
-        </Modal>
         <Modal aria-labelledby='error-title' open={errorMessageVisible} onClose={errorMessageCloseHandler} closeButton>
           <Modal.Header>
             <Text h4 id='error-title'>Payment Failed</Text>

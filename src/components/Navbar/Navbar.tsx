@@ -51,7 +51,7 @@ const NavHeader = styled.header`
   .hamb {
     cursor: pointer;
     float: right;
-    padding: 50px 20px;
+    padding: 65px 20px;
   }
 
   .hamb-line {

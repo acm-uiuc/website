@@ -28,7 +28,6 @@ const Layout = (props: LayoutProps) => {
 const styles = {
   logo: {
     maxHeight: '50px',
-    backgroundColor: '#3E486F',
     padding: '5px 7px 0px 8px',
     borderRadius: '0.75em'
   }

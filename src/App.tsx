@@ -3,7 +3,7 @@ import light from './theme/light';
 import GlobalStyle from './theme/global';
 import Home from './pages/Home';
 import About from './pages/About';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import Payment from './pages/membership/Payment';
 import Paid from './pages/membership/Paid';
 
@@ -12,7 +12,7 @@ function App() {
     <>
       <GlobalStyle />
       <ThemeProvider theme={light}>
-        <BrowserRouter>
+        <HashRouter>
           <Routes>
             <Route path="/">
               <Route index element={<Home />} />
@@ -27,7 +27,7 @@ function App() {
               <Route index element={<Paid />} />
             </Route>
           </Routes>
-        </BrowserRouter>
+        </HashRouter>
       </ThemeProvider>
     </>
   );

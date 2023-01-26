@@ -21,6 +21,7 @@ const NavHeader = styled.header`
     color: var(--white);
     font-size: 60px;
     padding-top: 0.2em;
+    padding-left: 0.2em;
   }
 
   /* Nav menu */
@@ -35,7 +36,7 @@ const NavHeader = styled.header`
     display: block;
     margin-left: 30px;
     padding-right: 0px;
-    padding-top: 25px;
+    padding-top: 37px;
     padding-bottom: 15px;
   }
 
@@ -50,7 +51,7 @@ const NavHeader = styled.header`
   .hamb {
     cursor: pointer;
     float: right;
-    padding: 50px 20px;
+    padding: 65px 20px;
   }
 
   .hamb-line {
@@ -132,6 +133,10 @@ const NavHeader = styled.header`
 
     .hamb {
       display: none;
+    }
+    
+    .logo {
+      padding-left: 0px;
     }
   }
 

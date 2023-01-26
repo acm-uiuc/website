@@ -16,7 +16,7 @@ const Layout = (props: LayoutProps) => {
           <img alt="acmlogo" src={require('./acmlogo.png')} style={styles.logo} />
         </Navbar.Brand>
         <Navbar.Content enableCursorHighlight hideIn='xs'>
-          <Navbar.Link onClick={() => {navigate("/")}}>Home</Navbar.Link>
+          <Navbar.Link onClick={() => {window.location.replace('/');}}>Home</Navbar.Link>
           <Navbar.Link isActive>Membership</Navbar.Link>
         </Navbar.Content>
       </Navbar>

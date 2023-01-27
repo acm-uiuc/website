@@ -16,6 +16,8 @@ import Content from '../../components/Content/Content';
 import Button from '../../components/Button/Button';
 import sigecomlogo from '../../stories/assets/sigecomlogo.png';
 import sigplanlogo from '../../stories/assets/sigplanlogo.png';
+import sigarchlogo from '../../stories/assets/sigarchlogo.png';
+import sigpolicylogo from '../../stories/assets/sigpolicylogo.png';
 
 export const Grid = styled.div`
   display: grid;
@@ -189,6 +191,24 @@ const Sigscard = (props: any) => {
           link1="/#sighighlight"
           link2="https://discord.gg/t4TmDRDf9c"
           Imagesrc={sigplanlogo}
+          linktext1="—"
+          linktext2="Discord"
+        />
+        <Card
+          title="SIGPolicy"
+          description="Discuss and understand software policy, ethics, law, and current events through a technological lens."
+          link1="/#sighighlight"
+          link2="https://discord.gg/gKjMH54YBF"
+          Imagesrc={sigpolicylogo}
+          linktext1="—"
+          linktext2="Discord"
+        />
+        <Card
+          title="SIGARCH"
+          description="Dedicated to teaching and exploring computer architecture, hardware security, and more."
+          link1="/#sighighlight"
+          link2="https://discord.gg/Mx8R389hWz"
+          Imagesrc={sigarchlogo}
           linktext1="—"
           linktext2="Discord"
         />

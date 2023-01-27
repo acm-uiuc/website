@@ -37,14 +37,20 @@ const About = () => {
       <Content as="section">
         <AboutHeader level={1}>About us</AboutHeader>
         <Text>
-        ACM@UIUC is the <a style={{ textDecoration: 'none', color: '#4577F8' }} href="https://www.acm.org/" target="_blank" rel="noreferrer">Association for Computing Machinery</a> student 
-        chapter, the world's largest scientific computer society. We are a group of 
+        ACM@UIUC is an 
+        <a style={{ textDecoration: 'none', color: '#4577F8' }} 
+        href="https://www.acm.org/" 
+        target="_blank" 
+        rel="noreferrer">
+        Association for Computing Machinery
+        </a> student chapter, 
+        the world's largest scientific computer society. We are a group of 
         dedicated people interested in exploring the possibilities of computers 
         and discovering new ways to use them!
         </Text>
         <Text>
         ACM contains Special Interest Groups, or SIGs, which focus on specific 
-        competencies in computer science. At our chapter, each SIG operates under 
+        applications of computer science. In our chapter, each SIG operates under 
         ACM@UIUC with free range over its meetings, activities, and purpose. Some 
         SIGs are project-based and devote time to building something innovative or 
         spectacular to showcase. Others are dedicated to teaching, using talks and 

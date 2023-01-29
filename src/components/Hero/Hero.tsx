@@ -265,25 +265,25 @@ function Hero() {
         </HeaderImageSplit>
         <EventsContainer>
           <Event
-            title="ACM Open House"
-            description="Come learn about everything you can do at ACM, including our Special Interest Groups! Afterwards, grab some free pizza and talk with SIGs and other ACM members."
-            date="Thursday, January 26, 6-9PM, doors open at 5:30"
-            location="CIF 0027"
-            locationLink="https://goo.gl/maps/YmKwXawCmX6Pv16F6"
-          />
+              title="ACM x WCS Women's Night"
+              description="ACM x WCS Women’s Nights are starting up again! Come hang out and play some games! Dinner will also be provided!"
+              date="Wednesday, February 01, 6PM"
+              location="ACM Room (1104 Siebel)"
+              locationLink="https://goo.gl/maps/cPq1j9sPCPcVi3458"
+            />
           <Event
             title="Weekly Happy Hour"
             description="Join ACM and chat with some of your fellow members! Enjoy free food on us as you get a chance to know your peers better!"
-            date="Friday, January 27, 5PM"
+            date="Friday, February 3, 5PM"
             location="Legends"
             locationLink="https://goo.gl/maps/CXESXd3otbGZNqFP7"
           />
           <Event
-            title="ACM x WCS Women's Night"
-            description="ACM x WCS Women’s Nights are starting up again! Come hang out and play some games! Dinner will also be provided!"
-            date="Wednesday, February 01, 6PM"
-            location="ACM Room (1104 Siebel)"
-            locationLink="https://goo.gl/maps/cPq1j9sPCPcVi3458"
+            title="Weekly Happy Hour"
+            description="Join ACM and chat with some of your fellow members! Enjoy free food on us as you get a chance to know your peers better!"
+            date="Friday, February 10, 5PM"
+            location="Legends"
+            locationLink="https://goo.gl/maps/CXESXd3otbGZNqFP7"
           />
         </EventsContainer>
       </Content>

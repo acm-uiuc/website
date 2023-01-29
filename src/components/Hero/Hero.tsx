@@ -279,11 +279,11 @@ function Hero() {
             locationLink="https://goo.gl/maps/CXESXd3otbGZNqFP7"
           />
           <Event
-            title="Weekly Happy Hour"
-            description="Join ACM and chat with some of your fellow members! Enjoy free food on us as you get a chance to know your peers better!"
-            date="Friday, February 03, 5PM"
-            location="Legends"
-            locationLink="https://goo.gl/maps/CXESXd3otbGZNqFP7"
+            title="ACM x WCS Women's Night"
+            description="ACM x WCS Women’s Nights are starting up again! Come hang out and play some games! Dinner will also be provided!"
+            date="Wednesday, February 01, 6PM"
+            location="ACM Room (1104 Siebel)"
+            locationLink="https://goo.gl/maps/cPq1j9sPCPcVi3458"
           />
         </EventsContainer>
       </Content>

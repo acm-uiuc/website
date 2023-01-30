@@ -1,25 +1,23 @@
 [
     {
         "title": "ACM x WCS Women's Night",
-        "description": "ACM x WCS Women’s Nights are starting up again! Come hang out and play some games! Dinner will also be provided!",
-        "date": "Wednesday, February 01, 6PM",
+        "description": "ACM x WCS Women's Nights are starting up again! Come hang out and play some games! Dinner will also be provided!",
+        "date": "02/01/2022 18:00:00 (CST)",
         "location": "ACM Room (1104 Siebel)",
         "locationLink": "https://goo.gl/maps/cPq1j9sPCPcVi3458"
     },
     {
         "title": "Weekly Happy Hour",
         "description": "Join ACM and chat with some of your fellow members! Enjoy free food on us as you get a chance to know your peers better!",
-        "date": "Friday, February 3, 5PM",
+        "date": "02/03/2022 17:00:00 (CST)",
         "repeats": "Week",
         "location": "Legends",
         "locationLink": "https://goo.gl/maps/CXESXd3otbGZNqFP7"
     },
     {
-        "title": "Weekly Happy Hour",
-        "description": "Join ACM and chat with some of your fellow members! Enjoy free food on us as you get a chance to know your peers better!",
-        "date": "Friday, February 10, 5PM",
-        "repeats": "Week",
-        "location": "Legends",
-        "locationLink": "https://goo.gl/maps/CXESXd3otbGZNqFP7"
+        "title": "ACM Semi-Formal",
+        "description": "Dress up and stuff",
+        "date": "02/18/2022 20:00:00 (CST)",
+        "location": "TBD"
     }
 ]

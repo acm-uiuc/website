@@ -13,6 +13,7 @@ import {
 import { BsArrowRepeat } from "react-icons/bs";
 import { string } from 'prop-types';
 import eventList  from './events.json';
+import Moment from 'moment';
 
 const HeroBackground = styled.section`
   background-color: ${(props) => props.theme.colors.acmDark};
@@ -172,6 +173,11 @@ const EventText = styled(Text)`
   flex-grow: 1;
 `;
 
+function toHumanDate(date: string) {
+  Moment.locale('en');
+  return Moment(date).format("MMMM Do, h:mm A");
+}
+
 type EventProps = {
   location: string;
   locationLink?: string;
@@ -271,13 +277,15 @@ function Hero() {
           </Right>
         </HeaderImageSplit>
         <EventsContainer>
-          {eventList.map((object, i) => {
+          {eventList.sort((a, b) => {
+            return (Moment(a.date).unix() - Moment(b.date).unix());
+          }).map((object, i) => {
             if (i > 2) { return null; }
             return <Event 
             title={object.title}  
             description={object.description}
-            date={object.date}
-            // repeats={object.repeats}
+            date={toHumanDate(object.date)}
+            repeats={object.repeats}
             location={object.location}
             locationLink={object.locationLink}
           />

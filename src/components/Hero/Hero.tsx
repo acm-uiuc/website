@@ -10,6 +10,7 @@ import {
   FaLocationArrow,
   FaRegCalendarAlt,
 } from 'react-icons/fa';
+import { BsArrowRepeat } from "react-icons/bs";
 import { string } from 'prop-types';
 import eventList  from './events.json';
 
@@ -178,6 +179,7 @@ type EventProps = {
   dateLink?: string;
   title: string;
   description: string;
+  repeats?: string;
 };
 function Event({
   location,
@@ -186,6 +188,7 @@ function Event({
   description,
   locationLink,
   dateLink,
+  repeats
 }: EventProps) {
   return (
     <EventCard>
@@ -198,6 +201,9 @@ function Event({
         <EventDetails level={6} link={dateLink}>
           <FaRegCalendarAlt /> {date}
         </EventDetails>
+        {repeats ? <EventDetails level={6} link={dateLink}>
+          <BsArrowRepeat /> Every {repeats}
+        </EventDetails> : null}
       </div>
     </EventCard>
   );
@@ -265,11 +271,13 @@ function Hero() {
           </Right>
         </HeaderImageSplit>
         <EventsContainer>
-          {eventList.map((object) => {
+          {eventList.map((object, i) => {
+            if (i > 2) { return null; }
             return <Event 
-            title={object.title}
+            title={object.title}  
             description={object.description}
             date={object.date}
+            // repeats={object.repeats}
             location={object.location}
             locationLink={object.locationLink}
           />

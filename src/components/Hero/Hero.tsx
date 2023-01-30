@@ -11,6 +11,7 @@ import {
   FaRegCalendarAlt,
 } from 'react-icons/fa';
 import { string } from 'prop-types';
+import eventList  from './events.json';
 
 const HeroBackground = styled.section`
   background-color: ${(props) => props.theme.colors.acmDark};
@@ -264,27 +265,15 @@ function Hero() {
           </Right>
         </HeaderImageSplit>
         <EventsContainer>
-          <Event
-              title="ACM x WCS Women's Night"
-              description="ACM x WCS Women’s Nights are starting up again! Come hang out and play some games! Dinner will also be provided!"
-              date="Wednesday, February 01, 6PM"
-              location="ACM Room (1104 Siebel)"
-              locationLink="https://goo.gl/maps/cPq1j9sPCPcVi3458"
-            />
-          <Event
-            title="Weekly Happy Hour"
-            description="Join ACM and chat with some of your fellow members! Enjoy free food on us as you get a chance to know your peers better!"
-            date="Friday, February 3, 5PM"
-            location="Legends"
-            locationLink="https://goo.gl/maps/CXESXd3otbGZNqFP7"
+          {eventList.map((object) => {
+            return <Event 
+            title={object.title}
+            description={object.description}
+            date={object.date}
+            location={object.location}
+            locationLink={object.locationLink}
           />
-          <Event
-            title="Weekly Happy Hour"
-            description="Join ACM and chat with some of your fellow members! Enjoy free food on us as you get a chance to know your peers better!"
-            date="Friday, February 10, 5PM"
-            location="Legends"
-            locationLink="https://goo.gl/maps/CXESXd3otbGZNqFP7"
-          />
+          })}
         </EventsContainer>
       </Content>
     </HeroBackground>

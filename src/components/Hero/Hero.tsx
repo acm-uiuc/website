@@ -10,7 +10,10 @@ import {
   FaLocationArrow,
   FaRegCalendarAlt,
 } from 'react-icons/fa';
+import { BsArrowRepeat } from "react-icons/bs";
 import { string } from 'prop-types';
+import eventList  from './events.json';
+import Moment from 'moment';
 
 const HeroBackground = styled.section`
   background-color: ${(props) => props.theme.colors.acmDark};
@@ -170,6 +173,11 @@ const EventText = styled(Text)`
   flex-grow: 1;
 `;
 
+function toHumanDate(date: string) {
+  Moment.locale('en');
+  return Moment(date).format("MMMM Do, h:mm A");
+}
+
 type EventProps = {
   location: string;
   locationLink?: string;
@@ -177,6 +185,7 @@ type EventProps = {
   dateLink?: string;
   title: string;
   description: string;
+  repeats?: string;
 };
 function Event({
   location,
@@ -185,6 +194,7 @@ function Event({
   description,
   locationLink,
   dateLink,
+  repeats
 }: EventProps) {
   return (
     <EventCard>
@@ -197,6 +207,9 @@ function Event({
         <EventDetails level={6} link={dateLink}>
           <FaRegCalendarAlt /> {date}
         </EventDetails>
+        {repeats ? <EventDetails level={6} link={dateLink}>
+          <BsArrowRepeat /> Every {repeats}
+        </EventDetails> : null}
       </div>
     </EventCard>
   );
@@ -264,27 +277,19 @@ function Hero() {
           </Right>
         </HeaderImageSplit>
         <EventsContainer>
-          <Event
-            title="ACM Open House"
-            description="Come learn about everything you can do at ACM, including our Special Interest Groups! Afterwards, grab some free pizza and talk with SIGs and other ACM members."
-            date="Thursday, January 26, 6-9PM, doors open at 5:30"
-            location="CIF 0027"
-            locationLink="https://goo.gl/maps/YmKwXawCmX6Pv16F6"
+          {eventList.sort((a, b) => {
+            return (Moment(a.date).unix() - Moment(b.date).unix());
+          }).map((object, i) => {
+            if (i > 2) { return null; }
+            return <Event 
+            title={object.title}  
+            description={object.description}
+            date={toHumanDate(object.date)}
+            repeats={object.repeats}
+            location={object.location}
+            locationLink={object.locationLink}
           />
-          <Event
-            title="Weekly Happy Hour"
-            description="Join ACM and chat with some of your fellow members! Enjoy free food on us as you get a chance to know your peers better!"
-            date="Friday, January 27, 5PM"
-            location="Legends"
-            locationLink="https://goo.gl/maps/CXESXd3otbGZNqFP7"
-          />
-          <Event
-            title="ACM x WCS Women's Night"
-            description="ACM x WCS Women’s Nights are starting up again! Come hang out and play some games! Dinner will also be provided!"
-            date="Wednesday, February 01, 6PM"
-            location="ACM Room (1104 Siebel)"
-            locationLink="https://goo.gl/maps/cPq1j9sPCPcVi3458"
-          />
+          })}
         </EventsContainer>
       </Content>
     </HeroBackground>

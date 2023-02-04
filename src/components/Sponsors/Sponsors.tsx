@@ -55,10 +55,10 @@ function Sponsors() {
           </Description>
           <SponsorsGrid>
             <a href="https://numerade.com">
-              <SponsorImage src={require('./Numerade_Logo.png')} />
+              <SponsorImage loading="lazy" alt="Numerade Logo" src={require('./Numerade_Logo.png')} />
             </a>
             <a href="https://imc.com">
-              <SponsorImage src={'/IMC_logo.svg'} />
+              <SponsorImage loading="lazy" alt="IMC Logo" src={'/IMC_logo.svg'} />
             </a>
           </SponsorsGrid>
         </Content>

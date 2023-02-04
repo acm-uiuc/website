@@ -232,7 +232,7 @@ function Hero() {
       <Content as="section">
         <HeaderImageSplit>
           <Left>
-            <Card as="img" src={require('./header.jpg')} />
+            <Card as="img" src={require('./header.webp')} onError={({ currentTarget }: {currentTarget: any}) => { currentTarget.onerror = null; currentTarget.src=require('./header.jpg');}} />
           </Left>
           <IntroText>
             <HeroHeader level={1}>
@@ -273,7 +273,7 @@ function Hero() {
             </ButtonRow>
           </IntroText>
           <Right>
-            <Card as="img" src={require('./header.jpg')} />
+            <Card as="img" src={require('./header.webp')} onError={({ currentTarget }: {currentTarget: any}) => { currentTarget.onerror = null; currentTarget.src=require('./header.jpg');}} />
           </Right>
         </HeaderImageSplit>
         <EventsContainer>

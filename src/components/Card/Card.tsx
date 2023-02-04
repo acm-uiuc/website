@@ -15,6 +15,7 @@ interface CardProps {
     title: string
     description: string
     Imagesrc: string
+    Imagefallbacksrc?: string
     link1: string
     link2: string
     linktext1: string
@@ -28,10 +29,11 @@ export const Card = ({
     link2, 
     linktext1, 
     linktext2, 
-    Imagesrc 
+    Imagesrc,
+    Imagefallbacksrc
 }: CardProps) => (
     <Container>
-        <Image src={Imagesrc} />
+        <Image alt={title + " Logo"} loading="lazy" src={Imagesrc} onError={({ currentTarget }: {currentTarget: any}) => { currentTarget.onerror = null; currentTarget.src = Imagefallbacksrc }}/>
         <Layout>
             <MiddleText>
                 <Title>

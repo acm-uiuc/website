@@ -18,6 +18,9 @@ import sigmalogo from '../../stories/assets/sigmalogo.png.webp';
 import quiuclogo from '../../stories/assets/quiuclogo.png.webp';
 import sigecomlogo from '../../stories/assets/sigecomlogo.png.webp';
 import sigplanlogo from '../../stories/assets/sigplanlogo.png.webp';
+import sigpolicylogo from '../../stories/assets/sigpolicylogo.png.webp';
+import sigarchlogo from '../../stories/assets/sigarchlogo.png.webp';
+
 // fallback to png if the browser doesn't support webp images.
 import sigpwnylogopng from '../../stories/assets/sigpwnylogo.png';
 import sigchilogopng from '../../stories/assets/sigchilogo.png';
@@ -33,6 +36,8 @@ import sigmalogopng from '../../stories/assets/sigmalogo.png';
 import quiuclogopng from '../../stories/assets/quiuclogo.png';
 import sigecomlogopng from '../../stories/assets/sigecomlogo.png';
 import sigplanlogopng from '../../stories/assets/sigplanlogo.png';
+import sigpolicylogopng from '../../stories/assets/sigpolicylogo.png';
+import sigarchlogopng from '../../stories/assets/sigarchlogo.png';
 
 export const Grid = styled.div`
   display: grid;
@@ -174,7 +179,7 @@ const Sigscard = (props: any) => {
           title="SIGQuantum"
           description="Our SIG provides inclusive environment for 
           students to discover and disrupt the Quantum Computing community."
-          link1="/#sighighlight"
+          link1="#"
           link2="https://discord.gg/PmaXeHPaFs"
           Imagesrc={quiuclogo}
           Imagefallbacksrc={quiuclogopng}
@@ -196,7 +201,7 @@ const Sigscard = (props: any) => {
           title="SIGNLL"
           description="Natural language processing theory: projects, workshops, 
           and learning techniques at this SIG."
-          link1="/#sighighlight"
+          link1="#"
           link2="https://discord.gg/wwYeewYkCG"
           Imagesrc={signll_logo}
           Imagefallbacksrc={signll_logopng}
@@ -206,7 +211,7 @@ const Sigscard = (props: any) => {
         <Card
           title="SIGecom"
           description="Learn about the intersection of economics and computation. Open to all regardless of background."
-          link1="/#sighighlight"
+          link1="#"
           link2="https://discord.gg/usSzJqVKbd"
           Imagesrc={sigecomlogo}
           Imagefallbacksrc={sigecomlogopng}
@@ -216,10 +221,30 @@ const Sigscard = (props: any) => {
         <Card
           title="SIGPLAN"
           description="Learn about the theory behind programming languages and type systems, and then make projects!"
-          link1="/#sighighlight"
+          link1="#"
           link2="https://discord.gg/t4TmDRDf9c"
           Imagesrc={sigplanlogo}
           Imagefallbacksrc={sigplanlogopng}
+          linktext1="—"
+          linktext2="Discord"
+        />
+        <Card
+          title="SIGPolicy"
+          description="Discuss and understand software policy, ethics, law, and current events through a technological lens."
+          link1="#"
+          link2="https://discord.gg/gKjMH54YBF"
+          Imagesrc={sigpolicylogo}
+          Imagefallbacksrc={sigpolicylogopng}
+          linktext1="—"
+          linktext2="Discord"
+        />
+        <Card
+          title="SIGARCH"
+          description="Dedicated to teaching and exploring computer architecture, hardware security, and more."
+          link1="#"
+          link2="https://discord.gg/Mx8R389hWz"
+          Imagesrc={sigarchlogo}
+          Imagefallbacksrc={sigarchlogopng}
           linktext1="—"
           linktext2="Discord"
         />

@@ -44,7 +44,7 @@ const About = () => {
         </Text>
         <Text>
         ACM contains Special Interest Groups, or SIGs, which focus on specific 
-        competencies in computer science. At our chapter, each SIG operates under 
+        applications of computer science. In our chapter, each SIG operates under 
         ACM@UIUC with free range over its meetings, activities, and purpose. Some 
         SIGs are project-based and devote time to building something innovative or 
         spectacular to showcase. Others are dedicated to teaching, using talks and 

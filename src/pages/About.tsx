@@ -90,8 +90,8 @@ const About = () => {
                 tech talks, workshops and events 
                 for attendees, Mechmania, and Diversity × Tech."
           position='Chairs:'
-          people="Garima Sharma, Sumedh Vaidyanathan"
-          email={['garimas2@illinois.edu', 'sumedhv2@illinois.edu']}
+          people="Saloni Vaishnav, Atharva Naik"
+          email={['saloniv2@illinois.edu', 'annaik2@illinois.edu']}
         />
         <a href="https://hackillinois.org/" style={{ textDecoration: 'none' }}>
           <CommitteeHeader

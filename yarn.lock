@@ -13377,6 +13377,13 @@ react-snap@^1.23.0:
     serve-static "1.13.2"
     sourcemapped-stacktrace-node "2.1.8"
 
+react-use-window-scroll@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-use-window-scroll/-/react-use-window-scroll-1.1.1.tgz#7b23e21a4fd0f34756a10e8d42ecb79021d7d335"
+  integrity sha512-MChXBqf3Wf85ozkN1TCdUixHAHH2URXCM//kGO6GJlO+ojXUze6BhoixiG4swoaRbdz6aRe674eQXv+TnUnM5w==
+  dependencies:
+    smoothscroll-polyfill "^0.4.4"
+
 react@^18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"
@@ -14192,6 +14199,11 @@ slash@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-4.0.0.tgz#2422372176c4c6c5addb5e2ada885af984b396a7"
   integrity sha512-3dOsAHXXUkQTpOYcoAxLIorMTp4gIQr5IW3iVb7A7lFIp0VHhnynm9izx6TssdrIcVIESAlVjtnO2K8bg+Coew==
+
+smoothscroll-polyfill@^0.4.4:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/smoothscroll-polyfill/-/smoothscroll-polyfill-0.4.4.tgz#3a259131dc6930e6ca80003e1cb03b603b69abf8"
+  integrity sha512-TK5ZA9U5RqCwMpfoMq/l1mrH0JAR7y7KRvOBx0n2869aLxch+gT9GhN3yUfjiw+d/DiF1mKo14+hd62JyMmoBg==
 
 snapdragon-node@^2.0.1:
   version "2.1.1"

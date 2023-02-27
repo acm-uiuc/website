@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import Text from '../Text/Text';
 import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
+
 
 const NavHeader = styled.header`
   height: 105px;
@@ -182,6 +183,7 @@ const SiteTitle = styled((props: any) => <Text {...props} />)`
 `;
 
 function Navbar({ ...rest }: any) {
+  
   const checkbox = useRef<HTMLInputElement | null>(null);
   const scrollLock = useRef(false);
 
@@ -189,6 +191,7 @@ function Navbar({ ...rest }: any) {
     if (checkbox && checkbox.current != null) {
       checkbox.current.checked = false;
     }
+
     removeLockIfApplied();
   };
 
@@ -207,6 +210,20 @@ function Navbar({ ...rest }: any) {
       scrollLock.current = false;
     }
   };
+
+  
+
+  useEffect(() => {
+    const url = window.location.href.split("=");
+    console.log(url)
+    const sigButton = document.querySelector('#sigbutton') as HTMLElement;
+    if (url.length > 1 && url[1] === 'true') {
+      if (sigButton) {
+        sigButton.click();
+      }
+    }
+  });
+
 
   return (
     <NavContainer {...rest}>
@@ -243,6 +260,7 @@ function Navbar({ ...rest }: any) {
                 as={HashLink}
                 to="/#sighighlight"
                 className="navLink"
+                id="sigbutton"
                 onClick={uncheck}
               >
                 SIGs

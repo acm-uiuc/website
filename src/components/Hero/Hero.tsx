@@ -9,6 +9,7 @@ import {
   FaInstagram,
   FaLocationArrow,
   FaRegCalendarAlt,
+  FaBell,
 } from 'react-icons/fa';
 import { BsArrowRepeat } from "react-icons/bs";
 import { string } from 'prop-types';
@@ -79,18 +80,32 @@ const JoinButton = styled((props: any) => (
   <Button large variant="neutral" {...props} />
 ))`
   font-size: ${(props) => props.theme.fontSizes.h3}px;
+  @media (max-width:600px) {
+    width:350px;
+}
 `;
 
 const ButtonRow = styled.div`
   display: flex;
   flex-direction: row;
   align-items: stretch;
+  justify-content:space-between;
+  padding-right:30px;
+  
+  @media (max-width:600px) {
+    flex-wrap: wrap;
+    justify-content:space-evenly;
+    gap:1em;
+    padding-right:0px;
+
+}
+
 `;
 
 const Icon = styled((props) => <Button {...props} variant="punch-through" />)`
   width: 55px;
   height: 55px;
-  margin-left: 20px;
+  margin-left: 10px;
   background-color: white;
 `;
 
@@ -107,6 +122,10 @@ const IconInstagram = styled(FaInstagram)`
 `;
 
 const IconDiscord = styled(FaDiscord)`
+  ${IconImage}
+`;
+
+const IconBell = styled(FaBell)`
   ${IconImage}
 `;
 
@@ -270,6 +289,16 @@ function Hero() {
                   <IconDiscord />
                 </a>
               </Icon>
+              <Icon>
+                <a
+                  href="https://forms.gle/PqRkNtyuPGDwkomK9"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <IconBell/>
+                </a>
+              </Icon>
+              
             </ButtonRow>
           </IntroText>
           <Right>

@@ -89,14 +89,14 @@ const ButtonRow = styled.div`
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  justify-content:space-between;
-  padding-right:30px;
+  gap:0px 20px;
   
   @media (max-width:600px) {
     flex-wrap: wrap;
     justify-content:space-evenly;
     gap:1em;
     padding-right:0px;
+    margin:-10px 0px -25px 0px;
 
 }
 
@@ -105,9 +105,17 @@ const ButtonRow = styled.div`
 const Icon = styled((props) => <Button {...props} variant="punch-through" />)`
   width: 55px;
   height: 55px;
-  margin-left: 10px;
   background-color: white;
+  padding-bottom:-20px
+
 `;
+
+const MobileIcon = styled(Icon)`
+  @media (min-width:600px) {
+    display: none;
+
+  }
+`
 
 const IconImage = css`
   width: 35px;
@@ -289,7 +297,7 @@ function Hero() {
                   <IconDiscord />
                 </a>
               </Icon>
-              <Icon>
+              <MobileIcon>
                 <a
                   href="https://forms.gle/PqRkNtyuPGDwkomK9"
                   target="_blank"
@@ -297,7 +305,7 @@ function Hero() {
                 >
                   <IconBell/>
                 </a>
-              </Icon>
+              </MobileIcon>
               
             </ButtonRow>
           </IntroText>

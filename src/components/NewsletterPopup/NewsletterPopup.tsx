@@ -1,8 +1,9 @@
 import Button from "../Button/Button"
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import { useState, useEffect } from "react"
 import Text
  from "../Text/Text";
+import { FaRegTimesCircle } from "react-icons/fa";
 
 const SubscribeButton = styled((props: any) => (
     <Button large variant="neutral" {...props} />
@@ -53,13 +54,20 @@ const DescriptionText = styled(Text)`
 
 `;
 const ExitButton = styled(Button)`
-    width: 30px;
-    height: 30px;
-    text-align: center;
-    font-size: 12px;
-    background:#efefef;
-    margin-left:90%;
+    width:30px
+
 `
+
+const IconImage = css`
+  width: 28px;
+  height: 22px;
+  color: 000;
+  margin: -5px 0px 0px 95px;
+`;
+
+const IconX = styled(FaRegTimesCircle)`
+  ${IconImage}
+`;
 
 
 function NewsletterPopup() {
@@ -85,7 +93,9 @@ function NewsletterPopup() {
     if (!closedPopup) {
         return (
             <PopupContainer appear_prop={appear}>
-                <ExitButton onClick={() => {setClosedPopup(true)}}>X</ExitButton>
+                <ExitButton onClick={() => {setClosedPopup(true)}}>
+                    <IconX/>
+                </ExitButton>
                 <DescriptionText>Interested in recieving updates via email? Click below to subscribe to our newsletter!</DescriptionText>
                 <a
                 href="https://forms.gle/PqRkNtyuPGDwkomK9"

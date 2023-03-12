@@ -39,8 +39,9 @@ const Event = () => {
   };
 
   const purchaseHandler = () => {
-    const url = `https://u6fhkp7s5vjfi6fktlmgerloha0ztoqu.lambda-url.us-east-1.on.aws?netid=${netId}`;
+    const url = `https://lz6glqwonfyx5dcmfjtlbqd6hm0fnrrd.lambda-url.us-east-1.on.aws?netid=${netId}&eventid=${eventName}`;
     axios.get(url).then(response => {
+      console.log(response);
       window.location.replace(response.data);
     }).catch((error) => {
       if (error.response) {
@@ -144,7 +145,7 @@ const Event = () => {
               labelRight='@illinois.edu'
               bordered />
             <Spacer />
-            <Button disabled={!validated} onPress={purchaseHandler}>Purchase for $20.00</Button>
+            <Button disabled={!validated} onPress={purchaseHandler}>Purchase for $10 (member) / $13 (nonmember)</Button>
           </Card.Body>
         </Card>
         <Modal aria-labelledby='error-title' open={errorMessageVisible} onClose={errorMessageCloseHandler} closeButton>

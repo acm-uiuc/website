@@ -194,6 +194,7 @@ type EventProps = {
   title: string;
   description: string;
   repeats?: string;
+  paidEventId?: string;
 };
 function Event({
   location,
@@ -202,7 +203,8 @@ function Event({
   description,
   locationLink,
   dateLink,
-  repeats
+  repeats,
+  paidEventId
 }: EventProps) {
   return (
     <EventCard>
@@ -220,9 +222,9 @@ function Event({
         </EventDetails> : null}
       </div>
       <EventDetails level={6} link={dateLink}>
-        <a href={"/#/event/" + title} target="_blank" rel="noreferrer">
+        {paidEventId? <a href={"/#/event/" + paidEventId} target="_blank" rel="noreferrer">
           <JoinEventButton> <FaSignInAlt /> Signup</JoinEventButton>
-        </a>
+        </a> : null}
       </EventDetails>
     </EventCard>
   );
@@ -294,13 +296,14 @@ function Hero() {
             return (Moment(a.date).unix() - Moment(b.date).unix());
           }).map((object, i) => {
             if (i > 2) { return null; }
-            return <Event 
-            title={object.title}  
+            return <Event
+            title={object.title}
             description={object.description}
             date={toHumanDate(object.date)}
             repeats={object.repeats}
             location={object.location}
             locationLink={object.locationLink}
+            paidEventId={object.paidEventId}
           />
           })}
         </EventsContainer>

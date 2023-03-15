@@ -9,12 +9,11 @@
         "paidEventId" : ""
     },
     {
-        "title":  "Weekly Happy Hour",
-        "description": "Join ACM and chat with some of your fellow members! Enjoy free food on us as you get a chance to know your peers better!",
-        "date": "02/10/2022 17:00:00 (CST)",
-        "repeats": "Week",
-        "location": "Legends",
-        "locationLink": "https://goo.gl/maps/CXESXd3otbGZNqFP7",
+        "title": "ACM Pot Painting Event",
+        "description": "Pot Painting with ACM! Chill and join us for some artsy fun 🎨.",
+        "date": "04/20/2022 17:00:00 (CST)",
+        "location": "ACM Room",
+        "locationLink": "https://goo.gl/maps/wNCKLPyyp47wQUSY7"
         "paidEventId" : ""
     },
     {

@@ -83,7 +83,7 @@ const Payment = () => {
       setValidated(false);
     }
     return {
-      text: isValid ? '' : 'Enter a valid NetId',
+      text: isValid ? '' : 'Enter a valid NetID',
       color: isValid ? 'success' : 'error'
     };
   }, [netId, netIdConfirm]);
@@ -101,7 +101,7 @@ const Payment = () => {
       setValidated(false);
     }
     return {
-      text: isValid ? (netId === netIdConfirm ? '' : 'Your NetIDs did not match') : 'Enter a valid NetId',
+      text: isValid ? (netId === netIdConfirm ? '' : 'Your NetIDs did not match') : 'Enter a valid NetID',
       color: (isValid && netId === netIdConfirm) ? 'success' : 'error'
     };
   }, [netIdConfirm, netId]);

@@ -31,7 +31,7 @@ function App() {
             <Route path="/paid">
               <Route index element={<Paid />} />
             </Route>
-            <Route path="/event-paid">
+            <Route path="/event-paid/:eventName">
               <Route index element={<EventPaid />} />
             </Route>
           </Routes>

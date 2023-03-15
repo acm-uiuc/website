@@ -2,10 +2,7 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Layout from './Layout';
 import { Button, Card, Container, Input, Modal, Spacer, Text } from '@nextui-org/react';
-import successAnimation from './success.json';
-import Lottie from 'lottie-react';
 import axios from 'axios';
-import eventList  from '../../components/Hero/events.json';
 
 const paidEventList : {[key: string]: any} = require("./paidEvents.json");
 
@@ -20,20 +17,14 @@ interface HelperReturnType {
 }
 
 const Event = () => {
-  let { eventName } = useParams();
-  const [modalVisible, setModalVisible] = useState(false);
+  const { eventName } = useParams();
   const [errorMessageVisible, setErrorMessageVisible] = useState(false);
-  const [confirmationVisible, setConfirmationVisible] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<ErrorCode | null>(null);
 
   const [netId, setNetId] = useState('');
   const [netIdConfirm, setNetIdConfirm] = useState('');
   const [validated, setValidated] = useState(false);
-
-  const closeHandler = () => {
-    setModalVisible(false);
-  };
 
   const errorMessageCloseHandler = () => {
     setErrorMessageVisible(false);
@@ -41,41 +32,42 @@ const Event = () => {
   };
 
   const purchaseHandler = () => {
+    setIsLoading(true);
     const url = `https://lz6glqwonfyx5dcmfjtlbqd6hm0fnrrd.lambda-url.us-east-1.on.aws?netid=${netId}&eventid=${eventName}`;
     axios.get(url).then(response => {
-      console.log(response);
       window.location.replace(response.data);
     }).catch((error) => {
-      if (error.response) {
-        if (error.response.status === 422) {
-          const errorObj = error.response.data;
-          setErrorMessage({
-            code: errorObj.details[0].issue,
-            message: errorObj.details[0].description
-          });
-          setErrorMessageVisible(true);
-        } else if (error.response.status === 400) {
-          const errorObj = error.response.data.errors;
-          setErrorMessage({
-            code: 400,
-            message: errorObj[0].msg + ' for ' + errorObj[0].param
-          });
-          setErrorMessageVisible(true);
-        } else if (error.response.status === 404) {
-          const errorObj = error.response.data.errors;
-          setErrorMessage({
-            code: "We could not issue you a ticket",
-            message: error.response.data
-          });
-          setErrorMessageVisible(true);
-        } else {
-          setErrorMessage({
-            code: 500,
-            message: 'Internal server error: ' + error.response.data
-          });
-          setErrorMessageVisible(true);
-        }
+      if (!error.response) {
+        setErrorMessageVisible(true);
+        setIsLoading(false);
+        return;
       }
+      if (error.response.status === 422) {
+        const errorObj = error.response.data;
+        setErrorMessage({
+          code: errorObj.details[0].issue,
+          message: errorObj.details[0].description
+        });
+      } else if (error.response.status === 400) {
+        const errorObj = error.response.data.errors;
+        setErrorMessage({
+          code: 400,
+          message: errorObj[0].msg + ' for ' + errorObj[0].param
+        });
+      } else if (error.response.status === 404) {
+        const errorObj = error.response.data.errors;
+        setErrorMessage({
+          code: "We could not issue you a ticket.",
+          message: error.response.data
+        });
+      } else {
+        setErrorMessage({
+          code: 500,
+          message: 'Internal server error: ' + error.response.data
+        });
+      }
+      setIsLoading(false);
+      setErrorMessageVisible(true);
     });
   };
 
@@ -119,7 +111,7 @@ const Event = () => {
     };
   }, [netIdConfirm, netId]);
 
-  let eventNameStr : string = typeof eventName === "undefined" ? "" : eventName;
+  const eventNameStr : string = typeof eventName === "undefined" ? "" : eventName;
 
   return (
     <Layout name = {paidEventList[eventNameStr]["eventFullTitle"]}>
@@ -136,7 +128,7 @@ const Event = () => {
               {/* Temporary, will replace with event API eventually */}
               { paidEventList[eventNameStr]["eventDetails"]}
             </Text>
-            <Text><b>Cost:</b> {paidEventList[eventNameStr]["eventCost"]}</Text>
+            <Text><b>Cost:</b> ${paidEventList[eventNameStr]["eventCost"]["paid"]} for paid ACM members, ${paidEventList[eventNameStr]["eventCost"]["others"]} for all other participants.</Text>
             <Spacer />
             <Input
               color={netidHelper.color}
@@ -146,6 +138,7 @@ const Event = () => {
               onChange={(e) => setNetId(e.target.value)}
               placeholder='NetID'
               labelRight='@illinois.edu'
+              aria-label='Enter Illinois NetID'
               bordered />
             <Spacer />
             <Input
@@ -156,9 +149,10 @@ const Event = () => {
               onChange={(e) => setNetIdConfirm(e.target.value)}
               placeholder='Confirm NetID'
               labelRight='@illinois.edu'
+              aria-label='Confirm Illinois NetID'
               bordered />
             <Spacer />
-            <Button disabled={!validated} onPress={purchaseHandler}>Purchase now</Button>
+            <Button disabled={(!validated) || isLoading} onPress={purchaseHandler}>{isLoading ? 'Verifying information...' : 'Purchase now'}</Button>
           </Card.Body>
         </Card>
         <Modal aria-labelledby='error-title' open={errorMessageVisible} onClose={errorMessageCloseHandler} closeButton>
@@ -172,19 +166,10 @@ const Event = () => {
           <Card.Divider/>
           <Modal.Footer>
             {errorMessage && errorMessage.code && (<Text>
-              If you believe that your payment has gone through, contact <a href='mailto:evanmm3@illinois.edu'>Evan
-              Matthews</a> with the error code. Otherwise, feel free to try again.
+              If you believe that your payment has gone through, contact the <a href='mailto:infra@acm.illinois.edu'>ACM Infrastructure Team
+              </a> with the error code. Otherwise, feel free to try again.
             </Text>)}
           </Modal.Footer>
-        </Modal>
-        <Modal aria-labelledby='success-title' open={confirmationVisible} onClose={() => setConfirmationVisible(false)}
-               closeButton>
-          <Modal.Header>
-            <Text h4 id='success-title'>You're now a Paid Member of ACM!</Text>
-          </Modal.Header>
-          <Modal.Body css={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <Lottie animationData={successAnimation} loop={false} style={{ width: '10em' }} />
-          </Modal.Body>
         </Modal>
       </Container>
     </Layout>

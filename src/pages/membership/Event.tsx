@@ -157,16 +157,16 @@ const Event = () => {
         </Card>
         <Modal aria-labelledby='error-title' open={errorMessageVisible} onClose={errorMessageCloseHandler} closeButton>
           <Modal.Header>
-            <Text h4 id='error-title'>Payment Failed</Text>
+            <Text h4 id='error-title'>Verification Failed</Text>
           </Modal.Header>
           <Modal.Body>
-            <Text b>Error Code: {errorMessage && errorMessage.code}</Text>
+            <Text b>Error: {errorMessage && errorMessage.code}</Text>
             <Text>{errorMessage && errorMessage.message}</Text>
           </Modal.Body>
           <Card.Divider/>
           <Modal.Footer>
             {errorMessage && errorMessage.code && (<Text>
-              If you believe that your payment has gone through, contact the <a href='mailto:infra@acm.illinois.edu'>ACM Infrastructure Team
+              If you believe you are recieving this message in error, contact the <a href='mailto:infra@acm.illinois.edu'>ACM Infrastructure Team
               </a> with the error code. Otherwise, feel free to try again.
             </Text>)}
           </Modal.Footer>

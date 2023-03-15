@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import Button from '../Button/Button';
+import EventButton from '../Button/EventButton';
 import Content from '../Content/Content';
 import Header from '../Header/Header';
 import Text from '../Text/Text';
@@ -9,6 +10,7 @@ import {
   FaInstagram,
   FaLocationArrow,
   FaRegCalendarAlt,
+  FaSignInAlt,
 } from 'react-icons/fa';
 import { BsArrowRepeat } from "react-icons/bs";
 import { string } from 'prop-types';
@@ -79,6 +81,12 @@ const JoinButton = styled((props: any) => (
   <Button large variant="neutral" {...props} />
 ))`
   font-size: ${(props) => props.theme.fontSizes.h3}px;
+`;
+
+const JoinEventButton = styled((props: any) => (
+  <EventButton large variant="neutral" {...props} />
+))`
+  font-size: ${(props) => props.theme.fontSizes.h6}px;
 `;
 
 const ButtonRow = styled.div`
@@ -186,6 +194,7 @@ type EventProps = {
   title: string;
   description: string;
   repeats?: string;
+  paidEventId?: string;
 };
 function Event({
   location,
@@ -194,7 +203,8 @@ function Event({
   description,
   locationLink,
   dateLink,
-  repeats
+  repeats,
+  paidEventId
 }: EventProps) {
   return (
     <EventCard>
@@ -211,6 +221,11 @@ function Event({
           <BsArrowRepeat /> Every {repeats}
         </EventDetails> : null}
       </div>
+      <EventDetails level={6} link={dateLink}>
+        {paidEventId? <a href={"/#/event/" + paidEventId} target="_blank" rel="noreferrer">
+          <JoinEventButton> <FaSignInAlt /> Register </JoinEventButton>
+        </a> : null}
+      </EventDetails>
     </EventCard>
   );
 }
@@ -281,13 +296,14 @@ function Hero() {
             return (Moment(a.date).unix() - Moment(b.date).unix());
           }).map((object, i) => {
             if (i > 2) { return null; }
-            return <Event 
-            title={object.title}  
+            return <Event
+            title={object.title}
             description={object.description}
             date={toHumanDate(object.date)}
             repeats={object.repeats}
             location={object.location}
             locationLink={object.locationLink}
+            paidEventId={object.paidEventId}
           />
           })}
         </EventsContainer>

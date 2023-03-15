@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Layout from './Layout';
 import { Button, Card, Container, Input, Modal, Spacer, Text } from '@nextui-org/react';
 import successAnimation from './success.json';
 import Lottie from 'lottie-react';
 import axios from 'axios';
+import eventList  from '../../components/Hero/events.json';
+
+const paidEventList : {[key: string]: any} = require("./paidEvents.json");
 
 interface ErrorCode {
   code?: number | string,
@@ -15,7 +19,8 @@ interface HelperReturnType {
   text: string
 }
 
-const Payment = () => {
+const Event = () => {
+  let { eventName } = useParams();
   const [modalVisible, setModalVisible] = useState(false);
   const [errorMessageVisible, setErrorMessageVisible] = useState(false);
   const [confirmationVisible, setConfirmationVisible] = useState(false);
@@ -36,8 +41,9 @@ const Payment = () => {
   };
 
   const purchaseHandler = () => {
-    const url = `https://u6fhkp7s5vjfi6fktlmgerloha0ztoqu.lambda-url.us-east-1.on.aws?netid=${netId}`;
+    const url = `https://lz6glqwonfyx5dcmfjtlbqd6hm0fnrrd.lambda-url.us-east-1.on.aws?netid=${netId}&eventid=${eventName}`;
     axios.get(url).then(response => {
+      console.log(response);
       window.location.replace(response.data);
     }).catch((error) => {
       if (error.response) {
@@ -53,6 +59,13 @@ const Payment = () => {
           setErrorMessage({
             code: 400,
             message: errorObj[0].msg + ' for ' + errorObj[0].param
+          });
+          setErrorMessageVisible(true);
+        } else if (error.response.status === 404) {
+          const errorObj = error.response.data.errors;
+          setErrorMessage({
+            code: "We could not issue you a ticket",
+            message: error.response.data
           });
           setErrorMessageVisible(true);
         } else {
@@ -106,20 +119,22 @@ const Payment = () => {
     };
   }, [netIdConfirm, netId]);
 
+  let eventNameStr : string = typeof eventName === "undefined" ? "" : eventName;
+
   return (
     <Layout>
       <Container xs css={{ height: '90vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <Card css={{ margin: '2em' }}>
           <Card.Header>
             <Text b>
-              ACM Membership
+              {paidEventList[eventNameStr]["eventFullTitle"]} Signup
             </Text>
           </Card.Header>
           <Card.Divider />
           <Card.Body>
             <Text>
-              Becoming a <Text b>Paid Member</Text> not only sustains the continued growth of our communities but also
-              comes with perks such as swipe access, free printing, priority access to our computing resources, etc.
+              {/* Temporary, will replace with event API eventually */}
+              { paidEventList[eventNameStr]["eventDetails"]}
             </Text>
             <Spacer />
             <Input
@@ -142,7 +157,7 @@ const Payment = () => {
               labelRight='@illinois.edu'
               bordered />
             <Spacer />
-            <Button disabled={!validated} onPress={purchaseHandler}>Purchase for $20.00</Button>
+            <Button disabled={!validated} onPress={purchaseHandler}>Purchase for  {paidEventList[eventNameStr]["eventCost"]}</Button>
           </Card.Body>
         </Card>
         <Modal aria-labelledby='error-title' open={errorMessageVisible} onClose={errorMessageCloseHandler} closeButton>
@@ -175,4 +190,4 @@ const Payment = () => {
   );
 };
 
-export default Payment;
+export default Event;

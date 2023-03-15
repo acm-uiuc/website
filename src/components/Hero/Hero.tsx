@@ -186,6 +186,14 @@ function toHumanDate(date: string) {
   return Moment(date).format("MMMM Do, h:mm A");
 }
 
+const JoinContainer = styled.div`
+  display:flex;
+`;
+const InfoContainer = styled.div`
+  display:block;
+  width:200px;
+`;
+
 type EventProps = {
   location: string;
   locationLink?: string;
@@ -210,22 +218,24 @@ function Event({
     <EventCard>
       <EventTitle level={3}>{title}</EventTitle>
       <EventText>{description}</EventText>
-      <div>
-        <EventDetails level={6} link={locationLink}>
-          <FaLocationArrow /> {location}
-        </EventDetails>
+      <JoinContainer>
+        <InfoContainer>
+          <EventDetails level={6} link={locationLink}>
+            <FaLocationArrow /> {location}
+          </EventDetails>
+          <EventDetails level={6} link={dateLink}>
+            <FaRegCalendarAlt /> {date}
+          </EventDetails>
+          {repeats ? <EventDetails level={6} link={dateLink}>
+            <BsArrowRepeat /> Every {repeats}
+          </EventDetails> : null}
+        </InfoContainer>
         <EventDetails level={6} link={dateLink}>
-          <FaRegCalendarAlt /> {date}
+          {paidEventId? <a href={"/#/event/" + paidEventId} target="_blank" rel="noreferrer">
+            <JoinEventButton> <FaSignInAlt /> Register </JoinEventButton>
+          </a> : null}
         </EventDetails>
-        {repeats ? <EventDetails level={6} link={dateLink}>
-          <BsArrowRepeat /> Every {repeats}
-        </EventDetails> : null}
-      </div>
-      <EventDetails level={6} link={dateLink}>
-        {paidEventId? <a href={"/#/event/" + paidEventId} target="_blank" rel="noreferrer">
-          <JoinEventButton> <FaSignInAlt /> Register </JoinEventButton>
-        </a> : null}
-      </EventDetails>
+      </JoinContainer>
     </EventCard>
   );
 }

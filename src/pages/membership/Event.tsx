@@ -7,6 +7,8 @@ import Lottie from 'lottie-react';
 import axios from 'axios';
 import eventList  from '../../components/Hero/events.json';
 
+const paidEventList : {[key: string]: any} = require("./paidEvents.json");
+
 interface ErrorCode {
   code?: number | string,
   message: string
@@ -117,6 +119,8 @@ const Event = () => {
     };
   }, [netIdConfirm, netId]);
 
+  let eventNameStr : string = typeof eventName === "undefined" ? "" : eventName;
+
   return (
     <Layout>
       <Container xs css={{ height: '90vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -130,7 +134,7 @@ const Event = () => {
           <Card.Body>
             <Text>
               {/* Temporary, will replace with event API eventually */}
-              Join ACM and meet your fellow members as we visit Murphy's, KAMS, Joe's, and Legends on our semesterly bar crawl. Get a free t-shirt with sign-up. Alcohol will be provided by ACM to members over 21 wearing bar crawl t-shirts. However, this ticket does not pay for cover at the bars.
+              { paidEventList[eventNameStr]["eventDetails"]}
             </Text>
             <Spacer />
             <Input
@@ -153,7 +157,7 @@ const Event = () => {
               labelRight='@illinois.edu'
               bordered />
             <Spacer />
-            <Button disabled={!validated} onPress={purchaseHandler}>Purchase for $10 (member) / $13 (nonmember)</Button>
+            <Button disabled={!validated} onPress={purchaseHandler}>Purchase for  {paidEventList[eventNameStr]["eventCost"]}</Button>
           </Card.Body>
         </Card>
         <Modal aria-labelledby='error-title' open={errorMessageVisible} onClose={errorMessageCloseHandler} closeButton>

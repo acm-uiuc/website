@@ -122,7 +122,7 @@ const Event = () => {
   let eventNameStr : string = typeof eventName === "undefined" ? "" : eventName;
 
   return (
-    <Layout>
+    <Layout name = {paidEventList[eventNameStr]["eventFullTitle"]}>
       <Container xs css={{ height: '90vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <Card css={{ margin: '2em' }}>
           <Card.Header>
@@ -136,6 +136,7 @@ const Event = () => {
               {/* Temporary, will replace with event API eventually */}
               { paidEventList[eventNameStr]["eventDetails"]}
             </Text>
+            <Text><b>Cost:</b> {paidEventList[eventNameStr]["eventCost"]}</Text>
             <Spacer />
             <Input
               color={netidHelper.color}
@@ -157,7 +158,7 @@ const Event = () => {
               labelRight='@illinois.edu'
               bordered />
             <Spacer />
-            <Button disabled={!validated} onPress={purchaseHandler}>Purchase for  {paidEventList[eventNameStr]["eventCost"]}</Button>
+            <Button disabled={!validated} onPress={purchaseHandler}>Purchase now</Button>
           </Card.Body>
         </Card>
         <Modal aria-labelledby='error-title' open={errorMessageVisible} onClose={errorMessageCloseHandler} closeButton>

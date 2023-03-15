@@ -59,6 +59,13 @@ const Event = () => {
             message: errorObj[0].msg + ' for ' + errorObj[0].param
           });
           setErrorMessageVisible(true);
+        } else if (error.response.status === 404) {
+          const errorObj = error.response.data.errors;
+          setErrorMessage({
+            code: "We could not issue you a ticket",
+            message: error.response.data
+          });
+          setErrorMessageVisible(true);
         } else {
           setErrorMessage({
             code: 500,
@@ -122,7 +129,8 @@ const Event = () => {
           <Card.Divider />
           <Card.Body>
             <Text>
-              Event details
+              {/* Temporary, will replace with event API eventually */}
+              Join ACM and meet your fellow members as we visit Murphy's, KAMS, Joe's, and Legends on our semesterly bar crawl. Get a free t-shirt with sign-up. Alcohol will be provided by ACM to members over 21 wearing bar crawl t-shirts. However, this ticket does not pay for cover at the bars.
             </Text>
             <Spacer />
             <Input

@@ -19,10 +19,10 @@
     },
     {
         "title": "ACM Bar Crawl",
-        "description": "Get drunk with Matt the Landlord",
+        "description": "Join ACM and meet your fellow members as we visit Murphy's, KAMS, Joe's, and Legends. Get a free t-shirt with sign-up.",
         "date": "04/06/2023 18:30:00 (CST)",
-        "location": "KAMS",
-        "locationLink": "https://goo.gl/maps/yGvy6t7i9YAjKqXB7",
+        "location": "Murphy's",
+        "locationLink": "https://goo.gl/maps/vESeAbBiVgVokZWm8",
         "paidEventId" : "sp23_barcrawl"
     }
 ]

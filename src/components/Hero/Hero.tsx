@@ -223,7 +223,7 @@ function Event({
       </div>
       <EventDetails level={6} link={dateLink}>
         {paidEventId? <a href={"/#/event/" + paidEventId} target="_blank" rel="noreferrer">
-          <JoinEventButton> <FaSignInAlt /> Signup</JoinEventButton>
+          <JoinEventButton> <FaSignInAlt /> Register </JoinEventButton>
         </a> : null}
       </EventDetails>
     </EventCard>

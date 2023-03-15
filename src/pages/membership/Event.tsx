@@ -127,7 +127,7 @@ const Event = () => {
         <Card css={{ margin: '2em' }}>
           <Card.Header>
             <Text b>
-              {eventName} Signup
+              {paidEventList[eventNameStr]["eventFullTitle"]} Signup
             </Text>
           </Card.Header>
           <Card.Divider />

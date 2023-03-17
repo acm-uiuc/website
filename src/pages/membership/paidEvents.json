@@ -1,7 +1,10 @@
 {
   "sp23_barcrawl" : {
     "eventDetails" : "Join ACM and meet your fellow members as we visit Murphy's, KAMS, Joe's, and Legends on our semesterly bar crawl. Get a free t-shirt with sign-up. Alcohol will be provided by ACM to members over 21 wearing bar crawl t-shirts. However, this ticket does not pay for cover at the bars.",
-    "eventCost" : "$10 for paid ACM members,  $13 for nonmembers",
+    "eventCost" : {
+      "paid": 10,
+      "others": 13
+    },
     "eventFullTitle" : "Spring 2023 ACM Bar Crawl",
     "eventImage" : "img/bar_crawl.png"
   }

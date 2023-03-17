@@ -132,6 +132,7 @@ const Event = () => {
           </Card.Header>
           <Card.Divider />
           <Card.Body>
+            {paidEventList[eventNameStr]["eventImage"] ? <img src={paidEventList[eventNameStr]["eventImage"]}></img> : null}
             <Text>
               {/* Temporary, will replace with event API eventually */}
               { paidEventList[eventNameStr]["eventDetails"]}

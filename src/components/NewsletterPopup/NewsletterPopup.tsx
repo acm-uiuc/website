@@ -54,15 +54,17 @@ const DescriptionText = styled(Text)`
 
 `;
 const ExitButton = styled(Button)`
-    width:30px
+    width:30px;
+    margin: -5px 0px 0px 210px;
 
 `
 
 const IconImage = css`
   width: 28px;
   height: 22px;
-  color: 000;
-  margin: -5px 0px 0px 95px;
+  color: #000000;
+  margin-top: -5px;
+
 `;
 
 const IconX = styled(FaRegTimesCircle)`

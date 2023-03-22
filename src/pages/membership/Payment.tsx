@@ -118,7 +118,7 @@ const Payment = () => {
           <Card.Divider />
           <Card.Body>
             <Text>
-              Becoming a <Text b>Paid Member</Text> not only sustains the continued growth of our communities but also
+              Becoming a Lifetime <Text b>Paid Member</Text> not only sustains the continued growth of our communities but also
               comes with perks such as swipe access, free printing, priority access to our computing resources, etc.
             </Text>
             <Spacer />

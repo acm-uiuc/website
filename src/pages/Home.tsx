@@ -7,13 +7,14 @@ import Transition from '../components/Transition/Transition';
 import SigHighlight from '../components/SigHighlight/SigHighlight';
 import Footersection from '../sections/Footersection';
 import Sponsors from '../components/Sponsors/Sponsors';
-
+import NewsletterPopup from '../components/NewsletterPopup/NewsletterPopup';
 function Home() {
   return (
     <>
       <GlobalStyle />
       <ThemeProvider theme={light}>
         <Navbar />
+        <NewsletterPopup/>
         <Hero />
         <Transition to="#fafafa"/>
         <SigHighlight />

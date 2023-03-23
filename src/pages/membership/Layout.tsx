@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 export declare interface LayoutProps {
   children?: ReactElement;
+  name ?: String;
 }
 
 const Layout = (props: LayoutProps) => {
@@ -17,7 +18,7 @@ const Layout = (props: LayoutProps) => {
         </Navbar.Brand>
         <Navbar.Content enableCursorHighlight hideIn='xs'>
           <Navbar.Link onClick={() => {window.location.replace('/');}}>Home</Navbar.Link>
-          <Navbar.Link isActive>Membership</Navbar.Link>
+          <Navbar.Link isActive>{props.name ? props.name : "Membership"}</Navbar.Link>
         </Navbar.Content>
       </Navbar>
       {props.children}

@@ -83,7 +83,7 @@ const Payment = () => {
       setValidated(false);
     }
     return {
-      text: isValid ? '' : 'Enter a valid NetId',
+      text: isValid ? '' : 'Enter a valid NetID',
       color: isValid ? 'success' : 'error'
     };
   }, [netId, netIdConfirm]);
@@ -101,7 +101,7 @@ const Payment = () => {
       setValidated(false);
     }
     return {
-      text: isValid ? (netId === netIdConfirm ? '' : 'Your NetIDs did not match') : 'Enter a valid NetId',
+      text: isValid ? (netId === netIdConfirm ? '' : 'Your NetIDs did not match') : 'Enter a valid NetID',
       color: (isValid && netId === netIdConfirm) ? 'success' : 'error'
     };
   }, [netIdConfirm, netId]);
@@ -118,7 +118,7 @@ const Payment = () => {
           <Card.Divider />
           <Card.Body>
             <Text>
-              Becoming a <Text b>Paid Member</Text> not only sustains the continued growth of our communities but also
+              Becoming a Lifetime <Text b>Paid Member</Text> not only sustains the continued growth of our communities but also
               comes with perks such as swipe access, free printing, priority access to our computing resources, etc.
             </Text>
             <Spacer />

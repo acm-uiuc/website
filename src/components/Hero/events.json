@@ -2,24 +2,26 @@
     {
         "title": "Weekly Happy Hour",
         "description": "Join ACM and chat with some of your fellow members! Enjoy free food on us as you get a chance to know your peers better!",
-        "date": "02/24/2022 17:00:00 (CST)",
+        "date": "03/24/2023 17:00:00 (CST)",
         "repeats": "Week",
         "location": "Legends",
-        "locationLink": "https://goo.gl/maps/CXESXd3otbGZNqFP7"
+        "locationLink": "https://goo.gl/maps/CXESXd3otbGZNqFP7",
+        "paidEventId" : ""
     },
     {
-        "title":  "Weekly Happy Hour",
-        "description": "Join ACM and chat with some of your fellow members! Enjoy free food on us as you get a chance to know your peers better!",
-        "date": "03/3/2022 17:00:00 (CST)",
-        "repeats": "Week",
-        "location": "Legends",
-        "locationLink": "https://goo.gl/maps/CXESXd3otbGZNqFP7"
+        "title": "ACM Pot Painting Event",
+        "description": "Pot Painting with ACM! Chill and join us for some artsy fun 🎨.",
+        "date": "04/20/2023 17:00:00 (CST)",
+        "location": "ACM Room",
+        "locationLink": "https://goo.gl/maps/wNCKLPyyp47wQUSY7",
+        "paidEventId" : ""
     },
     {
-        "title": "ACM Semi-Formal",
-        "description": "ACM and WCS proudly present Winter Wonderland! Celebrate the season with elegance at our first semiformal event.",
-        "date": "02/18/2022 20:00:00 (CST)",
-        "location": "Illini Union Ballroom",
-        "locationLink": "https://goo.gl/maps/yGvy6t7i9YAjKqXB7"
+        "title": "ACM Bar Crawl",
+        "description": "Join ACM and meet your fellow members as we visit KAMS, Joe's, and Legends. Get a free t-shirt with sign-up!",
+        "date": "04/06/2023 18:30:00 (CST)",
+        "location": "TBD",
+        "locationLink": "",
+        "paidEventId": ""
     }
 ]

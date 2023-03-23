@@ -53,17 +53,14 @@ const DescriptionText = styled(Text)`
     font-size:0.9rem;
 
 `;
-const ExitButton = styled(Button)`
-    width:30px;
-    margin: -5px 0px 0px 210px;
 
-`
 
 const IconImage = css`
   width: 28px;
   height: 22px;
   color: #000000;
-  margin-top: -5px;
+  margin: -5px 0px 0px 215px;
+  cursor: pointer;
 
 `;
 
@@ -95,9 +92,7 @@ function NewsletterPopup() {
     if (!closedPopup) {
         return (
             <PopupContainer appear_prop={appear}>
-                <ExitButton onClick={() => {setClosedPopup(true)}}>
-                    <IconX/>
-                </ExitButton>
+                <IconX onClick={() => {setClosedPopup(true)}}/>
                 <DescriptionText>Interested in recieving updates via email? Click below to subscribe to our newsletter!</DescriptionText>
                 <a
                 href="https://forms.gle/PqRkNtyuPGDwkomK9"

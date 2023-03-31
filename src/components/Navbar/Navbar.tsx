@@ -227,6 +227,16 @@ function Navbar({ ...rest }: any) {
 
         <nav className="nav">
           <ul className="menu">
+          <li>
+              <NavLink 
+                as={Link} 
+                to="/calendar" 
+                className="navLink"
+                onClick={uncheck}
+                >
+                Calendar
+              </NavLink>
+            </li>
             <li>
               <NavLink 
                 as={Link} 

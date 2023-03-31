@@ -3,6 +3,7 @@ import light from './theme/light';
 import GlobalStyle from './theme/global';
 import Home from './pages/Home';
 import About from './pages/About';
+import Calendar from './pages/Calendar';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import Payment from './pages/membership/Payment';
 import Event from './pages/membership/Event';
@@ -21,6 +22,9 @@ function App() {
             </Route>
             <Route path="/about">
               <Route index element={<About />} />
+            </Route>
+            <Route path="/calendar">
+              <Route index element={<Calendar />} />
             </Route>
             <Route path="/membership">
               <Route index element={<Payment />} />

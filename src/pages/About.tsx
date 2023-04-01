@@ -11,7 +11,7 @@ import Footersection from '../sections/Footersection';
 import instagram from '../stories/assets/instagram.png';
 import reflections from '../stories/assets/reflections.jpg';
 import hackillinoislogo from '../stories/assets/hackillinoislogo.png';
-import infrastructure from '../stories/assets/infrastructure.jpeg';
+import infrastructure from '../stories/assets/infra_pic.jpg';
 import LeadSection from '../sections/about/LeadershipSection';
 import { NavLink } from 'react-router-dom';
 

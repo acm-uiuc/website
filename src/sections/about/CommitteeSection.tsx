@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import Committee from "../../components/Committee/Committee";
-import infra_pic from '../../stories/assets/infra_pic.png';
+import infra_pic from '../../stories/assets/infra_pic.jpg';
 import social from '../stories/assets/social.jpg';
 
 const Section = styled.section`

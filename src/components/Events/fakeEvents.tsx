@@ -1,0 +1,57 @@
+import {CustomEventType} from "./events"
+
+const fakeEvents: CustomEventType[] = [
+  {
+    id: 1,
+    title: 'Conference on AI',
+    start: new Date(2023, 4, 10, 9, 0),
+    end: new Date(2023, 4, 10, 17, 0),
+    category: 'Conference',
+    location: 'New York City, NY',
+    locationLink: 'https://goo.gl/maps/xyz1',
+    date: '2023-05-10',
+    dateLink: 'https://example.com/events/conference-on-ai',
+    description: 'A one-day conference on Artificial Intelligence and its applications.',
+    repeats: 'annually',
+    paidEventId: '12345',
+  },
+  {
+    id: 2,
+    title: 'React Workshop',
+    start: new Date(2023, 4, 15, 10, 0),
+    end: new Date(2023, 4, 15, 16, 0),
+    category: 'Workshop',
+    location: 'San Francisco, CA',
+    locationLink: 'https://goo.gl/maps/abc2',
+    date: '2023-05-15',
+    dateLink: 'https://example.com/events/react-workshop',
+    description: 'A hands-on workshop to learn React and build web applications.',
+  },
+  {
+    id: 3,
+    title: 'Data Science Meetup',
+    start: new Date(2023, 4, 20, 18, 0),
+    end: new Date(2023, 4, 20, 20, 0),
+    category: 'Meetup',
+    location: 'Austin, TX',
+    locationLink: 'https://goo.gl/maps/def3',
+    date: '2023-05-20',
+    dateLink: 'https://example.com/events/data-science-meetup',
+    description: 'A monthly meetup for data science enthusiasts to share ideas and knowledge.',
+    repeats: 'monthly',
+  },
+  {
+    id: 4,
+    title: 'Blockchain Summit',
+    start: new Date(2023, 4, 25, 9, 0),
+    end: new Date(2023, 4, 25, 18, 0),
+    category: 'Summit',
+    location: 'Toronto, ON',
+    locationLink: 'https://goo.gl/maps/ghi4',
+    date: '2023-05-25',
+    dateLink: 'https://example.com/events/blockchain-summit',
+    description: 'An event focused on blockchain technology and its impact on various industries.',
+    paidEventId: '23456',
+  }]
+
+  export default fakeEvents

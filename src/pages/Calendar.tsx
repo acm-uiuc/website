@@ -7,6 +7,9 @@ import Transition from '../components/Transition/Transition';
 import Footersection from '../sections/Footersection';
 import LeadSection from '../sections/about/LeadershipSection';
 import { NavLink } from 'react-router-dom';
+import Events from '../components/Events/events'
+import fakeEvents from '../components/Events/fakeEvents'
+
 
 const PaddedNav = styled(Navbar)`
   padding-bottom: 20px;
@@ -27,7 +30,7 @@ const Calendar = () => {
       <Transition to="#fff" />
       <Content as="section">
        
-       
+       <Events events={fakeEvents} />
     
       </Content>
       {/* <Footersection /> */}

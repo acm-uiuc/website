@@ -2,6 +2,7 @@ import moment from 'moment'
 import React, { useState, useEffect, useRef } from 'react'
 import { Calendar, momentLocalizer, Event } from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
+import './EventStylesOverride.css'
 import {EventIntroProps} from '../../pages/Calendar'
 // import './events.css'
 
@@ -28,7 +29,7 @@ export interface EventsProps {
 }
 
 const localizer = momentLocalizer(moment)
-
+const height = window.innerHeight * 0.7;
 const Events: React.FC<EventsProps> = ({ events,  updateEvent}) => {
 
     const selectEvent = (event: CustomEventType) => {
@@ -44,25 +45,12 @@ const Events: React.FC<EventsProps> = ({ events,  updateEvent}) => {
 
 
     return (
-        <div >
-                <h1 className="text-center">Our Events</h1>
-                <p className="text-center">
-                    Take a look at our fancy calendar. An updated google calendar of events is in the works!
-                </p >
-                <div >
-                    <div>
-                        <Calendar
-                            localizer={localizer}
-                            events={events}
-                            // startAccessor="start"
-                            // endAccessor="end"
-                            onSelectEvent={selectEvent}
-                            style={{ height: 500 }}
-                        />
-                    </div>
-                    
-                </div>
-        </div>
+        <Calendar
+            localizer={localizer}
+            events={events}
+            onSelectEvent={selectEvent}
+            style={{ height: height }}
+        />
     )
 }
 

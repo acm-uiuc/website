@@ -18,23 +18,26 @@ const PaddedNav = styled(Navbar)`
 `;
 
 
-const CalendarDiv = styled.div`
-  width: 70%;
-  height: 720px;
-  border: solid;
-  
-`
 
 
 const FlexContainer = styled.div `
   display: flexbox;
-  justify-content: center;
-  gap: 5%;
+  justify-content: space-between;
+  padding-top: 0.5%;
+  margin-top: 2%;
 
   @media (max-width: 600px) {
     flex-wrap: wrap;
+    justify-content: center;
   }
 `
+
+const SectionTitle = styled(Header)`
+    margin-top: 0px;
+    padding-top: 0px;
+    margin-bottom: 3%;
+    color: ${(props) => props.theme.colors.acmDark};
+`;
 
 
 export interface EventIntroProps {
@@ -49,7 +52,6 @@ export interface EventIntroProps {
     
 
 const defaultEvent: EventIntroProps = {
-  title: "Event Title",
   description: "N/A",
   host: "",
 };
@@ -66,11 +68,9 @@ const Calendar = () => {
       <Content as="section">
        
        
-    
-      <FlexContainer>
-        <CalendarDiv> 
+      <SectionTitle level={1}>Our Events</SectionTitle>
+      <FlexContainer> 
         <Events events={fakeEvents} updateEvent={setEvent} />
-        </CalendarDiv>
         <EventInfo 
         title = {event.title}
         location = {event.location}

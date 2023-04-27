@@ -17,8 +17,7 @@ const EventContainer = styled.div`
     background-color: ${(props) => props.theme.colors.white};
     align-self: bottom;
     @media (max-width: 600px) {
-        width: 96%;
-        padding: 2%;
+        width: 100%;
         margin-top: 15px;
     }
 
@@ -41,6 +40,7 @@ const EventInfoPlusIcon = styled.div`
     margin-bottom: 0px;
     margin-top: 0px;
     display: flex;
+    align-items: center;
     color: ${(props) => props.theme.fontColors.default};
     font-family: ${(props) => props.theme.fonts.body};
     font-size: ${(props) => props.theme.fontSizes.body * 0.9}px;
@@ -84,7 +84,6 @@ const PaddingWrapper = styled.div`
 const IconImage = css`
   width: 15px;
   height: 15px;
-  margin-top: 5px;
   padding-right: 10px;
 `;
 

@@ -21,14 +21,15 @@ const PaddedNav = styled(Navbar)`
 
 
 const FlexContainer = styled.div `
-  display: flexbox;
+  display: flex;
   justify-content: space-between;
   padding-top: 0.5%;
   margin-top: 2%;
+  padding-bottom: 40px;
 
   @media (max-width: 600px) {
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: center;  
   }
 `
 
@@ -66,8 +67,6 @@ const Calendar = () => {
       <PaddedNav />
       <Transition to="#fff" />
       <Content as="section">
-       
-       
       <SectionTitle level={1}>Our Events</SectionTitle>
       <FlexContainer> 
         <Events events={fakeEvents} updateEvent={setEvent} />
@@ -80,7 +79,7 @@ const Calendar = () => {
          ></EventInfo>
        </FlexContainer>
       </Content>
-      {/* <Footersection /> */}
+      <Footersection/>
     </>
   );
 };

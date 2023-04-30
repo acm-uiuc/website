@@ -13,9 +13,7 @@ const EventContainer = styled.div`
     border-top: 0px;
     
     overflow-wrap: break-word;
-
     background-color: ${(props) => props.theme.colors.white};
-    align-self: bottom;
     @media (max-width: 600px) {
         width: 100%;
         margin-top: 15px;

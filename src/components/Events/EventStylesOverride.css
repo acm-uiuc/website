@@ -39,13 +39,7 @@
   font-size: 14.5px;
   color: #343445;
 }
-.rbc-agenda-date-cell, .rbc-agenda-time-cell, .rbc-agenda-event-cell {
-  @media (max-width: 600px) {
-    margin-top: 15px;
-    font-size: 12px;
-    padding: 10px 5px !important;
-  }
-}
+
 .rbc-agenda-event-cell:hover {
   cursor: pointer;
 }
@@ -61,10 +55,6 @@
   color: #020000 !important;
   font-family: "DM Sans" !important;
   font-size: 18px;
-
-  @media (max-width: 600px) {
-    font-size:16px;
-  }
 }
 
 .rbc-btn-group > button.rbc-active {
@@ -79,8 +69,8 @@
 }
 
 /*Week Display Styling*/
-.rbc-time-header-cell > .rbc-header {
-  padding-bottom: 1.5em !important;
+.rbc-time-header-cell .rbc-header {
+  padding-bottom: 19.5px !important;
 }
 /*Event Listing Styling*/
 .rbc-event {
@@ -92,12 +82,32 @@
 
 /*overall container positioning/changes*/
 .rbc-calendar {
-  
   filter: grayscale(0%) drop-shadow(0 4px 12px rgb(104 112 118 / 0.08)) drop-shadow(0 20px 8px rgb(104 112 118 / 0.04));
-
   width: 67%;
   padding-top: 0%;
-  @media (max-width: 600px) {
-      width: 100%;
+}
+
+@media (max-width: 600px) {
+  .rbc-calendar {
+    width: 100%;
+  }
+  .rbc-btn-group > button {
+    font-size:16px;
+  }
+  .rbc-agenda-date-cell, .rbc-agenda-time-cell, .rbc-agenda-event-cell {
+    margin-top: 15px;
+    font-size: 12px;
+    padding: 10px 5px !important;
+  }
+  .rbc-toolbar-label {
+    width: 100%;
+    padding: 3% 0 !important;
+  }
+  .rbc-header {
+    font-size: 16px;
+  }
+  .rbc-time-header-cell .rbc-header {
+    font-size: 2px;
+
   }
 }

@@ -241,11 +241,11 @@ const Sigscard = (props: any) => {
         <Card
           title="SIGARCH"
           description="Dedicated to teaching and exploring computer architecture, hardware security, and more."
-          link1="#"
+          link1="https://sigarch.net/"
           link2="https://discord.gg/Mx8R389hWz"
           Imagesrc={sigarchlogo}
           Imagefallbacksrc={sigarchlogopng}
-          linktext1="—"
+          linktext1="Website"
           linktext2="Discord"
         />
       </Grid>

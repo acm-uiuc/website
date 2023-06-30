@@ -99,7 +99,7 @@ const About = () => {
             id="hackillinois"
             style={{ color: '#4577F8' }}
           >
-            Hack Illinois
+            HackIllinois
           </CommitteeHeader>
         </a>
         <Committee
@@ -109,8 +109,8 @@ const About = () => {
                   has become one of the largest and most well-regarded in the 
                   nation."
           position='Chairs:'
-          people="Rachel Shum"
-          email={['rshum2@illinois.edu']}
+          people="Pinakin Kanade, Ronit Anandani"
+          email={['pkanade2@illinois.edu', 'ronita2@illinois.edu']}
         />
         <CommitteeHeader level={3}>Corporate</CommitteeHeader>
         <Committee

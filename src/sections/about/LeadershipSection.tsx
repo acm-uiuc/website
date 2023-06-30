@@ -41,7 +41,7 @@ const LeadSection = (props: any) => {
                 title="Treasurer"
                 name="Dev Singh"
                 Imagesrc={treasurer} 
-                email="mailto:dsingh14@illinois.edu"
+                email="mailto:treasurer@acm.illinois.edu"
                 />
                 <LeadershipCard 
                 title="Secretary"

@@ -27,27 +27,27 @@ const LeadSection = (props: any) => {
             <GridModify>
                 <LeadershipCard
                 title="Chair"
-                name="Matt Geimer"
+                name="Deeya Bodas"
                 Imagesrc={chair}
-                email="mailto:mgeimer2@illinois.edu"
+                email="mailto:deeyaab2@illinois.edu"
                 />
                 <LeadershipCard 
                 title="Vice Chair"
-                name="Nitya Sunkad" 
+                name="Aydan Piriani" 
                 Imagesrc={vicechair} 
-                email="mailto:nsunkad2@illinois.edu"
+                email="mailto:apirani2@illinois.edu"
                 />
                 <LeadershipCard 
                 title="Treasurer"
-                name="Evan Matthews"
+                name="Dev Singh"
                 Imagesrc={treasurer} 
-                email="mailto:evanmm3@illinois.edu"
+                email="mailto:treasurer@acm.illinois.edu"
                 />
                 <LeadershipCard 
                 title="Secretary"
-                name="Emily Crawford"
+                name="Abhived Pulapaka"
                 Imagesrc={secretary}
-                email="mailto:emilyc7@illinois.edu"
+                email="mailto:abhived2@illinois.edu"
                 />
             </GridModify>
         </Content>

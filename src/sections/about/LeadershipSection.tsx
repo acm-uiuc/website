@@ -33,7 +33,7 @@ const LeadSection = (props: any) => {
                 />
                 <LeadershipCard 
                 title="Vice Chair"
-                name="Aydan Piriani" 
+                name="Aydan Pirani" 
                 Imagesrc={vicechair} 
                 email="mailto:apirani2@illinois.edu"
                 />

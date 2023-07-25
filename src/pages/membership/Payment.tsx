@@ -19,6 +19,7 @@ const Payment = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [errorMessageVisible, setErrorMessageVisible] = useState(false);
   const [confirmationVisible, setConfirmationVisible] = useState(false);
+  const [alreadyMemberVisible, setAlreadyMemberVisible] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState<ErrorCode | null>(null);
 
@@ -55,7 +56,14 @@ const Payment = () => {
             message: errorObj[0].msg + ' for ' + errorObj[0].param
           });
           setErrorMessageVisible(true);
-        } else {
+        } else if (error.response.status === 409) {
+          // already a member
+          setErrorMessage({
+            code: 409,
+            message: "The specified user is already a paid member."
+          });
+          setAlreadyMemberVisible(true);
+        }else {
           setErrorMessage({
             code: 500,
             message: 'Internal server error: ' + error.response.data
@@ -164,7 +172,16 @@ const Payment = () => {
         <Modal aria-labelledby='success-title' open={confirmationVisible} onClose={() => setConfirmationVisible(false)}
                closeButton>
           <Modal.Header>
-            <Text h4 id='success-title'>You're now a Paid Member of ACM!</Text>
+            <Text h4 id='success-title'>You're now a Paid Member of ACM @ UIUC!</Text>
+          </Modal.Header>
+          <Modal.Body css={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Lottie animationData={successAnimation} loop={false} style={{ width: '10em' }} />
+          </Modal.Body>
+        </Modal>
+        <Modal aria-labelledby='success-title' open={alreadyMemberVisible} onClose={() => setAlreadyMemberVisible(false)}
+               closeButton>
+          <Modal.Header>
+            <Text h4 id='success-title'>You're already a Paid Member of ACM @ UIUC!</Text>
           </Modal.Header>
           <Modal.Body css={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <Lottie animationData={successAnimation} loop={false} style={{ width: '10em' }} />

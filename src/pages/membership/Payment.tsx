@@ -36,7 +36,7 @@ const Payment = () => {
   };
 
   const purchaseHandler = () => {
-    const url = `https://u6fhkp7s5vjfi6fktlmgerloha0ztoqu.lambda-url.us-east-1.on.aws?netid=${netId}`;
+    const url = `https://membership.acm.illinois.edu/api/v1/checkout/session?netid=${netId}`;
     axios.get(url).then(response => {
       window.location.replace(response.data);
     }).catch((error) => {

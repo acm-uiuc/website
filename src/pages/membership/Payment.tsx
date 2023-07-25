@@ -156,8 +156,8 @@ const Payment = () => {
           <Card.Divider/>
           <Modal.Footer>
             {errorMessage && errorMessage.code && (<Text>
-              If you believe that your payment has gone through, contact <a href='mailto:evanmm3@illinois.edu'>Evan
-              Matthews</a> with the error code. Otherwise, feel free to try again.
+              If you believe that your payment has gone through, contact the <a href='mailto:treasurer@acm.illinois.edu'>ACM
+              Treasurer</a> with the error code. Otherwise, feel free to try again.
             </Text>)}
           </Modal.Footer>
         </Modal>

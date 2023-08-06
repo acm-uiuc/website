@@ -212,7 +212,7 @@ function Navbar({ ...rest }: any) {
     <NavContainer {...rest}>
       <NavHeader>
         <SiteTitle as={Link} to="/" className="logo">
-          <img src={require('./logo.png')} alt="logo" />
+          <img src="https://acm-brand-images.s3.amazonaws.com/banner-white.png" alt="logo" height="104px" width="202px"/>
         </SiteTitle>
 
         <input

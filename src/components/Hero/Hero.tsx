@@ -13,9 +13,9 @@ import {
   FaBell,
   FaSignInAlt,
 } from 'react-icons/fa';
-import { BsArrowRepeat } from "react-icons/bs";
+import { BsArrowRepeat } from 'react-icons/bs';
 import { string } from 'prop-types';
-import eventList  from './events.json';
+import eventList from './events.json';
 import Moment from 'moment';
 
 const HeroBackground = styled.section`
@@ -82,9 +82,9 @@ const JoinButton = styled((props: any) => (
   <Button large variant="neutral" {...props} />
 ))`
   font-size: ${(props) => props.theme.fontSizes.h3}px;
-  @media (max-width:600px) {
-    width:350px;
-}
+  @media (max-width: 600px) {
+    width: 350px;
+  }
 `;
 
 const JoinEventButton = styled((props: any) => (
@@ -97,33 +97,29 @@ const ButtonRow = styled.div`
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  gap:0px 20px;
-  
-  @media (max-width:600px) {
+  gap: 0px 20px;
+
+  @media (max-width: 600px) {
     flex-wrap: wrap;
-    justify-content:space-evenly;
-    gap:1em;
-    padding-right:0px;
-    margin:-10px 0px -25px 0px;
-
-}
-
+    justify-content: space-evenly;
+    gap: 1em;
+    padding-right: 0px;
+    margin: -10px 0px -25px 0px;
+  }
 `;
 
 const Icon = styled((props) => <Button {...props} variant="punch-through" />)`
   width: 55px;
   height: 55px;
   background-color: white;
-  padding-bottom:-20px
-
+  padding-bottom: -20px;
 `;
 
 const MobileIcon = styled(Icon)`
-  @media (min-width:600px) {
+  @media (min-width: 600px) {
     display: none;
-
   }
-`
+`;
 
 const IconImage = css`
   width: 35px;
@@ -210,15 +206,15 @@ const EventText = styled(Text)`
 
 function toHumanDate(date: string) {
   Moment.locale('en');
-  return Moment(date).format("MMMM Do, h:mm A");
+  return Moment(date).format('MMMM Do, h:mm A');
 }
 
 const JoinContainer = styled.div`
-  display:flex;
+  display: flex;
 `;
 const InfoContainer = styled.div`
-  display:block;
-  width:200px;
+  display: block;
+  width: 200px;
 `;
 
 type EventProps = {
@@ -239,7 +235,7 @@ function Event({
   locationLink,
   dateLink,
   repeats,
-  paidEventId
+  paidEventId,
 }: EventProps) {
   return (
     <EventCard>
@@ -253,14 +249,25 @@ function Event({
           <EventDetails level={6} link={dateLink}>
             <FaRegCalendarAlt /> {date}
           </EventDetails>
-          {repeats ? <EventDetails level={6} link={dateLink}>
-            <BsArrowRepeat /> Every {repeats}
-          </EventDetails> : null}
+          {repeats ? (
+            <EventDetails level={6} link={dateLink}>
+              <BsArrowRepeat /> Every {repeats}
+            </EventDetails>
+          ) : null}
         </InfoContainer>
         <EventDetails level={6} link={dateLink}>
-          {paidEventId? <a href={"/#/event/" + paidEventId} target="_blank" rel="noreferrer">
-            <JoinEventButton> <FaSignInAlt /> Register </JoinEventButton>
-          </a> : null}
+          {paidEventId ? (
+            <a
+              href={'/#/event/' + paidEventId}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <JoinEventButton>
+                {' '}
+                <FaSignInAlt /> Register{' '}
+              </JoinEventButton>
+            </a>
+          ) : null}
         </EventDetails>
       </JoinContainer>
     </EventCard>
@@ -284,7 +291,14 @@ function Hero() {
       <Content as="section">
         <HeaderImageSplit>
           <Left>
-            <Card as="img" src='/header.webp' onError={({ currentTarget }: {currentTarget: any}) => { currentTarget.onerror = null; currentTarget.src='/header.jpg';}} />
+            <Card
+              as="img"
+              src="/header.webp"
+              onError={({ currentTarget }: { currentTarget: any }) => {
+                currentTarget.onerror = null;
+                currentTarget.src = '/header.jpg';
+              }}
+            />
           </Left>
           <IntroText>
             <HeroHeader level={1}>
@@ -297,11 +311,7 @@ function Hero() {
               interests to ACM.
             </HeaderText>
             <ButtonRow>
-              <a
-                href="/#/membership"
-                target="_blank"
-                rel="noreferrer"
-              >
+              <a href="/#/membership" target="_blank" rel="noreferrer">
                 <JoinButton>Join Now</JoinButton>
               </a>
               <Icon>
@@ -328,31 +338,45 @@ function Hero() {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <IconBell/>
+                  <IconBell />
                 </a>
               </MobileIcon>
-              
             </ButtonRow>
           </IntroText>
           <Right>
-            <Card as="img" src='/header.webp' onError={({ currentTarget }: {currentTarget: any}) => { currentTarget.onerror = null; currentTarget.src='/header.jpg';}} />
+            <Card
+              as="img"
+              src="/header.webp"
+              onError={({ currentTarget }: { currentTarget: any }) => {
+                currentTarget.onerror = null;
+                currentTarget.src = '/header.jpg';
+              }}
+            />
           </Right>
         </HeaderImageSplit>
         <EventsContainer>
-          {eventList.sort((a, b) => {
-            return (Moment(a.date).unix() - Moment(b.date).unix());
-          }).map((object, i) => {
-            if (i > 2) { return null; }
-            return <Event
-            title={object.title}
-            description={object.description}
-            date={toHumanDate(object.date)}
-            repeats={object.repeats}
-            location={object.location}
-            locationLink={object.locationLink}
-            paidEventId={object.paidEventId}
-          />
-          })}
+          {eventList
+            .sort((a, b) => {
+              return Moment(a.date).unix() - Moment(b.date).unix();
+            })
+            .map((object, i) => {
+              if (i > 2) {
+                return null;
+              }
+              return (
+                <Event
+                  title={object.title}
+                  description={object.description}
+                  date={toHumanDate(object.date)}
+                  repeats={
+                    'repeats' in object ? (object.repeats as string) : undefined
+                  }
+                  location={object.location}
+                  locationLink={object.locationLink}
+                  paidEventId={object.paidEventId}
+                />
+              );
+            })}
         </EventsContainer>
       </Content>
     </HeroBackground>

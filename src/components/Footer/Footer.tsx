@@ -57,7 +57,7 @@ export const Footer = () => (
           <Title>Connect with ACM @ UIUC</Title>
           <ExternalLinkDiv>
             <Href
-              href="https://discord.com/invite/strhfywPdw"
+              href="https://discord.gg/ec8VX6bBJx"
               target="_blank"
               rel="noreferrer"
             >

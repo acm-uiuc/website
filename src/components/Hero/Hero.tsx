@@ -315,7 +315,7 @@ function Hero() {
               </Icon>
               <Icon>
                 <a
-                  href="https://discord.gg/strhfywPdw"
+                  href="https://discord.gg/ec8VX6bBJx"
                   target="_blank"
                   rel="noreferrer"
                 >

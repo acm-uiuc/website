@@ -92,7 +92,7 @@ const Sigscard = (props: any) => {
           description="We are the premier data science
           organization at UIUC, inspiring students to reshape their perspective on data."
           link1="https://aida.acm.illinois.edu/"
-          link2="https://discord.gg/QBj8rh9sM8"
+          link2="https://go.acm.illinois.edu/aida_discord"
           Imagesrc={sigaidalogo}
           Imagefallbacksrc={sigaidalogopng}
           linktext1="Website"
@@ -210,9 +210,9 @@ const Sigscard = (props: any) => {
         />
         <Card
           title="SIGecom"
-          description="Learn about the intersection of economics and computation. Open to all regardless of background."
+          description="Learn about the intersection of economics and computation. Open to all, regardless of background."
           link1="#"
-          link2="https://discord.gg/usSzJqVKbd"
+          link2="https://go.acm.illinois.edu/ecom_discord"
           Imagesrc={sigecomlogo}
           Imagefallbacksrc={sigecomlogopng}
           linktext1="—"

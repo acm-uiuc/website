@@ -228,7 +228,7 @@ type EventProps = {
   dateLink?: string;
   title: string;
   description: string;
-  repeats?: string;
+  repeats?: string | boolean;
   paidEventId?: string;
 };
 function Event({
@@ -347,7 +347,7 @@ function Hero() {
             title={object.title}
             description={object.description}
             date={toHumanDate(object.date)}
-            repeats={object.repeats}
+            repeats={(object as any)?.repeats}
             location={object.location}
             locationLink={object.locationLink}
             paidEventId={object.paidEventId}

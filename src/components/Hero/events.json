@@ -1,27 +1,26 @@
 [
   {
-        "title": "Weekly Happy Hour",
-        "description": "Join ACM and chat with some of your fellow members! Enjoy free food on us as you get a chance to know your peers better!",
-        "date": "08/25/2023 17:15:00 (CST)",
-        "repeats": "Week",
-        "location": "Legends",
-        "locationLink": "https://goo.gl/maps/CXESXd3otbGZNqFP7",
-        "paidEventId" : ""
-    },
+    "title": "Game Night",
+    "description": "Come out for a night of games, friends, food, and fun! Dinner will be provided!",
+    "date": "08/30/2023 17:30:00 (CST)",
+    "location": "ACM Room (1104 Siebel)",
+    "locationLink": "https://goo.gl/maps/wNCKLPyyp47wQUSY7",
+    "paidEventId": ""
+  },
   {
     "title": "ACM x WCS Field Day",
     "description": "Have fun under the (shade) and sun! There will be food, large group competitions, small games, and opportunities to win prizes.",
-    "date": "08/23/2023 17:30:00 (CST)",
+    "date": "08/31/2023 17:30:00 (CST)",
     "location": "Illini Grove",
     "locationLink": "https://goo.gl/maps/gm2EPeed6gqUcGoH8",
     "paidEventId": ""
   },
   {
-    "title": "Game Night",
-    "description": "Come out for a night of games, friends, food, and fun! Dinner will be provided!",
-    "date": "08/30/2023 19:30:00 (CST)",
-    "location": "ACM Room (1104 Siebel)",
-    "locationLink": "https://goo.gl/maps/wNCKLPyyp47wQUSY7",
+    "title": "ACM Open House",
+    "description": "Come learn about everything you can get involved with at ACM, including our Special Interest Groups, Committees and Partner Orgs! Afterwards, grab some free pizza and talk with SIGs and other ACM members.",
+    "date": "09/05/2023 18:30:00 (CST)",
+    "location": "CIF 0027/0035",
+    "locationLink": "https://goo.gl/maps/qQ9UpXHt2Y5U4zkG9",
     "paidEventId": ""
   }
 ]

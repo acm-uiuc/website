@@ -5,7 +5,7 @@ import { HashLink } from 'react-router-hash-link';
 import { useRef } from 'react';
 
 const NavHeader = styled.header`
-  height: 105px;
+  height: 130px;
   a {
     text-decoration: none;
   }

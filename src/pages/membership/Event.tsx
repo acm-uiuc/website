@@ -7,7 +7,8 @@ import axios from 'axios';
 
 interface ErrorCode {
   code?: number | string,
-  message: string
+  message: string,
+  title?: string
 }
 
 interface HelperReturnType {
@@ -15,6 +16,7 @@ interface HelperReturnType {
   text: string
 }
 
+const baseUrl = 'https://ticketing.acm.illinois.edu';
 const Event = () => {
   const { eventName } = useParams();
   const [errorMessageVisible, setErrorMessageVisible] = useState(false);
@@ -31,16 +33,34 @@ const Event = () => {
     setErrorMessage(null);
   };
   const metaLoader = async () => {
-    const url = `https://ticketing.acm.illinois.edu/api/v1/event/details?eventid=${eventName}`;
+    const url = `${baseUrl}/api/v1/event/details?eventid=${eventName}`;
     axios.get(url).then(response => {
       setPaidEventList(response.data);
-    })
-    .catch((error) => {
+      setErrorMessageVisible(false);
+      setIsLoading(false)
+      console.log(response.data)
+    }).catch((error) => {
       if (error.response && error.response.status === 404) {
-        setErrorMessage({
-          code: 404,
-          message: error.response.data.message
-        });
+        setTimeout(() => {
+          setErrorMessage({
+            title: "Error 404",
+            code: "This event could not be loaded.",
+            message: error.response.data.message
+          });
+          // set default paid schema so it renders the error page
+          setPaidEventList({"event_time": 0, 
+          "member_price": "", 
+          "eventImage": "", 
+          "eventCost": {"paid": 999999, "others": 999999}, "eventDetails": "",
+          "event_id": "404_event",
+          "tickets_sold": -1,
+          "event_capacity": -1, 
+          "event_sales_active_utc": -1, 
+          "event_name": "", 
+          "nonmember_price": ""});
+          setIsLoading(false);
+          setErrorMessageVisible(true);
+        }, 1000)
       }
     })
   }
@@ -50,7 +70,7 @@ const Event = () => {
   }, []);
   const purchaseHandler = () => {
     setIsLoading(true);
-    const url = `https://ticketing.acm.illinois.edu/api/v1/checkout/session?netid=${netId}&eventid=${eventName}`;
+    const url = `${baseUrl}/api/v1/checkout/session?netid=${netId}&eventid=${eventName}`;
     axios.get(url).then(response => {
       window.location.replace(response.data);
     }).catch((error) => {
@@ -174,7 +194,7 @@ const Event = () => {
           </Card>
           <Modal aria-labelledby='error-title' open={errorMessageVisible} onClose={errorMessageCloseHandler} closeButton>
             <Modal.Header>
-              <Text h4 id='error-title'>Verification Failed</Text>
+              <Text h4 id='error-title'>{(errorMessage && errorMessage.title) || 'Verification Failed'}</Text>
             </Modal.Header>
             <Modal.Body>
               <Text b>Error: {errorMessage && errorMessage.code}</Text>

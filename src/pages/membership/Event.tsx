@@ -34,13 +34,14 @@ const Event = () => {
     const url = `https://ticketing.acm.illinois.edu/api/v1/event/details?eventid=${eventName}`;
     axios.get(url).then(response => {
       setPaidEventList(response.data);
-    })
-    .catch((error) => {
+    }).catch((error) => {
       if (error.response && error.response.status === 404) {
         setErrorMessage({
-          code: 404,
+          code: "This event could not be loaded.",
           message: error.response.data.message
         });
+        setIsLoading(false);
+        setErrorMessageVisible(true);
       }
     })
   }

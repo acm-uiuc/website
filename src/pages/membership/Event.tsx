@@ -31,9 +31,17 @@ const Event = () => {
     setErrorMessage(null);
   };
   const metaLoader = async () => {
-    const url = `https://peakaueyvejduwiijhydvpwa640ehekr.lambda-url.us-east-1.on.aws/?eventid=${eventName}`;
+    const url = `https://ticketing.acm.illinois.edu/api/v1/event/details?eventid=${eventName}`;
     axios.get(url).then(response => {
       setPaidEventList(response.data);
+    })
+    .catch((error) => {
+      if (error.response && error.response.status === 404) {
+        setErrorMessage({
+          code: 404,
+          message: error.response.data.message
+        });
+      }
     })
   }
   useEffect(() => {
@@ -42,7 +50,7 @@ const Event = () => {
   }, []);
   const purchaseHandler = () => {
     setIsLoading(true);
-    const url = `https://lz6glqwonfyx5dcmfjtlbqd6hm0fnrrd.lambda-url.us-east-1.on.aws?netid=${netId}&eventid=${eventName}`;
+    const url = `https://ticketing.acm.illinois.edu/api/v1/checkout/session?netid=${netId}&eventid=${eventName}`;
     axios.get(url).then(response => {
       window.location.replace(response.data);
     }).catch((error) => {

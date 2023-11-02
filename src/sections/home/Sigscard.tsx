@@ -136,11 +136,11 @@ const Sigscard = (props: any) => {
           description="Polish coding and problem solving skills to prepare
           for competitions/interviews at Illinois Programming League."
           link1="http://icpc.cs.illinois.edu/"
-          link2="https://campuswire.com/p/GACF2E8B2"
+          link2="https://go.acm.illinois.edu/icpc_discord"
           Imagesrc={icpclogo}
           Imagefallbacksrc={icpclogopng}
           linktext1="Website"
-          linktext2="Campuswire (code 4080)"
+          linktext2="Discord"
         />
         <Card
           title="SIGCHI"

@@ -150,6 +150,8 @@ const Event = () => {
   if (Object.keys(paidEventList).length === 0) {
     return <Layout name="Event Signup"></Layout>;
   } else {
+    const dateString = new Date(paidEventList['event_time'] * 1000)
+    const isRunningOut = (paidEventList['tickets_sold']/paidEventList['event_capacity'] > 0.75)
     return ( 
       <Layout name = {paidEventList["event_name"]}>
         <Container xs css={{ height: '90vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -165,8 +167,19 @@ const Event = () => {
               <Text>
                 { paidEventList["eventDetails"]}
               </Text>
-              <Text><b>Cost:</b> ${paidEventList["eventCost"]["paid"]} for paid ACM members, ${paidEventList["eventCost"]["others"]} for all other participants.</Text>
               <Spacer />
+              <Text><b>Date:</b> {dateString.toLocaleString([], {
+                'year': 'numeric',
+                'month': 'long',
+                'day': 'numeric',
+                'hour12': true,
+                'hour': 'numeric',
+                "timeZoneName": "short"
+              })}.</Text>
+              <Spacer />
+              <Text><b>Cost:</b> ${paidEventList["eventCost"]["paid"]} for paid ACM@UIUC members, ${paidEventList["eventCost"]["others"]} for all other participants.</Text>
+              <Spacer />
+              <Text>{isRunningOut ? <><i>Tickets are running out, order soon!</i><Spacer /></> : null}</Text>
               <Input
                 color={netidHelper.color}
                 helperColor={netidHelper.color}

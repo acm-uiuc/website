@@ -174,6 +174,7 @@ const Event = () => {
                 'day': 'numeric',
                 'hour12': true,
                 'hour': 'numeric',
+                'minute': '2-digit',
                 "timeZoneName": "short"
               })}.</Text>
               <Spacer />

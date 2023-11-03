@@ -7,7 +7,8 @@ import axios from 'axios';
 
 interface ErrorCode {
   code?: number | string,
-  message: string
+  message: string,
+  title?: string
 }
 
 interface HelperReturnType {
@@ -15,6 +16,7 @@ interface HelperReturnType {
   text: string
 }
 
+const baseUrl = 'https://ticketing.acm.illinois.edu';
 const Event = () => {
   const { eventName } = useParams();
   const [errorMessageVisible, setErrorMessageVisible] = useState(false);
@@ -31,9 +33,35 @@ const Event = () => {
     setErrorMessage(null);
   };
   const metaLoader = async () => {
-    const url = `https://peakaueyvejduwiijhydvpwa640ehekr.lambda-url.us-east-1.on.aws/?eventid=${eventName}`;
+    const url = `${baseUrl}/api/v1/event/details?eventid=${eventName}`;
     axios.get(url).then(response => {
       setPaidEventList(response.data);
+      setErrorMessageVisible(false);
+      setIsLoading(false)
+      console.log(response.data)
+    }).catch((error) => {
+      if (error.response && error.response.status === 404) {
+        setTimeout(() => {
+          setErrorMessage({
+            title: "Error 404",
+            code: "This event could not be loaded.",
+            message: error.response.data.message
+          });
+          // set default paid schema so it renders the error page
+          setPaidEventList({"event_time": 0, 
+          "member_price": "", 
+          "eventImage": "", 
+          "eventCost": {"paid": 999999, "others": 999999}, "eventDetails": "",
+          "event_id": "404_event",
+          "tickets_sold": -1,
+          "event_capacity": -1, 
+          "event_sales_active_utc": -1, 
+          "event_name": "", 
+          "nonmember_price": ""});
+          setIsLoading(false);
+          setErrorMessageVisible(true);
+        }, 1000)
+      }
     })
   }
   useEffect(() => {
@@ -42,7 +70,7 @@ const Event = () => {
   }, []);
   const purchaseHandler = () => {
     setIsLoading(true);
-    const url = `https://lz6glqwonfyx5dcmfjtlbqd6hm0fnrrd.lambda-url.us-east-1.on.aws?netid=${netId}&eventid=${eventName}`;
+    const url = `${baseUrl}/api/v1/checkout/session?netid=${netId}&eventid=${eventName}`;
     axios.get(url).then(response => {
       window.location.replace(response.data);
     }).catch((error) => {
@@ -122,6 +150,8 @@ const Event = () => {
   if (Object.keys(paidEventList).length === 0) {
     return <Layout name="Event Signup"></Layout>;
   } else {
+    const dateString = new Date(paidEventList['event_time'] * 1000)
+    const isRunningOut = (paidEventList['tickets_sold']/paidEventList['event_capacity'] > 0.75)
     return ( 
       <Layout name = {paidEventList["event_name"]}>
         <Container xs css={{ height: '90vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -137,8 +167,20 @@ const Event = () => {
               <Text>
                 { paidEventList["eventDetails"]}
               </Text>
-              <Text><b>Cost:</b> ${paidEventList["eventCost"]["paid"]} for paid ACM members, ${paidEventList["eventCost"]["others"]} for all other participants.</Text>
               <Spacer />
+              <Text><b>Date:</b> {dateString.toLocaleString([], {
+                'year': 'numeric',
+                'month': 'long',
+                'day': 'numeric',
+                'hour12': true,
+                'hour': 'numeric',
+                'minute': '2-digit',
+                "timeZoneName": "short"
+              })}.</Text>
+              <Spacer />
+              <Text><b>Cost:</b> ${paidEventList["eventCost"]["paid"]} for paid ACM@UIUC members, ${paidEventList["eventCost"]["others"]} for all other participants.</Text>
+              <Spacer />
+              <Text>{isRunningOut ? <><i>Tickets are running out, order soon!</i><Spacer /></> : null}</Text>
               <Input
                 color={netidHelper.color}
                 helperColor={netidHelper.color}
@@ -166,7 +208,7 @@ const Event = () => {
           </Card>
           <Modal aria-labelledby='error-title' open={errorMessageVisible} onClose={errorMessageCloseHandler} closeButton>
             <Modal.Header>
-              <Text h4 id='error-title'>Verification Failed</Text>
+              <Text h4 id='error-title'>{(errorMessage && errorMessage.title) || 'Verification Failed'}</Text>
             </Modal.Header>
             <Modal.Body>
               <Text b>Error: {errorMessage && errorMessage.code}</Text>

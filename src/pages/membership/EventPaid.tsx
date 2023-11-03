@@ -13,7 +13,7 @@ const EventPaid = () => {
 
 
   const metaLoader = async () => {
-    const url = `https://peakaueyvejduwiijhydvpwa640ehekr.lambda-url.us-east-1.on.aws/?eventid=${eventName}`;
+    const url = `https://ticketing.acm.illinois.edu/api/v1/event/details?eventid=${eventName}`;
     axios.get(url).then(response => {
       setPaidEventList(response.data);
     })

@@ -3,7 +3,6 @@ import Text from '../Text/Text';
 import { string } from 'prop-types';
 
 const Container = styled.div`
-  width: 900px;
   height: 350px;
   display: flex;
   border-top: 1px solid grey;

@@ -33,7 +33,8 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "snap-build": "react-snap"
+    "snap-build": "react-snap",
+    "dev": "REACT_APP_TICKETING_BASE_URL='https://xclhkh0duc.execute-api.us-east-1.amazonaws.com/default' react-scripts start"
   },
   "eslintConfig": {
     "extends": [

@@ -16,7 +16,9 @@ interface HelperReturnType {
   text: string
 }
 
-const baseUrl = 'https://ticketing.acm.illinois.edu';
+const baseUrl = process.env.REACT_APP_TICKETING_BASE_URL ?? 'https://ticketing.acm.illinois.edu'
+const baseOverridden = Boolean(process.env.REACT_APP_TICKETING_BASE_URL)
+
 const Event = () => {
   const { eventName } = useParams();
   const [errorMessageVisible, setErrorMessageVisible] = useState(false);
@@ -158,7 +160,7 @@ const Event = () => {
           <Card css={{ margin: '2em' }}>
             <Card.Header>
               <Text b>
-                {paidEventList["event_name"]} Signup
+                {baseOverridden ? 'DEVELOPMENT MODE - ' : ''}{paidEventList["event_name"]} Signup
               </Text>
             </Card.Header>
             <Card.Divider />

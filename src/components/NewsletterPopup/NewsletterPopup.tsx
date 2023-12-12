@@ -95,7 +95,7 @@ function NewsletterPopup() {
                 <IconX onClick={() => {setClosedPopup(true)}}/>
                 <DescriptionText>Interested in recieving updates via email? Click below to subscribe to our newsletter!</DescriptionText>
                 <a
-                href="https://forms.gle/PqRkNtyuPGDwkomK9"
+                href="https://listmonk.acm.illinois.edu/subscription/form"
                 target="_blank"
                 rel="noopener noreferrer"       
                 >

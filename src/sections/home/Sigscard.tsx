@@ -231,11 +231,11 @@ const Sigscard = (props: any) => {
         <Card
           title="SIGPolicy"
           description="Discuss and understand software policy, ethics, law, and current events through a technological lens."
-          link1="#"
+          link1="https://sigpolicy.acm.illinois.edu"
           link2="https://discord.gg/gKjMH54YBF"
           Imagesrc={sigpolicylogo}
           Imagefallbacksrc={sigpolicylogopng}
-          linktext1="—"
+          linktext1="Website"
           linktext2="Discord"
         />
         <Card

@@ -5,11 +5,6 @@ The frontend source code for ACM's website is built mainly with Typescript and s
 
 ## Contributing
 
-Note: you must use yarn berry to build correctly:
-```
-yarn set version berry
-```
-
 ### Available Scripts
 
 In the project directory, you can run:

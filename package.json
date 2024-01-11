@@ -4,7 +4,7 @@
   "homepage": "https://acm.illinois.edu",
   "private": true,
   "dependencies": {
-    "@nextui-org/react": "^1.0.0-beta.10",
+    "@nextui-org/react": "1.0.0-beta.10",
     "@paypal/react-paypal-js": "^7.8.1",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
@@ -79,8 +79,8 @@
     "@storybook/react": "^6.5.15",
     "@storybook/testing-library": "^0.0.13",
     "@types/react": "^18.0.17",
+    "@types/react-is": "^18",
     "@types/react-router-hash-link": "^2.4.5",
-    "@types/styled-components": "^5.1.25",
     "babel-plugin-named-exports-order": "^0.0.2",
     "prop-types": "^15.8.1",
     "react-snap": "^1.23.0",
@@ -88,5 +88,6 @@
   },
   "reactSnap": {
     "fixWebpackChunksIssue": false
-  }
+  },
+  "packageManager": "yarn@1.22.21"
 }

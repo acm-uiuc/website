@@ -87,5 +87,6 @@
   },
   "reactSnap": {
     "fixWebpackChunksIssue": false
-  }
+  },
+  "packageManager": "yarn@4.0.2"
 }

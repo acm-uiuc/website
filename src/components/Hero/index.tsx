@@ -8,7 +8,7 @@ import {
 } from 'react-icons/fa';
 
 import EventCard from '@/components/Card/EventCard';
-import './Hero.css';
+import './hero.css';
 
 import eventList  from './events.json';
 import headerJpg from './header.jpg';

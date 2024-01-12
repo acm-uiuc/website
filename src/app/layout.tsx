@@ -25,8 +25,10 @@ const dm_sans = DM_Sans({
 });
 
 export default function RootLayout({ children } : { children: React.ReactNode }) {
+  // add CF web analytics script
   return (
     <html lang="en" className={dm_sans.variable}>
+      <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "09fe6ae0a5fd498bac829b586599e1d8"}'></script>
       <body>
         {children}
       </body>

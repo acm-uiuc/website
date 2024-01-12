@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "REACT_APP_TICKETING_BASE_URL='https://xclhkh0duc.execute-api.us-east-1.amazonaws.com/default' next dev",
     "start": "yarn dev",
-    "build": "next build",
+    "build": "next build && cp src/_redirects build/_redirects",
     "serve": "serve out",
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",

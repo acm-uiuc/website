@@ -1,93 +1,54 @@
 {
   "name": "app",
-  "version": "0.1.0",
-  "homepage": "https://acm.illinois.edu",
+  "version": "1.0.0",
+  "homepage": "https://acm.illinois.edu/",
   "private": true,
+  "scripts": {
+    "dev": "REACT_APP_TICKETING_BASE_URL='https://xclhkh0duc.execute-api.us-east-1.amazonaws.com/default' next dev",
+    "start": "yarn dev",
+    "build": "next build && cp src/_redirects build/_redirects",
+    "serve": "serve out",
+    "lint": "next lint",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
   "dependencies": {
-    "@nextui-org/react": "1.0.0-beta.10",
-    "@paypal/react-paypal-js": "^7.8.1",
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.3.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.11.43",
-    "@types/react-dom": "^18.0.6",
-    "@types/styled-components": "^5.1.26",
+    "@nextui-org/react": "^2.2.9",
     "axios": "^0.27.2",
+    "framer-motion": "^10.17.9",
     "lottie-react": "^2.3.1",
     "moment": "^2.29.4",
+    "next": "14.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-icons": "^4.4.0",
-    "react-router-dom": "^6.3.0",
-    "react-router-hash-link": "^2.4.3",
-    "react-scripts": "5.0.1",
-    "styled-components": "^5.3.5",
-    "typescript": "^4.7.4",
-    "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public",
-    "snap-build": "react-snap",
-    "dev": "REACT_APP_TICKETING_BASE_URL='https://xclhkh0duc.execute-api.us-east-1.amazonaws.com/default' react-scripts start"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ],
-    "rules": {
-      "@typescript-eslint/no-unused-vars": "off"
-    },
-    "overrides": [
-      {
-        "files": [
-          "**/*.stories.*"
-        ],
-        "rules": {
-          "import/no-anonymous-default-export": "off"
-        }
-      }
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "react-icons": "^4.4.0"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^6.5.15",
-    "@storybook/addon-essentials": "^6.5.15",
-    "@storybook/addon-interactions": "^6.5.15",
-    "@storybook/addon-links": "^6.5.15",
-    "@storybook/builder-webpack5": "^6.5.15",
-    "@storybook/manager-webpack5": "^6.5.15",
-    "@storybook/node-logger": "^6.5.15",
-    "@storybook/preset-create-react-app": "^4.1.2",
-    "@storybook/react": "^6.5.15",
-    "@storybook/testing-library": "^0.0.13",
-    "@types/react": "^18.0.17",
-    "@types/react-is": "^18",
-    "@types/react-router-hash-link": "^2.4.5",
-    "babel-plugin-named-exports-order": "^0.0.2",
-    "prop-types": "^15.8.1",
-    "react-snap": "^1.23.0",
-    "webpack": "^5.73.0"
+    "@storybook/addon-essentials": "^7.6.7",
+    "@storybook/addon-interactions": "^7.6.7",
+    "@storybook/addon-links": "^7.6.7",
+    "@storybook/addon-onboarding": "^1.0.10",
+    "@storybook/blocks": "^7.6.7",
+    "@storybook/nextjs": "^7.6.7",
+    "@storybook/react": "^7.6.7",
+    "@storybook/test": "^7.6.7",
+    "@testing-library/react": "^13.3.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8",
+    "eslint-config-next": "14.0.4",
+    "eslint-plugin-storybook": "^0.6.15",
+    "postcss": "^8.4.33",
+    "serve": "^14.2.1",
+    "storybook": "^7.6.7",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
   },
-  "reactSnap": {
-    "fixWebpackChunksIssue": false
+  "resolutions": {
+    "jackspeak": "2.1.1"
   },
   "packageManager": "yarn@1.22.21"
 }

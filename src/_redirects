@@ -1,0 +1,2 @@
+/event/:id /event?id=:id 301
+/event-paid/:id /event-paid?id=:id 301

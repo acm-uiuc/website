@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --rgb-acmdark: 62 72 111;        /* #3E486F */
+  --rgb-primary: 69 119 248;       /* #4577F8 */
+  --rgb-secondary: 56 98 201;      /* #3862C9 */
+  --rgb-surface-000: 255 255 255;  /* #FFFFFF */
+  --rgb-surface-050: 250 250 250;  /* #FAFAFA */
+  --rgb-surface-100: 239 239 239;  /* #EFEFEF */
+  --rgb-surface-150: 224 224 224;  /* #E0E0E0 */
+  --rgb-surface-200: 189 189 189;  /* #BDBDBD */
+  --rgb-surface-250: 158 158 158;  /* #9E9E9E */
+
+  --font-size-body: 1.125rem;
+  --font-size-bodylarge: 1.25rem;
+  --font-size-h1: 2.8125rem;
+  --font-size-h2: 2rem;
+  --font-size-h3: 1.75rem;
+  --font-size-h4: 1.5rem;
+  --font-size-h5: 1.25rem;
+  --font-size-h6: 1rem;
+}
+
+html {
+  --scroll-behavior: smooth!important;
+  scroll-behavior: smooth!important;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: var(--font-size-body);
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+}
+h2 {
+  font-size: var(--font-size-h2);
+}
+h3 {
+  font-size: var(--font-size-h3);
+}
+h4 {
+  font-size: var(--font-size-h4);
+}
+h5 {
+  font-size: var(--font-size-h5);
+}
+h6 {
+  font-size: var(--font-size-h6);
+}
+h1, h2 {
+  color: rgb(var(--rgb-acmdark));
+}
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+}
+
+.no-scroll {
+  overflow-y: hidden;
+}

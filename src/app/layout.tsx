@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1.0,
-  themeColor: '#3E486F'
+  themeColor: '#0053B3'
 };
 
 const dm_sans = DM_Sans({

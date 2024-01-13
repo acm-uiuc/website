@@ -20,6 +20,7 @@ function toHumanDate(date: string) {
 }
 
 export default function Hero() {
+  const numEvents = Math.min(eventList.length, 3);
   return (
     <div className="hero-background">
       <section className="container">
@@ -81,7 +82,8 @@ export default function Hero() {
             </div>
           </div>
         </div>
-        <div className="pt-16 pb-24 grid gap-4 grid-cols-1 lg:grid-cols-3">
+        <h3 className='text-white'>Upcoming Events</h3>
+        <div className={`pt-1 pb-24 grid gap-4 grid-cols-1 lg:grid-cols-${numEvents}`}>
           {eventList.sort((a, b) => {
             return (Moment(a.date).unix() - Moment(b.date).unix());
           }).map((object, i) => {

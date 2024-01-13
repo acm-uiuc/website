@@ -1,24 +1,8 @@
 [
   {
-    "title": "Game Night",
-    "description": "Beat your favorite infra chair at games such as Spades and Power Grid!",
-    "date": "2023-11-04T17:30:00-06:00",
-    "location": "ACM Room (1104 Siebel)",
-    "locationLink": "https://goo.gl/maps/wNCKLPyyp47wQUSY7",
-    "paidEventId": ""
-  },
-  {
-    "title": "Bar Crawl",
-    "description": "Join ACM and meet your fellow members as we visit KAMS, Joe's, and Legends on our semesterly bar crawl! Get a free t-shirt with sign-up! Alcohol will be provided by ACM to members over 21 wearing bar crawl t-shirts.",
-    "date": "2023-11-09T19:00:00-06:00",
-    "location": "Murphy's Pub",
-    "locationLink": "https://maps.app.goo.gl/ZGaNLdSNr2LhrpHJA",
-    "paidEventId": "fa23_barcrawl"
-  },
-  {
     "title": "Weekly Happy Hour",
     "description": "Join ACM and chat with some of your fellow members! Enjoy free food on us as you get a chance to know your peers better!",
-    "date": "2023-11-03T17:00:00-06:00",
+    "date": "2024-01-19T17:00:00-06:00",
     "repeats": "Week",
     "location": "Legends",
     "locationLink": "https://goo.gl/maps/CXESXd3otbGZNqFP7",

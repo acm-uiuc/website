@@ -55,11 +55,9 @@ export default function Sigscard() {
         title="SIGAIDA"
         description="We are the premier data science
         organization at UIUC, inspiring students to reshape their perspective on data."
-        link1="https://aida.acm.illinois.edu/"
         link2="https://go.acm.illinois.edu/aida_discord"
         imgwebp={webp_sigaidalogo.src}
         img={sigaidalogo}
-        linktext1="Website"
         linktext2="Discord"
       />
       <Card

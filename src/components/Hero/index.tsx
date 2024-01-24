@@ -20,7 +20,7 @@ function toHumanDate(date: string) {
 }
 
 export default function Hero() {
-  const numEvents = Math.min(eventList.length, 3);
+  const numEvents = Math.min(eventList.length + 1, 3);
   return (
     <div className="hero-background">
       <section className="container">

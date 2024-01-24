@@ -7,5 +7,13 @@
     "location": "Legends",
     "locationLink": "https://goo.gl/maps/CXESXd3otbGZNqFP7",
     "paidEventId" : ""
+  },
+  {
+    "title": "Open House",
+    "description": "Dive into the chance to meet new people, discover how to get involved, and chat with all our SIGs, Committees, and partner organizations!",
+    "date": "2024-01-25T18:30:00-06:00",
+    "location": "CIF 0027",
+    "locationLink": "https://maps.app.goo.gl/1QBXd3aDN5wiYnzm7",
+    "paidEventId" : ""
   }
 ]

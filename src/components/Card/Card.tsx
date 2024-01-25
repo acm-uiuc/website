@@ -7,8 +7,10 @@ interface CardProps {
   imgwebp: string
   link1?: string
   link2?: string
+  link3?: string
   linktext1?: string
   linktext2?: string
+  linktext3?: string
 };
 
 export default function Card({ 
@@ -58,7 +60,7 @@ export default function Card({
           >
             {linktext2}
           </a>
-        ) : <div />}
+        ) : null}
         {link3 && linktext3 ? (
           <a
             className="font-medium p-1 rounded-md text-primary hover:bg-surface-100 transition-all"
@@ -68,7 +70,7 @@ export default function Card({
           >
             {linktext3}
           </a>
-        ) : <div />}
+        ) : null}
       </div>
     </div>
   );

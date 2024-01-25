@@ -16,8 +16,10 @@ export default function Card({
   description,
   link1,
   link2,
+  link3,
   linktext1,
   linktext2,
+  linktext3,
   img,
   imgwebp,
 }: CardProps) {
@@ -55,6 +57,16 @@ export default function Card({
             rel="noopener noreferrer"
           >
             {linktext2}
+          </a>
+        ) : <div />}
+        {link3 && linktext3 ? (
+          <a
+            className="font-medium p-1 rounded-md text-primary hover:bg-surface-100 transition-all"
+            href={link3}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {linktext3}
           </a>
         ) : <div />}
       </div>

@@ -126,7 +126,7 @@ export default function Sigscard() {
         img={gluglogo}
         linktext1="Website"
         linktext2="Discord"
-        linktext3="Matrix"
+        linktext3="Matrix" //testing third link
       />
       <Card
         title="SIGMusic"

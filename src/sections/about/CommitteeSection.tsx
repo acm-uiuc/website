@@ -94,8 +94,8 @@ export default function CommitteeSection() {
           image={instagram}
           chairs={[
             {
-              name: "Kylie Zhang",
-              email: "kyliez2@illinois.edu"
+              name: "Kris Png",
+              email: "kpng2@illinois.edu"
             },
             {
               name: "Jingtong Wang",

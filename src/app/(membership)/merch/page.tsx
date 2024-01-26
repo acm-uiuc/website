@@ -176,8 +176,8 @@ const MerchItem = () => {
             </CardHeader>
             <Divider />
             <CardBody className="gap-4">
-              {merchList["eventImage"] ? (
-                <img alt={merchList["event_name"] + " image."} src={merchList["eventImage"]} />
+              {merchList["item_image"] ? (
+                <img alt={merchList["item_name"] + " image."} src={merchList["item_image"]} />
               ) : null}
               <p>
                 <b>Cost:</b> ${merchList["item_price"]["paid"]} for paid ACM@UIUC members, ${merchList["item_price"]["others"]} for nonmembers.

@@ -16,10 +16,25 @@ const baseUrl = process.env.REACT_APP_MERCH_API_BASE_URL ?? 'https://merchapi.ac
 const baseOverridden = Boolean(process.env.REACT_APP_MERCH_API_BASE_URL);
 
 const MerchStore = () => {
-    const [itemsList, setItemsList] = useState<any>([]); //TODO: type this
+    const [itemsList, setItemsList] = useState<Array<Record<string, any>>>([]);
     const url = `${baseUrl}/api/v1/merch/all_item_details`;
     axios.get(url).then(response => {
         setItemsList(response.data);
+      }).catch(error => {
+        setItemsList([
+            {
+                "member_price": "", 
+                "nonmember_price": "",
+                "item_image": "", 
+                "sizes" : [],
+                "item_price": {"paid": 999999, "others": 999999}, "eventDetails": "",
+                "item_id": "404_item",
+                "total_sold": {},
+                "total_avail": {}, 
+                "item_sales_active_utc": -1, 
+                "item_name": "", 
+              }
+        ])
       })
 
       if (itemsList.length === 0) {
@@ -27,7 +42,7 @@ const MerchStore = () => {
       } else {
         <Layout name="Merch Store">
             <div className="h-screen w-screen absolute top-0 left-0 flex flex-col items-center py-24">
-            {itemsList.map((val: any) => ( // TODO: type this
+            {itemsList.map((val: Record<string, any>) => (
                   <Card key={val["item_name"]} className="max-w-[512px] mx-4 my-auto shrink-0">
                     <CardHeader>
                         <p className="font-bold">

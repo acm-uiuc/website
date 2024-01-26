@@ -90,7 +90,9 @@ export default function Navbar() {
                   >
                     Sponsors
                   </NavLink>
-                  <NavLink
+                </li>
+                <li>
+                <NavLink
                     href="/merch-store"
                     onClick={uncheck}
                   >

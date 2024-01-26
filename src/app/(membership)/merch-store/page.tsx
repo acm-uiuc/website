@@ -43,12 +43,7 @@ const MerchStore = () => {
       } else {
         <Layout name="Merch Store">
             <div className="h-screen w-screen absolute top-0 left-0 flex flex-col items-center py-24">
-            {itemsList.map((val: Record<string, any>) => (
-                  <Card key={val["item_name"]} className="max-w-[512px] mx-4 my-auto shrink-0">
-                    Hi
-                  </Card>
-                ))}
-                
+                Hi
             </div>
         </Layout>
       }

@@ -17,7 +17,7 @@ const MerchPaid = () => {
   const itemid = useSearchParams().get('id') || '';
   const [merchList, setMerchList] = useState<Record<string, any>>({});
 
-  const baseUrl = process.env.REACT_APP_NERCH_API_BASE_URL ?? 'https://merchapi.acm.illinois.edu';
+  const baseUrl = process.env.REACT_APP_MERCH_API_BASE_URL ?? 'https://merchapi.acm.illinois.edu';
 
   const metaLoader = async () => {
     const url = `${baseUrl}/api/v1/merch/details?itemid=${itemid}`;
@@ -31,7 +31,7 @@ const MerchPaid = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   if (Object.keys(merchList).length === 0) {
-    return <Layout name="Merch Purchasing"></Layout>;
+    return <Layout name="Merch Store"></Layout>;
   } else {
     return (
       <Layout name={merchList['item_name']}>

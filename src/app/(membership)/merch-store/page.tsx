@@ -51,21 +51,22 @@ const MerchStore = () => {
                         </p>
                     </CardHeader>
                     <CardBody>
-                    {val["item_image"] ? (
-                        <img alt={val["item_name"] + " image."} src={val["item_image"]} />
-                    ) : null}
+                        {val["item_image"] ? (
+                            <img alt={val["item_name"] + " image."} src={val["item_image"]} />
+                        ) : null}
+                        
+                        <p>
+                            <b>Cost:</b> ${val["item_price"]["paid"]} for paid ACM@UIUC members, ${val["item_price"]["others"]} for nonmembers.
+                        </p>
+                        <Button
+                            color="primary"
+                            size="lg"
+                            as={Link}
+                            href={"../merch/" + val["item_id"]}
+                        >
+                            Purchase
+                        </Button>
                     </CardBody>
-                    <p>
-                        <b>Cost:</b> ${val["item_price"]["paid"]} for paid ACM@UIUC members, ${val["item_price"]["others"]} for nonmembers.
-                    </p>
-                    <Button
-                        color="primary"
-                        size="lg"
-                        as={Link}
-                        href={"../merch/" + val["item_id"]}
-                    >
-                        Purchase
-                    </Button>
                   </Card>
                 ))}
                 

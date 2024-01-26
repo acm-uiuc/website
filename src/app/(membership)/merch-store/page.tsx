@@ -6,6 +6,7 @@ import {
   Card,
   CardBody,
   CardHeader,
+  Link
 } from '@nextui-org/react';
 import axios from 'axios';
 import Layout from '../MembershipLayout';
@@ -57,6 +58,14 @@ const MerchStore = () => {
                     <p>
                         <b>Cost:</b> ${val["item_price"]["paid"]} for paid ACM@UIUC members, ${val["item_price"]["others"]} for nonmembers.
                     </p>
+                    <Button
+                        color="primary"
+                        size="lg"
+                        as={Link}
+                        href={"../merch/" + val["item_id"]}
+                    >
+                        Purchase
+                    </Button>
                   </Card>
                 ))}
                 

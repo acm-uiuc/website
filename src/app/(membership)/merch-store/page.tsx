@@ -10,12 +10,13 @@ import {
 import axios from 'axios';
 import Layout from '../MembershipLayout';
 
-const [itemsList, setItemsList] = useState<any>([]); //TODO: type this
+
 
 const baseUrl = process.env.REACT_APP_MERCH_API_BASE_URL ?? 'https://merchapi.acm.illinois.edu';
 const baseOverridden = Boolean(process.env.REACT_APP_MERCH_API_BASE_URL);
 
 const MerchStore = () => {
+    const [itemsList, setItemsList] = useState<any>([]); //TODO: type this
     const url = `${baseUrl}/api/v1/merch/all_item_details`;
     axios.get(url).then(response => {
         setItemsList(response.data);

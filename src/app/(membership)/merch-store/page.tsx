@@ -57,14 +57,6 @@ const MerchStore = () => {
                     <p>
                         <b>Cost:</b> ${val["item_price"]["paid"]} for paid ACM@UIUC members, ${val["item_price"]["others"]} for nonmembers.
                     </p>
-                    <a href={"../merch/" + val["item_id"]}>
-                        <Button
-                            color="primary"
-                            size="lg"
-                        >
-                            Purchase
-                        </Button>
-                    </a>
                   </Card>
                 ))}
                 

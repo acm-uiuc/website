@@ -121,10 +121,12 @@ export default function Sigscard() {
         wider open source world."
         link1="http://lug.acm.illinois.edu/"
         link2="https://discord.gg/sWD3zxPyc2"
+        link3="https://matrix.to/#/#gnulug:matrix.org"
         imgwebp={webp_gluglogo.src}
         img={gluglogo}
         linktext1="Website"
         linktext2="Discord"
+        linktext3="Matrix" //testing third link
       />
       <Card
         title="SIGMusic"

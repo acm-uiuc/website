@@ -44,15 +44,9 @@ const MerchStore = () => {
         <Layout name="Merch Store">
             <div className="h-screen w-screen absolute top-0 left-0 flex flex-col items-center py-24">
             {itemsList.map((val: Record<string, any>) => (
-                
-                        <Button
-                            color="primary"
-                            size="lg"
-                            as={Link}
-                            href={"../merch/" + "hiii"}
-                        >
-                            Purchase
-                        </Button>
+                  <Card key={val["item_name"]} className="max-w-[512px] mx-4 my-auto shrink-0">
+                    Hi
+                  </Card>
                 ))}
                 
             </div>

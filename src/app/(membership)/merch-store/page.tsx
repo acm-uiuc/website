@@ -1,22 +1,11 @@
 'use client';
 import React from 'react'
-import { useEffect, useMemo, useState} from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useState } from 'react';
 import {
   Button,
   Card,
   CardBody,
   CardHeader,
-  Divider,
-  Input,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  useDisclosure,
-  Select,
-  SelectItem
 } from '@nextui-org/react';
 import axios from 'axios';
 import Layout from '../MembershipLayout';
@@ -69,8 +58,3 @@ const MerchStore = () => {
     };
 
 export default MerchStore;
-
-
-
-}
-

@@ -45,39 +45,6 @@ const MerchStore = () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
         
-      if (itemsList.length === 0) {
-        return <Layout name="Merch Store"></Layout>;
-      } else {
-        <Layout name="Merch Store">
-            <div className="h-screen w-screen absolute top-0 left-0 flex flex-col items-center py-24">
-            {itemsList.map((val: Record<string, any>) => (
-                  <Card key={val["item_name"]} className="max-w-[512px] mx-4 my-auto shrink-0">
-                    <CardHeader>
-                        <p className="font-bold">
-                            {val["item_name"]}
-                        </p>
-                    </CardHeader>
-                    <CardBody>
-                    {val["item_image"] ? (
-                        <img alt={val["item_name"] + " image."} src={val["item_image"]} />
-                    ) : null}
-                    </CardBody>
-                    <p>
-                        <b>Cost:</b> ${val["item_price"]["paid"]} for paid ACM@UIUC members, ${val["item_price"]["others"]} for nonmembers.
-                    </p>
-                    <Button
-                        color="primary"
-                        size="lg"
-                        as={Link}
-                        href={"../merch/" + val["item_id"]}
-                    >
-                        Purchase
-                    </Button>
-                  </Card>
-                ))}
-                
-            </div>
-        </Layout>
-      }
+      
     };
 export default MerchStore;

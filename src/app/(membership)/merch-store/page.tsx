@@ -28,7 +28,7 @@ const MerchStore = () => {
         <Layout name="Merch Store">
             <div className="h-screen w-screen absolute top-0 left-0 flex flex-col items-center py-24">
             {itemsList.map((val: any) => ( // TODO: type this
-                  <Card className="max-w-[512px] mx-4 my-auto shrink-0">
+                  <Card key={val["item_name"]} className="max-w-[512px] mx-4 my-auto shrink-0">
                     <CardHeader>
                         <p className="font-bold">
                             {val["item_name"]}

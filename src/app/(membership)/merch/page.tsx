@@ -121,7 +121,7 @@ const MerchItem = () => {
       } else if (error.response.status === 404) {
         const errorObj = error.response.data.errors;
         setErrorMessage({
-          code: "We could not issue you a ticket.",
+          code: "Merch not availiable.",
           message: error.response.data
         });
       } else {

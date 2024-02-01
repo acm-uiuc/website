@@ -178,7 +178,7 @@ const MerchItem = () => {
   }, [inputEmailStatus, inputEmailConfirmStatus]);
 
   if (Object.keys(merchList).length === 0) {
-    if (merchLoaded) {
+    if (itemid === '') {
       window.location.replace("../merch-store");
       return <Layout name="Merch Store"></Layout>;
     }

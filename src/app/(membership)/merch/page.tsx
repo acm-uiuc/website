@@ -143,9 +143,22 @@ const MerchItem = () => {
     setSize(e? e.target? e.target.value : "" : "");
   };
 
-  const changeQuantity = (e: { target: { value: React.SetStateAction<string>; }; }) => {
-    setQuantity(e? e.target? e.target.value : "" :"");
+  const validateQuantity = (value: string) => {
+    return value.match(/^[0-9]+$/i);
   };
+
+  const totalCapacity = () => {
+    return Object.values(merchList["total_avail"]).reduce((acc: any, val: any) => acc + val, 0);
+  };
+
+  const filterSoldOut = (value: string) => {
+    return (!(value in merchList["total_avail"])) || (merchList["total_avail"][value] === 0);
+  }
+
+  const inputQuantityStatus = useMemo(() => {
+    if (quantity === "") return InputStatus.EMPTY;
+    return validateQuantity(quantity) ? InputStatus.VALID : InputStatus.INVALID;
+  }, [quantity]);
 
   const inputEmailStatus = useMemo(() => {
     if (email === "") return InputStatus.EMPTY;
@@ -180,6 +193,11 @@ const MerchItem = () => {
               {merchList["item_image"] ? (
                 <img alt={merchList["item_name"] + " image."} src={merchList["item_image"]} />
               ) : null}
+
+              {merchList["description"] ? (<p>{merchList["description"]}</p>) : null}
+
+              {totalCapacity() as number < 10 ? <p> <b>Item is running out, order soon!</b></p>: null}
+
               <p>
                 <b>Cost:</b> ${merchList["item_price"]["paid"]} for paid ACM@UIUC members, ${merchList["item_price"]["others"]} for nonmembers.
               </p>
@@ -189,6 +207,7 @@ const MerchItem = () => {
                 label="Size"
                 placeholder="Select an size"
                 selectedKeys={[size]}
+                disabledKeys={merchList["sizes"].filter(filterSoldOut)}
                 onChange={changeSize}
                 >
                 {merchList["sizes"].map((val: string) => (
@@ -197,20 +216,24 @@ const MerchItem = () => {
                   </SelectItem>
                 ))}
               </Select>
-              
-              <Select
-                isRequired={true}
+
+              <Input
+                value={quantity}
+                onValueChange={setQuantity}
                 label="Quantity"
-                placeholder="Select a quantity"
-                selectedKeys={[quantity]}
-                onChange={changeQuantity}
-                >
-                {["1", "2", "3", "4", "5"].map((val: string) => (
-                  <SelectItem key={val} value={val}>
-                    {val}
-                  </SelectItem>
-                ))}
-              </Select>
+                endContent=""
+                variant="bordered"
+                isInvalid={inputQuantityStatus === InputStatus.INVALID}
+                color={inputQuantityStatus === InputStatus.INVALID ? 'danger' : 'default'}
+                errorMessage={inputQuantityStatus === InputStatus.INVALID && 'Invalid Quantity'}
+                autoCapitalize="none"
+                autoComplete="off"
+                autoCorrect="off"
+                spellCheck="false"
+                classNames={{
+                  input: ["text-base"]
+                }}
+              />
 
               <Input
                 value={email}

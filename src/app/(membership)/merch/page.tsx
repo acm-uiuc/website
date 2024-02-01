@@ -40,6 +40,7 @@ const baseOverridden = Boolean(process.env.REACT_APP_MERCH_API_BASE_URL);
 const MerchItem = () => {
   const itemid = useSearchParams().get('id') || '';
   const [merchList, setMerchList] = useState<Record<string, any>>({});
+  const [merchLoaded, setMerchLoaded] = useState(false);
 
   const [email, setEmail] = useState('');
   const [emailConfirm, setEmailConfirm] = useState('');
@@ -59,6 +60,7 @@ const MerchItem = () => {
     const url = `${baseUrl}/api/v1/merch/details?itemid=${itemid}`;
     axios.get(url).then(response => {
       setMerchList(response.data);
+      setMerchLoaded(true);
       modalErrorMessage.onClose();
       setIsLoading(false);
       console.log(response.data);
@@ -176,6 +178,10 @@ const MerchItem = () => {
   }, [inputEmailStatus, inputEmailConfirmStatus]);
 
   if (Object.keys(merchList).length === 0) {
+    if (merchLoaded) {
+      window.location.replace("../merch-store");
+      return <Layout name="Merch Store"></Layout>;
+    }
     return <Layout name="Merch Store"></Layout>;
   } else {
     return ( 

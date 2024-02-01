@@ -163,6 +163,7 @@ const MerchItem = () => {
   }, [inputEmailStatus, inputEmailConfirmStatus]);
 
   if (Object.keys(merchList).length === 0) {
+    window.location.replace("../merch-store");
     return <Layout name="Merch Store"></Layout>;
   } else {
     return ( 

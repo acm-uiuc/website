@@ -201,7 +201,7 @@ const MerchItem = () => {
 
               {merchList["description"] ? (<p>{merchList["description"]}</p>) : null}
 
-              {totalCapacity() as number < 10 ? <p> <b>Item is running out, order soon!</b></p>: null}
+              {totalCapacity() as number < 10 ? <p> <b>We are running out, order soon!</b></p>: null}
 
               <p>
                 <b>Cost:</b> ${merchList["item_price"]["paid"]} for paid ACM@UIUC members, ${merchList["item_price"]["others"]} for nonmembers.
@@ -217,7 +217,7 @@ const MerchItem = () => {
                 >
                 {merchList["sizes"].map((val: string) => (
                   <SelectItem key={val} value={val}>
-                    {val}
+                    {filterSoldOut(val) ? val + " [SOLD OUT]" : val}
                   </SelectItem>
                 ))}
               </Select>
@@ -278,7 +278,7 @@ const MerchItem = () => {
               <Button
                 color="primary"
                 size="lg"
-                isDisabled={(!isFormValidated) || isLoading}
+                isDisabled={(!isFormValidated) || isLoading || totalCapacity() === 0}
                 onPress={purchaseHandler}
               >
                 {isLoading ? 'Verifying information...' : 'Purchase now'}

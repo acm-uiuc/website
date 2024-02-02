@@ -40,6 +40,7 @@ const baseOverridden = Boolean(process.env.REACT_APP_MERCH_API_BASE_URL);
 const MerchItem = () => {
   const itemid = useSearchParams().get('id') || '';
   const [merchList, setMerchList] = useState<Record<string, any>>({});
+  const [merchLoaded, setMerchLoaded] = useState(false);
 
   const [email, setEmail] = useState('');
   const [emailConfirm, setEmailConfirm] = useState('');
@@ -59,6 +60,7 @@ const MerchItem = () => {
     const url = `${baseUrl}/api/v1/merch/details?itemid=${itemid}`;
     axios.get(url).then(response => {
       setMerchList(response.data);
+      setMerchLoaded(true);
       modalErrorMessage.onClose();
       setIsLoading(false);
       console.log(response.data);
@@ -121,7 +123,7 @@ const MerchItem = () => {
       } else if (error.response.status === 404) {
         const errorObj = error.response.data.errors;
         setErrorMessage({
-          code: "We could not issue you a ticket.",
+          code: "Merch not availiable.",
           message: error.response.data
         });
       } else {
@@ -143,9 +145,22 @@ const MerchItem = () => {
     setSize(e? e.target? e.target.value : "" : "");
   };
 
-  const changeQuantity = (e: { target: { value: React.SetStateAction<string>; }; }) => {
-    setQuantity(e? e.target? e.target.value : "" :"");
+  const validateQuantity = (value: string) => {
+    return value.match(/^[0-9]+$/i);
   };
+
+  const totalCapacity = () => {
+    return Object.values(merchList["total_avail"]).reduce((acc: any, val: any) => acc + val, 0);
+  };
+
+  const filterSoldOut = (value: string) => {
+    return (!(value in merchList["total_avail"])) || (merchList["total_avail"][value] === 0);
+  }
+
+  const inputQuantityStatus = useMemo(() => {
+    if (quantity === "") return InputStatus.EMPTY;
+    return validateQuantity(quantity) ? InputStatus.VALID : InputStatus.INVALID;
+  }, [quantity]);
 
   const inputEmailStatus = useMemo(() => {
     if (email === "") return InputStatus.EMPTY;
@@ -163,6 +178,10 @@ const MerchItem = () => {
   }, [inputEmailStatus, inputEmailConfirmStatus]);
 
   if (Object.keys(merchList).length === 0) {
+    if (itemid === '') {
+      window.location.replace("../merch-store");
+      return <Layout name="Merch Store"></Layout>;
+    }
     return <Layout name="Merch Store"></Layout>;
   } else {
     return ( 
@@ -179,6 +198,11 @@ const MerchItem = () => {
               {merchList["item_image"] ? (
                 <img alt={merchList["item_name"] + " image."} src={merchList["item_image"]} />
               ) : null}
+
+              {merchList["description"] ? (<p>{merchList["description"]}</p>) : null}
+
+              {totalCapacity() as number < 10 ? <p> <b>We are running out, order soon!</b></p>: null}
+
               <p>
                 <b>Cost:</b> ${merchList["item_price"]["paid"]} for paid ACM@UIUC members, ${merchList["item_price"]["others"]} for nonmembers.
               </p>
@@ -188,28 +212,33 @@ const MerchItem = () => {
                 label="Size"
                 placeholder="Select an size"
                 selectedKeys={[size]}
+                disabledKeys={merchList["sizes"].filter(filterSoldOut)}
                 onChange={changeSize}
                 >
                 {merchList["sizes"].map((val: string) => (
                   <SelectItem key={val} value={val}>
-                    {val}
+                    {filterSoldOut(val) ? val + " [SOLD OUT]" : val}
                   </SelectItem>
                 ))}
               </Select>
-              
-              <Select
-                isRequired={true}
+
+              <Input
+                value={quantity}
+                onValueChange={setQuantity}
                 label="Quantity"
-                placeholder="Select a quantity"
-                selectedKeys={[quantity]}
-                onChange={changeQuantity}
-                >
-                {["1", "2", "3", "4", "5"].map((val: string) => (
-                  <SelectItem key={val} value={val}>
-                    {val}
-                  </SelectItem>
-                ))}
-              </Select>
+                endContent=""
+                variant="bordered"
+                isInvalid={inputQuantityStatus === InputStatus.INVALID}
+                color={inputQuantityStatus === InputStatus.INVALID ? 'danger' : 'default'}
+                errorMessage={inputQuantityStatus === InputStatus.INVALID && 'Invalid Quantity'}
+                autoCapitalize="none"
+                autoComplete="off"
+                autoCorrect="off"
+                spellCheck="false"
+                classNames={{
+                  input: ["text-base"]
+                }}
+              />
 
               <Input
                 value={email}
@@ -249,7 +278,7 @@ const MerchItem = () => {
               <Button
                 color="primary"
                 size="lg"
-                isDisabled={(!isFormValidated) || isLoading}
+                isDisabled={(!isFormValidated) || isLoading || totalCapacity() === 0}
                 onPress={purchaseHandler}
               >
                 {isLoading ? 'Verifying information...' : 'Purchase now'}

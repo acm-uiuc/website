@@ -8,6 +8,8 @@ import {
 } from 'react-icons/fa';
 
 import EventCard from '@/components/Card/EventCard';
+import EventCarousel from '@/components/Carousel/EventCarousel';
+
 import './hero.css';
 
 import eventList  from './events.json';
@@ -83,25 +85,7 @@ export default function Hero() {
           </div>
         </div>
         <h3 className='text-white'>Upcoming Events</h3>
-        <div className={`pt-1 pb-24 grid gap-4 grid-cols-1 lg:grid-cols-${numEvents}`}>
-          {eventList.sort((a, b) => {
-            return (Moment(a.date).unix() - Moment(b.date).unix());
-          }).map((object, i) => {
-            if (i > 2) { return null; }
-            return (
-              <EventCard
-                key={i}
-                title={object.title}
-                description={object.description}
-                date={toHumanDate(object.date)}
-                repeats={(object as any)?.repeats}
-                location={object.location}
-                locationLink={object.locationLink}
-                paidEventId={object.paidEventId}
-              />
-            );
-          })}
-        </div>
+        <EventCarousel eventList={eventList} numEventsPerSlide={3} />
       </section>
     </div>
   );

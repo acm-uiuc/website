@@ -1,0 +1,42 @@
+.carousel-container {
+    display: flex;
+    align-items: center;
+    overflow: hidden; /* Hide the overflow */
+}
+
+.carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 0px;
+    column-gap: 1%;
+    width: 90%;
+}
+
+.carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.card {
+    flex: 0 0 calc(98% / 3); /* Each card is a third of the carousel width minus some gap */
+    height: 300px;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0px solid #ddd;
+    border-radius: 0px;
+    margin-right: 0px; /* Gap between cards */
+}
+
+.card-group {
+    display: flex;
+    flex: 0 0 100%; /* Make each group take the full width of the carousel */
+    justify-content: space-between; /* Adjust as necessary */
+  }
+  

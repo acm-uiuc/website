@@ -15,5 +15,47 @@
     "location": "CIF 0027",
     "locationLink": "https://maps.app.goo.gl/1QBXd3aDN5wiYnzm7",
     "paidEventId" : ""
+  },
+
+  {
+    "title": "placeholder 1",
+    "description": "Dive into the chance to meet new people, discover how to get involved, and chat with all our SIGs, Committees, and partner organizations!",
+    "date": "2024-01-25T18:30:00-06:00",
+    "location": "CIF 0027",
+    "locationLink": "https://maps.app.goo.gl/1QBXd3aDN5wiYnzm7",
+    "paidEventId" : ""
+  },
+  {
+    "title": "placeholder 2",
+    "description": "Join ACM and chat with some of your fellow members! Enjoy free food on us as you get a chance to know your peers better!",
+    "date": "2024-01-19T17:00:00-06:00",
+    "repeats": "Week",
+    "location": "Legends",
+    "locationLink": "https://goo.gl/maps/CXESXd3otbGZNqFP7",
+    "paidEventId" : ""
+  },
+  {
+    "title": "placeholder 3",
+    "description": "Dive into the chance to meet new people, discover how to get involved, and chat with all our SIGs, Committees, and partner organizations!",
+    "date": "2024-02-25T18:30:00-06:00",
+    "location": "CIF 0027",
+    "locationLink": "https://maps.app.goo.gl/1QBXd3aDN5wiYnzm7",
+    "paidEventId" : ""
+  },
+  {
+    "title": "placeholder 4",
+    "description": "Dive into the chance to meet new people, discover how to get involved, and chat with all our SIGs, Committees, and partner organizations!",
+    "date": "2024-02-29T18:30:00-06:00",
+    "location": "CIF 0027",
+    "locationLink": "https://maps.app.goo.gl/1QBXd3aDN5wiYnzm7",
+    "paidEventId" : ""
+  },{
+    "title": "placeholder 5",
+    "description": "Dive into the chance to meet new people, discover how to get involved, and chat with all our SIGs, Committees, and partner organizations!",
+    "date": "2024-02-29T18:30:00-06:00",
+    "location": "CIF 0027",
+    "locationLink": "https://maps.app.goo.gl/1QBXd3aDN5wiYnzm7",
+    "paidEventId" : ""
   }
+
 ]

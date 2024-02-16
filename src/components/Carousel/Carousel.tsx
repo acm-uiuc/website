@@ -30,11 +30,16 @@ const Carousel: React.FC<CarouselProps> = ({ children }) => {
 
   return (
     <div className="carousel-container">
-      <button onClick={scrollLeft}>Left</button>
+      <button className="button buttonLeft" onClick={scrollLeft}>
+        Left
+      </button>
       <div className="carousel" ref={carouselRef}>
         {children}
       </div>
-      <button onClick={scrollRight}>Right</button>
+      <button className="button buttonRight" onClick={scrollRight}>
+        Right
+      </button>
+
     </div>
   );
 };

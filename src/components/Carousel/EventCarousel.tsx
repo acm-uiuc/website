@@ -32,7 +32,6 @@ const EventCarousel: React.FC<EventCarouselProps> = ({ eventList, numEventsPerSl
 
   return (
     <div>
-      <h1>My Carousel</h1>
       <Carousel>
         {chunkedEvents.map((group, index) => (
             <div key={index} className="card-group">

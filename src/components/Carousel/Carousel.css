@@ -1,3 +1,21 @@
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+  
+.buttonLeft { background-color: #008CBA; } /* Blue */
+.buttonRight { background-color: #f44336; } /* Red */
+  
+
 .carousel-container {
     display: flex;
     align-items: center;
@@ -31,12 +49,15 @@
     align-items: center;
     border: 0px solid #ddd;
     border-radius: 0px;
-    margin-right: 0px; /* Gap between cards */
+    margin-right: 5px; /* Gap between cards */
 }
 
 .card-group {
-    display: flex;
-    flex: 0 0 100%; /* Make each group take the full width of the carousel */
-    justify-content: space-between; /* Adjust as necessary */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    flex: 0 0 100%; 
+    justify-content: space-between; 
+    gap: 1%; 
+    width: 100%; 
   }
   

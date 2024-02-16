@@ -4,7 +4,7 @@
   "homepage": "https://acm.illinois.edu/",
   "private": true,
   "scripts": {
-    "dev": "REACT_APP_TICKETING_BASE_URL='https://xclhkh0duc.execute-api.us-east-1.amazonaws.com/default' next dev",
+    "dev": "cross-env REACT_APP_TICKETING_BASE_URL='https://xclhkh0duc.execute-api.us-east-1.amazonaws.com/default' next dev",
     "start": "yarn dev",
     "build": "next build && cp src/_redirects build/_redirects",
     "serve": "serve build",
@@ -15,6 +15,7 @@
   "dependencies": {
     "@nextui-org/react": "^2.2.9",
     "axios": "^0.27.2",
+    "cross-env": "^7.0.3",
     "framer-motion": "^10.17.9",
     "lottie-react": "^2.3.1",
     "moment": "^2.29.4",

@@ -1,9 +1,10 @@
+'use client';
 import moment from 'moment'
-import React, { useState, useEffect, useRef } from 'react'
+import React, {useState, useEffect} from 'react'
 import { Calendar, momentLocalizer, Event } from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import './EventStylesOverride.css'
-import {EventIntroProps} from '../../pages/Calendar'
+import {EventIntroProps} from '../../app/(main)/calendar/page'
 // import './events.css'
 
 
@@ -29,8 +30,11 @@ export interface EventsProps {
 }
 
 const localizer = momentLocalizer(moment)
-const height = window.innerHeight * 0.7;
 const Events: React.FC<EventsProps> = ({ events,  updateEvent}) => {
+    const [calendarHeight, setCalendarHeight] = useState(0);
+    useEffect(() => {
+        setCalendarHeight(window.innerHeight * 0.7);
+    }, []);
 
     const selectEvent = (event: CustomEventType) => {
         const newEvent: EventIntroProps = {
@@ -49,7 +53,7 @@ const Events: React.FC<EventsProps> = ({ events,  updateEvent}) => {
             localizer={localizer}
             events={events}
             onSelectEvent={selectEvent}
-            style={{ height: height }}
+            style={{ height: calendarHeight }}
         />
     )
 }

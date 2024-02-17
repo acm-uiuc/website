@@ -1,57 +1,40 @@
-import Content from "../../components/Content/Content";
-import LeadershipCard from "../../components/Card/LeadershipCard";
-import {
-    Grid,
-} from "../home/Sigscard";
-import chair from "../../stories/assets/chair.jpeg";
-import vicechair from "../../stories/assets/vicechair.jpg";
-import treasurer from "../../stories/assets/treasurer.jpeg";
-import secretary from "../../stories/assets/secretary.jpeg";
-import styled from "styled-components"; 
+import LeadershipCard from '@/components/Card/LeadershipCard';
 
-const GridModify = styled(Grid)`
-  @media (min-width: 600px) {
-    grid-template-columns: 1fr;
-  }
-  @media (min-width: 710px) {
-    grid-template-columns: 1fr 1fr;
-  }
-  @media (min-width: 1200px) {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-  }
-`;
+import chair from "@/stories/assets/chair.jpeg";
+import vicechair from "@/stories/assets/vicechair.jpg";
+import treasurer from "@/stories/assets/treasurer.jpeg";
+import secretary from "@/stories/assets/secretary.jpeg";
 
-const LeadSection = (props: any) => {
-    return (
-        <Content as="div">
-            <GridModify>
-                <LeadershipCard
-                title="Chair"
-                name="Matt Geimer"
-                Imagesrc={chair}
-                email="mailto:mgeimer2@illinois.edu"
-                />
-                <LeadershipCard 
-                title="Vice Chair"
-                name="Nitya Sunkad" 
-                Imagesrc={vicechair} 
-                email="mailto:nsunkad2@illinois.edu"
-                />
-                <LeadershipCard 
-                title="Treasurer"
-                name="Evan Matthews"
-                Imagesrc={treasurer} 
-                email="mailto:evanmm3@illinois.edu"
-                />
-                <LeadershipCard 
-                title="Secretary"
-                name="Emily Crawford"
-                Imagesrc={secretary}
-                email="mailto:emilyc7@illinois.edu"
-                />
-            </GridModify>
-        </Content>
-    );
+export default function LeadershipSection() {
+  return (
+    <section id="leadership" className="container flex flex-col gap-6">
+      <h1>Leadership</h1>
+      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+        <LeadershipCard
+          title="Chair"
+          name="Deeya Bodas"
+          img={chair}
+          email="mailto:deeyaab2@illinois.edu"
+        />
+        <LeadershipCard 
+          title="Vice Chair"
+          name="Aydan Pirani" 
+          img={vicechair} 
+          email="mailto:apirani2@illinois.edu"
+        />
+        <LeadershipCard 
+          title="Treasurer"
+          name="Dev Singh"
+          img={treasurer} 
+          email="mailto:treasurer@acm.illinois.edu"
+        />
+        <LeadershipCard 
+          title="Secretary"
+          name="Abhived Pulapaka"
+          img={secretary}
+          email="mailto:abhived2@illinois.edu"
+        />
+      </div>
+    </section>
+  );
 };
-
-export default LeadSection;

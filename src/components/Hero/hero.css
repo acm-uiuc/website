@@ -1,0 +1,22 @@
+.hero-background {
+  @apply bg-acmdark;
+  background-image: none;
+}
+
+@media screen(lg) {
+  .hero-background {
+    background-image: url('vertical.svg');
+    background-position: top right -25vw;
+    background-repeat: no-repeat;
+    background-size: auto 150%;
+  }
+}
+
+@media screen(xl) {
+  .hero-background {
+    background-image: url('horizontal.svg'), url('vertical.svg');
+    background-position: top 35vh left -10vw, top right -15vw;
+    background-repeat: no-repeat, no-repeat;
+    background-size: auto 120%, auto 150%;
+  }
+}

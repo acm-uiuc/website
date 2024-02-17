@@ -1,72 +1,127 @@
-import styled from "styled-components"
-import Committee from "../../components/Committee/Committee";
-import infra_pic from '../../stories/assets/infra_pic.png';
-import social from '../stories/assets/social.jpg';
+'use client';
+import Committee from '@/components/Card/CommitteeCard';
+import ExtLink from '@/components/Link';
 
-const Section = styled.section`
-    display: flex;
-    align-items: center;
-    height: 750px;
-    width: 1100px;
-`
+import social from '@/stories/assets/social.jpg';
+import capitalone from '@/stories/assets/capitalone.png';
+import instagram from '@/stories/assets/instagram.png';
+import reflections from '@/stories/assets/reflections.jpg';
+import hackillinoislogo from '@/stories/assets/hackillinoislogo.png';
+import infrastructure from '@/stories/assets/infra_pic.jpg';
 
-const ContentDiv = styled.div`
-    padding-bottom: 400px;
-    width: 50%;
-    text-align: left;
-`
-
-const Title = styled.h1`
-    font-size: 45px;
-`
-
-const Text = styled.h3`
-    font-size: 25px;
-    font-weight: 500;
-    line-height: 1.1;
-`
-
-const Imagediv = styled.div`
-    padding-bottom: 400px;
-    width: 50%;
-`
-
-const Image = styled.img`
-    width: inherit;
-    height: inherit;
-`
-
-const CommitteeSection = () => {
-    return (
-        <Section>
-            {/*<ContentDiv>
-                <Title>ACM at UIUC</Title>
-                <Text>
-                    The Association for Computing Machinery at UIUC welcomes everyone to 
-                    our committees and special interest groups (SIGs)!
-                    <br /><br />
-                    Scroll down to learn more about our fantastic committees!
-                </Text>
-            </ContentDiv>
-            <Imagediv>
-                <Image src="https://acm.illinois.edu/static/images/acm-logo-flat.svg" />
-                </Imagediv>*/}
-            <ContentDiv>
-            <Committee 
-                image= {infra_pic}
-                people="[People in charge of committee]"
-                title="Infrastructure Committee: Together we make ACM function
-                      by building cool projects such as this website"
-            />
-            <Committee 
-                image= {infra_pic}
-                people="[People in charge of committee]"
-                title="Infrastructure Committee: Together we make ACM function
-                      by building cool projects such as this website"
-            />
-            </ContentDiv>
-        </Section>
-    )
-}
-
-export default CommitteeSection
+export default function CommitteeSection() {
+  return (
+    <section id="committees" className="container flex flex-col gap-6">
+      <h1>Committees</h1>
+      <span id="reflections">
+        <Committee
+          title="Reflections | Projections"
+          description="We provide a forum to share and learn about progress 
+          in computer science, with industry and academia 
+          tech talks, workshops and events 
+          for attendees, Mechmania, and Diversity × Tech."
+          image={reflections}
+          href="https://reflectionsprojections.org/"
+          chairs={[
+            {
+              name: "Saloni Vaishnav",
+              email: "saloniv2@illinois.edu"
+            },
+            {
+              name: "Atharva Naik",
+              email: "annaik2@illinois.edu"
+            }
+          ]}
+        />
+      </span>
+      <span id="hackillinois">
+        <Committee
+          title="HackIllinois"
+          description="HackIllinois is the premier collegiate hackathon. 
+          With over 1000 attendees and 50 mentors in 2019, the hackathon 
+          has become one of the largest and most well-regarded in the 
+          nation."
+          image={hackillinoislogo}
+          href="https://hackillinois.org/"
+          chairs={[
+            {
+              name: "Pinakin Kanade",
+              email: "pkanade2@illinois.edu"
+            },
+            {
+              name: "Ronit Anandani",
+              email: "ronita2@illinois.edu"
+            }
+          ]}
+        />
+      </span>
+      <span id="corporate">
+        <Committee
+          title="Corporate"
+          description="The corporate team handles communication with ACM@UIUC's sponsors, 
+          including Numerade, IMC, and more."
+          image={capitalone}
+          chairs={[
+            {
+              name: "Anish Meka",
+              email: "anishm2@illinois.edu"
+            }
+          ]}
+        />
+      </span>
+      <span id="social">
+        <Committee
+          title="Social"
+          description="The social team organizes fun events for ACM@UIUC such as 
+          picnics, activity weeks, game nights, and Happy Hour."
+          image={social}
+          chairs={[
+            {
+              name: "A.G. Samaniego",
+              email: "asama6@illinois.edu"
+            },
+            {
+              name: "Sai Venkatakrishnan",
+              email: "sv34@illinois.edu"
+            }
+          ]}
+        />
+      </span>
+      <span id="marketing">
+        <Committee
+          title="Marketing"
+          description="The marketing team organizes social media and branding for ACM@UIUC."
+          image={instagram}
+          chairs={[
+            {
+              name: "Kris Png",
+              email: "kpng2@illinois.edu"
+            },
+            {
+              name: "Jingtong Wang",
+              email: "jw132@illinois.edu"
+            }
+          ]}
+        />
+      </span>
+      <span id="infrastructure">
+        <Committee
+          title="Infrastructure"
+          description="The infra team maintains ACM@UIUC's infrastructure and engineering efforts
+          like this website."
+          image={infrastructure}
+          chairs={[
+            {
+              name: "Jake Levine",
+              email: "jlevine4@illinois.edu"
+            },
+            {
+              name: "Hassam Uddin",
+              email: "hassamu2@illinois.edu"
+            }
+          ]}
+        />
+      </span>
+    </section>
+  );
+};

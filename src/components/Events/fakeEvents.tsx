@@ -4,8 +4,8 @@ const fakeEvents: CustomEventType[] = [
   {
     id: 1,
     title: 'Conference on AI',
-    start: new Date(2023, 4, 10, 9, 0),
-    end: new Date(2023, 4, 10, 17, 0),
+    start: new Date(2024, 1, 10, 9, 0),
+    end: new Date(2024, 1, 10, 17, 0),
     category: 'Conference',
     location: 'New York City, NY',
     locationLink: 'https://goo.gl/maps/xyz1',
@@ -18,8 +18,8 @@ const fakeEvents: CustomEventType[] = [
   {
     id: 2,
     title: 'React Workshop',
-    start: new Date(2023, 4, 15, 10, 0),
-    end: new Date(2023, 4, 15, 16, 0),
+    start: new Date(2024, 1, 15, 10, 0),
+    end: new Date(2024, 1, 15, 16, 0),
     category: 'Workshop',
     location: 'San Francisco, CA',
     locationLink: 'https://goo.gl/maps/abc2',
@@ -30,8 +30,8 @@ const fakeEvents: CustomEventType[] = [
   {
     id: 3,
     title: 'Data Science Meetup',
-    start: new Date(2023, 4, 20, 18, 0),
-    end: new Date(2023, 4, 20, 20, 0),
+    start: new Date(2024, 1, 20, 18, 0),
+    end: new Date(2024, 1, 20, 20, 0),
     category: 'Meetup',
     location: 'Austin, TX',
     locationLink: 'https://goo.gl/maps/def3',
@@ -43,8 +43,8 @@ const fakeEvents: CustomEventType[] = [
   {
     id: 4,
     title: 'Blockchain Summit',
-    start: new Date(2023, 4, 25, 9, 0),
-    end: new Date(2023, 4, 25, 18, 0),
+    start: new Date(2024, 1, 22, 9, 0),
+    end: new Date(2024, 1, 22, 18, 0),
     category: 'Summit',
     location: 'Toronto, ON',
     locationLink: 'https://goo.gl/maps/ghi4',

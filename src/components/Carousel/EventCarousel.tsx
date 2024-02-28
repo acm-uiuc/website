@@ -8,6 +8,24 @@ function toHumanDate(date: string) {
     return Moment(date).format("MMMM Do, h:mm A");
   }
 
+
+
+interface Event {
+  location: string;
+  locationLink?: string;
+  
+  start: string;
+  end: string;
+  repeats?: string;
+  dateLink?: string;
+  
+  title: string;
+  description: string;
+  
+  paidEventId?: string;
+  host: string;
+};
+
 interface EventCarouselProps {
   eventList: Event[];
   numEventsPerSlide?: number;
@@ -15,13 +33,13 @@ interface EventCarouselProps {
 
 const EventCarousel: React.FC<EventCarouselProps> = ({ eventList, numEventsPerSlide = 3 }) => {
   // Your event sorting and chunking logic here
-  const sortedEvents = eventList.sort((a, b) => Moment(a.date).unix() - Moment(b.date).unix());
+  const sortedEvents = eventList.sort((a, b) => Moment(a.start).unix() - Moment(b.start).unix());
 
   // Chunk the sortedEvents array into sub-arrays of size numEventsPerSlide
   const chunkedEvents = chunkArray(sortedEvents, numEventsPerSlide);
 
   // A utility function to chunk an array into sub-arrays of a specific length
-  function chunkArray(array, chunkSize) {
+  function chunkArray(array : Event[], chunkSize : number) {
     const chunks = [];
     for (let i = 0; i < array.length; i += chunkSize) {
       chunks.push(array.slice(i, i + chunkSize));
@@ -40,7 +58,7 @@ const EventCarousel: React.FC<EventCarouselProps> = ({ eventList, numEventsPerSl
                     key={i}
                     title={object.title}
                     description={object.description}
-                    date={toHumanDate(object.date)}
+                    date={toHumanDate(object.start)}
                     repeats={object.repeats}
                     location={object.location}
                     locationLink={object.locationLink}

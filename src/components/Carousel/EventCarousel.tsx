@@ -14,13 +14,13 @@ interface EventCarouselProps {
 }
 
 const EventCarousel: React.FC<EventCarouselProps> = ({ eventList, numEventsPerSlide = 3 }) => {
-  // Your event sorting and chunking logic here
+
   const sortedEvents = eventList.sort((a, b) => Moment(a.date).unix() - Moment(b.date).unix());
 
-  // Chunk the sortedEvents array into sub-arrays of size numEventsPerSlide
+  // chunk the sortedEvents array into sub-arrays of size numEventsPerSlide
   const chunkedEvents = chunkArray(sortedEvents, numEventsPerSlide);
 
-  // A utility function to chunk an array into sub-arrays of a specific length
+  // chunk an array into sub-arrays of a specific length
   function chunkArray(array, chunkSize) {
     const chunks = [];
     for (let i = 0; i < array.length; i += chunkSize) {

@@ -1,19 +1,21 @@
 .button {
-    background-color: #4CAF50; /* Green */
     border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
+    background-color: transparent;
     cursor: pointer;
-    border-radius: 8px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
-.buttonLeft { background-color: #008CBA; } /* Blue */
-.buttonRight { background-color: #f44336; } /* Red */
+  .buttonRight svg {
+    fill: white;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .buttonRight:hover svg {
+    transform: translateX(2px); 
+  }
   
 
 .carousel-container {

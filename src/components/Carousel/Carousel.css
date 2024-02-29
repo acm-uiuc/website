@@ -55,6 +55,8 @@
 }
 
 .card-group {
+    margin-top: 25px;
+    margin-bottom: 50px; 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     flex: 0 0 100%; 

@@ -8,6 +8,17 @@ function toHumanDate(date: string) {
     return Moment(date).format("MMMM Do, h:mm A");
   }
 
+interface Event {
+  location: string;
+  locationLink?: string;
+  date: string;
+  dateLink?: string;
+  title: string;
+  description: string;
+  repeats?: string | boolean;
+  paidEventId?: string;
+};
+
 interface EventCarouselProps {
   eventList: Event[];
   numEventsPerSlide?: number;
@@ -21,7 +32,7 @@ const EventCarousel: React.FC<EventCarouselProps> = ({ eventList, numEventsPerSl
   const chunkedEvents = chunkArray(sortedEvents, numEventsPerSlide);
 
   // chunk an array into sub-arrays of a specific length
-  function chunkArray(array, chunkSize) {
+  function chunkArray(array : Event[], chunkSize : number) {
     const chunks = [];
     for (let i = 0; i < array.length; i += chunkSize) {
       chunks.push(array.slice(i, i + chunkSize));

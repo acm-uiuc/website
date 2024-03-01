@@ -7,28 +7,16 @@ interface CarouselProps {
 
 const Carousel: React.FC<CarouselProps> = ({ children }) => {
   const carouselRef = useRef<HTMLDivElement>(null);
-
-  const scrollLeft = () => {
-    if (carouselRef.current) {
-      const firstChild = carouselRef.current.firstChild as HTMLDivElement;
-      const carouselWidth = carouselRef.current.offsetWidth;
-      const columnGap = carouselWidth * 0.01;
-      const scrollWidth = firstChild.offsetWidth + columnGap;
-      carouselRef.current.scrollLeft -= scrollWidth;
-    }
-  };
-
-  const scrollRight = () => {
-    if (carouselRef.current) {
-      const firstChild = carouselRef.current.firstChild as HTMLDivElement;
-      const carouselWidth = carouselRef.current.offsetWidth;
-      const columnGap = carouselWidth * 0.01;
-      const scrollWidth = firstChild.offsetWidth + columnGap;
-      carouselRef.current.scrollLeft += scrollWidth;
-    }
-  };
-
-  function RightButton({ scrollRight }) {
+  function RightButton() {
+    const scrollRight = () => {
+      if (carouselRef.current) {
+        const firstChild = carouselRef.current.firstChild as HTMLDivElement;
+        const carouselWidth = carouselRef.current.offsetWidth;
+        const columnGap = carouselWidth * 0.01;
+        const scrollWidth = firstChild.offsetWidth + columnGap;
+        carouselRef.current.scrollLeft += scrollWidth;
+      }
+    };
     return (
       <button className="button buttonRight" onClick={scrollRight}>
         <svg height="50px" width="50px" version="1.1" id="Capa_1" 
@@ -45,7 +33,16 @@ const Carousel: React.FC<CarouselProps> = ({ children }) => {
     );
   }
 
-  function LeftButton({ scrollLeft }) {
+  function LeftButton() {
+    const scrollLeft = () => {
+      if (carouselRef.current) {
+        const firstChild = carouselRef.current.firstChild as HTMLDivElement;
+        const carouselWidth = carouselRef.current.offsetWidth;
+        const columnGap = carouselWidth * 0.01;
+        const scrollWidth = firstChild.offsetWidth + columnGap;
+        carouselRef.current.scrollLeft -= scrollWidth;
+      }
+    };
     return (
       <button className="button buttonRight" onClick={scrollLeft}>
         <svg height="50px" width="50px" version="1.1" id="Capa_1" 
@@ -64,11 +61,11 @@ const Carousel: React.FC<CarouselProps> = ({ children }) => {
 
   return (
     <div className="carousel-container">
-      <LeftButton scrollLeft={scrollLeft} />
+      <LeftButton/>
       <div className="carousel" ref={carouselRef}>
         {children}
       </div>
-      <RightButton scrollRight={scrollRight} />
+      <RightButton/>
     </div>
   );
 };

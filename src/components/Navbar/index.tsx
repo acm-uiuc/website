@@ -61,6 +61,14 @@ export default function Navbar() {
                 </li>
                 <li>
                   <NavLink
+                    href="/calendar"
+                    onClick={uncheck}
+                  >
+                    Calendar
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
                     href="/#sighighlight"
                     onClick={uncheck}
                   >

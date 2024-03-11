@@ -1,0 +1,113 @@
+/* Not sure if there's a better way to override these styles (preferably using styledcomponents) */
+
+/*Font and color styling*/
+.rbc-header {
+  font-family: "DM Sans";
+  font-size: 18px;
+  background-color: #3E486F;
+  border:0 !important;
+  color: #fffffe !important;
+  padding: 0.5rem;
+}
+.rbc-month-view {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.rbc-month-header .rbc-header:first-child  {
+  border-top-left-radius: 10px;
+}
+
+.rbc-month-header .rbc-header:last-child  {
+  border-top-right-radius: 10px;
+}
+
+
+.rbc-toolbar-label {
+  font-family: "DM Sans";
+  font-size: 23.5px;
+  color: #020000;
+  font-weight: bold;
+}
+
+.rbc-date-cell, .rbc-label {
+  color: #343445; 
+  font-family: "DM Sans";
+}
+
+.rbc-agenda-content {
+  font-family: "DM Sans";
+  font-size: 14.5px;
+  color: #343445;
+}
+
+.rbc-agenda-event-cell:hover {
+  cursor: pointer;
+}
+/*Button Styling*/
+.rbc-btn-group {
+  border-radius: 17px;
+}
+
+.rbc-btn-group > button {
+  border: 0px solid transparent !important;
+  border-radius: 17px;
+  background-color: #efefef !important;
+  color: #020000 !important;
+  font-family: "DM Sans" !important;
+  font-size: 18px;
+}
+
+.rbc-btn-group > button.rbc-active {
+  background-color:  #4577F8 !important;
+  color:#ffffff !important;
+}
+
+.rbc-btn-group > button:hover {
+  background-color: #4577F8 !important;
+  color:#ffffff !important;
+  cursor: pointer;
+}
+
+/*Week Display Styling*/
+.rbc-time-header-cell .rbc-header {
+  padding-bottom: 19.5px !important;
+}
+/*Event Listing Styling*/
+.rbc-event {
+  background-color: #4577F8 !important;
+  border-radius: 18px !important;
+  font-family: "DM Sans" !important;
+  font-size: 12px !important;
+}
+
+/*overall container positioning/changes*/
+.rbc-calendar {
+  filter: grayscale(0%) drop-shadow(0 4px 12px rgb(104 112 118 / 0.08)) drop-shadow(0 20px 8px rgb(104 112 118 / 0.04));
+  width: 67%;
+  padding-top: 0%;
+}
+
+@media (max-width: 600px) {
+  .rbc-calendar {
+    width: 100%;
+  }
+  .rbc-btn-group > button {
+    font-size:16px;
+  }
+  .rbc-agenda-date-cell, .rbc-agenda-time-cell, .rbc-agenda-event-cell {
+    margin-top: 15px;
+    font-size: 12px;
+    padding: 10px 5px !important;
+  }
+  .rbc-toolbar-label {
+    width: 100%;
+    padding: 3% 0 !important;
+  }
+  .rbc-header {
+    font-size: 16px;
+  }
+  .rbc-time-header-cell .rbc-header {
+    font-size: 2px;
+
+  }
+}

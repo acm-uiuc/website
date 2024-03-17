@@ -5,6 +5,7 @@ import fakeEvents from '../../../components/Events/fakeEvents'
 
 import EventInfo from '../../../components/EventInfo/EventInfo';
 import {useState} from 'react';
+import CalendarControls from '@/components/CalendarControls';
 /*
 const FlexContainer = styled.div `
   display: flex;
@@ -47,22 +48,23 @@ const defaultEvent: EventIntroProps = {
 
 const Calendar = () => {
   const [event, setEvent] = useState<EventIntroProps>(defaultEvent);
-
+  const [offset, setOffset] = useState<number>(0);
   return (
     <>
       <section className="container">
       <h1 className='mt-0 pt-0 mb-4'>Our Events</h1>
+      <CalendarControls currOffset={offset} updateOffset={setOffset}></CalendarControls>
       <div className='flex justify-between pb-10'> 
-        <Events events={fakeEvents} updateEvent={setEvent} />
-        <EventInfo 
-        title = {event.title}
-        location = {event.location}
-        date = {event.date}
-        description = {event.description}
-        host = {event.host}
-         ></EventInfo>
+          <Events events={fakeEvents} updateEvent={setEvent} offset={offset}/>
+          <EventInfo 
+          title = {event.title}
+          location = {event.location}
+          date = {event.date}
+          description = {event.description}
+          host = {event.host}>
+          </EventInfo>      
       </div>
-       </section>
+      </section>
     </>
   );
 };

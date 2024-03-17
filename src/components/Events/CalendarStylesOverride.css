@@ -1,8 +1,7 @@
-/* Not sure if there's a better way to override these styles (preferably using styledcomponents) */
+/* Not sure if there's a better way to override these styles (react-big-calendar)*/
 
 /*Font and color styling*/
 .rbc-header {
-  font-family: "DM Sans";
   font-size: 18px;
   background-color: #3E486F;
   border:0 !important;
@@ -23,7 +22,6 @@
 
 
 .rbc-toolbar-label {
-  font-family: "DM Sans";
   font-size: 23.5px;
   color: #020000;
   font-weight: bold;
@@ -31,7 +29,6 @@
 
 .rbc-date-cell, .rbc-label {
   color: #343445; 
-  font-family: "DM Sans";
 }
 
 .rbc-agenda-content {
@@ -45,28 +42,14 @@
 }
 /*Button Styling*/
 .rbc-btn-group {
+  display: none;
   border-radius: 17px;
 }
 
-.rbc-btn-group > button {
-  border: 0px solid transparent !important;
-  border-radius: 17px;
-  background-color: #efefef !important;
-  color: #020000 !important;
-  font-family: "DM Sans" !important;
-  font-size: 18px;
+.rbc-toolbar-label {
+  display: none;
 }
 
-.rbc-btn-group > button.rbc-active {
-  background-color:  #4577F8 !important;
-  color:#ffffff !important;
-}
-
-.rbc-btn-group > button:hover {
-  background-color: #4577F8 !important;
-  color:#ffffff !important;
-  cursor: pointer;
-}
 
 /*Week Display Styling*/
 .rbc-time-header-cell .rbc-header {
@@ -76,7 +59,6 @@
 .rbc-event {
   background-color: #4577F8 !important;
   border-radius: 18px !important;
-  font-family: "DM Sans" !important;
   font-size: 12px !important;
 }
 
@@ -98,10 +80,6 @@
     margin-top: 15px;
     font-size: 12px;
     padding: 10px 5px !important;
-  }
-  .rbc-toolbar-label {
-    width: 100%;
-    padding: 3% 0 !important;
   }
   .rbc-header {
     font-size: 16px;

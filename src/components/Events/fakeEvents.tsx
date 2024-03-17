@@ -4,8 +4,8 @@ const fakeEvents: CustomEventType[] = [
   {
     id: 1,
     title: 'Conference on AI',
-    start: new Date(2024, 1, 10, 9, 0),
-    end: new Date(2024, 1, 10, 17, 0),
+    start: new Date(2024, 2, 10, 9, 0),
+    end: new Date(2024, 2, 10, 17, 0),
     category: 'Conference',
     location: 'New York City, NY',
     locationLink: 'https://goo.gl/maps/xyz1',

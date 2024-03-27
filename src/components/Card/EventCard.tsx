@@ -8,12 +8,15 @@ import { BsArrowRepeat } from 'react-icons/bs';
 interface EventProps {
   location: string;
   locationLink?: string;
-  date: string;
+  // date: string;
   dateLink?: string;
   title: string;
   description: string;
   repeats?: string | boolean;
   paidEventId?: string;
+  host: string;
+  startDate: string;
+  endDate: string;
 };
 
 function EventDetail({ href, children }: { href?: string, children: React.ReactNode }) {
@@ -34,18 +37,24 @@ function EventDetail({ href, children }: { href?: string, children: React.ReactN
 
 export default function EventCard({
   location,
-  date,
+  // date,
   title,
   description,
   locationLink,
   dateLink,
   repeats,
-  paidEventId
+  paidEventId, 
+  host,
+  startDate,
+  endDate
 }: EventProps) {
   return (
     <div className="flex flex-col p-4 rounded-3xl bg-surface-050 hover:shadow-lg hover:-translate-y-1 transition-all">
       <p className="text-2xl font-bold">
         {title}
+      </p>
+      <p className="flex italic">
+        Hosted by {host}
       </p>
       <p className="flex grow leading-6 pb-4">
         {description}
@@ -58,7 +67,9 @@ export default function EventCard({
           </EventDetail>
           <EventDetail href={dateLink}>
             <FaRegCalendarAlt className="shrink-0" />
-            <span>{date}</span>
+            {/* <span>{date}</span> */}
+            <span>{startDate}</span>
+            {/* <span>{endDate}</span> */}
           </EventDetail>
           {repeats ? (
             <EventDetail href={dateLink}>

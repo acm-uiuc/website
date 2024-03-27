@@ -6,11 +6,13 @@ import {
   FaDiscord,
   FaInstagram
 } from 'react-icons/fa';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 
 import EventCard from '@/components/Card/EventCard';
 import './hero.css';
 
-import eventList  from './events.json';
+// import eventList  from './events.json';
 import headerJpg from './header.jpg';
 import headerWebp from './header.webp';
 
@@ -20,7 +22,17 @@ function toHumanDate(date: string) {
 }
 
 export default function Hero() {
-  const numEvents = Math.min(eventList.length + 1, 3);
+  const [events, setEvents] = useState<any[]>([]);
+
+  useEffect(() => { // 
+    const url = "https://xclhkh0duc.execute-api.us-east-1.amazonaws.com/default/api/v1/event/calendar";
+    axios.get(url).then(response => {
+      console.log(response.data);
+      setEvents(response.data);
+    })
+  },[])
+
+  const numEvents = Math.min(events.length + 1, 3);
   return (
     <div className="hero-background">
       <section className="container">
@@ -41,6 +53,7 @@ export default function Hero() {
               strong network of students and alumni, bringing their diverse
               interests to ACM.
             </p>
+            
             <div className="flex flex-col max-sm:items-center sm:flex-row gap-4">
               <a
                 className="flex flex-col w-full sm:w-fit px-16 py-3 items-center text-white text-center text-2xl rounded-full bg-primary hover:bg-secondary transition-all"
@@ -84,16 +97,20 @@ export default function Hero() {
         </div>
         <h3 className='text-white'>Upcoming Events</h3>
         <div className={`pt-1 pb-24 grid gap-4 grid-cols-1 lg:grid-cols-${numEvents}`}>
-          {eventList.sort((a, b) => {
-            return (Moment(a.date).unix() - Moment(b.date).unix());
+          {events.sort((a, b) => {
+            console.log(Moment(a.endDate).unix());
+            return (Moment(a.endDate).unix() - Moment(b.endDate).unix());
           }).map((object, i) => {
             if (i > 2) { return null; }
             return (
               <EventCard
                 key={i}
                 title={object.title}
+                host={object.host}
                 description={object.description}
-                date={toHumanDate(object.date)}
+                startDate={toHumanDate(object.startDate)}
+                endDate={toHumanDate(object.endDate)}
+                // date={toHumanDate(object.startDate)}
                 repeats={(object as any)?.repeats}
                 location={object.location}
                 locationLink={object.locationLink}

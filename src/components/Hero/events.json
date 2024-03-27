@@ -15,5 +15,13 @@
     "location": "Illini Union Ballroom",
     "locationLink": "https://maps.app.goo.gl/fzquMSCPZjFJpzJ87",
     "paidEventId" : "sp24_semiformal"
+  },
+  {
+    "title": "ACM Bar Crawl",
+    "description": "Join ACM and meet your fellow members as we visit KAMS, Joe's, and Legends on our semesterly bar crawl! Get a free t-shirt with sign-up! Alcohol will be provided by ACM to members over 21 wearing bar crawl t-shirts. We will also be hosting an official pregame (details released closer to the event)! This ticket does not pay for cover at the bars.",
+    "date": "2024-04-18T19:00:00-06:00",
+    "location": "Alma Mater",
+    "locationLink": "https://maps.app.goo.gl/47J2JTLpgR3acMhG9",
+    "paidEventId" : "merch:2024_spr_barcrawl"
   }
 ]

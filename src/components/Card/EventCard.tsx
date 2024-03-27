@@ -70,7 +70,7 @@ export default function EventCard({
         {paidEventId ? (
           <a
             className="inline-flex flex-row grow-0 items-center gap-2 px-4 py-2 text-white rounded-2xl bg-primary hover:bg-secondary transition-all"
-            href={"/event?id=" + paidEventId}
+            href={paidEventId.startsWith("merch:") ? "/merch?id=" + paidEventId.slice(6) :"/event?id=" + paidEventId}
             target="_blank"
             rel="noopener noreferrer"
           >

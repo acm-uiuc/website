@@ -24,10 +24,9 @@ function toHumanDate(date: string) {
 export default function Hero() {
   const [events, setEvents] = useState<any[]>([]);
 
-  useEffect(() => { // 
+  useEffect(() => { 
     const url = "https://xclhkh0duc.execute-api.us-east-1.amazonaws.com/default/api/v1/event/calendar";
     axios.get(url).then(response => {
-      console.log(response.data);
       setEvents(response.data);
     })
   },[])
@@ -98,8 +97,8 @@ export default function Hero() {
         <h3 className='text-white'>Upcoming Events</h3>
         <div className={`pt-1 pb-24 grid gap-4 grid-cols-1 lg:grid-cols-${numEvents}`}>
           {events.sort((a, b) => {
-            console.log(Moment(a.endDate).unix());
-            return (Moment(a.endDate).unix() - Moment(b.endDate).unix());
+            console.log(Moment(a.startDate).unix());
+            return (Moment(a.startDate).unix() - Moment(b.startDate).unix());
           }).map((object, i) => {
             if (i > 2) { return null; }
             return (

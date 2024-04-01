@@ -2,7 +2,8 @@
 import LeadSection from '../../../sections/about/LeadershipSection';
 import Events, {CustomEventType} from '../../../components/Events/events'
 import fakeEvents from '../../../components/Events/fakeEvents'
-
+import moment from 'moment'
+import { momentLocalizer } from 'react-big-calendar'
 import EventInfo from '../../../components/EventInfo/EventInfo';
 import {useState} from 'react';
 import CalendarControls from '@/components/CalendarControls';
@@ -45,17 +46,17 @@ const defaultEvent: EventIntroProps = {
 };
 
 
-
+const localizer = momentLocalizer(moment);
 const Calendar = () => {
   const [event, setEvent] = useState<EventIntroProps>(defaultEvent);
-  const [offset, setOffset] = useState<number>(0);
+  const [displayDate, setDisplayDate] = useState<Date>(localizer.startOf(new Date(), 'month'));
   return (
     <>
       <section className="container">
       <h1 className='mt-0 pt-0 mb-4'>Our Events</h1>
-      <CalendarControls currOffset={offset} updateOffset={setOffset}></CalendarControls>
+      <CalendarControls currDisplayDate={displayDate} updateDisplayDate={setDisplayDate}></CalendarControls>
       <div className='flex justify-between pb-10'> 
-          <Events events={fakeEvents} updateEvent={setEvent} offset={offset}/>
+          <Events events={fakeEvents} updateEvent={setEvent} displayDate={displayDate}/>
           <EventInfo 
           title = {event.title}
           location = {event.location}

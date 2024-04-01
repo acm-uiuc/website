@@ -28,11 +28,11 @@ export interface CustomEventType {
 export interface EventsProps {
     events: CustomEventType[],
     updateEvent: React.Dispatch<React.SetStateAction<EventIntroProps>>,
-    offset: number
+    displayDate: Date
 }
 
 const localizer = momentLocalizer(moment)
-const Events: React.FC<EventsProps> = ({ events,  updateEvent, offset}) => {
+const Events: React.FC<EventsProps> = ({ events, updateEvent, displayDate}) => {
     const [calendarHeight, setCalendarHeight] = useState(0);
     useEffect(() => {
         setCalendarHeight(window.innerHeight * 0.7);
@@ -51,9 +51,6 @@ const Events: React.FC<EventsProps> = ({ events,  updateEvent, offset}) => {
 
     // really stupid declaration we need so react big-calendar doesn't yell at us
     const dummyNav = (newDate: Date, view: View, action: NavigateAction) => { return; }
-    
-    let displayDate = localizer.startOf(new Date(), 'month');
-    displayDate = localizer.add(displayDate, offset, "month");
 
     return (
         <Calendar

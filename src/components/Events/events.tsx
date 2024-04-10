@@ -25,7 +25,7 @@ export interface CustomEventType {
 export interface EventsProps {
   events: CustomEventType[];
   updateEvent: React.Dispatch<React.SetStateAction<EventIntroProps>>;
-  offset: number;
+  displayDate: Date;
   filter: string;
   dayFilter: string; // Add this line
 }
@@ -33,7 +33,7 @@ export interface EventsProps {
 
 const localizer = momentLocalizer(moment);
 
-const Events: React.FC<EventsProps> = ({ events, updateEvent, offset, filter, dayFilter }) => {
+const Events: React.FC<EventsProps> = ({ events, updateEvent, displayDate, filter, dayFilter }) => {
     const [calendarHeight, setCalendarHeight] = useState(0);
 
     useEffect(() => {
@@ -54,8 +54,6 @@ const Events: React.FC<EventsProps> = ({ events, updateEvent, offset, filter, da
 
     const dummyNav = (newDate: Date, view: View, action: NavigateAction) => { return; }
 
-    let displayDate = localizer.startOf(new Date(), 'month');
-    displayDate = localizer.add(displayDate, offset, 'month');
 
     // Filter events based on the filter prop
     const filteredEvents = events.filter(event =>

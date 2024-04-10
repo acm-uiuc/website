@@ -51,6 +51,8 @@ export default function CalendarControls({currDisplayDate, updateDisplayDate} : 
 
     return (
     <div className="w-2/3 flex items-center justify-between">
+        <h3>{extractMonthAndYear(currDisplayDate)}</h3>
+
         <div className="flex items-center gap-x-4">
           <Button onPress={()=> {resetDate()}} variant="bordered" className="border-surface-000 border-1 bg-primary text-white hover:cursor-pointer">Today</Button>
           <ButtonGroup>
@@ -59,7 +61,6 @@ export default function CalendarControls({currDisplayDate, updateDisplayDate} : 
           </ButtonGroup>
         </div>
         
-        <h3>{extractMonthAndYear(currDisplayDate)}</h3>
     </div>
     )
 }

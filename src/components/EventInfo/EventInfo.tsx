@@ -22,10 +22,10 @@ function EventInfo({
                             <span>{location || "TBD"}</span>
                         </div> 
                         <div className='flex flex-row items-center gap-2'>
-                            <FaRegCalendarAlt classname="w-4 h-4 pr-2"/> {date || "TBD"}
+                            <FaRegCalendarAlt className="shrink-0"/> {date || "TBD"}
                         </div>
                         <div className='flex flex-row items-center gap-2 mb-2'>
-                            <FaUser classname="w-4 h-4 pr-2"/> {host}
+                            <FaUser className="shrink-0"/> {host}
                         </div> 
                         <text>{description}</text>
                     </div>      

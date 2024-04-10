@@ -2,7 +2,8 @@
 import LeadSection from '../../../sections/about/LeadershipSection';
 import Events, {CustomEventType} from '../../../components/Events/events'
 import fakeEvents from '../../../components/Events/fakeEvents'
-
+import moment from 'moment'
+import { momentLocalizer } from 'react-big-calendar'
 import EventInfo from '../../../components/EventInfo/EventInfo';
 import {useState} from 'react';
 import CalendarControls from '@/components/CalendarControls';
@@ -45,7 +46,7 @@ const defaultEvent: EventIntroProps = {
 };
 
 
-
+const localizer = momentLocalizer(moment);
 const Calendar = () => {
   const [event, setEvent] = useState<EventIntroProps>(defaultEvent);
   const [offset, setOffset] = useState<number>(0);

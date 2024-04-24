@@ -13,7 +13,8 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@nextui-org/react": "^2.2.9",
+    "@nextui-org/date-picker": "^2.3.0",
+    "@nextui-org/react": "^2.3.5",
     "axios": "^0.27.2",
     "cross-env": "^7.0.3",
     "framer-motion": "^10.17.9",
@@ -21,9 +22,10 @@
     "moment": "^2.29.4",
     "next": "14.0.4",
     "react": "^18.2.0",
-    "react-big-calendar": "^1.10.1",
+    "react-big-calendar": "^1.11.6",
     "react-dom": "^18.2.0",
-    "react-icons": "^4.4.0"
+    "react-icons": "^4.4.0",
+    "react-modal": "^3.16.1"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.6.7",

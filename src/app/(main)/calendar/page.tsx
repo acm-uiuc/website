@@ -7,6 +7,8 @@ import { momentLocalizer } from 'react-big-calendar'
 import EventInfo from '../../../components/EventInfo/EventInfo';
 import {useState} from 'react';
 import CalendarControls from '@/components/CalendarControls';
+import AddEventModal from '@/components/Events/AddEventModal';
+import { Button } from '@nextui-org/react';
 /*
 const FlexContainer = styled.div `
   display: flex;
@@ -94,6 +96,16 @@ const Calendar = () => {
             description={event.description}
             host={event.host}
           />
+        </div>
+        <div>
+          {/* <Button
+            onClick={() => setIsAddModalOpen(true)}
+            className="border-surface-000 border-1 bg-primary text-white hover:cursor-pointer"
+          >
+            Add Event
+          </Button>
+          {isAddModalOpen && <AddEventModal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} />} */}
+          <AddEventModal />
         </div>
       </section>
     </>

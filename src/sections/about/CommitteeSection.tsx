@@ -8,6 +8,7 @@ import instagram from '@/stories/assets/instagram.png';
 import reflections from '@/stories/assets/reflections.jpg';
 import hackillinoislogo from '@/stories/assets/hackillinoislogo.png';
 import infrastructure from '@/stories/assets/infra_pic.jpg';
+import mentorship from '@/stories/assets/mentorship.png';
 
 export default function CommitteeSection() {
   return (
@@ -130,7 +131,7 @@ export default function CommitteeSection() {
         <Committee
           title="Mentorship"
           description="The mentorship team organizes mentorship programs for ACM@UIUC, welcoming everyone to CS @ Illinois."
-          image={social}
+          image={mentorship}
           chairs={[
             {
               name: "Jasmine Liu",

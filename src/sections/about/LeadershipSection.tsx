@@ -2,7 +2,7 @@ import LeadershipCard from '@/components/Card/LeadershipCard';
 
 import chair from "@/stories/assets/chair.jpeg";
 import vicechair from "@/stories/assets/vice_chair.jpg";
-import treasurer from "@/stories/assets/treasurer.png";
+import treasurer from "@/stories/assets/treasurer.jpg";
 import secretary from "@/stories/assets/secretary.jpg";
 
 export default function LeadershipSection() {

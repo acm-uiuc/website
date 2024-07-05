@@ -1,9 +1,9 @@
 import LeadershipCard from '@/components/Card/LeadershipCard';
 
 import chair from "@/stories/assets/chair.jpeg";
-import vicechair from "@/stories/assets/vicechair.jpg";
-import treasurer from "@/stories/assets/treasurer.jpeg";
-import secretary from "@/stories/assets/secretary.jpeg";
+import vicechair from "@/stories/assets/vice_chair.jpg";
+import treasurer from "@/stories/assets/treasurer.jpg";
+import secretary from "@/stories/assets/secretary.jpg";
 
 export default function LeadershipSection() {
   return (
@@ -12,27 +12,27 @@ export default function LeadershipSection() {
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         <LeadershipCard
           title="Chair"
-          name="Deeya Bodas"
+          name="Abhived Pulapaka"
           img={chair}
-          email="mailto:deeyaab2@illinois.edu"
+          email="mailto:abhived2@illinois.edu"
         />
         <LeadershipCard 
           title="Vice Chair"
-          name="Aydan Pirani" 
+          name="Ronit Anandani" 
           img={vicechair} 
-          email="mailto:apirani2@illinois.edu"
+          email="mailto:ronita2@illinois.edu"
         />
         <LeadershipCard 
           title="Treasurer"
-          name="Dev Singh"
+          name="Ryan To"
           img={treasurer} 
           email="mailto:treasurer@acm.illinois.edu"
         />
         <LeadershipCard 
           title="Secretary"
-          name="Abhived Pulapaka"
+          name="Akshay Vellore"
           img={secretary}
-          email="mailto:abhived2@illinois.edu"
+          email="mailto:akshayv4@illinois.edu"
         />
       </div>
     </section>

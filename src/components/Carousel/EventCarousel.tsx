@@ -42,26 +42,24 @@ const EventCarousel: React.FC<EventCarouselProps> = ({ eventList, numEventsPerSl
 
 
   return (
-    <div>
-      <Carousel>
-        {chunkedEvents.map((group, index) => (
-            <div key={index} className="card-group">
-                {group.map((object, i) => (
-                <EventCard
-                    key={i}
-                    title={object.title}
-                    description={object.description}
-                    date={toHumanDate(object.date)}
-                    repeats={object.repeats}
-                    location={object.location}
-                    locationLink={object.locationLink}
-                    paidEventId={object.paidEventId}
-                />
-                ))}
-            </div>
-        ))}
-      </Carousel>
-    </div>
+    <Carousel>
+      {chunkedEvents.map((group, index) => (
+        <div key={index} className="grid grid-cols-[repeat(3,1fr)] flex-[0_0_100%] justify-between gap-[1%] w-full mt-[25px] mb-[50px]">
+          {group.map((object, i) => (
+          <EventCard
+              key={i}
+              title={object.title}
+              description={object.description}
+              date={toHumanDate(object.date)}
+              repeats={object.repeats}
+              location={object.location}
+              locationLink={object.locationLink}
+              paidEventId={object.paidEventId}
+              />
+          ))}
+        </div>
+      ))}
+    </Carousel>
   );
 };
 

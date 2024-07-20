@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import './Carousel.css';
 
 interface CarouselProps {
   children: React.ReactNode;
@@ -18,9 +17,9 @@ const Carousel: React.FC<CarouselProps> = ({ children }) => {
       }
     };
     return (
-      <button className="button buttonRight" onClick={scrollRight}>
+      <button className="bg-transparent cursor-pointer flex items-center justify-center p-2 border-[none]" onClick={scrollRight}>
         <svg height="50px" width="50px" version="1.1" id="Capa_1" 
-        viewBox="0 0 185.343 185.343">
+        viewBox="0 0 185.343 185.343" className="fill-[white] transition-transform duration-[0.2s] ease-[ease-in-out] hover:translate-x-0.5">
           <g>
             <g>
             <path d="M51.707,185.343c-2.741,0-5.493-1.044-7.593-3.149c-4.194-4.194-4.194-10.981,0-15.175
@@ -44,9 +43,9 @@ const Carousel: React.FC<CarouselProps> = ({ children }) => {
       }
     };
     return (
-      <button className="button buttonRight" onClick={scrollLeft}>
+      <button className="bg-transparent cursor-pointer flex items-center justify-center p-2 border-[none]" onClick={scrollLeft}>
         <svg height="50px" width="50px" version="1.1" id="Capa_1" 
-        viewBox="0 0 185.343 185.343">
+        viewBox="0 0 185.343 185.343" className="fill-[white] transition-transform duration-[0.2s] ease-[ease-in-out] hover:translate-x-0.5">
           <g>
             <g>
               <path d="m133.6 185.3c2.8 0 5.5-1 7.6-3.1 4.2-4.2 4.2-11 0-15.2l-74.3-74.3 74.3-74.4c4.2-4.2 4.2-11 0-15.2-4.2-4.1-11-4.1-15.2 0l-81.9 82c-4.2 4.2-4.2 11 0 15.2l81.9 81.9c2.1 2.1 4.9 3.1 7.6 3.1z"/>
@@ -60,9 +59,9 @@ const Carousel: React.FC<CarouselProps> = ({ children }) => {
 
 
   return (
-    <div className="carousel-container">
+    <div className="flex items-center overflow-hidden">
       <LeftButton/>
-      <div className="carousel" ref={carouselRef}>
+      <div className="flex overflow-x-auto scroll-smooth gap-x-[1%] w-[90%] p-0" ref={carouselRef}>
         {children}
       </div>
       <RightButton/>

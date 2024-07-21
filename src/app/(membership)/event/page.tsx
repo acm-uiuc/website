@@ -31,7 +31,7 @@ enum InputStatus {
   VALID
 }
 
-const baseUrl = process.env.REACT_APP_TICKETING_BASE_URL ?? 'https://ticketing.acm.illinois.edu';
+const baseUrl = process.env.REACT_APP_TICKETING_BASE_URL ?? 'https://ticketing.aws.acmuiuc.org';
 const baseOverridden = Boolean(process.env.REACT_APP_TICKETING_BASE_URL);
 
 const Event = () => {

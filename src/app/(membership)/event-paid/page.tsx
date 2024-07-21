@@ -17,7 +17,7 @@ const EventPaid = () => {
   const eventid = useSearchParams().get('id') || '';
   const [paidEventList, setPaidEventList] = useState<Record<string, any>>({});
 
-  const baseUrl = process.env.REACT_APP_TICKETING_BASE_URL ?? 'https://ticketing.acm.illinois.edu';
+  const baseUrl = process.env.REACT_APP_TICKETING_BASE_URL ?? 'https://ticketing.aws.acmuiuc.org';
 
   const metaLoader = async () => {
     const url = `${baseUrl}/api/v1/event/details?eventid=${eventid}`;

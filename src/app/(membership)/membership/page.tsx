@@ -39,7 +39,7 @@ const Payment = () => {
   const [errorMessage, setErrorMessage] = useState<ErrorCode | null>(null);
 
   const purchaseHandler = () => {
-    const url = `https://membership.acm.illinois.edu/api/v1/checkout/session?netid=${netId}`;
+    const url = `https://infra-membership-api.aws.acmuiuc.org/api/v1/checkout/session?netid=${netId}`;
     axios.get(url).then(response => {
       window.location.replace(response.data);
     }).catch((error) => {

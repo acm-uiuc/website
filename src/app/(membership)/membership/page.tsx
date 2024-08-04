@@ -14,6 +14,8 @@ import {
   ModalFooter,
   useDisclosure
 } from '@nextui-org/react';
+import {Spinner} from "@nextui-org/spinner";
+
 import Lottie from 'lottie-react';
 import axios from 'axios';
 import Layout from '../MembershipLayout';
@@ -36,16 +38,19 @@ const baseUrl = process.env.REACT_APP_MEMBERSHIP_BASE_URL ?? 'https://infra-memb
 const Payment = () => {
   const [netId, setNetId] = useState('');
   const [netIdConfirm, setNetIdConfirm] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const modalAlreadyMember = useDisclosure();
   const modalErrorMessage = useDisclosure();
   const [errorMessage, setErrorMessage] = useState<ErrorCode | null>(null);
 
   const purchaseHandler = () => {
+    setIsLoading(true);
     const url = `${baseUrl}/api/v1/checkout/session?netid=${netId}`;
     axios.get(url).then(response => {
       window.location.replace(response.data);
     }).catch((error) => {
+      setIsLoading(false);
       if (error.response) {
         if (error.response.status === 422) {
           const errorObj = error.response.data;
@@ -149,10 +154,10 @@ const Payment = () => {
             <Button
               color="primary"
               size="lg"
-              isDisabled={!isFormValidated}
+              isDisabled={!isFormValidated || isLoading}
               onPress={purchaseHandler}
             >
-              Purchase for $20.00
+              {isLoading ? <><Spinner color='white' size="sm"/><a>Loading...</a></> : "Purchase for $20.00"}
             </Button>
           </CardBody>
         </Card>

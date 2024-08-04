@@ -4,7 +4,7 @@
   "homepage": "https://acm.illinois.edu/",
   "private": true,
   "scripts": {
-    "dev": "cross-env REACT_APP_TICKETING_BASE_URL='https://xclhkh0duc.execute-api.us-east-1.amazonaws.com/default' next dev",
+    "dev": "next dev",
     "start": "yarn dev",
     "build": "next build && cp src/_redirects build/_redirects",
     "serve": "serve build",
@@ -19,10 +19,9 @@
     "framer-motion": "^10.17.9",
     "lottie-react": "^2.3.1",
     "moment": "^2.29.4",
-    "next": "14.0.4",
-    "react": "^18.2.0",
-    "react-big-calendar": "^1.10.1",
-    "react-dom": "^18.2.0",
+    "next": "^14.2.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-icons": "^4.4.0"
   },
   "devDependencies": {
@@ -42,7 +41,7 @@
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.16",
     "eslint": "^8",
-    "eslint-config-next": "14.0.4",
+    "eslint-config-next": "^14.2.5",
     "eslint-plugin-storybook": "^0.6.15",
     "postcss": "^8.4.33",
     "serve": "^14.2.1",

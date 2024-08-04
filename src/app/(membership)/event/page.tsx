@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useMemo, useState } from 'react';
+import { Suspense, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import {
   Button,
@@ -31,9 +31,14 @@ enum InputStatus {
   VALID
 }
 
-const baseUrl = process.env.REACT_APP_TICKETING_BASE_URL ?? 'https://ticketing.acm.illinois.edu';
-const baseOverridden = Boolean(process.env.REACT_APP_TICKETING_BASE_URL);
-
+const baseUrl = process.env.NEXT_PUBLIC_TICKETING_BASE_URL;
+const WrappedEvent = () => {
+  return (
+    <Suspense>
+      <Event />
+    </Suspense>
+  )
+}
 const Event = () => {
   const eventid = useSearchParams().get('id') || '';
   const [paidEventList, setPaidEventList] = useState<Record<string, any>>({});
@@ -120,7 +125,7 @@ const Event = () => {
       } else {
         setErrorMessage({
           code: 500,
-          message: 'Internal server error: ' + error.response.data
+          message: 'Internal server error: ' + (error.response.data || "could not process request")
         });
       }
       setIsLoading(false);
@@ -158,7 +163,7 @@ const Event = () => {
           <Card className="max-w-[512px] mx-4 my-auto shrink-0">
             <CardHeader>
               <p className="font-bold">
-                {baseOverridden ? 'DEVELOPMENT MODE - ' : ''}{paidEventList["event_name"]} Signup
+                {paidEventList["event_name"]} Signup
               </p>
             </CardHeader>
             <Divider />
@@ -253,4 +258,4 @@ const Event = () => {
   }
 };
 
-export default Event;
+export default WrappedEvent;

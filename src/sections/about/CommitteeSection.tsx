@@ -8,6 +8,7 @@ import instagram from '@/stories/assets/instagram.png';
 import reflections from '@/stories/assets/reflections.jpg';
 import hackillinoislogo from '@/stories/assets/hackillinoislogo.png';
 import infrastructure from '@/stories/assets/infra_pic.jpg';
+import mentorship from '@/stories/assets/mentorship.png';
 
 export default function CommitteeSection() {
   return (
@@ -24,12 +25,12 @@ export default function CommitteeSection() {
           href="https://reflectionsprojections.org/"
           chairs={[
             {
-              name: "Saloni Vaishnav",
-              email: "saloniv2@illinois.edu"
+              name: "Ojaswee Chaudhary",
+              email: "ojaswee2@illinois.edu"
             },
             {
-              name: "Atharva Naik",
-              email: "annaik2@illinois.edu"
+              name: "Ritika Vithani",
+              email: "ritikav2@illinois.edu"
             }
           ]}
         />
@@ -37,7 +38,7 @@ export default function CommitteeSection() {
       <span id="hackillinois">
         <Committee
           title="HackIllinois"
-          description="HackIllinois is the premier collegiate hackathon. 
+          description="HackIllinois is UIUC's premier collegiate hackathon. 
           With over 1000 attendees and 50 mentors in 2019, the hackathon 
           has become one of the largest and most well-regarded in the 
           nation."
@@ -45,12 +46,12 @@ export default function CommitteeSection() {
           href="https://hackillinois.org/"
           chairs={[
             {
-              name: "Pinakin Kanade",
-              email: "pkanade2@illinois.edu"
+              name: "Jennifer Xia",
+              email: "jxxia3@illinois.edu"
             },
             {
-              name: "Ronit Anandani",
-              email: "ronita2@illinois.edu"
+              name: "Kay Rivera",
+              email: "krive5@illinois.edu"
             }
           ]}
         />
@@ -63,8 +64,12 @@ export default function CommitteeSection() {
           image={capitalone}
           chairs={[
             {
-              name: "Anish Meka",
-              email: "anishm2@illinois.edu"
+              name: "Deeya Bodas",
+              email: "deeyaab2@illinois.edu"
+            },
+            {
+              name: "Howard Ding",
+              email: "howardd2@illinois.edu"
             }
           ]}
         />
@@ -77,12 +82,12 @@ export default function CommitteeSection() {
           image={social}
           chairs={[
             {
-              name: "A.G. Samaniego",
-              email: "asama6@illinois.edu"
+              name: "Ashika Koripelly",
+              email: "akori3@illinois.edu"
             },
             {
-              name: "Sai Venkatakrishnan",
-              email: "sv34@illinois.edu"
+              name: "Naomi Lin",
+              email: "naomil4@illinois.edu"
             }
           ]}
         />
@@ -94,12 +99,12 @@ export default function CommitteeSection() {
           image={instagram}
           chairs={[
             {
-              name: "Kris Png",
-              email: "kpng2@illinois.edu"
+              name: "Ayushi Chakravarty",
+              email: "ayushic3@illinois.edu"
             },
             {
-              name: "Jingtong Wang",
-              email: "jw132@illinois.edu"
+              name: "Meghna Goli",
+              email: "goli3@illinois.edu"
             }
           ]}
         />
@@ -112,12 +117,29 @@ export default function CommitteeSection() {
           image={infrastructure}
           chairs={[
             {
-              name: "Jake Levine",
-              email: "jlevine4@illinois.edu"
+              name: "Dev Singh",
+              email: "dsingh14@illinois.edu"
             },
             {
-              name: "Hassam Uddin",
-              email: "hassamu2@illinois.edu"
+              name: "Kaushik Varadharajan",
+              email: "kv22@illinois.edu"
+            }
+          ]}
+        />
+      </span>
+      <span id="mentorship">
+        <Committee
+          title="Mentorship"
+          description="The mentorship team organizes mentorship programs for ACM@UIUC, welcoming everyone to CS @ Illinois."
+          image={mentorship}
+          chairs={[
+            {
+              name: "Jasmine Liu",
+              email: "jrliu2@illinois.edu"
+            },
+            {
+              name: "Sherry Long",
+              email: "sherryl4@illinois.edu"
             }
           ]}
         />

@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import {
   Modal,
@@ -12,12 +12,18 @@ import Lottie from 'lottie-react';
 import axios from 'axios';
 import Layout from '../MembershipLayout';
 import successAnimation from '../success.json';
-
+const WrappedEventPaid = () => {
+  return (
+    <Suspense>
+      <EventPaid />
+    </Suspense>
+  )
+}
 const EventPaid = () => {
   const eventid = useSearchParams().get('id') || '';
   const [paidEventList, setPaidEventList] = useState<Record<string, any>>({});
 
-  const baseUrl = process.env.REACT_APP_TICKETING_BASE_URL ?? 'https://ticketing.acm.illinois.edu';
+  const baseUrl = process.env.NEXT_PUBLIC_TICKETING_BASE_URL;
 
   const metaLoader = async () => {
     const url = `${baseUrl}/api/v1/event/details?eventid=${eventid}`;
@@ -58,4 +64,4 @@ const EventPaid = () => {
   }
 };
 
-export default EventPaid;
+export default WrappedEventPaid;

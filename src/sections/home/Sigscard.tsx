@@ -98,11 +98,11 @@ export default function Sigscard() {
         description="Polish coding and problem solving skills to prepare
         for competitions/interviews at Illinois Programming League."
         link1="http://icpc.cs.illinois.edu/"
-        link2="https://campuswire.com/p/GACF2E8B2"
+        link2="http://go.acm.illinois.edu/icpc_discord"
         imgwebp={webp_icpclogo.src}
         img={icpclogo}
         linktext1="Website"
-        linktext2="Campuswire (4080)"
+        linktext2="Discord"
       />
       <Card
         title="SIGCHI"
@@ -133,7 +133,7 @@ export default function Sigscard() {
         description="A project-based SIG with presentations 
         focused on audio synthesis, algorithmic composition, audio plugins, and more."
         link1="http://sigmusic.acm.illinois.edu/"
-        link2="https://discord.gg/ug9NdWzD"
+        link2="http://go.acm.illinois.edu/sigmusic_discord"
         imgwebp={webp_sigmusiclogo.src}
         img={sigmusiclogo}
         linktext1="Website"

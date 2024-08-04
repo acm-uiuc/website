@@ -1,6 +1,6 @@
 import { Organization, SIGList } from "@/components/LazyImage";
 
-interface IOrgData {
+export interface IOrgData {
   title: string;
   description: string;
   link1?: string;
@@ -141,5 +141,7 @@ export const OrganizationDataMapping : Record<Organization, IOrgData> = {
     linktext2: 'Discord'
   }
 }
+
+export const getOrganizationInfo = (organization: Organization) => OrganizationDataMapping[organization];
 
 export const AllSigData = SIGList.map((sig) => OrganizationDataMapping[sig]);

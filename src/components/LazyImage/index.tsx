@@ -36,7 +36,7 @@ import sigplanlogo from '@/stories/assets/sigplanlogo.png';
 import sigpolicylogo from '@/stories/assets/sigpolicylogo.png';
 import sigarchlogo from '@/stories/assets/sigarchlogo.png';
 
-
+import acmlogo from '@/stories/assets/acm-square-blue.png';
 
 export const SIGList = ['SIGPwny' , 'SIGCHI' , 'GameBuilders' , 'SIGAIDA' , 'SIGGRAPH' 
 , 'ICPC' , 'SIGMobile' , 'SIGMusic' , 'GLUG' , 'SIGNLL' , 'SIGma' , 'SIGQuantum' , 'SIGecom' , 'SIGPLAN' , 'SIGPolicy' , 'SIGARCH']
@@ -48,12 +48,21 @@ export type Organization = typeof OrganizationList[number];
 
 export interface LazyImageProps {
   img: StaticImageData
-  imgwebp: StaticImageData
+  imgwebp?: StaticImageData
   title: string
   className: string
 };
 
 export const LazyImage = ({ img, imgwebp, title, className }: LazyImageProps) => {
+  if (!imgwebp) {
+    return <NextImage
+      className={className}
+      src={img}
+      alt={title + " Logo"}
+      loading="lazy"
+    />
+  }
+
   return <picture>
   <source type="image/webp" srcSet={imgwebp as unknown as string} />
   <NextImage
@@ -84,7 +93,7 @@ const imageRenderers : {
   'SIGPLAN': (className) => <LazyImage img={sigplanlogo} imgwebp={webp_sigplanlogo} title="SIGPLAN" className={className} />,
   'SIGPolicy': (className) => <LazyImage img={sigpolicylogo} imgwebp={webp_sigpolicylogo} title="SIGPolicy" className={className} />,
   'SIGARCH': (className) => <LazyImage img={sigarchlogo} imgwebp={webp_sigarchlogo} title="SIGARCH" className={className} />,
-  'ACM': (className) => <LazyImage img={sigpwnylogo} imgwebp={webp_sigpwnylogo} title="ACM" className={className} />,
+  'ACM': (className) => <LazyImage img={acmlogo} title="ACM" className={className} />,
 }
 
 export const getOrganizationImage = (org: Organization, className: string = 'h-14 w-auto') => {

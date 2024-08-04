@@ -1,21 +1,13 @@
 'use client';
-import Events, { IEvent } from '../../../components/Events/events'
+import Events, { IEvent } from '@/components/Events/events'
 import allEvents from 'public/events.json'
 import moment from 'moment'
 import { momentLocalizer } from 'react-big-calendar'
-import EventInfo from '../../../components/EventInfo/EventInfo';
+import EventDetail, { CalendarEventDetailProps } from '@/components/CalendarEventDetail/CalendarEventDetail';
 import {useState} from 'react';
 import CalendarControls from '@/components/CalendarControls';
 
-export interface EventIntroProps {
-  title?: string;
-  location?: string;
-  start?: string;
-  host?: string;
-  description: string;
-}
-
-const defaultEvent: EventIntroProps = {
+const defaultEvent: CalendarEventDetailProps = {
   description: "N/A",
 };
 
@@ -23,7 +15,7 @@ const allEventsTyped = allEvents as IEvent[];
 
 const localizer = momentLocalizer(moment);
 const Calendar = () => {
-  const [event, setEvent] = useState<EventIntroProps>(defaultEvent);
+  const [eventDetail, setEventDetail] = useState<CalendarEventDetailProps>(defaultEvent);
   const [displayDate, setDisplayDate] = useState<Date>(localizer.startOf(new Date(), 'month'));
 
   const [filter, setFilter] = useState(''); // Added filter state
@@ -60,15 +52,20 @@ const Calendar = () => {
             className="ml-4 border-2 border-gray-300 focus:border-blue-500 rounded-md" // Updated styling
           />
         </div>
-        <div className='flex justify-between pb-10'> 
-          <Events events={allEventsTyped} updateEvent={setEvent} filter={filter} displayDate={displayDate} dayFilter={dayFilter}/>
-          <EventInfo
-            title={event.title}
-            location={event.location}
-            start={event.start}
-            description={event.description}
-            host={event.host}
-          />
+        <div className='grid justify-between pb-10 gap-4 grid-cols-8'>
+          <div className="flex col-span-5">
+            <Events events={allEventsTyped} updateEventDetails={setEventDetail} filter={filter} displayDate={displayDate} dayFilter={dayFilter}/>
+          </div>
+          <div className="flex col-span-3">
+            <EventDetail
+              title={eventDetail.title}
+              location={eventDetail.location}
+              start={eventDetail.start}
+              end={eventDetail.end}
+              description={eventDetail.description}
+              host={eventDetail.host}
+            />
+          </div>
         </div>
       </section>
     </>

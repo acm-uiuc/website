@@ -23,17 +23,37 @@ function toHumanDate(date: string) {
 }
 
 const typedEventList = eventList as IEvent[];
-const sortedEvents = typedEventList.sort((a, b) => {
-  return (Moment(a.start).unix() - Moment(b.start).unix());
-});
 
 export default function Hero() {
   const [upcomingEvents, setUpcomingEvents] = useState<IEvent[]>([]);
   const [numEvents, setNumEvents] = useState(3);
-
+  
   useEffect(() => {
-    // Filter out events that have already passed
+    // If event repeats, get the first date after current time
     const now = Moment();
+    const eventsAfterNow = typedEventList.map((event) => {
+      if (event.repeats) {
+        let start = Moment(event.start);
+        let end = event.end ? Moment(event.end) : null;
+        const increment = {'weekly': 1, 'biweekly': 2}[event.repeats];
+        while (start.isBefore(now)) {
+          start = start.add(increment, 'week');
+          if (end) {
+            end = end.add(increment, 'week');
+          }
+        }
+        return {
+          ...event,
+          start: start.toISOString(),
+        };
+      }
+      return event;
+    });
+
+    // Filter out events that have already passed
+    const sortedEvents = eventsAfterNow.sort((a, b) => {
+      return (Moment(a.start).unix() - Moment(b.start).unix());
+    });
     const filteredEvents = sortedEvents.filter((event) => {
       return Moment(event.start).isAfter(now);
     });
@@ -120,6 +140,7 @@ export default function Hero() {
                 location={object.location}
                 locationLink={object.locationLink}
                 paidEventId={object.paidEventId}
+                host={object.host}
                 />
               );
             })}

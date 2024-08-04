@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Calendar, momentLocalizer, Event as BigCalendarEvent } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './CalendarStylesOverride.css';
-import { EventIntroProps } from '../../app/(main)/calendar/page';
+import { CalendarEventDetailProps } from '@/components/CalendarEventDetail/CalendarEventDetail';
 import { View, NavigateAction } from 'react-big-calendar';
 import { Organization } from '../LazyImage';
 
@@ -25,6 +25,7 @@ export interface IEvent {
     description: string;
     repeats?: Frequency;
     paidEventId?: string;
+    host?: Organization;
 }
 
 
@@ -37,7 +38,7 @@ export interface CalendarEvent extends BigCalendarEvent {
 
 export interface EventsProps {
   events: IEvent[];
-  updateEvent: React.Dispatch<React.SetStateAction<EventIntroProps>>;
+  updateEventDetails: React.Dispatch<React.SetStateAction<CalendarEventDetailProps>>;
   displayDate: Date;
   filter: string;
   dayFilter: string;
@@ -46,7 +47,7 @@ export interface EventsProps {
 
 const localizer = momentLocalizer(moment);
 
-const Events: React.FC<EventsProps> = ({ events, updateEvent, displayDate, filter, dayFilter }) => {
+const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate, filter, dayFilter }) => {
     const [calendarHeight, setCalendarHeight] = useState(0);
     const [filteredEvents, setFilteredEvents] = useState<CalendarEvent[]>([]);
 
@@ -55,13 +56,15 @@ const Events: React.FC<EventsProps> = ({ events, updateEvent, displayDate, filte
     }, []);
 
     const selectEvent = (event: CalendarEvent) => {
-        const newEvent: EventIntroProps = {
+        const newEvent: CalendarEventDetailProps = {
             title: event.title,
             location: event.location,
             description: event.description,
             host: event.host,
+            start: event.start,
+            end: event.end,
         };
-        updateEvent(newEvent);
+        updateEventDetails(newEvent);
     };
 
     const dummyNav = (newDate: Date, view: View, action: NavigateAction) => { return; }
@@ -82,39 +85,21 @@ const Events: React.FC<EventsProps> = ({ events, updateEvent, displayDate, filte
                     const newEnd = event.end ? moment(event.end).add(i * repeatFrequency, 'weeks').toDate() : newStart;
 
                     return {
-                        title: event.title,
+                        ...event,
                         start: newStart,
                         end: newEnd,
-                        category: event.category,
-                        location: event.location,
-                        locationLink: event.locationLink,
-                        dateLink: event.dateLink,
-                        description: event.description,
-                        repeats: event.repeats,
-                        paidEventId: event.paidEventId,
-                    };
+                    }
                 })
             }
 
             return [{
-                title: event.title,
+                ...event,
                 start: new Date(event.start),
                 end: event.end ? new Date(event.end) : new Date(event.start),
-                category: event.category,
-                location: event.location,
-                locationLink: event.locationLink,
-                dateLink: event.dateLink,
-                description: event.description,
-                repeats: event.repeats,
-                paidEventId: event.paidEventId,
             }];
         });
         setFilteredEvents(formattedEvents);
     }, [events, filter, dayFilter]);
-
-    // Filter events based on the filter prop
-
-    console.log({ filteredEvents })
 
     return (
         <Calendar

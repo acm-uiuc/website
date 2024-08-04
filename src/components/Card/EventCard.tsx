@@ -45,9 +45,6 @@ const getRepeatString = (repeats: string) => {
   }
 }
 
-const getHostLogo = (host: Organization) => {
-  return getOrganizationImage(host);
-}
 export default function EventCard({
   location,
   date,
@@ -56,15 +53,16 @@ export default function EventCard({
   locationLink,
   dateLink,
   repeats,
-  paidEventId
+  paidEventId,
+  host
 }: EventProps) {
   return (
     <div className="flex flex-col col-span-1 p-4 rounded-3xl bg-surface-050 hover:shadow-lg hover:-translate-y-1 transition-all">
-      <div className="flex flex-row items-center gap-4 mb-4">
+      <div className="flex flex-row justify-between mb-4">
         <p className="text-2xl font-bold">
           {title}
         </p>
-        {getHostLogo('ACM')}
+        {host && getOrganizationImage(host, 'w-auto h-8')}
       </div>
       <p className="flex grow leading-6 pb-4">
         {description}

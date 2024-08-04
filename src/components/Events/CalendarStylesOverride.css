@@ -65,14 +65,11 @@
 /*overall container positioning/changes*/
 .rbc-calendar {
   filter: grayscale(0%) drop-shadow(0 4px 12px rgb(104 112 118 / 0.08)) drop-shadow(0 20px 8px rgb(104 112 118 / 0.04));
-  width: 67%;
+  width: 100%;
   padding-top: 0%;
 }
 
 @media (max-width: 600px) {
-  .rbc-calendar {
-    width: 100%;
-  }
   .rbc-btn-group > button {
     font-size:16px;
   }

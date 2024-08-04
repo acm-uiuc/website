@@ -30,6 +30,9 @@ enum InputStatus {
   VALID
 }
 
+
+const baseUrl = process.env.REACT_APP_MEMBERSHIP_BASE_URL ?? 'https://infra-membership-api.aws.qa.acmuiuc.org';
+
 const Payment = () => {
   const [netId, setNetId] = useState('');
   const [netIdConfirm, setNetIdConfirm] = useState('');
@@ -39,7 +42,7 @@ const Payment = () => {
   const [errorMessage, setErrorMessage] = useState<ErrorCode | null>(null);
 
   const purchaseHandler = () => {
-    const url = `https://infra-membership-api.aws.acmuiuc.org/api/v1/checkout/session?netid=${netId}`;
+    const url = `${baseUrl}/api/v1/checkout/session?netid=${netId}`;
     axios.get(url).then(response => {
       window.location.replace(response.data);
     }).catch((error) => {

@@ -15,7 +15,7 @@ function NavLink({ children, ...rest }: { children: React.ReactNode } & LinkProp
     </Link>
   );
 }
-const prod = Boolean(process.env.REACT_APP_RUN_ENV === 'prod');
+const prod = Boolean(process.env.NEXT_PUBLIC_RUN_ENV === 'prod');
 
 export default function Navbar() {
   const checkbox = useRef<HTMLInputElement | null>(null);

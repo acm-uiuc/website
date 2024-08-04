@@ -1,5 +1,5 @@
 'use client';
-import { Suspense, useEffect, useMemo, useState } from 'react';
+import { Suspense, useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Button,
   Card,
@@ -35,7 +35,7 @@ enum InputStatus {
 }
 
 
-const baseUrl = process.env.REACT_APP_MEMBERSHIP_BASE_URL ?? 'https://infra-membership-api.aws.qa.acmuiuc.org';
+const baseUrl = process.env.NEXT_PUBLIC_MEMBERSHIP_BASE_URL;
 const WrappedPayment = () => {
   return (
     <Suspense>
@@ -52,12 +52,7 @@ const Payment = () => {
   const prefilledNetId = useSearchParams().get('netid') || '';
   const [netId, setNetId] = useState(prefilledNetId);
   const [netIdConfirm, setNetIdConfirm] = useState(prefilledNetId);
-  useEffect(() => {
-    if (prefilledNetId != '') {
-      purchaseHandler();
-    }
-  }, [prefilledNetId])
-  const purchaseHandler = () => {
+  const purchaseHandler = useCallback(() => {
     setIsLoading(true);
     const url = `${baseUrl}/api/v1/checkout/session?netid=${netId}`;
     axios.get(url).then(response => {
@@ -88,13 +83,19 @@ const Payment = () => {
         } else {
           setErrorMessage({
             code: 500,
-            message: 'Internal server error: ' + error.response.data
+            message: 'Internal server error: ' + (error.response.data || "could not process request")
           });
           modalErrorMessage.onOpen();
         }
       }
     });
-  };
+  }, [netId, modalAlreadyMember, modalErrorMessage]);
+
+  useEffect(() => {
+    if (prefilledNetId != '') {
+      purchaseHandler(); 
+    }
+  }, [purchaseHandler, prefilledNetId])
 
   const validateNetId = (value: string) => {
     return value.match(/^[A-Z0-9]+$/i) !== null;

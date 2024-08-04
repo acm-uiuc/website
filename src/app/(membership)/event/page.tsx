@@ -31,8 +31,7 @@ enum InputStatus {
   VALID
 }
 
-const baseUrl = process.env.REACT_APP_TICKETING_BASE_URL ?? 'https://ticketing.aws.acmuiuc.org';
-const baseOverridden = Boolean(process.env.REACT_APP_TICKETING_BASE_URL);
+const baseUrl = process.env.NEXT_PUBLIC_TICKETING_BASE_URL;
 const WrappedEvent = () => {
   return (
     <Suspense>
@@ -126,7 +125,7 @@ const Event = () => {
       } else {
         setErrorMessage({
           code: 500,
-          message: 'Internal server error: ' + error.response.data
+          message: 'Internal server error: ' + (error.response.data || "could not process request")
         });
       }
       setIsLoading(false);
@@ -164,7 +163,7 @@ const Event = () => {
           <Card className="max-w-[512px] mx-4 my-auto shrink-0">
             <CardHeader>
               <p className="font-bold">
-                {baseOverridden ? 'DEVELOPMENT MODE - ' : ''}{paidEventList["event_name"]} Signup
+                {paidEventList["event_name"]} Signup
               </p>
             </CardHeader>
             <Divider />

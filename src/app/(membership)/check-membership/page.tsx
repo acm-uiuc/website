@@ -34,7 +34,7 @@ enum InputStatus {
 }
 
 
-const baseUrl = process.env.REACT_APP_MEMBERSHIP_BASE_URL ?? 'https://infra-membership-api.aws.qa.acmuiuc.org';
+const baseUrl = process.env.NEXT_PUBLIC_MEMBERSHIP_BASE_URL;
 
 const Payment = () => {
   const [netId, setNetId] = useState('');

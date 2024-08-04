@@ -32,19 +32,20 @@ export default function Hero() {
     // If event repeats, get the first date after current time
     const now = Moment();
     const eventsAfterNow = typedEventList.map((event) => {
-      if (event.repeats) {
-        let start = Moment(event.start);
-        let end = event.end ? Moment(event.end) : null;
+      if (event.repeats && ['weekly','biweekly'].includes(event.repeats)) {
+        const start = Moment(event.start);
+        const end = event.end ? Moment(event.end) : null;
         const increment = {'weekly': 1, 'biweekly': 2}[event.repeats];
-        while (start.isBefore(now)) {
-          start = start.add(increment, 'week');
+        while (!start.isAfter(now)) {
+          start.add(increment, 'weeks');
           if (end) {
-            end = end.add(increment, 'week');
+            end.add(increment, 'weeks');
           }
         }
         return {
           ...event,
           start: start.toISOString(),
+          end: end ? end.toISOString() : undefined,
         };
       }
       return event;

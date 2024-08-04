@@ -1,32 +1,9 @@
 import { Button, ButtonGroup } from "@nextui-org/react";
-import styles from './index.module.css';
-import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@nextui-org/react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 import moment from 'moment'
 import { momentLocalizer } from 'react-big-calendar'
-
-function SortDropDown1() { // replace name with smth that makes sense
-    return (
-        <Dropdown>
-          <DropdownTrigger>
-            <Button 
-              variant="bordered" 
-            >
-              Open Menu
-            </Button>
-          </DropdownTrigger>
-          <DropdownMenu aria-label="Static Actions">
-            <DropdownItem key="new">Option 1</DropdownItem>
-            <DropdownItem key="copy">Option 2</DropdownItem>
-            <DropdownItem key="edit">Option 3</DropdownItem>
-            <DropdownItem key="delete" className="text-danger" color="danger"> Option Red</DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
-      );
-}
-
 
 interface CalendarControlProps {
   currDisplayDate: Date,

@@ -10,7 +10,7 @@ import {
 import EventCard from '@/components/Card/EventCard';
 import './hero.css';
 
-import eventList  from './events.json';
+import eventList from 'public/events.json';
 import headerJpg from './header.jpg';
 import headerWebp from './header.webp';
 

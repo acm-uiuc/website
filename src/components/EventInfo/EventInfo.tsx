@@ -4,7 +4,7 @@ import { EventIntroProps } from '../../app/(main)/calendar/page';
 function EventInfo({
     title,
     location,
-    date,
+    start,
     description,
     host,}: EventIntroProps) {
     if (title === undefined) {
@@ -22,7 +22,7 @@ function EventInfo({
                             <span>{location || "TBD"}</span>
                         </div> 
                         <div className='flex flex-row items-center gap-2'>
-                            <FaRegCalendarAlt className="shrink-0"/> {date || "TBD"}
+                            <FaRegCalendarAlt className="shrink-0"/> {start || "TBD"}
                         </div>
                         <div className='flex flex-row items-center gap-2 mb-2'>
                             <FaUser className="shrink-0"/> {host}

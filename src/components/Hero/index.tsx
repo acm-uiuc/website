@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Moment from 'moment';
 import {
   FaBell,
+  FaCalendar,
   FaDiscord,
   FaInstagram
 } from 'react-icons/fa';
@@ -13,14 +14,36 @@ import './hero.css';
 import eventList from 'public/events.json';
 import headerJpg from './header.jpg';
 import headerWebp from './header.webp';
+import { IEvent } from '@/components/Events/events';
+import { useEffect, useState } from 'react';
 
 function toHumanDate(date: string) {
   Moment.locale('en');
   return Moment(date).format("MMMM Do, h:mm A");
 }
 
+const sortedEvents = eventList.sort((a, b) => {
+  return (Moment(a.start).unix() - Moment(b.start).unix());
+});
+
 export default function Hero() {
-  const numEvents = Math.min(eventList.length + 1, 3);
+  const [upcomingEvents, setUpcomingEvents] = useState<IEvent[]>([]);
+  const [numEvents, setNumEvents] = useState(3);
+
+  useEffect(() => {
+    // Filter out events that have already passed
+    const now = Moment();
+    const filteredEvents = sortedEvents.filter((event) => {
+      return Moment(event.start).isAfter(now);
+    });
+
+    // Max 3 events
+    const firstFilteredEvents = filteredEvents.slice(0, 3);
+    console.log(firstFilteredEvents);
+    setUpcomingEvents(firstFilteredEvents);
+    setNumEvents(Math.min(firstFilteredEvents.length, 3));
+  }, []);
+
   return (
     <div className="hero-background">
       <section className="container">
@@ -82,25 +105,33 @@ export default function Hero() {
             </div>
           </div>
         </div>
-        <h3 className='text-white'>Upcoming Events</h3>
-        <div className={`pt-1 pb-24 grid gap-4 grid-cols-1 lg:grid-cols-${numEvents}`}>
-          {eventList.sort((a, b) => {
-            return (Moment(a.date).unix() - Moment(b.date).unix());
-          }).map((object, i) => {
-            if (i > 2) { return null; }
-            return (
-              <EventCard
+        <div className={`pb-20`}>
+          <h3 className='text-white'>Upcoming Events</h3>
+          <div className={`pt-1 grid gap-4 grid-rows-1 md:grid-cols-${numEvents} lg:grid-cols-${numEvents}`}>
+            {upcomingEvents.map((object, i) => {
+              return (
+                <EventCard
                 key={i}
                 title={object.title}
                 description={object.description}
-                date={toHumanDate(object.date)}
+                date={toHumanDate(object.start)}
                 repeats={(object as any)?.repeats}
                 location={object.location}
                 locationLink={object.locationLink}
                 paidEventId={object.paidEventId}
-              />
-            );
-          })}
+                />
+              );
+            })}
+          </div>
+          <div className={`flex flex-row justify-end pt-4`}>
+          <a
+            className="inline-flex flex-row grow-0 items-center gap-2 px-4 py-2 text-white rounded-2xl bg-primary hover:bg-secondary transition-all"
+            href="/calendar"
+          >
+            <FaCalendar className="shrink-0" />
+            <span>View all events</span>
+          </a>
+          </div>
         </div>
       </section>
     </div>

@@ -43,7 +43,7 @@ export default function EventCard({
   paidEventId
 }: EventProps) {
   return (
-    <div className="flex flex-col p-4 rounded-3xl bg-surface-050 hover:shadow-lg hover:-translate-y-1 transition-all">
+    <div className="flex flex-col col-span-1 p-4 rounded-3xl bg-surface-050 hover:shadow-lg hover:-translate-y-1 transition-all">
       <p className="text-2xl font-bold">
         {title}
       </p>

@@ -1,48 +1,22 @@
 'use client';
-import LeadSection from '../../../sections/about/LeadershipSection';
-import Events, {CustomEventType} from '../../../components/Events/events'
-import fakeEvents from '../../../components/Events/fakeEvents'
+import Events, { IEvent } from '../../../components/Events/events'
+import allEvents from 'public/events.json'
 import moment from 'moment'
 import { momentLocalizer } from 'react-big-calendar'
 import EventInfo from '../../../components/EventInfo/EventInfo';
 import {useState} from 'react';
 import CalendarControls from '@/components/CalendarControls';
-/*
-const FlexContainer = styled.div `
-  display: flex;
-  justify-content: space-between;
-  padding-top: 0.5%;
-  margin-top: 2%;
-  padding-bottom: 40px;
-
-  @media (max-width: 600px) {
-    flex-wrap: wrap;
-    justify-content: center;  
-  }
-`
-
-const SectionTitle = styled(Header)`
-    margin-top: 0px;
-    padding-top: 0px;
-    margin-bottom: 3%;
-    color: ${(props) => props.theme.colors.acmDark};
-`;
-*/
 
 export interface EventIntroProps {
   title?: string;
   location?: string;
-  date?: string;
+  start?: string;
+  host?: string;
   description: string;
-  host: string;
-
 }
-
-    
 
 const defaultEvent: EventIntroProps = {
   description: "N/A",
-  host: "",
 };
 
 
@@ -86,11 +60,11 @@ const Calendar = () => {
           />
         </div>
         <div className='flex justify-between pb-10'> 
-          <Events events={fakeEvents} updateEvent={setEvent} filter={filter} displayDate={displayDate} dayFilter={dayFilter}/>
+          <Events events={allEvents} updateEvent={setEvent} filter={filter} displayDate={displayDate} dayFilter={dayFilter}/>
           <EventInfo
             title={event.title}
             location={event.location}
-            date={event.date}
+            date={event.start}
             description={event.description}
             host={event.host}
           />
@@ -101,16 +75,3 @@ const Calendar = () => {
 };
 
 export default Calendar;
-
-
-/*
-
-        <EventInfo 
-        title = {event.title}
-        location = {event.location}
-        date = {event.date}
-        description = {event.description}
-        host = {event.host}
-         ></EventInfo>
-
-*/

@@ -7,15 +7,13 @@ import './CalendarStylesOverride.css';
 import { EventIntroProps } from '../../app/(main)/calendar/page';
 import { View, NavigateAction } from 'react-big-calendar';
 
-export interface CustomEventType {
-    id: number;
+export interface IEvent {
     title: string;
-    start: Date;
-    end: Date;
-    category: string;
+    start: string;
+    end?: string;
+    category?: string;
     location: string;
     locationLink?: string;
-    date: string;
     dateLink?: string;
     description: string;
     repeats?: string;
@@ -23,7 +21,7 @@ export interface CustomEventType {
 }
 
 export interface EventsProps {
-  events: CustomEventType[];
+  events: IEvent[];
   updateEvent: React.Dispatch<React.SetStateAction<EventIntroProps>>;
   displayDate: Date;
   filter: string;
@@ -40,7 +38,7 @@ const Events: React.FC<EventsProps> = ({ events, updateEvent, displayDate, filte
         setCalendarHeight(window.innerHeight * 0.7);
     }, []);
 
-    const selectEvent = (event: CustomEventType) => {
+    const selectEvent = (event: IEvent) => {
         const newEvent: EventIntroProps = {
             title: event.title,
             location: event.location,

@@ -49,7 +49,8 @@
     "location": "CIF 0027",
     "locationLink": "https://maps.app.goo.gl/1QBXd3aDN5wiYnzm7",
     "paidEventId" : ""
-  },{
+  },
+  {
     "title": "placeholder 5",
     "description": "Dive into the chance to meet new people, discover how to get involved, and chat with all our SIGs, Committees, and partner organizations!",
     "date": "2024-02-29T18:30:00-06:00",
@@ -57,5 +58,4 @@
     "locationLink": "https://maps.app.goo.gl/1QBXd3aDN5wiYnzm7",
     "paidEventId" : ""
   }
-
 ]

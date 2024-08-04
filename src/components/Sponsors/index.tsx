@@ -1,8 +1,13 @@
+'use client';
+import Link from 'next/link';
 import NextImage from 'next/image';
 import Transition from '@/components/Transition';
 
 import NumeradeLogo from './Numerade_Logo.png';
 import IMCLogo from './IMC_logo.svg';
+
+const mailToUrl = "mailto:deeyaab2@illinois.edu, howardd2@illinois.edu?subject=%5BCOMPANY%20NAME%5D%20Interest%20in%20ACM%20%40%20UIUC";
+
 
 function Sponsors() {
   return (
@@ -17,7 +22,7 @@ function Sponsors() {
             ACM is thankful to these generous companies who support our
             organization. Sponsor companies get access to our resume book and
             some other cool things. If you&apos;re interested in sponsoring ACM,
-            contact the Corporate chair at <a href="mailto:anishm2@illinois.edu" className="text-primary hover:text-secondary">anishm2@illinois.edu</a>.
+            please contact <Link href={mailToUrl} className="underline text-primary hover:text-secondary">us here</Link>.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 items-center">
             <a

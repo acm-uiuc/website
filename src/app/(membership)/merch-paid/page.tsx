@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import {
   Modal,
@@ -13,11 +13,19 @@ import axios from 'axios';
 import Layout from '../MembershipLayout';
 import successAnimation from '../success.json';
 
+const WrapepdMerchPaid = () => {
+  return (
+    <Suspense>
+      <MerchPaid />
+    </Suspense>
+  )
+}
+
 const MerchPaid = () => {
   const itemid = useSearchParams().get('id') || '';
   const [merchList, setMerchList] = useState<Record<string, any>>({});
 
-  const baseUrl = process.env.REACT_APP_MERCH_API_BASE_URL ?? 'https://merchapi.acm.illinois.edu';
+  const baseUrl = process.env.NEXT_PUBLIC_MERCH_API_BASE_URL;
 
   const metaLoader = async () => {
     const url = `${baseUrl}/api/v1/merch/details?itemid=${itemid}`;
@@ -58,4 +66,4 @@ const MerchPaid = () => {
   }
 };
 
-export default MerchPaid;
+export default WrapepdMerchPaid;

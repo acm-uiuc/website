@@ -16,7 +16,7 @@ export declare interface LayoutProps {
   name?: string;
 }
 
-const prod = Boolean(process.env.REACT_APP_RUN_ENV === 'prod')
+const prod = Boolean(process.env.NEXT_PUBLIC_RUN_ENV === 'prod')
 
 const Layout = (props: LayoutProps) => {
   return (

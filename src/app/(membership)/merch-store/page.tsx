@@ -13,8 +13,7 @@ import Layout from '../MembershipLayout';
 
 const MerchStore = () => {
   const [itemsList, setItemsList] = useState<Array<Record<string, any>>>([]);
-  const baseUrl = process.env.REACT_APP_MERCH_API_BASE_URL ?? 'https://merchapi.acm.illinois.edu';
-  const baseOverridden = Boolean(process.env.REACT_APP_MERCH_API_BASE_URL);
+  const baseUrl = process.env.NEXT_PUBLIC_MERCH_API_BASE_URL;
   const decimalHelper = (num: number) => {
     if (Number.isInteger(num)) {
       return num;

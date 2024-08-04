@@ -34,8 +34,7 @@ enum InputStatus {
   VALID
 }
 
-const baseUrl = process.env.REACT_APP_MERCH_API_BASE_URL ?? 'https://merchapi.acm.illinois.edu';
-const baseOverridden = Boolean(process.env.REACT_APP_MERCH_API_BASE_URL);
+const baseUrl = process.env.NEXT_PUBLIC_MERCH_API_BASE_URL;
 
 const WrapepdMerchItem = () => {
   return (
@@ -137,7 +136,7 @@ const MerchItem = () => {
       } else {
         setErrorMessage({
           code: 500,
-          message: 'Internal server error: ' + error.response.data
+          message: 'Internal server error: ' + (error.response.data || "could not process request")
         });
       }
       setIsLoading(false);
@@ -198,7 +197,7 @@ const MerchItem = () => {
           <Card className="max-w-[512px] mx-4 my-auto shrink-0">
             <CardHeader>
               <p className="font-bold">
-                {baseOverridden ? 'DEVELOPMENT MODE - ' : ''}{merchList["item_name"]}
+                {merchList["item_name"]}
               </p>
             </CardHeader>
             <Divider />

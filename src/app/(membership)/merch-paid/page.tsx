@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import {
   Modal,
@@ -12,6 +12,14 @@ import Lottie from 'lottie-react';
 import axios from 'axios';
 import Layout from '../MembershipLayout';
 import successAnimation from '../success.json';
+
+const WrapepdMerchPaid = () => {
+  return (
+    <Suspense>
+      <MerchPaid />
+    </Suspense>
+  )
+}
 
 const MerchPaid = () => {
   const itemid = useSearchParams().get('id') || '';
@@ -58,4 +66,4 @@ const MerchPaid = () => {
   }
 };
 
-export default MerchPaid;
+export default WrapepdMerchPaid;

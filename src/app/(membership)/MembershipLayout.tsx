@@ -16,6 +16,8 @@ export declare interface LayoutProps {
   name?: string;
 }
 
+const prod = Boolean(process.env.REACT_APP_RUN_ENV === 'prod')
+
 const Layout = (props: LayoutProps) => {
   return (
     <NextUIProvider className="enable-tailwind">
@@ -25,6 +27,9 @@ const Layout = (props: LayoutProps) => {
             <NextImage alt="ACM Logo" src={acmlogo} style={styles.logo} />
           </Link>
         </NavbarBrand>
+        <NavbarContent className='hidden sm:flex' justify='center'>
+          {prod ? null : <a style={{color: 'red'}}>DEVELOPMENT MODE</a>}
+        </NavbarContent>
         <NavbarContent
           className="hidden sm:flex"
           justify="end"

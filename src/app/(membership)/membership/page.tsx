@@ -1,5 +1,5 @@
 'use client';
-import { useMemo, useState } from 'react';
+import { Suspense, useEffect, useMemo, useState } from 'react';
 import {
   Button,
   Card,
@@ -14,10 +14,14 @@ import {
   ModalFooter,
   useDisclosure
 } from '@nextui-org/react';
+import {Spinner} from "@nextui-org/spinner";
+
 import Lottie from 'lottie-react';
 import axios from 'axios';
 import Layout from '../MembershipLayout';
 import successAnimation from '../success.json';
+import { useSearchParams } from 'next/navigation';
+import config from '@/config.json'
 
 interface ErrorCode {
   code?: number | string,
@@ -30,19 +34,36 @@ enum InputStatus {
   VALID
 }
 
+
+const baseUrl = process.env.REACT_APP_MEMBERSHIP_BASE_URL ?? 'https://infra-membership-api.aws.qa.acmuiuc.org';
+const WrappedPayment = () => {
+  return (
+    <Suspense>
+      <Payment />
+    </Suspense>
+  )
+}
 const Payment = () => {
-  const [netId, setNetId] = useState('');
-  const [netIdConfirm, setNetIdConfirm] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const modalAlreadyMember = useDisclosure();
   const modalErrorMessage = useDisclosure();
   const [errorMessage, setErrorMessage] = useState<ErrorCode | null>(null);
-
+  const prefilledNetId = useSearchParams().get('netid') || '';
+  const [netId, setNetId] = useState(prefilledNetId);
+  const [netIdConfirm, setNetIdConfirm] = useState(prefilledNetId);
+  useEffect(() => {
+    if (prefilledNetId != '') {
+      purchaseHandler();
+    }
+  }, [prefilledNetId])
   const purchaseHandler = () => {
-    const url = `https://infra-membership-api.aws.acmuiuc.org/api/v1/checkout/session?netid=${netId}`;
+    setIsLoading(true);
+    const url = `${baseUrl}/api/v1/checkout/session?netid=${netId}`;
     axios.get(url).then(response => {
       window.location.replace(response.data);
     }).catch((error) => {
+      setIsLoading(false);
       if (error.response) {
         if (error.response.status === 422) {
           const errorObj = error.response.data;
@@ -93,7 +114,6 @@ const Payment = () => {
   const isFormValidated = useMemo(() => {
     return inputNetIdStatus === InputStatus.VALID && inputNetIdConfirmStatus === InputStatus.VALID;
   }, [inputNetIdStatus, inputNetIdConfirmStatus]);
-
   return (
     <Layout>
       <div className="h-screen w-screen absolute top-0 left-0 flex flex-col items-center py-24">
@@ -146,10 +166,10 @@ const Payment = () => {
             <Button
               color="primary"
               size="lg"
-              isDisabled={!isFormValidated}
+              isDisabled={!isFormValidated || isLoading}
               onPress={purchaseHandler}
             >
-              Purchase for $20.00
+              {isLoading ? <><Spinner color='white' size="sm"/><a>Loading...</a></> : `Purchase for ${config.membershipPrice}`}
             </Button>
           </CardBody>
         </Card>
@@ -191,4 +211,4 @@ const Payment = () => {
   );
 };
 
-export default Payment;
+export default WrappedPayment;

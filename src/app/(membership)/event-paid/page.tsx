@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import {
   Modal,
@@ -12,7 +12,13 @@ import Lottie from 'lottie-react';
 import axios from 'axios';
 import Layout from '../MembershipLayout';
 import successAnimation from '../success.json';
-
+const WrappedEventPaid = () => {
+  return (
+    <Suspense>
+      <EventPaid />
+    </Suspense>
+  )
+}
 const EventPaid = () => {
   const eventid = useSearchParams().get('id') || '';
   const [paidEventList, setPaidEventList] = useState<Record<string, any>>({});
@@ -58,4 +64,4 @@ const EventPaid = () => {
   }
 };
 
-export default EventPaid;
+export default WrappedEventPaid;

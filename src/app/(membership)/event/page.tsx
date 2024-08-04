@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useMemo, useState } from 'react';
+import { Suspense, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import {
   Button,
@@ -33,7 +33,13 @@ enum InputStatus {
 
 const baseUrl = process.env.REACT_APP_TICKETING_BASE_URL ?? 'https://ticketing.aws.acmuiuc.org';
 const baseOverridden = Boolean(process.env.REACT_APP_TICKETING_BASE_URL);
-
+const WrappedEvent = () => {
+  return (
+    <Suspense>
+      <Event />
+    </Suspense>
+  )
+}
 const Event = () => {
   const eventid = useSearchParams().get('id') || '';
   const [paidEventList, setPaidEventList] = useState<Record<string, any>>({});
@@ -253,4 +259,4 @@ const Event = () => {
   }
 };
 
-export default Event;
+export default WrappedEvent;

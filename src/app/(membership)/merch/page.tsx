@@ -1,5 +1,5 @@
 'use client';
-import React from 'react'
+import React, { Suspense } from 'react'
 import { useEffect, useMemo, useState} from 'react';
 import { useSearchParams } from 'next/navigation';
 import {
@@ -36,6 +36,14 @@ enum InputStatus {
 
 const baseUrl = process.env.REACT_APP_MERCH_API_BASE_URL ?? 'https://merchapi.acm.illinois.edu';
 const baseOverridden = Boolean(process.env.REACT_APP_MERCH_API_BASE_URL);
+
+const WrapepdMerchItem = () => {
+  return (
+    <Suspense>
+      <MerchItem />
+    </Suspense>
+  )
+}
 
 const MerchItem = () => {
   const itemid = useSearchParams().get('id') || '';
@@ -310,4 +318,4 @@ const MerchItem = () => {
   }
 };
 
-export default MerchItem;
+export default WrapepdMerchItem;

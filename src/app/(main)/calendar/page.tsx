@@ -19,6 +19,7 @@ const defaultEvent: EventIntroProps = {
   description: "N/A",
 };
 
+const allEventsTyped = allEvents as IEvent[];
 
 const localizer = momentLocalizer(moment);
 const Calendar = () => {
@@ -60,11 +61,11 @@ const Calendar = () => {
           />
         </div>
         <div className='flex justify-between pb-10'> 
-          <Events events={allEvents} updateEvent={setEvent} filter={filter} displayDate={displayDate} dayFilter={dayFilter}/>
+          <Events events={allEventsTyped} updateEvent={setEvent} filter={filter} displayDate={displayDate} dayFilter={dayFilter}/>
           <EventInfo
             title={event.title}
             location={event.location}
-            date={event.start}
+            start={event.start}
             description={event.description}
             host={event.host}
           />

@@ -4,7 +4,8 @@ import {
   FaSignInAlt,
 } from 'react-icons/fa';
 import { BsArrowRepeat } from 'react-icons/bs';
-
+import { Frequency } from '@/components/Events/events';
+import { getOrganizationImage, Organization } from '@/components/LazyImage';
 interface EventProps {
   location: string;
   locationLink?: string;
@@ -12,8 +13,9 @@ interface EventProps {
   dateLink?: string;
   title: string;
   description: string;
-  repeats?: string | boolean;
+  repeats?: Frequency;
   paidEventId?: string;
+  host?: Organization
 };
 
 function EventDetail({ href, children }: { href?: string, children: React.ReactNode }) {
@@ -32,6 +34,20 @@ function EventDetail({ href, children }: { href?: string, children: React.ReactN
   return text;
 }
 
+const getRepeatString = (repeats: string) => {
+  switch (repeats) {
+    case 'weekly':
+      return 'Every week';
+    case 'biweekly':
+      return 'Biweekly';
+    default:
+      return '';
+  }
+}
+
+const getHostLogo = (host: Organization) => {
+  return getOrganizationImage(host);
+}
 export default function EventCard({
   location,
   date,
@@ -44,9 +60,12 @@ export default function EventCard({
 }: EventProps) {
   return (
     <div className="flex flex-col col-span-1 p-4 rounded-3xl bg-surface-050 hover:shadow-lg hover:-translate-y-1 transition-all">
-      <p className="text-2xl font-bold">
-        {title}
-      </p>
+      <div className="flex flex-row items-center gap-4 mb-4">
+        <p className="text-2xl font-bold">
+          {title}
+        </p>
+        {getHostLogo('ACM')}
+      </div>
       <p className="flex grow leading-6 pb-4">
         {description}
       </p>
@@ -63,7 +82,7 @@ export default function EventCard({
           {repeats ? (
             <EventDetail href={dateLink}>
               <BsArrowRepeat className="shrink-0" />
-              <span>Every {repeats}</span>
+              <span>{getRepeatString(repeats)}</span>
             </EventDetail>
           ) : null}
         </div>

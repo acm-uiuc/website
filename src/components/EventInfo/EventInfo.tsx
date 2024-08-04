@@ -6,7 +6,8 @@ function EventInfo({
     location,
     start,
     description,
-    host,}: EventIntroProps) {
+    host
+}: EventIntroProps) {
     if (title === undefined) {
         return (
                 <text className='text-center'>Click on an event to see more details!</text>

@@ -22,7 +22,8 @@ function toHumanDate(date: string) {
   return Moment(date).format("MMMM Do, h:mm A");
 }
 
-const sortedEvents = eventList.sort((a, b) => {
+const typedEventList = eventList as IEvent[];
+const sortedEvents = typedEventList.sort((a, b) => {
   return (Moment(a.start).unix() - Moment(b.start).unix());
 });
 

@@ -1,6 +1,7 @@
 'use client';
 import Link, { LinkProps } from 'next/link';
 import { useRef } from 'react';
+import DevModePopup from '../DevModePopup';
 
 import styles from './index.module.css';
 
@@ -14,6 +15,7 @@ function NavLink({ children, ...rest }: { children: React.ReactNode } & LinkProp
     </Link>
   );
 }
+const prod = Boolean(process.env.REACT_APP_RUN_ENV === 'prod');
 
 export default function Navbar() {
   const checkbox = useRef<HTMLInputElement | null>(null);
@@ -26,6 +28,7 @@ export default function Navbar() {
 
   return (
     <div className="bg-acmdark text-white">
+      {!prod ? <DevModePopup/> : null}
       <div className="relative">
         <header className="container flex flex-row justify-between py-4">
           <Link href="/">

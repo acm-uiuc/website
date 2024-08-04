@@ -7,6 +7,8 @@
     "dev": "source .env.dev && next dev",
     "start": "yarn dev",
     "build": "next build && cp src/_redirects build/_redirects",
+    "build:dev": "source .env.dev && yarn build",
+    "build:prod": "source .env.prod && yarn build",
     "serve": "serve build",
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",

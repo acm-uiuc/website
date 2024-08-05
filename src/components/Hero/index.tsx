@@ -150,10 +150,10 @@ export default function Hero() {
           </div>
         </div>
         <div className={`pb-20`}>
-          <h3 className='text-white'>Upcoming Events</h3>
+          <h3 className='text-white'>Featured Events</h3>
           {upcomingEventsHTML}
 
-          <div className={`flex flex-row justify-end pt-4`}>
+          <div className={`flex flex-row justify-start pt-4`}>
           <a
             className="inline-flex flex-row grow-0 items-center gap-2 px-4 py-2 text-white rounded-2xl bg-primary hover:bg-secondary transition-all"
             href="/calendar"

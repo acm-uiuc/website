@@ -1,7 +1,7 @@
 import { FaLocationArrow, FaRegCalendarAlt, FaUserAlt } from 'react-icons/fa';
 import { getOrganizationImage, Organization } from '@/components/LazyImage';
 import { getOrganizationInfo, IOrgData } from '@/sections/home/SigData';
-import Moment from 'moment';
+import moment from 'moment-timezone';
 
 
 export interface CalendarEventDetailProps {
@@ -40,8 +40,8 @@ function CalendarEventDetail({
                             <span>{location || "TBD"}</span>
                         </div> 
                         <div className='flex flex-row items-center gap-2'>
-                            {start && end && <FaRegCalendarAlt className="shrink-0"/>} {start && end && `${Moment(start).format('h:mm A')} - ${Moment(end).format('h:mm A')}`}
-                            {start && !end && <FaRegCalendarAlt className="shrink-0"/>} {start && !end && `${Moment(start).format('h:mm A')}`}
+                            {start && end && <FaRegCalendarAlt className="shrink-0"/>} {start && end && `${moment(start).tz(moment.tz.guess()).format('h:mm A')} - ${moment(end).tz(moment.tz.guess()).format('h:mm A z')}`}
+                            {start && !end && <FaRegCalendarAlt className="shrink-0"/>} {start && !end && `${moment(start).tz(moment.tz.guess()).format('h:mm A')}`}
                         </div>
                         <div className='flex flex-row justify-between'>
                         {host && (

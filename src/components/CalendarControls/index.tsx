@@ -20,6 +20,9 @@ const localizer = momentLocalizer(moment);
 export default function CalendarControls({currDisplayDate, updateDisplayDate, currView, updateCurrView} : CalendarControlProps) {
 
     function changeDate(offset: number, unit: string): void {
+      if (unit == Views.AGENDA) {
+        unit = Views.MONTH;
+      }
       updateDisplayDate(localizer.add(currDisplayDate, offset, unit as Unit))
     }
 

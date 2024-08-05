@@ -20,6 +20,9 @@ const localizer = momentLocalizer(moment);
 export default function CalendarControls({currDisplayDate, updateDisplayDate, currView, updateCurrView} : CalendarControlProps) {
 
     function changeDate(offset: number, unit: string): void {
+      if (unit == Views.AGENDA) {
+        unit = Views.MONTH;
+      }
       updateDisplayDate(localizer.add(currDisplayDate, offset, unit as Unit))
     }
 
@@ -46,24 +49,26 @@ export default function CalendarControls({currDisplayDate, updateDisplayDate, cu
               <Button isIconOnly onPress={() => {changeDate(-1, currView)}} variant="bordered" className="border-surface-000 border-1 bg-primary text-white hover:cursor-pointer "><FaArrowLeft /></Button>
               <Button isIconOnly onPress={() => {changeDate(1, currView)}} variant="bordered" className="border-surface-000 border-1 bg-primary text-white hover:cursor-pointer" ><FaArrowRight /></Button>
           </ButtonGroup>
-          <Dropdown>
-            <DropdownTrigger>
-              <Button 
-                variant="bordered" 
+          <div className="hidden lg:block">
+            <Dropdown>
+              <DropdownTrigger>
+                <Button 
+                  variant="bordered" 
+                >
+                  {capitalizeFirstLetter(currView)} View
+                </Button>
+              </DropdownTrigger>
+              <DropdownMenu 
+                aria-label="Set calendar view" 
+                onAction={(key) => updateCurrView(key as View)}
               >
-                {capitalizeFirstLetter(currView)} View
-              </Button>
-            </DropdownTrigger>
-            <DropdownMenu 
-              aria-label="Set calendar view" 
-              onAction={(key) => updateCurrView(key as View)}
-            >
-              <DropdownItem key={Views.DAY}>Day View</DropdownItem>
-              <DropdownItem key={Views.WEEK}>Week View</DropdownItem>
-              <DropdownItem key={Views.MONTH}>Month View (default)</DropdownItem>
-              <DropdownItem key={Views.AGENDA}>Agenda View</DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
+                <DropdownItem key={Views.DAY}>Day View</DropdownItem>
+                <DropdownItem key={Views.WEEK}>Week View</DropdownItem>
+                <DropdownItem key={Views.MONTH}>Month View (default)</DropdownItem>
+                <DropdownItem key={Views.AGENDA}>Agenda View</DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </div>
         </div>
     </div>
     <a style={{paddingRight: '3vw'}}>{currView == Views.DAY ? getCurrentDate(currDisplayDate): null}</a> 

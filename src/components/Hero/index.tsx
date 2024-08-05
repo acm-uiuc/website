@@ -16,6 +16,9 @@ import headerJpg from './header.jpg';
 import headerWebp from './header.webp';
 import { IEvent } from '@/components/Events/events';
 import { useEffect, useState } from 'react';
+import { Skeleton } from '@nextui-org/react';
+
+moment.tz.setDefault("America/Chicago");
 
 function toHumanDate(date: string) {
   return moment(date).tz(moment.tz.guess()).format("MMMM Do, h:mm A z");
@@ -26,9 +29,11 @@ const typedEventList = eventList as IEvent[];
 export default function Hero() {
   const [upcomingEvents, setUpcomingEvents] = useState<IEvent[]>([]);
   const [numEvents, setNumEvents] = useState(3);
+  const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
     // If event repeats, get the first date after current time
+    setIsLoading(true);
     const now = moment();
     const eventsAfterNow = typedEventList.map((event) => {
       if (event.repeats && ['weekly','biweekly'].includes(event.repeats)) {
@@ -63,6 +68,7 @@ export default function Hero() {
     const firstFilteredEvents = filteredEvents.slice(0, 3);
     setUpcomingEvents(firstFilteredEvents);
     setNumEvents(Math.min(firstFilteredEvents.length, 3));
+    setIsLoading(false);
   }, []);
 
   const upcomingEventsHTML = (upcomingEvents.length > 0) ? (
@@ -84,9 +90,19 @@ export default function Hero() {
     })}
   </div>
   ) : (
-    <div className='text-white'>No featured events coming up</div>
+    isLoading ? <Skeleton className="col-span-1 p-4 rounded-3xl bg-surface-050 hover:shadow-lg hover:-translate-y-1 transition-all">
+      <EventCard
+        key={0}
+        title={""}
+        description={""}
+        date={"August 30th, 6:00 PM EDT"}
+        repeats={"weekly"}
+        location={""}
+        locationLink={'https://google.com'}
+        host={"ACM"}
+      />
+    </Skeleton> : <div className='text-white'>No featured events coming up</div>
   )
-
   return (
     <div className="hero-background">
       <section className="container">

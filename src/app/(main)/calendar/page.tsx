@@ -10,6 +10,8 @@ import { OrganizationList } from '@/components/LazyImage';
 const defaultEvent: CalendarEventDetailProps = {
   description: "N/A",
 };
+moment.tz.setDefault("America/Chicago");
+
 
 const allEventsTyped = allEvents as IEvent[];
 

@@ -47,13 +47,11 @@ function CalendarEventDetail({
     } else {
         moment.tz.guess()
         const paidEventHref = paidEventId ? (paidEventId.startsWith("merch:") ? "/merch?id=" + paidEventId.slice(6) :"/event?id=" + paidEventId) : undefined;
-        const startObject = start ? moment(moment.tz(formatDateAsISOString(start), "America/Chicago").format()) : undefined;
-        const endObject = end ? moment(moment.tz(formatDateAsISOString(end), "America/Chicago").format()) : undefined;
         const timezoneAbbr = moment().tz(moment.tz.guess()).format('z');
 
-        const calendar = (startObject && endObject && start !== end) 
-            ? `${startObject.format('h:mm A')} - ${endObject.format('h:mm A z')} ${timezoneAbbr}` 
-            : startObject && `${startObject.format('h:mm A z')} ${timezoneAbbr}`;
+        const calendar = (start && end && start !== end) 
+            ? `${moment(start).format('h:mm A')} - ${moment(end).format('h:mm A z')} ${timezoneAbbr}` 
+            : start && `${moment(start).format('h:mm A z')} ${timezoneAbbr}`;
         return (
                 <div className='bg-surface-000 break-words border-2 border-acmdark border-opacity-10 mt-2 border-t-transparent border rounded-2xl'>
                     <div className='text-xl w-full text-surface-000 text-center bg-acmdark rounded-t-2xl pb-2 pt-2 font-semibold'>Event Information</div>

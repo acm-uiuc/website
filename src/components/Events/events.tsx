@@ -89,8 +89,8 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
             if (event.repeats === 'weekly' || event.repeats === 'biweekly') {
                 const repeatFrequency = event.repeats === 'weekly' ? 1 : 2;
                 return Array.from({ length: 52 / repeatFrequency }, (_, i) => {
-                    const newStart = moment(event.start).add(i * repeatFrequency, 'weeks').toDate();
-                    const newEnd = event.end ? moment(event.end).add(i * repeatFrequency, 'weeks').toDate() : newStart;
+                    const newStart = moment.tz(event.start, "America/Chicago").add(i * repeatFrequency, 'weeks').toDate();
+                    const newEnd = event.end ? moment.tz(event.end, "America/Chicago").add(i * repeatFrequency, 'weeks').toDate() : newStart;
 
                     return {
                         ...event,
@@ -102,8 +102,8 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
 
             return [{
                 ...event,
-                start: new Date(event.start),
-                end: event.end ? new Date(event.end) : new Date(event.start),
+                start: moment.tz(event.start, "America/Chicago").toDate(),
+                end: event.end ? moment.tz(event.end, "America/Chicago").toDate() : moment.tz(event.start, "America/Chicago").toDate(),
             }];
         });
         setFilteredEvents(formattedEvents);

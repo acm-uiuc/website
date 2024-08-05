@@ -2,7 +2,6 @@
 import Events, { IEvent } from '@/components/Events/events'
 import allEvents from 'public/events.json'
 import moment from 'moment-timezone'
-import { momentLocalizer } from 'react-big-calendar'
 import EventDetail, { CalendarEventDetailProps } from '@/components/CalendarEventDetail/CalendarEventDetail';
 import {useState} from 'react';
 import CalendarControls from '@/components/CalendarControls';
@@ -15,10 +14,9 @@ moment.tz.setDefault("America/Chicago");
 
 const allEventsTyped = allEvents as IEvent[];
 
-const localizer = momentLocalizer(moment);
 const Calendar = () => {
   const [eventDetail, setEventDetail] = useState<CalendarEventDetailProps>(defaultEvent);
-  const [displayDate, setDisplayDate] = useState<Date>(localizer.startOf(new Date(), 'month'));
+  const [displayDate, setDisplayDate] = useState<Date>(moment().local().toDate());
 
   const [filter, setFilter] = useState(''); // Added filter state
 

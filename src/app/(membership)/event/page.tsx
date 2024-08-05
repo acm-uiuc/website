@@ -61,7 +61,6 @@ const Event = () => {
       setPaidEventList(response.data);
       modalErrorMessage.onClose();
       setIsLoading(false);
-      console.log(response.data);
     }).catch((error) => {
       if (error.response && error.response.status === 404) {
         setTimeout(() => {

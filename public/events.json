@@ -1,0 +1,41 @@
+[
+  {
+    "title": "Weekly Happy Hour",
+    "description": "Meet and chat with your peers and fellow ACM members, with food on us!",
+    "start": "2024-08-30T17:00:00",
+    "repeats": "weekly",
+    "location": "Legends",
+    "locationLink": "https://goo.gl/maps/CXESXd3otbGZNqFP7",
+    "host": "ACM"
+  },
+  {
+    "title": "SIGPwny Meeting",
+    "description": "Come to SIGPwny's Sunday meetings to dive deeper into cybersecurity topics.",
+    "start": "2024-08-25T14:00:00",
+    "end": "2024-08-25T15:00:00",
+    "location": "Siebel CS 2405",
+    "host": "SIGPwny",
+    "repeats": "weekly",
+    "featured": false
+  },
+  {
+    "title": "SIGPwny Meeting",
+    "description": "Come to SIGPwny's Thursday meetings to learn about cybersecurity (no experience required).",
+    "start": "2024-08-29T18:00:00",
+    "end": "2024-08-29T19:00:00",
+    "location": "Siebel CS 1404",
+    "host": "SIGPwny",
+    "repeats": "weekly",
+    "featured": false
+  },
+  {
+    "title": "Quad Day",
+    "description": "Join us on Quad Day to learn more about ACM and CS at Illinois!",
+    "start": "2024-08-25T12:00:00",
+    "end": "2024-08-25T16:00:00",
+    "location": "Main Quad",
+    "locationLink": "https://maps.app.goo.gl/2ZRYibtE7Yem5TrP6",
+    "host": "ACM",
+    "featured": true
+  }
+]

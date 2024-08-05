@@ -1,8 +1,9 @@
 'use client';
 import Image from 'next/image';
-import Moment from 'moment';
+import moment from 'moment-timezone';
 import {
   FaBell,
+  FaCalendar,
   FaDiscord,
   FaInstagram
 } from 'react-icons/fa';
@@ -10,17 +11,98 @@ import {
 import EventCard from '@/components/Card/EventCard';
 import './hero.css';
 
-import eventList  from './events.json';
+import eventList from 'public/events.json';
 import headerJpg from './header.jpg';
 import headerWebp from './header.webp';
+import { IEvent } from '@/components/Events/events';
+import { useEffect, useState } from 'react';
+import { Skeleton } from '@nextui-org/react';
+
+moment.tz.setDefault("America/Chicago");
 
 function toHumanDate(date: string) {
-  Moment.locale('en');
-  return Moment(date).format("MMMM Do, h:mm A");
+  return moment(date).tz(moment.tz.guess()).format("MMMM Do, h:mm A z");
 }
 
+const typedEventList = eventList as IEvent[];
+
 export default function Hero() {
-  const numEvents = Math.min(eventList.length + 1, 3);
+  const [upcomingEvents, setUpcomingEvents] = useState<IEvent[]>([]);
+  const [numEvents, setNumEvents] = useState(3);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  useEffect(() => {
+    // If event repeats, get the first date after current time
+    setIsLoading(true);
+    const now = moment();
+    const eventsAfterNow = typedEventList.map((event) => {
+      if (event.repeats && ['weekly','biweekly'].includes(event.repeats)) {
+        const start = moment(event.start);
+        const end = event.end ? moment(event.end) : null;
+        const increment = {'weekly': 1, 'biweekly': 2}[event.repeats];
+        while (!start.isAfter(now)) {
+          start.add(increment, 'weeks');
+          if (end) {
+            end.add(increment, 'weeks');
+          }
+        }
+        return {
+          ...event,
+          start: start.toISOString(),
+          end: end ? end.toISOString() : undefined,
+        };
+      }
+      return event;
+    });
+
+    const sortedEvents = eventsAfterNow.sort((a, b) => {
+      return (moment(a.start).unix() - moment(b.start).unix());
+    });
+
+    // Filter out events that have already passed or are not featured
+    const filteredEvents = sortedEvents.filter((event) => {
+      return moment(event.start).isAfter(now) && event.featured !== false;
+    });
+
+    // Max 3 events
+    const firstFilteredEvents = filteredEvents.slice(0, 3);
+    setUpcomingEvents(firstFilteredEvents);
+    setNumEvents(Math.min(firstFilteredEvents.length, 3));
+    setIsLoading(false);
+  }, []);
+
+  const upcomingEventsHTML = (upcomingEvents.length > 0) ? (
+  <div className={`pt-1 grid gap-4 grid-rows-1 md:grid-cols-${numEvents} lg:grid-cols-${numEvents}`}>
+    {upcomingEvents.map((object, i) => {
+      return (
+        <EventCard
+        key={i}
+        title={object.title}
+        description={object.description}
+        date={toHumanDate(object.start)}
+        repeats={(object as any)?.repeats}
+        location={object.location}
+        locationLink={object.locationLink}
+        paidEventId={object.paidEventId}
+        host={object.host}
+        />
+      );
+    })}
+  </div>
+  ) : (
+    isLoading ? <Skeleton className="col-span-1 p-4 rounded-3xl bg-surface-050 hover:shadow-lg hover:-translate-y-1 transition-all">
+      <EventCard
+        key={0}
+        title={""}
+        description={""}
+        date={"August 30th, 6:00 PM EDT"}
+        repeats={"weekly"}
+        location={""}
+        locationLink={'https://google.com'}
+        host={"ACM"}
+      />
+    </Skeleton> : <div className='text-white'>No featured events coming up</div>
+  )
   return (
     <div className="hero-background">
       <section className="container">
@@ -82,25 +164,19 @@ export default function Hero() {
             </div>
           </div>
         </div>
-        <h3 className='text-white'>Upcoming Events</h3>
-        <div className={`pt-1 pb-24 grid gap-4 grid-cols-1 lg:grid-cols-${numEvents}`}>
-          {eventList.sort((a, b) => {
-            return (Moment(a.date).unix() - Moment(b.date).unix());
-          }).map((object, i) => {
-            if (i > 2) { return null; }
-            return (
-              <EventCard
-                key={i}
-                title={object.title}
-                description={object.description}
-                date={toHumanDate(object.date)}
-                repeats={(object as any)?.repeats}
-                location={object.location}
-                locationLink={object.locationLink}
-                paidEventId={object.paidEventId}
-              />
-            );
-          })}
+        <div className={`pb-20`}>
+          <h3 className='text-white'>Featured Events</h3>
+          {upcomingEventsHTML}
+
+          <div className={`flex flex-row justify-start pt-4`}>
+          <a
+            className="inline-flex flex-row grow-0 items-center gap-2 px-4 py-2 text-white rounded-2xl bg-primary hover:bg-secondary transition-all"
+            href="/calendar"
+          >
+            <FaCalendar className="shrink-0" />
+            <span>View all events</span>
+          </a>
+          </div>
         </div>
       </section>
     </div>

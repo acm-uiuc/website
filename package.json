@@ -18,8 +18,10 @@
     "framer-motion": "^10.17.9",
     "lottie-react": "^2.3.1",
     "moment": "^2.29.4",
+    "moment-timezone": "^0.5.45",
     "next": "^14.2.5",
     "react": "^18.3.1",
+    "react-big-calendar": "^1.13.1",
     "react-dom": "^18.3.1",
     "react-icons": "^4.4.0"
   },
@@ -36,6 +38,7 @@
     "@types/jest": "^27.5.2",
     "@types/node": "^20",
     "@types/react": "^18",
+    "@types/react-big-calendar": "^1.8.8",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.16",
     "eslint": "^8",

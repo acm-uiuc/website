@@ -1,10 +1,8 @@
-import NextImage, { StaticImageData } from 'next/image';
+import { getOrganizationImage, LazyImageProps, Organization } from '@/components/LazyImage';
 
 interface CardProps {
-  title: string
+  title: Organization
   description: string
-  img: StaticImageData
-  imgwebp: string
   link1?: string
   link2?: string
   link3?: string
@@ -22,20 +20,10 @@ export default function Card({
   linktext1,
   linktext2,
   linktext3,
-  img,
-  imgwebp,
 }: CardProps) {
   return (
     <div className="flex flex-col p-4 items-center rounded-3xl border-2 border-surface-150 hover:bg-surface-000 hover:border-transparent hover:shadow-xl hover:-translate-y-[1px] transition-all">
-      <picture>
-        <source type="image/webp" srcSet={imgwebp} />
-        <NextImage
-          className="h-14 w-auto"
-          src={img}
-          alt={title + " Logo"}
-          loading="lazy"
-        />
-      </picture>
+      {getOrganizationImage(title)}
       <div className="flex flex-col grow mb-4">
         <h2 className="text-center">{title}</h2>
         <p className="leading-6">{description}</p>

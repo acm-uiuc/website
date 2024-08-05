@@ -74,7 +74,7 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
         // Filter events based on the filter prop
         const filteredEvents = events.filter(event =>
           event.title.toLowerCase().includes(filter.toLowerCase()) &&
-          (hostFilter ? event.host === hostFilter : true)
+          (hostFilter ? event.host?.toLowerCase() === hostFilter.toLowerCase() : true)
         );
         // Convert the events to the format required by react-big-calendar
         const formattedEvents: CalendarEvent[] = filteredEvents.flatMap(event => {

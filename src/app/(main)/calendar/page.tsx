@@ -6,6 +6,7 @@ import EventDetail, { CalendarEventDetailProps } from '@/components/CalendarEven
 import {useState} from 'react';
 import CalendarControls from '@/components/CalendarControls';
 import { OrganizationList } from '@/components/LazyImage';
+import { View, Views } from 'react-big-calendar';
 const defaultEvent: CalendarEventDetailProps = {
   description: "N/A",
 };
@@ -17,6 +18,7 @@ const allEventsTyped = allEvents as IEvent[];
 const Calendar = () => {
   const [eventDetail, setEventDetail] = useState<CalendarEventDetailProps>(defaultEvent);
   const [displayDate, setDisplayDate] = useState<Date>(moment().local().toDate());
+  const [view, setView] = useState<View>(Views.MONTH); // Default view is month
 
   const [filter, setFilter] = useState(''); // Added filter state
 
@@ -32,7 +34,7 @@ const Calendar = () => {
       <section className="container">
         <h1 className='mt-0 pt-0 mb-4'>Our Events</h1>
         <div className="flex"> 
-          <CalendarControls currDisplayDate={displayDate} updateDisplayDate={setDisplayDate} />
+          <CalendarControls currDisplayDate={displayDate} updateDisplayDate={setDisplayDate} currView={view} updateCurrView={setView}/>
           <div className="hidden lg:flex">
           <select
             value={hostFilter}
@@ -69,7 +71,7 @@ const Calendar = () => {
             />
           </div>
           <div className="flex col-span-8 lg:col-span-5">
-            <Events events={allEventsTyped} updateEventDetails={setEventDetail} filter={filter} displayDate={displayDate} hostFilter={hostFilter}/>
+            <Events view={view} setView={setView} events={allEventsTyped} updateEventDetails={setEventDetail} filter={filter} displayDate={displayDate} hostFilter={hostFilter}/>
           </div>
         </div>
       </section>

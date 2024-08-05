@@ -46,12 +46,14 @@ export interface EventsProps {
   displayDate: Date;
   filter: string;
   hostFilter: string;
+  view: View,
+  setView: React.Dispatch<React.SetStateAction<View>>;
 }
 
 
 const localizer = momentLocalizer(moment);
 
-const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate, filter, hostFilter }) => {
+const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate, filter, hostFilter, view, setView }) => {
     const [calendarHeight, setCalendarHeight] = useState(0);
     const [filteredEvents, setFilteredEvents] = useState<CalendarEvent[]>([]);
 
@@ -115,6 +117,8 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
                 localizer={localizer}
                 events={filteredEvents}
                 onSelectEvent={selectEvent}
+                view={view}
+                onView={setView}
                 style={{ height: calendarHeight }}
             />
         </Skeleton>

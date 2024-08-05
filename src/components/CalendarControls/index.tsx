@@ -1,7 +1,7 @@
 import { Button, ButtonGroup, Dropdown, DropdownItem, DropdownTrigger, DropdownMenu, } from "@nextui-org/react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-import moment from 'moment'
+import moment from 'moment-timezone'
 import { momentLocalizer, View, Views } from 'react-big-calendar'
 import {Unit} from 'date-arithmetic'
 
@@ -27,7 +27,7 @@ export default function CalendarControls({currDisplayDate, updateDisplayDate, cu
     }
 
     function resetDate(): void {
-      updateDisplayDate(localizer.startOf(new Date(), 'month'));
+      updateDisplayDate(moment().local().toDate());
     }
 
     function extractMonthAndYear(currDate : Date) : string {

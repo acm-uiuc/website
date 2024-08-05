@@ -44,6 +44,7 @@ export interface EventsProps {
   events: IEvent[];
   updateEventDetails: React.Dispatch<React.SetStateAction<CalendarEventDetailProps>>;
   displayDate: Date;
+  updateDisplayDate: React.Dispatch<React.SetStateAction<Date>>;
   filter: string;
   hostFilter: string;
   view: View,
@@ -53,7 +54,7 @@ export interface EventsProps {
 
 const localizer = momentLocalizer(moment);
 
-const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate, filter, hostFilter, view, setView }) => {
+const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate, updateDisplayDate, filter, hostFilter, view, setView }) => {
     const [calendarHeight, setCalendarHeight] = useState(0);
     const [filteredEvents, setFilteredEvents] = useState<CalendarEvent[]>([]);
     useEffect(() => {
@@ -118,6 +119,7 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
                 onSelectEvent={selectEvent}
                 view={view}
                 onView={setView}
+                onDrillDown={(e, view) => {updateDisplayDate(e); setView(view);}}
                 style={{ height: calendarHeight }}
             />
         </Skeleton>

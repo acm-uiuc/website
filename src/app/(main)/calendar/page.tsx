@@ -70,7 +70,7 @@ const Calendar = () => {
             />
           </div>
           <div className="flex col-span-8 lg:col-span-5">
-            <Events view={view} setView={setView} events={allEventsTyped} updateEventDetails={setEventDetail} filter={filter} displayDate={displayDate} hostFilter={hostFilter}/>
+            <Events view={view} setView={setView} events={allEventsTyped} updateEventDetails={setEventDetail} filter={filter} displayDate={displayDate} updateDisplayDate={setDisplayDate} hostFilter={hostFilter}/>
           </div>
         </div>
       </section>

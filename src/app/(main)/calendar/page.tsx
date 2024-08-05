@@ -60,6 +60,7 @@ const Calendar = () => {
             <EventDetail
               title={eventDetail.title}
               location={eventDetail.location}
+              locationLink={eventDetail.locationLink}
               start={eventDetail.start}
               end={eventDetail.end}
               description={eventDetail.description}

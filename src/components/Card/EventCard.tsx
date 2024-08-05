@@ -18,7 +18,7 @@ interface EventProps {
   host?: Organization
 };
 
-function EventDetail({ href, children }: { href?: string, children: React.ReactNode }) {
+export function EventDetail({ href, children }: { href?: string, children: React.ReactNode }) {
   const text = (
     <span className="flex flex-row items-center gap-2 text-base font-bold">
       {children}

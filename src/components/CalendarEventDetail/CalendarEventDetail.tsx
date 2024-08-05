@@ -2,11 +2,13 @@ import { FaLocationArrow, FaRegCalendarAlt, FaUserAlt } from 'react-icons/fa';
 import { getOrganizationImage, Organization } from '@/components/LazyImage';
 import { getOrganizationInfo, IOrgData } from '@/sections/home/SigData';
 import moment from 'moment-timezone';
+import { EventDetail } from '../Card/EventCard';
 moment.tz.setDefault("America/Chicago");
 
 export interface CalendarEventDetailProps {
     title?: string;
     location?: string;
+    locationLink?: string;
     start?: Date;
     end?: Date;
     host?: Organization;
@@ -15,6 +17,7 @@ export interface CalendarEventDetailProps {
 function CalendarEventDetail({
     title,
     location,
+    locationLink,
     description,
     host,
     start,
@@ -38,7 +41,7 @@ function CalendarEventDetail({
                         <h4 className='flex justify-between'>{title} {host && getOrganizationImage(host, 'w-auto h-8')} </h4>
                         <div className='flex flex-row items-center gap-2 mt-2'>
                             <FaLocationArrow className="shrink-0"/> 
-                            <span>{location || "TBD"}</span>
+                            <EventDetail href={locationLink}>{location}</EventDetail>
                         </div> 
                         <div className='flex flex-row items-center gap-2'>
                             <FaRegCalendarAlt className="shrink-0"/> {calendar}

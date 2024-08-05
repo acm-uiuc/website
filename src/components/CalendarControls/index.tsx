@@ -15,7 +15,6 @@ export default function CalendarControls({currDisplayDate, updateDisplayDate} : 
 
     function changeDate(offset : number): void {
       updateDisplayDate(localizer.add(currDisplayDate, offset, "month"))
-      console.log(currDisplayDate);
     }
 
     function resetDate(): void {

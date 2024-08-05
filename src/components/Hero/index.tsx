@@ -61,7 +61,6 @@ export default function Hero() {
 
     // Max 3 events
     const firstFilteredEvents = filteredEvents.slice(0, 3);
-    console.log(firstFilteredEvents);
     setUpcomingEvents(firstFilteredEvents);
     setNumEvents(Math.min(firstFilteredEvents.length, 3));
   }, []);

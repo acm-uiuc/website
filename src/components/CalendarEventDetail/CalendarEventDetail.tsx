@@ -25,12 +25,11 @@ function CalendarEventDetail({
 }: CalendarEventDetailProps) {
     let info : IOrgData | undefined;
     if (host) {
-        console.log({ start, end })
         info = getOrganizationInfo(host);
     }
     if (title === undefined) {
         return (
-                <text className='text-center mt-2'>Click on an event to see more details!</text>
+            <p className='text-center mt-2'>Click on an event to see more details!</p>
         )
     } else {
         const calendar = (start && end && start !== end) ? `${moment(start).tz(moment.tz.guess()).format('h:mm A')} - ${moment(end).tz(moment.tz.guess()).format('h:mm A z')}` : `${moment(start).tz(moment.tz.guess()).format('h:mm A z')}`;
@@ -83,7 +82,7 @@ function CalendarEventDetail({
                         }
                         </div>
                         </div>
-                        <text>{description}</text>
+                        <p>{description}</p>
                     </div>      
                 </div>
         )

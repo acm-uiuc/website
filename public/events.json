@@ -1,12 +1,12 @@
 [
   {
     "title": "Weekly Happy Hour",
-    "description": "Join ACM and chat with some of your fellow members! Enjoy free food on us as you get a chance to know your peers better!",
+    "description": "Meet and chat with your peers and fellow ACM members, with food on us!",
     "start": "2024-08-30T17:00:00",
     "repeats": "weekly",
     "location": "Legends",
     "locationLink": "https://goo.gl/maps/CXESXd3otbGZNqFP7",
-    "paidEventId" : "",
+    "paidEventId" : "merch:hi",
     "host": "ACM"
   },
   {
@@ -28,5 +28,15 @@
     "host": "SIGPwny",
     "repeats": "weekly",
     "featured": false
+  },
+  {
+    "title": "Quad Day",
+    "description": "Join us on Quad Day to learn more about ACM and CS at Illinois!",
+    "start": "2024-08-25T12:00:00",
+    "end": "2024-08-25T16:00:00",
+    "location": "Main Quad",
+    "locationLink": "https://maps.app.goo.gl/2ZRYibtE7Yem5TrP6",
+    "host": "ACM",
+    "featured": true
   }
 ]

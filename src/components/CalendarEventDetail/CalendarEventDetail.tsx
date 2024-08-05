@@ -30,6 +30,7 @@ function CalendarEventDetail({
                 <text className='text-center mt-2'>Click on an event to see more details!</text>
         )
     } else {
+        const calendar = (start && end && start !== end) ? `${moment(start).tz(moment.tz.guess()).format('h:mm A')} - ${moment(end).tz(moment.tz.guess()).format('h:mm A z')}` : `${moment(start).tz(moment.tz.guess()).format('h:mm A z')}`;
         return (
                 <div className='bg-surface-000 break-words border-2 border-acmdark border-opacity-10 mt-2 border-t-transparent border rounded-2xl'>
                     <div className='text-xl w-full text-surface-000 text-center bg-acmdark rounded-t-2xl pb-2 pt-2 font-semibold'>Event Information</div>
@@ -40,8 +41,7 @@ function CalendarEventDetail({
                             <span>{location || "TBD"}</span>
                         </div> 
                         <div className='flex flex-row items-center gap-2'>
-                            {start && end && <FaRegCalendarAlt className="shrink-0"/>} {start && end && (start !== end) && `${moment(start).tz(moment.tz.guess()).format('h:mm A')} - ${moment(end).tz(moment.tz.guess()).format('h:mm A z')}`}
-                            {start && !end && <FaRegCalendarAlt className="shrink-0"/>} {start && `${moment(start).tz(moment.tz.guess()).format('h:mm A z')}`}
+                            <FaRegCalendarAlt className="shrink-0"/> {calendar}
                         </div>
                         <div className='flex flex-row justify-between'>
                         {host && (

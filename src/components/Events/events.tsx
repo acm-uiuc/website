@@ -7,6 +7,7 @@ import './CalendarStylesOverride.css';
 import { CalendarEventDetailProps } from '@/components/CalendarEventDetail/CalendarEventDetail';
 import { View, NavigateAction } from 'react-big-calendar';
 import { Organization } from '../LazyImage';
+import { Skeleton } from '@nextui-org/react';
 
 export type Frequency = 'weekly' | 'biweekly';
 
@@ -103,17 +104,18 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
         });
         setFilteredEvents(formattedEvents);
     }, [events, filter, hostFilter]);
-
     return (
-        <Calendar
-            dayLayoutAlgorithm='no-overlap'
-            date={displayDate}
-            onNavigate={dummyNav}
-            localizer={localizer}
-            events={filteredEvents}
-            onSelectEvent={selectEvent}
-            style={{ height: calendarHeight }}
-        />
+        <Skeleton isLoaded={calendarHeight != 0} style={{width: '100%', minHeight: '70vh'}} className="rounded-lg">
+            <Calendar
+                dayLayoutAlgorithm='no-overlap'
+                date={displayDate}
+                onNavigate={dummyNav}
+                localizer={localizer}
+                events={filteredEvents}
+                onSelectEvent={selectEvent}
+                style={{ height: calendarHeight }}
+            />
+        </Skeleton>
     );
 };
 

@@ -26,6 +26,7 @@ export interface IEvent {
     repeats?: Frequency;
     paidEventId?: string;
     host?: Organization;
+    featured?: boolean;
 }
 
 

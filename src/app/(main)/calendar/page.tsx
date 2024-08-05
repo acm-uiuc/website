@@ -32,31 +32,32 @@ const Calendar = () => {
     <>
       <section className="container">
         <h1 className='mt-0 pt-0 mb-4'>Our Events</h1>
-        <div className="flex items-center justify-between mb-4"> 
+        <div className="flex"> 
           <CalendarControls currDisplayDate={displayDate} updateDisplayDate={setDisplayDate} />
+          <div className="hidden lg:flex">
           <select
             value={dayFilter}
             onChange={(e) => setDayFilter(e.target.value)}
-            className="border-2 border-gray-300 rounded-md mr-2" // Styling for the dropdown
+            className="border-2 border-gray-300 rounded-md mr-2 px-2" // Styling for the dropdown
             >
             <option value="">Filter by day</option>
             {daysOfWeek.map((day) => (
               <option key={day} value={day}>{day}</option>
             ))}
           </select>
+          </div>
+          <div className="hidden lg:flex">
           <input
             type="text"
             placeholder="Search events"
             value={filter}
             onChange={handleFilterChange}
-            className="ml-4 border-2 border-gray-300 focus:border-blue-500 rounded-md" // Updated styling
-          />
+            className="ml-4 px-2 border-2 border-gray-300 focus:border-blue-500 rounded-md" // Updated styling
+            />
+          </div>
         </div>
         <div className='grid justify-between pb-10 gap-4 grid-cols-8'>
-          <div className="flex col-span-5">
-            <Events events={allEventsTyped} updateEventDetails={setEventDetail} filter={filter} displayDate={displayDate} dayFilter={dayFilter}/>
-          </div>
-          <div className="flex col-span-3">
+          <div className="flex lg:order-last col-span-8 lg:col-span-3">
             <EventDetail
               title={eventDetail.title}
               location={eventDetail.location}
@@ -65,6 +66,9 @@ const Calendar = () => {
               description={eventDetail.description}
               host={eventDetail.host}
             />
+          </div>
+          <div className="flex col-span-8 lg:col-span-5">
+            <Events events={allEventsTyped} updateEventDetails={setEventDetail} filter={filter} displayDate={displayDate} dayFilter={dayFilter}/>
           </div>
         </div>
       </section>

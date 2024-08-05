@@ -27,10 +27,11 @@ export default function CalendarControls({currDisplayDate, updateDisplayDate} : 
     }
 
     return (
-    <div className="w-2/3 flex items-center justify-between">
+    <div className="grid grid-cols-8 w-full">
+      <div className="flex col-span-4 lg:col-span-5">
         <h3>{extractMonthAndYear(currDisplayDate)}</h3>
-
-        <div className="flex items-center gap-x-4">
+      </div>
+        <div className="flex items-center ml-4 gap-x-4 col-span-4 lg:col-span-3">
           <Button onPress={()=> {resetDate()}} variant="bordered" className="border-surface-000 border-1 bg-primary text-white hover:cursor-pointer">Today</Button>
           <ButtonGroup>
               <Button isIconOnly onPress={() => {changeDate(-1)}} variant="bordered" className="border-surface-000 border-1 bg-primary text-white hover:cursor-pointer "><FaArrowLeft /></Button>

@@ -51,12 +51,13 @@ export default function Hero() {
       return event;
     });
 
-    // Filter out events that have already passed
     const sortedEvents = eventsAfterNow.sort((a, b) => {
       return (Moment(a.start).unix() - Moment(b.start).unix());
     });
+
+    // Filter out events that have already passed or are not featured
     const filteredEvents = sortedEvents.filter((event) => {
-      return Moment(event.start).isAfter(now);
+      return Moment(event.start).isAfter(now) && event.featured !== false;
     });
 
     // Max 3 events
@@ -65,6 +66,28 @@ export default function Hero() {
     setUpcomingEvents(firstFilteredEvents);
     setNumEvents(Math.min(firstFilteredEvents.length, 3));
   }, []);
+
+  const upcomingEventsHTML = (upcomingEvents.length > 0) ? (
+  <div className={`pt-1 grid gap-4 grid-rows-1 md:grid-cols-${numEvents} lg:grid-cols-${numEvents}`}>
+    {upcomingEvents.map((object, i) => {
+      return (
+        <EventCard
+        key={i}
+        title={object.title}
+        description={object.description}
+        date={toHumanDate(object.start)}
+        repeats={(object as any)?.repeats}
+        location={object.location}
+        locationLink={object.locationLink}
+        paidEventId={object.paidEventId}
+        host={object.host}
+        />
+      );
+    })}
+  </div>
+  ) : (
+    <div className='text-white lg:ml-20'>No featured events coming up</div>
+  )
 
   return (
     <div className="hero-background">
@@ -128,24 +151,9 @@ export default function Hero() {
           </div>
         </div>
         <div className={`pb-20`}>
-          <h3 className='text-white'>Upcoming Events</h3>
-          <div className={`pt-1 grid gap-4 grid-rows-1 md:grid-cols-${numEvents} lg:grid-cols-${numEvents}`}>
-            {upcomingEvents.map((object, i) => {
-              return (
-                <EventCard
-                key={i}
-                title={object.title}
-                description={object.description}
-                date={toHumanDate(object.start)}
-                repeats={(object as any)?.repeats}
-                location={object.location}
-                locationLink={object.locationLink}
-                paidEventId={object.paidEventId}
-                host={object.host}
-                />
-              );
-            })}
-          </div>
+          <h3 className='text-white lg:ml-20'>Upcoming Events</h3>
+          {upcomingEventsHTML}
+
           <div className={`flex flex-row justify-end pt-4`}>
           <a
             className="inline-flex flex-row grow-0 items-center gap-2 px-4 py-2 text-white rounded-2xl bg-primary hover:bg-secondary transition-all"

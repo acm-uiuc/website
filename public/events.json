@@ -2,7 +2,8 @@
   {
     "title": "Weekly Happy Hour",
     "description": "Join ACM and chat with some of your fellow members! Enjoy free food on us as you get a chance to know your peers better!",
-    "start": "2024-08-30T17:00:00-05:00",
+    "start": "2024-08-30T17:00:00",
+    "end": "2024-08-30T18:00:00",
     "repeats": "weekly",
     "location": "Legends",
     "locationLink": "https://goo.gl/maps/CXESXd3otbGZNqFP7",
@@ -12,8 +13,8 @@
   {
     "title": "SIGPwny Meeting",
     "description": "Come to SIGPwny's Sunday meetings to dive deeper into cybersecurity topics.",
-    "start": "2024-08-04T14:00:00-05:00",
-    "end": "2024-08-04T15:00:00-05:00",
+    "start": "2024-08-04T14:00:00",
+    "end": "2024-08-04T15:00:00",
     "location": "Siebel CS 2405",
     "host": "SIGPwny",
     "repeats": "weekly",
@@ -22,8 +23,8 @@
   {
     "title": "SIGPwny Meeting",
     "description": "Come to SIGPwny's Thursday meetings to learn about cybersecurity (no experience required).",
-    "start": "2024-08-08T18:00:00-05:00",
-    "end": "2024-08-04T19:00:00-05:00",
+    "start": "2024-08-08T18:00:00",
+    "end": "2024-08-04T19:00:00",
     "location": "Siebel CS 1404",
     "host": "SIGPwny",
     "repeats": "weekly",

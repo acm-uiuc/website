@@ -2,7 +2,7 @@ import { FaLocationArrow, FaRegCalendarAlt, FaUserAlt } from 'react-icons/fa';
 import { getOrganizationImage, Organization } from '@/components/LazyImage';
 import { getOrganizationInfo, IOrgData } from '@/sections/home/SigData';
 import moment from 'moment-timezone';
-
+moment.tz.setDefault("America/Chicago");
 
 export interface CalendarEventDetailProps {
     title?: string;

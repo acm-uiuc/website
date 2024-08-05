@@ -39,9 +39,10 @@ import sigarchlogo from '@/stories/assets/sigarchlogo.png';
 import acmlogo from '@/stories/assets/acm-square-blue.png';
 
 export const SIGList = ['SIGPwny' , 'SIGCHI' , 'GameBuilders' , 'SIGAIDA' , 'SIGGRAPH' 
-, 'ICPC' , 'SIGMobile' , 'SIGMusic' , 'GLUG' , 'SIGNLL' , 'SIGma' , 'SIGQuantum' , 'SIGecom' , 'SIGPLAN' , 'SIGPolicy' , 'SIGARCH']
+, 'ICPC' , 'SIGMobile' , 'SIGMusic' , 'GLUG' , 'SIGNLL' , 'SIGma' , 'SIGQuantum' , 'SIGecom' , 'SIGPLAN' , 'SIGPolicy' , 'SIGARCH'].sort()
 
-export const OrganizationList = [...SIGList, 'ACM'] as const;
+export const CommitteeList = ['Infrastructure Committe', 'Social Committee', 'Mentorship Committee']
+export const OrganizationList = ['ACM', ...SIGList, ...CommitteeList] as const;
 
 export type SIG = typeof SIGList[number];
 export type Organization = typeof OrganizationList[number];

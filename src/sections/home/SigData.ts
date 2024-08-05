@@ -136,7 +136,7 @@ export const OrganizationDataMapping : Record<Organization, IOrgData> = {
     title: 'ACM',
     description: 'The Association for Computing Machinery at the University of Illinois at Urbana-Champaign.',
     link1: 'https://acm.illinois.edu/',
-    link2: 'https://discord.gg/acm',
+    link2: 'https://go.acm.illinois.edu/discord',
     linktext1: 'Website',
     linktext2: 'Discord'
   }

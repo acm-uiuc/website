@@ -3,8 +3,19 @@ import { getOrganizationImage, Organization } from '@/components/LazyImage';
 import { getOrganizationInfo, IOrgData } from '@/sections/home/SigData';
 import moment from 'moment-timezone';
 import { EventDetail } from '../Card/EventCard';
-moment.tz.setDefault("America/Chicago");
 
+function formatDateAsISOString(date: Date) {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-indexed
+    const day = date.getDate().toString().padStart(2, '0');
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const seconds = date.getSeconds().toString().padStart(2, '0');
+    
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
+
+  
 export interface CalendarEventDetailProps {
     title?: string;
     location?: string;
@@ -34,8 +45,15 @@ function CalendarEventDetail({
             <p className='text-center mt-2'>Click on an event to see more details!</p>
         )
     } else {
+        moment.tz.guess()
         const paidEventHref = paidEventId ? (paidEventId.startsWith("merch:") ? "/merch?id=" + paidEventId.slice(6) :"/event?id=" + paidEventId) : undefined;
-        const calendar = (start && end && start !== end) ? `${moment(start).tz(moment.tz.guess()).format('h:mm A')} - ${moment(end).tz(moment.tz.guess()).format('h:mm A z')}` : `${moment(start).tz(moment.tz.guess()).format('h:mm A z')}`;
+        const startObject = start ? moment(moment.tz(formatDateAsISOString(start), "America/Chicago").format()) : undefined;
+        const endObject = end ? moment(moment.tz(formatDateAsISOString(end), "America/Chicago").format()) : undefined;
+        const timezoneAbbr = moment().tz(moment.tz.guess()).format('z');
+
+        const calendar = (startObject && endObject && start !== end) 
+            ? `${startObject.format('h:mm A')} - ${endObject.format('h:mm A z')} ${timezoneAbbr}` 
+            : startObject && `${startObject.format('h:mm A z')} ${timezoneAbbr}`;
         return (
                 <div className='bg-surface-000 break-words border-2 border-acmdark border-opacity-10 mt-2 border-t-transparent border rounded-2xl'>
                     <div className='text-xl w-full text-surface-000 text-center bg-acmdark rounded-t-2xl pb-2 pt-2 font-semibold'>Event Information</div>
@@ -89,7 +107,7 @@ function CalendarEventDetail({
                         {paidEventId && (
                             <a
                             className="inline-flex flex-row grow-0 items-center gap-2 px-4 py-2 text-white rounded-md bg-primary hover:bg-secondary transition-all"
-                            href={paidEventId.startsWith("merch:") ? "/merch?id=" + paidEventId.slice(6) :"/event?id=" + paidEventId}
+                            href={paidEventHref}
                             target="_blank"
                             rel="noopener noreferrer"
                             >

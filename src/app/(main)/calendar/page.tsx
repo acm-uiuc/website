@@ -10,7 +10,6 @@ import { View, Views } from 'react-big-calendar';
 const defaultEvent: CalendarEventDetailProps = {
   description: "N/A",
 };
-moment.tz.setDefault("America/Chicago");
 
 
 const allEventsTyped = allEvents as IEvent[];

@@ -1,5 +1,5 @@
 'use client';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import React, { useState, useEffect } from 'react';
 import { Calendar, momentLocalizer, Event as BigCalendarEvent } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -56,7 +56,6 @@ const localizer = momentLocalizer(moment);
 const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate, filter, hostFilter, view, setView }) => {
     const [calendarHeight, setCalendarHeight] = useState(0);
     const [filteredEvents, setFilteredEvents] = useState<CalendarEvent[]>([]);
-
     useEffect(() => {
         setCalendarHeight(window.innerHeight * 0.7);
     }, []);

@@ -18,8 +18,6 @@ import { IEvent } from '@/components/Events/events';
 import { useEffect, useState } from 'react';
 import { Skeleton } from '@nextui-org/react';
 
-moment.tz.setDefault("America/Chicago");
-
 function toHumanDate(date: string) {
   return moment(date).tz(moment.tz.guess()).format("MMMM Do, h:mm A z");
 }

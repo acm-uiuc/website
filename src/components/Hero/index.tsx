@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import Moment from 'moment';
+import moment from 'moment-timezone';
 import {
   FaBell,
   FaCalendar,
@@ -18,8 +18,7 @@ import { IEvent } from '@/components/Events/events';
 import { useEffect, useState } from 'react';
 
 function toHumanDate(date: string) {
-  Moment.locale('en');
-  return Moment(date).format("MMMM Do, h:mm A");
+  return moment(date).tz(moment.tz.guess()).format("MMMM Do, h:mm A z");
 }
 
 const typedEventList = eventList as IEvent[];
@@ -30,11 +29,11 @@ export default function Hero() {
   
   useEffect(() => {
     // If event repeats, get the first date after current time
-    const now = Moment();
+    const now = moment();
     const eventsAfterNow = typedEventList.map((event) => {
       if (event.repeats && ['weekly','biweekly'].includes(event.repeats)) {
-        const start = Moment(event.start);
-        const end = event.end ? Moment(event.end) : null;
+        const start = moment(event.start);
+        const end = event.end ? moment(event.end) : null;
         const increment = {'weekly': 1, 'biweekly': 2}[event.repeats];
         while (!start.isAfter(now)) {
           start.add(increment, 'weeks');
@@ -52,12 +51,12 @@ export default function Hero() {
     });
 
     const sortedEvents = eventsAfterNow.sort((a, b) => {
-      return (Moment(a.start).unix() - Moment(b.start).unix());
+      return (moment(a.start).unix() - moment(b.start).unix());
     });
 
     // Filter out events that have already passed or are not featured
     const filteredEvents = sortedEvents.filter((event) => {
-      return Moment(event.start).isAfter(now) && event.featured !== false;
+      return moment(event.start).isAfter(now) && event.featured !== false;
     });
 
     // Max 3 events

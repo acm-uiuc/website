@@ -1,7 +1,7 @@
 'use client';
 import Events, { IEvent } from '@/components/Events/events'
 import allEvents from 'public/events.json'
-import moment from 'moment'
+import moment from 'moment-timezone'
 import { momentLocalizer } from 'react-big-calendar'
 import EventDetail, { CalendarEventDetailProps } from '@/components/CalendarEventDetail/CalendarEventDetail';
 import {useState} from 'react';

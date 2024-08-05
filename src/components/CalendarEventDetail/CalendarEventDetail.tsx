@@ -21,7 +21,6 @@ function CalendarEventDetail({
     end
 }: CalendarEventDetailProps) {
     let info : IOrgData | undefined;
-    Moment.locale('en');
     if (host) {
         console.log({ start, end })
         info = getOrganizationInfo(host);

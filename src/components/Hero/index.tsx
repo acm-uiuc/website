@@ -85,7 +85,7 @@ export default function Hero() {
     })}
   </div>
   ) : (
-    <div className='text-white lg:ml-20'>No featured events coming up</div>
+    <div className='text-white'>No featured events coming up</div>
   )
 
   return (
@@ -150,7 +150,7 @@ export default function Hero() {
           </div>
         </div>
         <div className={`pb-20`}>
-          <h3 className='text-white lg:ml-20'>Upcoming Events</h3>
+          <h3 className='text-white'>Upcoming Events</h3>
           {upcomingEventsHTML}
 
           <div className={`flex flex-row justify-end pt-4`}>

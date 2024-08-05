@@ -1,4 +1,4 @@
-import { FaLocationArrow, FaRegCalendarAlt, FaUserAlt } from 'react-icons/fa';
+import { FaLocationArrow, FaRegCalendarAlt, FaSignInAlt, FaUserAlt } from 'react-icons/fa';
 import { getOrganizationImage, Organization } from '@/components/LazyImage';
 import { getOrganizationInfo, IOrgData } from '@/sections/home/SigData';
 import moment from 'moment-timezone';
@@ -9,6 +9,7 @@ export interface CalendarEventDetailProps {
     title?: string;
     location?: string;
     locationLink?: string;
+    paidEventId?: string;
     start?: Date;
     end?: Date;
     host?: Organization;
@@ -18,6 +19,7 @@ function CalendarEventDetail({
     title,
     location,
     locationLink,
+    paidEventId,
     description,
     host,
     start,
@@ -32,6 +34,7 @@ function CalendarEventDetail({
             <p className='text-center mt-2'>Click on an event to see more details!</p>
         )
     } else {
+        const paidEventHref = paidEventId ? (paidEventId.startsWith("merch:") ? "/merch?id=" + paidEventId.slice(6) :"/event?id=" + paidEventId) : undefined;
         const calendar = (start && end && start !== end) ? `${moment(start).tz(moment.tz.guess()).format('h:mm A')} - ${moment(end).tz(moment.tz.guess()).format('h:mm A z')}` : `${moment(start).tz(moment.tz.guess()).format('h:mm A z')}`;
         return (
                 <div className='bg-surface-000 break-words border-2 border-acmdark border-opacity-10 mt-2 border-t-transparent border rounded-2xl'>
@@ -83,6 +86,17 @@ function CalendarEventDetail({
                         </div>
                         </div>
                         <p>{description}</p>
+                        {paidEventId && (
+                            <a
+                            className="inline-flex flex-row grow-0 items-center gap-2 px-4 py-2 text-white rounded-md bg-primary hover:bg-secondary transition-all"
+                            href={paidEventId.startsWith("merch:") ? "/merch?id=" + paidEventId.slice(6) :"/event?id=" + paidEventId}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >
+                            <FaSignInAlt className="shrink-0" />
+                            <span>Register</span>
+                            </a>
+                        )}
                     </div>      
                 </div>
         )

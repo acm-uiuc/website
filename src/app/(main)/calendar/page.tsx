@@ -63,6 +63,7 @@ const Calendar = () => {
               title={eventDetail.title}
               location={eventDetail.location}
               locationLink={eventDetail.locationLink}
+              paidEventId={eventDetail.paidEventId}
               start={eventDetail.start}
               end={eventDetail.end}
               description={eventDetail.description}

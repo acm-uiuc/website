@@ -37,6 +37,7 @@ export interface CalendarEvent extends BigCalendarEvent {
     locationLink?: string;
     description: string;
     host?: Organization;
+    paidEventId?: string;
 }
 
 export interface EventsProps {
@@ -67,6 +68,7 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
             host: event.host,
             start: event.start,
             end: event.end,
+            paidEventId: event.paidEventId
         };
         updateEventDetails(newEvent);
     };

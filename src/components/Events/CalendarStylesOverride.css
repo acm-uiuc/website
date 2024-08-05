@@ -58,7 +58,7 @@
 /*Event Listing Styling*/
 .rbc-event {
   background-color: #4577F8 !important;
-  border-radius: 18px !important;
+  border-radius: 0.375rem !important;
   font-size: 12px !important;
 }
 

@@ -6,7 +6,7 @@ import { momentLocalizer } from 'react-big-calendar'
 import EventDetail, { CalendarEventDetailProps } from '@/components/CalendarEventDetail/CalendarEventDetail';
 import {useState} from 'react';
 import CalendarControls from '@/components/CalendarControls';
-
+import { OrganizationList } from '@/components/LazyImage';
 const defaultEvent: CalendarEventDetailProps = {
   description: "N/A",
 };
@@ -20,8 +20,7 @@ const Calendar = () => {
 
   const [filter, setFilter] = useState(''); // Added filter state
 
-  const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  const [dayFilter, setDayFilter] = useState('');
+  const [hostFilter, setHostFilter] = useState('');
 
 
   // Function to handle filter changes, moved from Events.tsx
@@ -36,13 +35,13 @@ const Calendar = () => {
           <CalendarControls currDisplayDate={displayDate} updateDisplayDate={setDisplayDate} />
           <div className="hidden lg:flex">
           <select
-            value={dayFilter}
-            onChange={(e) => setDayFilter(e.target.value)}
+            value={hostFilter}
+            onChange={(e) => setHostFilter(e.target.value)}
             className="border-2 border-gray-300 rounded-md mr-2 px-2" // Styling for the dropdown
             >
-            <option value="">Filter by day</option>
-            {daysOfWeek.map((day) => (
-              <option key={day} value={day}>{day}</option>
+            <option value="">Filter by host</option>
+            {OrganizationList.map((org) => (
+              <option key={org} value={org}>{org}</option>
             ))}
           </select>
           </div>
@@ -68,7 +67,7 @@ const Calendar = () => {
             />
           </div>
           <div className="flex col-span-8 lg:col-span-5">
-            <Events events={allEventsTyped} updateEventDetails={setEventDetail} filter={filter} displayDate={displayDate} dayFilter={dayFilter}/>
+            <Events events={allEventsTyped} updateEventDetails={setEventDetail} filter={filter} displayDate={displayDate} hostFilter={hostFilter}/>
           </div>
         </div>
       </section>

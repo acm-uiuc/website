@@ -42,13 +42,13 @@ export interface EventsProps {
   updateEventDetails: React.Dispatch<React.SetStateAction<CalendarEventDetailProps>>;
   displayDate: Date;
   filter: string;
-  dayFilter: string;
+  hostFilter: string;
 }
 
 
 const localizer = momentLocalizer(moment);
 
-const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate, filter, dayFilter }) => {
+const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate, filter, hostFilter }) => {
     const [calendarHeight, setCalendarHeight] = useState(0);
     const [filteredEvents, setFilteredEvents] = useState<CalendarEvent[]>([]);
 
@@ -74,7 +74,7 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
         // Filter events based on the filter prop
         const filteredEvents = events.filter(event =>
           event.title.toLowerCase().includes(filter.toLowerCase()) &&
-          (dayFilter ? moment(event.start).format('dddd') === dayFilter : true)
+          (hostFilter ? event.host === hostFilter : true)
         );
         // Convert the events to the format required by react-big-calendar
         const formattedEvents: CalendarEvent[] = filteredEvents.flatMap(event => {
@@ -100,7 +100,7 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
             }];
         });
         setFilteredEvents(formattedEvents);
-    }, [events, filter, dayFilter]);
+    }, [events, filter, hostFilter]);
 
     return (
         <Calendar

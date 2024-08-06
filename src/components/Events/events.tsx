@@ -41,7 +41,7 @@ export interface CalendarEvent extends BigCalendarEvent {
 }
 
 export interface EventsProps {
-  events: IEvent[];
+  events: IEvent[] | null;
   updateEventDetails: React.Dispatch<React.SetStateAction<CalendarEventDetailProps>>;
   displayDate: Date;
   updateDisplayDate: React.Dispatch<React.SetStateAction<Date>>;
@@ -79,6 +79,9 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
 
     useEffect(() => {
         // Filter events based on the filter prop
+        if (!events) {
+            return;
+        }
         const filteredEvents = events.filter(event =>
           event.title.toLowerCase().includes(filter.toLowerCase()) &&
           (hostFilter ? event.host?.toLowerCase() === hostFilter.toLowerCase() : true)
@@ -109,7 +112,7 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
         setFilteredEvents(formattedEvents);
     }, [events, filter, hostFilter]);
     return (
-        <Skeleton isLoaded={calendarHeight != 0} style={{width: '100%', minHeight: '70vh'}} className="rounded-lg">
+        <Skeleton isLoaded={calendarHeight != 0 || !events} style={{width: '100%', minHeight: '70vh'}} className="rounded-lg">
             <Calendar
                 dayLayoutAlgorithm='no-overlap'
                 date={displayDate}

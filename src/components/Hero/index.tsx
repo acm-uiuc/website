@@ -11,7 +11,6 @@ import {
 import EventCard from '@/components/Card/EventCard';
 import './hero.css';
 
-import eventList from 'public/events.json';
 import headerJpg from './header.jpg';
 import headerWebp from './header.webp';
 import { IEvent } from '@/components/Events/events';
@@ -22,8 +21,6 @@ function toHumanDate(date: string) {
   return moment(date).tz(moment.tz.guess()).format("MMMM Do, h:mm A z");
 }
 
-const typedEventList = eventList as IEvent[];
-
 export default function Hero() {
   const [upcomingEvents, setUpcomingEvents] = useState<IEvent[]>([]);
   const [numEvents, setNumEvents] = useState(3);
@@ -31,42 +28,59 @@ export default function Hero() {
   
   useEffect(() => {
     // If event repeats, get the first date after current time
-    setIsLoading(true);
-    const now = moment();
-    const eventsAfterNow = typedEventList.map((event) => {
-      if (event.repeats && ['weekly','biweekly'].includes(event.repeats)) {
-        const start = moment(event.start);
-        const end = event.end ? moment(event.end) : null;
-        const increment = {'weekly': 1, 'biweekly': 2}[event.repeats];
-        while (!start.isAfter(now)) {
-          start.add(increment, 'weeks');
-          if (end) {
-            end.add(increment, 'weeks');
-          }
-        }
-        return {
-          ...event,
-          start: start.toISOString(),
-          end: end ? end.toISOString() : undefined,
-        };
+    const doStuff = async () => {
+      setIsLoading(true);
+      const baseurl = process.env.NEXT_PUBLIC_EVENTS_API_BASE_URL;
+      if (!baseurl) {
+        return;
       }
-      return event;
-    });
+      async function fetcher() {
+        try {
+          const response = await fetch(`${baseurl}/api/v1/events`);
+          return await response.json() as IEvent[];
+        } catch (err: any) {
+          return [];
+        }
+      }
+      const typedEventList = await fetcher();
+      console.log(typedEventList)
+      const now = moment();
+      const eventsAfterNow = typedEventList.map((event) => {
+        if (event.repeats && ['weekly','biweekly'].includes(event.repeats)) {
+          const start = moment(event.start);
+          const end = event.end ? moment(event.end) : null;
+          const increment = {'weekly': 1, 'biweekly': 2}[event.repeats];
+          while (!start.isAfter(now)) {
+            start.add(increment, 'weeks');
+            if (end) {
+              end.add(increment, 'weeks');
+            }
+          }
+          return {
+            ...event,
+            start: start.toISOString(),
+            end: end ? end.toISOString() : undefined,
+          };
+        }
+        return event;
+      });
 
-    const sortedEvents = eventsAfterNow.sort((a, b) => {
-      return (moment(a.start).unix() - moment(b.start).unix());
-    });
+      const sortedEvents = eventsAfterNow.sort((a, b) => {
+        return (moment(a.start).unix() - moment(b.start).unix());
+      });
 
-    // Filter out events that have already passed or are not featured
-    const filteredEvents = sortedEvents.filter((event) => {
-      return moment(event.start).isAfter(now) && event.featured !== false;
-    });
+      // Filter out events that have already passed or are not featured
+      const filteredEvents = sortedEvents.filter((event) => {
+        return moment(event.start).isAfter(now) && event.featured !== false;
+      });
 
-    // Max 3 events
-    const firstFilteredEvents = filteredEvents.slice(0, 3);
-    setUpcomingEvents(firstFilteredEvents);
-    setNumEvents(Math.min(firstFilteredEvents.length, 3));
-    setIsLoading(false);
+      // Max 3 events
+      const firstFilteredEvents = filteredEvents.slice(0, 3);
+      setUpcomingEvents(firstFilteredEvents);
+      setNumEvents(Math.min(firstFilteredEvents.length, 3));
+      setIsLoading(false);
+    }
+    doStuff();
   }, []);
 
   const upcomingEventsHTML = (upcomingEvents.length > 0) ? (

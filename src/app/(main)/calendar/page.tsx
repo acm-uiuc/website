@@ -1,9 +1,8 @@
 'use client';
 import Events, { IEvent } from '@/components/Events/events'
-import allEvents from 'public/events.json'
 import moment from 'moment-timezone'
 import EventDetail, { CalendarEventDetailProps } from '@/components/CalendarEventDetail/CalendarEventDetail';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import CalendarControls from '@/components/CalendarControls';
 import { OrganizationList } from '@/components/LazyImage';
 import { View, Views } from 'react-big-calendar';
@@ -11,18 +10,29 @@ const defaultEvent: CalendarEventDetailProps = {
   description: "N/A",
 };
 
-
-const allEventsTyped = allEvents as IEvent[];
-
 const Calendar = () => {
   const [eventDetail, setEventDetail] = useState<CalendarEventDetailProps>(defaultEvent);
   const [displayDate, setDisplayDate] = useState<Date>(moment().local().toDate());
   const [view, setView] = useState<View>(Views.MONTH); // Default view is month
-
   const [filter, setFilter] = useState(''); // Added filter state
-
   const [hostFilter, setHostFilter] = useState('');
+  const [allEvents, setAllEvents] = useState<IEvent[] | null>(null)
 
+  useEffect(() => {
+    const baseurl = process.env.NEXT_PUBLIC_EVENTS_API_BASE_URL;
+    if (!baseurl) {
+      return setAllEvents([]);
+    }
+    async function fetcher() {
+      try {
+        const response = await fetch(`${baseurl}/api/v1/events`);
+        setAllEvents(await response.json() as IEvent[]);
+      } catch (err: any) {
+        return setAllEvents([]);
+      }
+    }
+    fetcher();
+  }, [])
 
   // Function to handle filter changes, moved from Events.tsx
   const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,7 +80,7 @@ const Calendar = () => {
             />
           </div>
           <div className="flex col-span-8 lg:col-span-5">
-            <Events view={view} setView={setView} events={allEventsTyped} updateEventDetails={setEventDetail} filter={filter} displayDate={displayDate} updateDisplayDate={setDisplayDate} hostFilter={hostFilter}/>
+            <Events view={view} setView={setView} events={allEvents} updateEventDetails={setEventDetail} filter={filter} displayDate={displayDate} updateDisplayDate={setDisplayDate} hostFilter={hostFilter}/>
           </div>
         </div>
       </section>

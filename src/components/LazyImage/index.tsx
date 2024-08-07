@@ -98,5 +98,9 @@ const imageRenderers : {
 }
 
 export const getOrganizationImage = (org: Organization, className: string = 'h-14 w-auto') => {
-  return imageRenderers[org](className);
+  try {
+    return imageRenderers[org](className);
+  } catch {
+    return imageRenderers["ACM"](className);
+  }
 }

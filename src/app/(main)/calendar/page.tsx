@@ -6,6 +6,8 @@ import {useEffect, useState} from 'react';
 import CalendarControls from '@/components/CalendarControls';
 import { OrganizationList } from '@/components/LazyImage';
 import { View, Views } from 'react-big-calendar';
+import { transformApiDates } from '@/utils/dateutils';
+
 const defaultEvent: CalendarEventDetailProps = {
   description: "N/A",
 };
@@ -26,7 +28,7 @@ const Calendar = () => {
     async function fetcher() {
       try {
         const response = await fetch(`${baseurl}/api/v1/events`);
-        setAllEvents(await response.json() as IEvent[]);
+        setAllEvents(transformApiDates(await response.json() as IEvent[]));
       } catch (err: any) {
         return setAllEvents([]);
       }

@@ -4,5 +4,5 @@ if [ "$CF_PAGES_BRANCH" != "main" ]; then
     # use development variables
     echo "Using development variables in build"
     cp .env.development .env.production
-    yarn run build
 fi
+yarn run build

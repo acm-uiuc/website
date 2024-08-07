@@ -16,7 +16,7 @@ import headerWebp from './header.webp';
 import { IEvent } from '@/components/Events/events';
 import { useEffect, useState } from 'react';
 import { Skeleton } from '@nextui-org/react';
-import { transformApiDates } from '@/app/(main)/calendar/page';
+import { transformApiDates } from '@/utils/dateutils';
 
 function toHumanDate(date: string) {
   return moment(date).tz(moment.tz.guess()).format("MMMM Do, h:mm A z");

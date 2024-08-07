@@ -39,7 +39,6 @@ export default function Hero() {
         try {
           const response = await fetch(`${baseurl}/api/v1/events`);
           const rval = transformApiDates((await response.json()) as IEvent[]);
-          console.log(rval)
           return rval;
         } catch (err: any) {
           return [];

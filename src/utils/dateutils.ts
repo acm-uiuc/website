@@ -6,7 +6,8 @@ export const transformApiDates = (events: IEvent[]): IEvent[] => {
       return {
         ...event,
         start: moment.tz(event.start, "America/Chicago").tz(moment.tz.guess()).format("YYYY-MM-DDTHH:mm:ss"),
-        end: event.end ? moment.tz(event.end, "America/Chicago").tz(moment.tz.guess()).format("YYYY-MM-DDTHH:mm:ss") : moment.tz(event.start, "America/Chicago").tz(moment.tz.guess()).format("YYYY-MM-DDTHH:mm:ss")
+        end: event.end ? moment.tz(event.end, "America/Chicago").tz(moment.tz.guess()).format("YYYY-MM-DDTHH:mm:ss") : moment.tz(event.start, "America/Chicago").tz(moment.tz.guess()).format("YYYY-MM-DDTHH:mm:ss"),
+        repeatEnds: event.repeatEnds ? moment.tz(event.repeatEnds, "America/Chicago").tz(moment.tz.guess()).format("YYYY-MM-DDTHH:mm:ss") : undefined
         }
       });
   }

@@ -37,7 +37,7 @@ export default function Hero() {
       }
       async function fetcher() {
         try {
-          const response = await fetch(`${baseurl}/api/v1/events`);
+          const response = await fetch(`${baseurl}/api/v1/events?upcomingOnly=true`);
           const rval = transformApiDates((await response.json()) as IEvent[]);
           return rval;
         } catch (err: any) {
@@ -50,9 +50,18 @@ export default function Hero() {
       const eventsAfterNow = typedEventList.map((event) => {
         if (event.repeats && ['weekly','biweekly'].includes(event.repeats)) {
           const start = moment(event.start);
+          let repeatEnds;
+          try {
+            repeatEnds = moment(event.repeatEnds) || moment.max()
+          } catch {
+            repeatEnds = moment.max();
+          }
           const end = event.end ? moment(event.end) : null;
           const increment = {'weekly': 1, 'biweekly': 2}[event.repeats];
-          while (!start.isAfter(now)) {
+          while (start.isBefore(now)) { // find the most recent iteration
+            if (repeatEnds.isBefore(start)) { // skip
+              return;
+            }
             start.add(increment, 'weeks');
             if (end) {
               end.add(increment, 'weeks');
@@ -67,7 +76,11 @@ export default function Hero() {
         return event;
       });
 
-      const sortedEvents = eventsAfterNow.sort((a, b) => {
+      const definedEvents = eventsAfterNow.filter((event) => {
+        return (event != undefined);
+      });
+      
+      const sortedEvents = definedEvents.sort((a, b) => {
         return (moment(a.start).unix() - moment(b.start).unix());
       });
 

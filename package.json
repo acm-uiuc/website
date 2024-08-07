@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "start": "yarn dev",
+    "dev:events": "cross-env NEXT_PUBLIC_EVENTS_API_BASE_URL=https://infra-events-api.aws.qa.acmuiuc.org && next dev",
     "build": "next build && cp src/_redirects build/_redirects",
     "serve": "serve build",
     "lint": "next lint",
@@ -41,6 +42,7 @@
     "@types/react-big-calendar": "^1.8.8",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.16",
+    "cross-env": "^7.0.3",
     "eslint": "^8",
     "eslint-config-next": "^14.2.5",
     "eslint-plugin-storybook": "^0.6.15",

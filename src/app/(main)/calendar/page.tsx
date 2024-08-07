@@ -9,7 +9,15 @@ import { View, Views } from 'react-big-calendar';
 const defaultEvent: CalendarEventDetailProps = {
   description: "N/A",
 };
-
+export const transformApiDates = (events: IEvent[]): IEvent[] => {
+  return events.map((event: IEvent) => {
+    return {
+      ...event,
+      start: moment.tz(event.start, "America/Chicago").tz(moment.tz.guess()).format("YYYY-MM-DDTHH:mm:ss"),
+      end: event.end ? moment.tz(event.end, "America/Chicago").tz(moment.tz.guess()).format("YYYY-MM-DDTHH:mm:ss") : moment.tz(event.start, "America/Chicago").tz(moment.tz.guess()).format("YYYY-MM-DDTHH:mm:ss")
+      }
+    });
+}
 const Calendar = () => {
   const [eventDetail, setEventDetail] = useState<CalendarEventDetailProps>(defaultEvent);
   const [displayDate, setDisplayDate] = useState<Date>(moment().local().toDate());
@@ -26,7 +34,7 @@ const Calendar = () => {
     async function fetcher() {
       try {
         const response = await fetch(`${baseurl}/api/v1/events`);
-        setAllEvents(await response.json() as IEvent[]);
+        setAllEvents(transformApiDates(await response.json() as IEvent[]));
       } catch (err: any) {
         return setAllEvents([]);
       }

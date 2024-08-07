@@ -16,6 +16,7 @@ import headerWebp from './header.webp';
 import { IEvent } from '@/components/Events/events';
 import { useEffect, useState } from 'react';
 import { Skeleton } from '@nextui-org/react';
+import { transformApiDates } from '@/app/(main)/calendar/page';
 
 function toHumanDate(date: string) {
   return moment(date).tz(moment.tz.guess()).format("MMMM Do, h:mm A z");
@@ -37,7 +38,9 @@ export default function Hero() {
       async function fetcher() {
         try {
           const response = await fetch(`${baseurl}/api/v1/events`);
-          return await response.json() as IEvent[];
+          const rval = transformApiDates((await response.json()) as IEvent[]);
+          console.log(rval)
+          return rval;
         } catch (err: any) {
           return [];
         }

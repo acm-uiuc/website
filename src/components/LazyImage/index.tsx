@@ -41,7 +41,7 @@ import acmlogo from '@/stories/assets/acm-square-blue.png';
 export const SIGList = ['SIGPwny' , 'SIGCHI' , 'GameBuilders' , 'SIGAIDA' , 'SIGGRAPH' 
 , 'ICPC' , 'SIGMobile' , 'SIGMusic' , 'GLUG' , 'SIGNLL' , 'SIGma' , 'SIGQuantum' , 'SIGecom' , 'SIGPLAN' , 'SIGPolicy' , 'SIGARCH'].sort()
 
-export const CommitteeList = ['Infrastructure Committe', 'Social Committee', 'Mentorship Committee']
+export const CommitteeList = ['Infrastructure Committee', 'Social Committee', 'Mentorship Committee']
 export const OrganizationList = ['ACM', ...SIGList, ...CommitteeList] as const;
 
 export type SIG = typeof SIGList[number];

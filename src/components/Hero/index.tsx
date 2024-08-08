@@ -17,6 +17,7 @@ import { IEvent } from '@/components/Events/events';
 import { useEffect, useState } from 'react';
 import { Skeleton } from '@nextui-org/react';
 import { transformApiDates, validRepeats, repeatMapping } from '@/utils/dateutils';
+import { maxRenderDistance } from '../CalendarControls';
 
 function toHumanDate(date: string) {
   return moment(date).tz(moment.tz.guess()).format("MMMM Do, h:mm A z");
@@ -45,16 +46,15 @@ export default function Hero() {
         }
       }
       const typedEventList = await fetcher();
-      console.log(typedEventList)
       const now = moment();
       const eventsAfterNow = typedEventList.map((event) => {
         if (event.repeats && validRepeats.includes(event.repeats)) {
           const start = moment(event.start);
           let repeatEnds;
           try {
-            repeatEnds = moment(event.repeatEnds) || moment.max()
+            repeatEnds = moment(event.repeatEnds) || maxRenderDistance
           } catch {
-            repeatEnds = moment.max();
+            repeatEnds = maxRenderDistance;
           }
           const end = event.end ? moment(event.end) : null;
           const comparisonEnd = end || moment(event.end).add(1, 'hour'); // used for comparing against repeat as a "fake end time"

@@ -8,7 +8,8 @@ import { CalendarEventDetailProps } from '@/components/CalendarEventDetail/Calen
 import { View, NavigateAction } from 'react-big-calendar';
 import { Organization } from '../LazyImage';
 import { Skeleton } from '@nextui-org/react';
-import { howManyUnitInYear, repeatMapping, validRepeats } from '@/utils/dateutils';
+import { howManyUnitInYear, repeatMapping, RepeatMappingEntry, validRepeats } from '@/utils/dateutils';
+import { maxRenderDistance } from '../CalendarControls';
 
 export type Frequency = 'weekly' | 'biweekly';
 
@@ -56,6 +57,29 @@ export interface EventsProps {
 
 const localizer = momentLocalizer(moment);
 
+
+function createRecurringEvents(event: IEvent, repeatEntry: RepeatMappingEntry, repeatEnd: any) {
+    const events = [];
+    let start = moment(event.start);
+    let end = event.end ? moment(event.end) : null;
+    while (start?.isSameOrBefore(maxRenderDistance)) {
+        const repeatCond = end || start;
+        if (repeatCond.isSameOrAfter(repeatEnd)) {
+            break;
+        }
+        events.push({
+            ...event,
+            start: start.toDate(),
+            end: end ? end.toDate() : undefined,
+        });
+        start.add(repeatEntry.increment, repeatEntry.unit);
+        if (end) {
+            end.add(repeatEntry.increment, repeatEntry.unit);
+        }
+    }
+    return events;
+}
+
 const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate, updateDisplayDate, filter, hostFilter, view, setView }) => {
     const [calendarHeight, setCalendarHeight] = useState(0);
     const [filteredEvents, setFilteredEvents] = useState<CalendarEvent[]>([]);
@@ -90,22 +114,10 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
         );
         // Convert the events to the format required by react-big-calendar
         const formattedEvents: (CalendarEvent | null)[] = filteredEvents.flatMap(event => {
-            // Repeat the event for a year out or until it ends, whichever comes first
+            // Repeat the event for a year out or until it ends, whichever comes first)
             if (event.repeats && validRepeats.includes(event.repeats)) {
-                const {increment, unit} = repeatMapping[event.repeats];
-                const repeatEnd = moment(event.repeatEnds) || moment.max();
-                return Array.from({ length: howManyUnitInYear({increment, unit}) / increment }, (_, i) => {
-                    const newStart = moment(event.start).add(i * increment, unit);
-                    const newEnd = event.end ? moment(event.end).add(i * increment, unit) : newStart;
-                    if (newEnd.isAfter(repeatEnd)) {
-                        return null;
-                    }
-                    return {
-                        ...event,
-                        start: newStart.toDate(),
-                        end: newEnd.toDate(),
-                    }
-                })
+                const repeatEnd = event.repeatEnds ? moment(event.repeatEnds) : maxRenderDistance;
+                return createRecurringEvents(event, repeatMapping[event.repeats], repeatEnd);
             }
 
             return [{

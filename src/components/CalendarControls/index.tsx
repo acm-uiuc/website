@@ -19,8 +19,9 @@ function capitalizeFirstLetter(string: string) {
 }
 
 const localizer = momentLocalizer(moment);
+
+export const maxRenderDistance = moment().add(1, 'year').endOf('month');
 export default function CalendarControls({currDisplayDate, updateDisplayDate, currView, updateCurrView} : CalendarControlProps) {
-    const maxRenderDistance = moment().add(1, 'year');
     const [nextDisabled, setNextDisabled] = useState(moment(currDisplayDate).isSameOrAfter(maxRenderDistance));
     
     function changeDate(offset: number, unit: string): void {

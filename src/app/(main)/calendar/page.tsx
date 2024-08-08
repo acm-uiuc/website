@@ -4,9 +4,9 @@ import moment from 'moment-timezone'
 import EventDetail, { CalendarEventDetailProps } from '@/components/CalendarEventDetail/CalendarEventDetail';
 import {useEffect, useState} from 'react';
 import CalendarControls from '@/components/CalendarControls';
-import { OrganizationList } from '@/components/LazyImage';
 import { View, Views } from 'react-big-calendar';
 import { transformApiDates } from '@/utils/dateutils';
+import { OrganizationList } from '@/components/LazyImage';
 
 const defaultEvent: CalendarEventDetailProps = {
   description: "N/A",
@@ -19,6 +19,7 @@ const Calendar = () => {
   const [filter, setFilter] = useState(''); // Added filter state
   const [hostFilter, setHostFilter] = useState('');
   const [allEvents, setAllEvents] = useState<IEvent[] | null>(null)
+  const [validOrganizations, setValidOrganizations] = useState<string[]>(OrganizationList)
 
   useEffect(() => {
     const baseurl = process.env.NEXT_PUBLIC_EVENTS_API_BASE_URL;
@@ -26,11 +27,31 @@ const Calendar = () => {
       return setAllEvents([]);
     }
     async function fetcher() {
+      const urls = [
+        `${baseurl}/api/v1/events`,
+        `${baseurl}/api/v1/organizations`
+      ];
+    
       try {
-        const response = await fetch(`${baseurl}/api/v1/events`);
-        setAllEvents(transformApiDates(await response.json() as IEvent[]));
-      } catch (err: any) {
-        return setAllEvents([]);
+        const [eventsResponse, organizationsResponse] = await Promise.allSettled(urls.map(url => fetch(url)));
+        if (eventsResponse.status === 'fulfilled') {
+          const eventsData = await eventsResponse.value.json();
+          setAllEvents(transformApiDates(eventsData as IEvent[]));
+        } else {
+          setAllEvents([]); // Handle error for events fetch
+        }
+    
+        // Handle organizations response
+        if (organizationsResponse.status === 'fulfilled') {
+          const organizationsData = await organizationsResponse.value.json();
+          setValidOrganizations(organizationsData);
+        } else {
+          setValidOrganizations(OrganizationList); 
+        }
+      } catch (err) {
+        console.error("Error in processing fetch results:", err);
+        setAllEvents([]); // Fallback error handling for critical failure
+        setValidOrganizations(OrganizationList);
       }
     }
     fetcher();
@@ -53,7 +74,7 @@ const Calendar = () => {
             className="border-2 border-gray-300 rounded-md mr-2 px-2" // Styling for the dropdown
             >
             <option value="">Filter by host</option>
-            {OrganizationList.map((org) => (
+            {validOrganizations.map((org) => (
               <option key={org} value={org}>{org}</option>
             ))}
           </select>

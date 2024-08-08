@@ -1,9 +1,11 @@
 import { Button, ButtonGroup, Dropdown, DropdownItem, DropdownTrigger, DropdownMenu, } from "@nextui-org/react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-import moment from 'moment-timezone'
+import moment, { max } from 'moment-timezone'
 import { momentLocalizer, View, Views } from 'react-big-calendar'
 import {Unit} from 'date-arithmetic'
+import { useEffect, useState } from "react";
+import next from "next";
 
 interface CalendarControlProps {
   currDisplayDate: Date,
@@ -18,12 +20,17 @@ function capitalizeFirstLetter(string: string) {
 
 const localizer = momentLocalizer(moment);
 export default function CalendarControls({currDisplayDate, updateDisplayDate, currView, updateCurrView} : CalendarControlProps) {
-
+    const maxRenderDistance = moment().add(1, 'year');
+    const [nextDisabled, setNextDisabled] = useState(moment(currDisplayDate).isSameOrAfter(maxRenderDistance));
+    
     function changeDate(offset: number, unit: string): void {
       if (unit == Views.AGENDA) {
         unit = Views.MONTH;
       }
-      updateDisplayDate(localizer.add(currDisplayDate, offset, unit as Unit))
+      const candidateDate = localizer.add(currDisplayDate, offset, unit as Unit)
+      const clamping = candidateDate > maxRenderDistance.toDate();
+      setNextDisabled(clamping);
+      updateDisplayDate(clamping ? maxRenderDistance.toDate() : candidateDate);
     }
 
     function resetDate(): void {
@@ -36,7 +43,6 @@ export default function CalendarControls({currDisplayDate, updateDisplayDate, cu
     function getCurrentDate(currDate: Date): string {
       return currDate.toLocaleString('en-US', { month: 'short', day: 'numeric' });
     }
-
     return (
     <>
     <div className="grid lg:grid-cols-12 grid-cols-8 w-full">
@@ -47,7 +53,7 @@ export default function CalendarControls({currDisplayDate, updateDisplayDate, cu
           <Button onPress={()=> {resetDate()}} variant="bordered" className="border-surface-000 border-1 bg-primary text-white hover:cursor-pointer">Today</Button>
           <ButtonGroup>
               <Button isIconOnly onPress={() => {changeDate(-1, currView)}} variant="bordered" className="border-surface-000 border-1 bg-primary text-white hover:cursor-pointer "><FaArrowLeft /></Button>
-              <Button isIconOnly onPress={() => {changeDate(1, currView)}} variant="bordered" className="border-surface-000 border-1 bg-primary text-white hover:cursor-pointer" ><FaArrowRight /></Button>
+              <Button disabled={nextDisabled} isIconOnly onPress={() => {changeDate(1, currView)}} variant="bordered" className="border-surface-000 border-1 bg-primary text-white hover:cursor-pointer" ><FaArrowRight /></Button>
           </ButtonGroup>
           <div className="hidden lg:block">
             <Dropdown>

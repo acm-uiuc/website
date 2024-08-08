@@ -8,6 +8,7 @@ import { CalendarEventDetailProps } from '@/components/CalendarEventDetail/Calen
 import { View, NavigateAction } from 'react-big-calendar';
 import { Organization } from '../LazyImage';
 import { Skeleton } from '@nextui-org/react';
+import { howManyUnitInYear, repeatMapping, validRepeats } from '@/utils/dateutils';
 
 export type Frequency = 'weekly' | 'biweekly';
 
@@ -25,6 +26,7 @@ export interface IEvent {
     dateLink?: string;
     description: string;
     repeats?: Frequency;
+    repeatEnds?: string;
     paidEventId?: string;
     host?: Organization;
     featured?: boolean;
@@ -87,18 +89,21 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
           (hostFilter ? event.host?.toLowerCase() === hostFilter.toLowerCase() : true)
         );
         // Convert the events to the format required by react-big-calendar
-        const formattedEvents: CalendarEvent[] = filteredEvents.flatMap(event => {
-            // Repeat the event for a year out
-            if (event.repeats === 'weekly' || event.repeats === 'biweekly') {
-                const repeatFrequency = event.repeats === 'weekly' ? 1 : 2;
-                return Array.from({ length: 52 / repeatFrequency }, (_, i) => {
-                    const newStart = moment(event.start).add(i * repeatFrequency, 'weeks').toDate();
-                    const newEnd = event.end ? moment(event.end).add(i * repeatFrequency, 'weeks').toDate() : newStart;
-
+        const formattedEvents: (CalendarEvent | null)[] = filteredEvents.flatMap(event => {
+            // Repeat the event for a year out or until it ends, whichever comes first
+            if (event.repeats && validRepeats.includes(event.repeats)) {
+                const {increment, unit} = repeatMapping[event.repeats];
+                const repeatEnd = moment(event.repeatEnds) || moment.max();
+                return Array.from({ length: howManyUnitInYear({increment, unit}) / increment }, (_, i) => {
+                    const newStart = moment(event.start).add(i * increment, unit);
+                    const newEnd = event.end ? moment(event.end).add(i * increment, unit) : newStart;
+                    if (newEnd.isAfter(repeatEnd)) {
+                        return null;
+                    }
                     return {
                         ...event,
-                        start: newStart,
-                        end: newEnd,
+                        start: newStart.toDate(),
+                        end: newEnd.toDate(),
                     }
                 })
             }
@@ -109,7 +114,8 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
                 end: event.end ? moment(event.end).toDate() : moment(event.start).toDate(),
             }];
         });
-        setFilteredEvents(formattedEvents);
+        const filteredFormattedEvents: CalendarEvent[] = formattedEvents.filter((event) => event !== null)
+        setFilteredEvents(filteredFormattedEvents);
     }, [events, filter, hostFilter]);
     return (
         <Skeleton isLoaded={calendarHeight != 0 || !events} style={{width: '100%', minHeight: '70vh'}} className="rounded-lg">

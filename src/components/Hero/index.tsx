@@ -16,7 +16,7 @@ import headerWebp from './header.webp';
 import { IEvent } from '@/components/Events/events';
 import { useEffect, useState } from 'react';
 import { Skeleton } from '@nextui-org/react';
-import { transformApiDates } from '@/utils/dateutils';
+import { transformApiDates, validRepeats, repeatMapping } from '@/utils/dateutils';
 
 function toHumanDate(date: string) {
   return moment(date).tz(moment.tz.guess()).format("MMMM Do, h:mm A z");
@@ -48,7 +48,7 @@ export default function Hero() {
       console.log(typedEventList)
       const now = moment();
       const eventsAfterNow = typedEventList.map((event) => {
-        if (event.repeats && ['weekly','biweekly'].includes(event.repeats)) {
+        if (event.repeats && validRepeats.includes(event.repeats)) {
           const start = moment(event.start);
           let repeatEnds;
           try {
@@ -57,14 +57,16 @@ export default function Hero() {
             repeatEnds = moment.max();
           }
           const end = event.end ? moment(event.end) : null;
-          const increment = {'weekly': 1, 'biweekly': 2}[event.repeats];
+          const comparisonEnd = end || moment(event.end).add(1, 'hour'); // used for comparing against repeat as a "fake end time"
+          const {increment, unit} = repeatMapping[event.repeats];
+
           while (start.isBefore(now)) { // find the most recent iteration
-            if (repeatEnds.isBefore(start)) { // skip
-              return;
+            if (repeatEnds.isSameOrBefore(comparisonEnd)) { // skip
+              return null;
             }
-            start.add(increment, 'weeks');
+            start.add(increment, unit);
             if (end) {
-              end.add(increment, 'weeks');
+              end.add(increment, unit);
             }
           }
           return {
@@ -77,7 +79,7 @@ export default function Hero() {
       });
 
       const definedEvents = eventsAfterNow.filter((event) => {
-        return (event != undefined);
+        return (event !== null);
       });
       
       const sortedEvents = definedEvents.sort((a, b) => {

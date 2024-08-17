@@ -17,6 +17,7 @@ import webp_sigecomlogo from '@/stories/assets/sigecomlogo.png.webp';
 import webp_sigplanlogo from '@/stories/assets/sigplanlogo.png.webp';
 import webp_sigpolicylogo from '@/stories/assets/sigpolicylogo.png.webp';
 import webp_sigarchlogo from '@/stories/assets/sigarchlogo.png.webp';
+import webp_sigroboticslogo from '@/stories/assets/sigroboticslogo.png.webp'
 
 // fallback to png if the browser doesn't support webp images.
 import sigpwnylogo from '@/stories/assets/sigpwnylogo.png';
@@ -35,6 +36,7 @@ import sigecomlogo from '@/stories/assets/sigecomlogo.png';
 import sigplanlogo from '@/stories/assets/sigplanlogo.png';
 import sigpolicylogo from '@/stories/assets/sigpolicylogo.png';
 import sigarchlogo from '@/stories/assets/sigarchlogo.png';
+import sigroboticslogo from '@/stories/assets/sigroboticslogo.png'
 
 import acmlogo from '@/stories/assets/acm-square-blue.png';
 
@@ -94,6 +96,7 @@ const imageRenderers : {
   'SIGPLAN': (className) => <LazyImage img={sigplanlogo} imgwebp={webp_sigplanlogo} title="SIGPLAN" className={className} />,
   'SIGPolicy': (className) => <LazyImage img={sigpolicylogo} imgwebp={webp_sigpolicylogo} title="SIGPolicy" className={className} />,
   'SIGARCH': (className) => <LazyImage img={sigarchlogo} imgwebp={webp_sigarchlogo} title="SIGARCH" className={className} />,
+  'SIGRobotics': (className) => <LazyImage img={sigroboticslogo} imgwebp={webp_sigroboticslogo} title="SIGRobotics" className={className} />,
   'ACM': (className) => <LazyImage img={acmlogo} title="ACM" className={className} />,
 }
 

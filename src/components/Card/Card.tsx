@@ -2,28 +2,17 @@ import { getOrganizationImage, LazyImageProps, Organization } from '@/components
 import { IEvent } from '../Events/events';
 import { getEstimatedOccurrencesInYear } from '@/utils/dateutils';
 import { BsArrowRepeat } from 'react-icons/bs';
+import { IOrgData } from '@/sections/home/SigData';
 
-interface CardProps {
-  title: Organization
-  description: string
-  link1?: string
-  link2: string
-  link3?: string
-  linktext1?: string
-  linktext2: string
-  linktext3?: string
+
+interface CardProps extends IOrgData {
   events: IEvent[]
 };
 
 export default function Card({ 
   title,
   description,
-  link1,
-  link2,
-  link3,
-  linktext1,
-  linktext2,
-  linktext3,
+  links,
   events
 }: CardProps) {
   // Calculate number of events in next year
@@ -44,41 +33,22 @@ export default function Card({
         {eventsPerWeek > 0 && 
         <div className="flex pt-1 flex-row items-center gap-2 text-base">
           <BsArrowRepeat className="shrink-0" />
-          <span>~{eventsPerWeek} meetings / week</span>
+          <span>Meets ~{eventsPerWeek} meetings / week</span>
         </div>
         }
       </div>
       <div className="flex flex-row w-full justify-between items-end">
-        {link1 && linktext1 ? (
+        {links.map(({ link, text }) => (
           <a
+            key={text}
             className="font-medium p-1 rounded-md text-primary hover:bg-surface-100 transition-all"
-            href={link1}
+            href={link}
             target="_blank"
             rel="noopener noreferrer"
           >
-            {linktext1}
+            {text}
           </a>
-        ) : <div />}
-        {link2 && linktext2 ? (
-          <a
-            className="font-medium p-1 rounded-md text-primary hover:bg-surface-100 transition-all"
-            href={link2}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {linktext2}
-          </a>
-        ) : null}
-        {link3 && linktext3 ? (
-          <a
-            className="font-medium p-1 rounded-md text-primary hover:bg-surface-100 transition-all"
-            href={link3}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {linktext3}
-          </a>
-        ) : null}
+        ))}
       </div>
     </div>
   );

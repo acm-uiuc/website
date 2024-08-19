@@ -1,3 +1,4 @@
+import { maxRenderDistance } from "@/components/CalendarControls";
 import { IEvent } from "@/components/Events/events";
 import moment from "moment-timezone";
 
@@ -36,6 +37,53 @@ export const getRepeatString = (repeats: ValidRepeat) => {
     default:
       return '';
   }
+}
+
+/**
+ * Moves events that repeat to the next occurrence after the current time
+ * Afterwards, filters out events that have already ended and sorts the events by start time
+ */
+export const getEventsAfter = (events: IEvent[], now: moment.Moment): IEvent[] => {
+  const eventsAfterNow = events.map((event) => {
+    if (event.repeats && validRepeats.includes(event.repeats)) {
+      const start = moment(event.start);
+      let repeatEnds;
+      try {
+        repeatEnds = moment(event.repeatEnds) || maxRenderDistance
+      } catch {
+        repeatEnds = maxRenderDistance;
+      }
+      const end = event.end ? moment(event.end) : null;
+      const comparisonEnd = end || moment(event.end).add(1, 'hour'); // used for comparing against repeat as a "fake end time"
+      const {increment, unit} = repeatMapping[event.repeats];
+
+      while (start.isBefore(now)) { // find the most recent iteration
+        if (repeatEnds.isSameOrBefore(comparisonEnd)) { // skip
+          return null;
+        }
+        start.add(increment, unit);
+        if (end) {
+          end.add(increment, unit);
+        }
+      }
+      return {
+        ...event,
+        start: start.toISOString(),
+        end: end ? end.toISOString() : undefined,
+      };
+    }
+    return event;
+  });
+
+  const definedEvents = eventsAfterNow.filter((event) => {
+    return (event !== null);
+  });
+
+  const sortedEvents = definedEvents.sort((a, b) => {
+    return (moment(a.start).unix() - moment(b.start).unix());
+  });
+
+  return sortedEvents;
 }
 
 export const getEstimatedOccurrencesInYear = (repeats: ValidRepeat): number => {

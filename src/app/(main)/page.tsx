@@ -9,75 +9,24 @@ import Sigscard from '@/sections/home/Sigscard';
 import { useEffect, useState } from 'react';
 import { IEvent } from '@/components/Events/events';
 import moment from 'moment';
-import { repeatMapping, transformApiDates, validRepeats } from '@/utils/dateutils';
-import { maxRenderDistance } from '@/components/CalendarControls';
+import { getEventsAfter } from '@/utils/dateutils';
 import { AllSigData } from '@/sections/home/SigData';
+import { fetchUpcomingEvents } from '@/utils/api';
 
 export default function Home() {
     const [upcomingEvents, setUpcomingEvents] = useState<IEvent[]>([]);
     const [eventsLoading, setEventsLoading] = useState(true);
     // If event repeats, get the first date after current time
     useEffect(() => {
-      const doStuff = async () => {
+      const loadEvents = async () => {
         setEventsLoading(true);
-        const baseurl = process.env.NEXT_PUBLIC_EVENTS_API_BASE_URL;
-        if (!baseurl) {
-          return;
-        }
-        async function fetcher() {
-          try {
-            const response = await fetch(`${baseurl}/api/v1/events?upcomingOnly=true`);
-            const rval = transformApiDates((await response.json()) as IEvent[]);
-            return rval;
-          } catch (err: any) {
-            return [];
-          }
-        }
-        const typedEventList = await fetcher();
+        const upcomingEvents = await fetchUpcomingEvents();
         const now = moment();
-        const eventsAfterNow = typedEventList.map((event) => {
-          if (event.repeats && validRepeats.includes(event.repeats)) {
-            const start = moment(event.start);
-            let repeatEnds;
-            try {
-              repeatEnds = moment(event.repeatEnds) || maxRenderDistance
-            } catch {
-              repeatEnds = maxRenderDistance;
-            }
-            const end = event.end ? moment(event.end) : null;
-            const comparisonEnd = end || moment(event.end).add(1, 'hour'); // used for comparing against repeat as a "fake end time"
-            const {increment, unit} = repeatMapping[event.repeats];
-  
-            while (start.isBefore(now)) { // find the most recent iteration
-              if (repeatEnds.isSameOrBefore(comparisonEnd)) { // skip
-                return null;
-              }
-              start.add(increment, unit);
-              if (end) {
-                end.add(increment, unit);
-              }
-            }
-            return {
-              ...event,
-              start: start.toISOString(),
-              end: end ? end.toISOString() : undefined,
-            };
-          }
-          return event;
-        });
-  
-        const definedEvents = eventsAfterNow.filter((event) => {
-          return (event !== null);
-        });
-        
-        const sortedEvents = definedEvents.sort((a, b) => {
-          return (moment(a.start).unix() - moment(b.start).unix());
-        });
-
-        setUpcomingEvents(sortedEvents);
+        const eventsAfterNow = getEventsAfter(upcomingEvents, now);
+        setUpcomingEvents(eventsAfterNow);
         setEventsLoading(false);
     };
-    doStuff();
+    loadEvents();
     }, []);
   return (
     <>

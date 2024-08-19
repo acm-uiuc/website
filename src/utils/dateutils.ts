@@ -27,6 +27,34 @@ export const repeatMapping: RepeatMapping = {
   'yearly': {increment: 1, unit: 'year'},
 }
 
+export const getRepeatString = (repeats: ValidRepeat) => {
+  switch (repeats) {
+    case 'weekly':
+      return 'Every week';
+    case 'biweekly':
+      return 'Biweekly';
+    default:
+      return '';
+  }
+}
+
+export const getEstimatedOccurrencesInYear = (repeats: ValidRepeat): number => {
+  switch (repeats) {
+    case 'weekly':
+      return 52;
+    case 'biweekly':
+      return 26;
+    case 'monthly':
+      return 12;
+    case 'semianually':
+      return 2;
+    case 'yearly':
+      return 1;
+    default:
+      return 0;
+  }
+}
+
 export const howManyUnitInYear = (repeatMapping: RepeatMappingEntry): number => {
   switch (repeatMapping.unit) {
     case 'day':

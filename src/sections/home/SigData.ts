@@ -150,4 +150,4 @@ export const OrganizationDataMapping : Record<Organization, IOrgData> = {
 
 export const getOrganizationInfo = (organization: Organization) => OrganizationDataMapping[organization];
 
-export const AllSigData = SIGList.filter(item => item in OrganizationDataMapping).map((sig) => OrganizationDataMapping[sig]);
+export const AllSigData: IOrgData[] = SIGList.filter(item => item in OrganizationDataMapping).map((sig) => OrganizationDataMapping[sig]);

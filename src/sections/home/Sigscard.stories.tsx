@@ -1,6 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react"
 import Sigscard from "./Sigscard"
 import * as CardStories from '../../stories/Card.stories'
+import { IOrgData } from "./SigData";
 
 export default {
     title: 'Sections/Sigscard',
@@ -11,11 +12,13 @@ export default {
 } as ComponentMeta<typeof Sigscard>;
 
 
-const Template: ComponentStory<typeof Sigscard> = (args) => <Sigscard />;
+const Template: ComponentStory<typeof Sigscard> = (args) => <Sigscard {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
     sigs: [
-        {...CardStories.SIGPwny.args}
-    ]
+        {...CardStories.SIGPwny.args as IOrgData}
+    ],
+    eventsLoading: false,
+    upcomingEvents: []
 }

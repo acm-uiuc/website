@@ -34,17 +34,17 @@ export default function Card({
     return 1;
   }).reduce((a, b) => a + b, 0);
   
-  const eventsPerMonth = Math.round(eventTotal / 12);
+  const eventsPerWeek = Math.round(eventTotal / 52);
   return (
     <div className="flex flex-col p-4 items-center rounded-3xl border-2 border-surface-150 hover:bg-surface-000 hover:border-transparent hover:shadow-xl hover:-translate-y-[1px] transition-all">
       {getOrganizationImage(title)}
       <div className="flex flex-col grow mb-4">
         <h2 className="text-center">{title}</h2>
         <p className="leading-6">{description}</p>
-        {eventsPerMonth > 0 && 
+        {eventsPerWeek > 0 && 
         <div className="flex pt-1 flex-row items-center gap-2 text-base">
           <BsArrowRepeat className="shrink-0" />
-          <span>~{eventsPerMonth} meetings / month</span>
+          <span>~{eventsPerWeek} meetings / week</span>
         </div>
         }
       </div>

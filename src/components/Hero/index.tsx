@@ -4,6 +4,7 @@ import moment from 'moment-timezone';
 import {
   FaBell,
   FaCalendar,
+  FaCalendarPlus,
   FaDiscord,
   FaInstagram
 } from 'react-icons/fa';
@@ -15,7 +16,8 @@ import headerJpg from './header.jpg';
 import headerWebp from './header.webp';
 import { IEvent } from '@/components/Events/events';
 import { useEffect, useState } from 'react';
-import { Skeleton } from '@nextui-org/react';
+import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Skeleton, useDisclosure } from '@nextui-org/react';
+import config from '../../config.json'
 
 function toHumanDate(date: string) {
   return moment(date).tz(moment.tz.guess()).format("MMMM Do, h:mm A z");
@@ -77,6 +79,13 @@ export default function Hero({ upcomingEvents, eventsLoading }: HeroProps) {
       />
     </Skeleton> : <div className='text-white'>No featured events coming up</div>
   )
+  const {isOpen, onOpen, onOpenChange} = useDisclosure();
+  const [selectedCalPlatform, setCalPlatform] = useState<"google"|"ical"|null>(null);
+  const calPlatformKeyMapping = {
+    "google": "Google Calendar",
+    "ical": "Other"
+  }
+
   return (
     <div className="hero-background">
       <section className="container">
@@ -142,7 +151,7 @@ export default function Hero({ upcomingEvents, eventsLoading }: HeroProps) {
           <h3 className='text-white'>Featured Events</h3>
           {featuredEventsHTML}
 
-          <div className={`flex flex-row justify-start pt-4`}>
+          <div className={`flex flex-row justify-start pt-4`} style={{gap: '1vw'}}>
           <a
             className="inline-flex flex-row grow-0 items-center gap-2 px-4 py-2 text-white rounded-2xl bg-primary hover:bg-secondary transition-all"
             href="/calendar"
@@ -150,9 +159,56 @@ export default function Hero({ upcomingEvents, eventsLoading }: HeroProps) {
             <FaCalendar className="shrink-0" />
             <span>View all events</span>
           </a>
+          <a
+            className="inline-flex flex-row grow-0 items-center gap-2 px-4 py-2 text-white rounded-2xl bg-primary hover:bg-secondary transition-all"
+            onClick={onOpen}
+          >
+            <FaCalendarPlus className="shrink-0" />
+            <span>Subscribe to calendar</span>
+          </a>
           </div>
         </div>
       </section>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="lg">
+      <ModalContent>
+        {(onClose) => (
+          <>
+            <ModalHeader className="flex flex-col gap-1">Subscribe to ACM@UIUC's Events Calendar</ModalHeader>
+            <ModalBody>
+              <p>Adding this calendar will display ACM@UIUC's major events on your calendar. Select your preferred calendar platform to continue.</p>
+              {selectedCalPlatform === 'ical' && <strong>If your calendar software supports it, set the calendar refresh interval to "Every day" to ensure your calendar is up to date.</strong>}
+              <Dropdown>
+                <DropdownTrigger>
+                  <Button>
+                    {selectedCalPlatform ? `${calPlatformKeyMapping[selectedCalPlatform]}` : 'Select an option'}            
+                  </Button>
+                </DropdownTrigger>
+                <DropdownMenu onAction={(key) => setCalPlatform(key as any)}>
+                  {/* Dropdown Items */}
+                  <DropdownItem key="google">Google Calendar</DropdownItem>
+                  <DropdownItem key="ical">Other</DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+            </ModalBody>
+            <ModalFooter>
+              <Button color="danger" variant="light" onPress={onClose}>
+                Close
+              </Button>
+              <Button color="primary" disabled={!selectedCalPlatform} onPress={() => {
+                if (!selectedCalPlatform) {
+                  return;
+                }
+                const url = config['addCalendarLinks']['majorEvents'][selectedCalPlatform];
+                window.open(url, '_blank')?.focus();
+              }}>
+                Subscribe
+              </Button>
+            </ModalFooter>
+          </>
+        )}
+      </ModalContent>
+    </Modal>
     </div>
+
   );
 };

@@ -12,26 +12,44 @@ export const SIGPwny = Template.bind({});
 SIGPwny.args = { 
     title: "SIGPwny",
     description: "A friendly but elite club focused on cybersecurity. They host weekly learning meetings and do CTFs and cutting-edge cybersecurity research.",
-    link1: "https://sigpwny.com/",
-    link2: "https://sigpwny.com/discord",
-    linktext1: "Website",
-    linktext2: "Discord"
+    links: [
+        {
+            link: "https://sigpwny.com/",
+            text: "Website"
+        },
+        {
+            link: "https://sigpwny.com/discord",
+            text: "Discord"
+        }
+    ]
 }
 export const SIGAIDA = Template.bind({});
 SIGAIDA.args = { 
     title: "SIGAIDA",
     description: "We are the premier data science organization at the University of Illinois.",
-    link1: "https://aida.acm.illinois.edu/",
-    link2: "https://discord.gg/GEMh8umbe7",
-    linktext1: "Website",
-    linktext2: "Discord"
+    links: [
+        {
+            link: "https://aida.acm.illinois.edu/",
+            text: "Website"
+        },
+        {
+            link: "https://discord.gg/GEMh8umbe7",
+            text: "Discord"
+        }
+    ]
 }
 export const SIGMobile = Template.bind({});
 SIGMobile.args = { 
     title: "SIGMobile",
     description: "Special Interest Group for Mobile Development.",
-    link1: "http://github.com/SIGMobileUIUC",
-    link2: "https://discord.gg/WN7pRp5PmW",
-    linktext1: "Github",
-    linktext2: "Discord"
+    links: [
+        {
+            link: "http://github.com/SIGMobileUIUC",
+            text: "Github"
+        },
+        {
+            link: "https://discord.gg/WN7pRp5PmW",
+            text: "Discord"
+        }
+    ]
 }

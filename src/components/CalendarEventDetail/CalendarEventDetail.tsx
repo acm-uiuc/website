@@ -72,33 +72,16 @@ function CalendarEventDetail({
                         )}
                         <div className='flex flex-row'>
 
-                        {info && info.link1 && info.linktext1  && (
+                        {info?.links.map(({ link, text }) => (
                             <a
+                            key={text}
                             className="font-medium p-1 rounded-md text-primary hover:bg-surface-100 transition-all"
-                            href={info.link1}
+                            href={link}
                             target="_blank"
                             rel="noopener noreferrer">
-                            {info.linktext1}
+                            {text}
                         </a>)
-                        }
-                        {info && info.link2 && info.linktext2  && (
-                            <a
-                            className="font-medium p-1 rounded-md text-primary hover:bg-surface-100 transition-all"
-                            href={info.link2}
-                            target="_blank"
-                            rel="noopener noreferrer">
-                            {info.linktext2}
-                        </a>)
-                        }
-                        {info && info.link3 && info.linktext3  && (
-                            <a
-                            className="font-medium p-1 rounded-md text-primary hover:bg-surface-100 transition-all"
-                            href={info.link3}
-                            target="_blank"
-                            rel="noopener noreferrer">
-                            {info.linktext3}
-                        </a>)
-                        }
+                        )}
                         </div>
                         </div>
                         <p>{description}</p>

@@ -16,93 +16,38 @@ import headerWebp from './header.webp';
 import { IEvent } from '@/components/Events/events';
 import { useEffect, useState } from 'react';
 import { Skeleton } from '@nextui-org/react';
-import { transformApiDates, validRepeats, repeatMapping } from '@/utils/dateutils';
-import { maxRenderDistance } from '../CalendarControls';
 
 function toHumanDate(date: string) {
   return moment(date).tz(moment.tz.guess()).format("MMMM Do, h:mm A z");
 }
 
-export default function Hero() {
-  const [upcomingEvents, setUpcomingEvents] = useState<IEvent[]>([]);
+interface HeroProps {
+  upcomingEvents: IEvent[];
+  eventsLoading: boolean;
+}
+
+export default function Hero({ upcomingEvents, eventsLoading }: HeroProps) {
+  const [featuredEvents, setFeaturedEvents] = useState<IEvent[]>([]);
   const [numEvents, setNumEvents] = useState(3);
-  const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
-    // If event repeats, get the first date after current time
-    const doStuff = async () => {
-      setIsLoading(true);
-      const baseurl = process.env.NEXT_PUBLIC_EVENTS_API_BASE_URL;
-      if (!baseurl) {
-        return;
-      }
-      async function fetcher() {
-        try {
-          const response = await fetch(`${baseurl}/api/v1/events?upcomingOnly=true`);
-          const rval = transformApiDates((await response.json()) as IEvent[]);
-          return rval;
-        } catch (err: any) {
-          return [];
-        }
-      }
-      const typedEventList = await fetcher();
-      const now = moment();
-      const eventsAfterNow = typedEventList.map((event) => {
-        if (event.repeats && validRepeats.includes(event.repeats)) {
-          const start = moment(event.start);
-          let repeatEnds;
-          try {
-            repeatEnds = moment(event.repeatEnds) || maxRenderDistance
-          } catch {
-            repeatEnds = maxRenderDistance;
-          }
-          const end = event.end ? moment(event.end) : null;
-          const comparisonEnd = end || moment(event.end).add(1, 'hour'); // used for comparing against repeat as a "fake end time"
-          const {increment, unit} = repeatMapping[event.repeats];
+    if (eventsLoading) return;
 
-          while (start.isBefore(now)) { // find the most recent iteration
-            if (repeatEnds.isSameOrBefore(comparisonEnd)) { // skip
-              return null;
-            }
-            start.add(increment, unit);
-            if (end) {
-              end.add(increment, unit);
-            }
-          }
-          return {
-            ...event,
-            start: start.toISOString(),
-            end: end ? end.toISOString() : undefined,
-          };
-        }
-        return event;
-      });
+    // Filter out events that have already passed or are not featured
+    const now = moment();
+    const filteredEvents = upcomingEvents.filter((event) => {
+      return moment(event.start).isAfter(now) && event.featured !== false;
+    });
 
-      const definedEvents = eventsAfterNow.filter((event) => {
-        return (event !== null);
-      });
-      
-      const sortedEvents = definedEvents.sort((a, b) => {
-        return (moment(a.start).unix() - moment(b.start).unix());
-      });
+    // Max 3 events
+    const firstFilteredEvents = filteredEvents.slice(0, 3);
+    setFeaturedEvents(firstFilteredEvents);
+    setNumEvents(Math.min(firstFilteredEvents.length, 3));
+  }, [upcomingEvents, eventsLoading]);
 
-      // Filter out events that have already passed or are not featured
-      const filteredEvents = sortedEvents.filter((event) => {
-        return moment(event.start).isAfter(now) && event.featured !== false;
-      });
-
-      // Max 3 events
-      const firstFilteredEvents = filteredEvents.slice(0, 3);
-      setUpcomingEvents(firstFilteredEvents);
-      setNumEvents(Math.min(firstFilteredEvents.length, 3));
-      setIsLoading(false);
-    }
-    doStuff();
-  }, []);
-
-  const upcomingEventsHTML = (upcomingEvents.length > 0) ? (
+  const featuredEventsHTML = (featuredEvents.length > 0) ? (
   <div className={`pt-1 grid gap-4 grid-rows-1 md:grid-cols-${numEvents} lg:grid-cols-${numEvents}`}>
-    {upcomingEvents.map((object, i) => {
+    {featuredEvents.map((object, i) => {
       return (
         <EventCard
         key={i}
@@ -119,7 +64,7 @@ export default function Hero() {
     })}
   </div>
   ) : (
-    isLoading ? <Skeleton className="col-span-1 p-4 rounded-3xl bg-surface-050 hover:shadow-lg hover:-translate-y-1 transition-all">
+    eventsLoading ? <Skeleton className="col-span-1 p-4 rounded-3xl bg-surface-050 hover:shadow-lg hover:-translate-y-1 transition-all">
       <EventCard
         key={0}
         title={""}
@@ -195,7 +140,7 @@ export default function Hero() {
         </div>
         <div className={`pb-20`}>
           <h3 className='text-white'>Featured Events</h3>
-          {upcomingEventsHTML}
+          {featuredEventsHTML}
 
           <div className={`flex flex-row justify-start pt-4`}>
           <a

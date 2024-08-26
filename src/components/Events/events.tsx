@@ -8,10 +8,9 @@ import { CalendarEventDetailProps } from '@/components/CalendarEventDetail/Calen
 import { View, NavigateAction } from 'react-big-calendar';
 import { Organization } from '../LazyImage';
 import { Skeleton } from '@nextui-org/react';
-import { howManyUnitInYear, repeatMapping, RepeatMappingEntry, validRepeats } from '@/utils/dateutils';
+import { howManyUnitInYear, repeatMapping, RepeatMappingEntry, ValidRepeat, validRepeats } from '@/utils/dateutils';
 import { maxRenderDistance } from '../CalendarControls';
 
-export type Frequency = 'weekly' | 'biweekly';
 
 /*
     The type definition for a JSON event.
@@ -26,7 +25,7 @@ export interface IEvent {
     locationLink?: string;
     dateLink?: string;
     description: string;
-    repeats?: Frequency;
+    repeats?: ValidRepeat;
     repeatEnds?: string;
     paidEventId?: string;
     host?: Organization;

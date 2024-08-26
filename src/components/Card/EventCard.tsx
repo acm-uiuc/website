@@ -4,8 +4,8 @@ import {
   FaSignInAlt,
 } from 'react-icons/fa';
 import { BsArrowRepeat } from 'react-icons/bs';
-import { Frequency } from '@/components/Events/events';
 import { getOrganizationImage, Organization } from '@/components/LazyImage';
+import { getRepeatString, ValidRepeat } from '@/utils/dateutils';
 interface EventProps {
   location: string;
   locationLink?: string;
@@ -13,7 +13,7 @@ interface EventProps {
   dateLink?: string;
   title: string;
   description: string;
-  repeats?: Frequency;
+  repeats?: ValidRepeat;
   paidEventId?: string;
   host?: Organization
 };
@@ -32,17 +32,6 @@ export function EventDetail({ href, children }: { href?: string, children: React
     );
   }
   return text;
-}
-
-const getRepeatString = (repeats: string) => {
-  switch (repeats) {
-    case 'weekly':
-      return 'Every week';
-    case 'biweekly':
-      return 'Biweekly';
-    default:
-      return '';
-  }
 }
 
 export default function EventCard({

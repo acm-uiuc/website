@@ -159,13 +159,13 @@ export default function Hero({ upcomingEvents, eventsLoading }: HeroProps) {
             <FaCalendar className="shrink-0" />
             <span>View all events</span>
           </a>
-          <a
+          <button
             className="inline-flex flex-row grow-0 items-center gap-2 px-4 py-2 text-white rounded-2xl bg-primary hover:bg-secondary transition-all"
             onClick={onOpen}
           >
             <FaCalendarPlus className="shrink-0" />
             <span>Subscribe to calendar</span>
-          </a>
+          </button>
           </div>
         </div>
       </section>

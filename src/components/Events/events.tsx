@@ -59,11 +59,12 @@ export interface EventsProps {
 const getEventColor = (event: CalendarEvent) => {
     if (SIGList.includes(event.host as SIG)) {
         if (event.repeats) {
-          return '#2FCC71'; // repeating SIG events
+          return '#3e486f'; // repeating SIG events
         } 
         return '#F23F43'; // non-repeating SIG events
     } else {
-        return '#4577f8'; // ACM events
+        return '#9D00FF'; // ACM events
+        // return '#4577f8'; // ACM events
     }
 }
 

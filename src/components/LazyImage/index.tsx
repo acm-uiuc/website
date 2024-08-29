@@ -77,14 +77,7 @@ export const LazyImage = ({ img, imgwebp, title, className }: LazyImageProps) =>
   </picture>
 }
 
-export const getOrganizationColor = (org: Organization, simple: boolean) => {
-  if (simple) {
-    if (SIGList.includes(org as SIG)) {
-      return '#2FCC71';
-    }
-    return '#4577f8';
-  }
-
+export const getOrganizationColor = (org: Organization) => {
   switch (org) {
     case 'SIGPwny': return '#33cc55';
     case 'SIGCHI': return '#EEAE48';

@@ -6,7 +6,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './CalendarStylesOverride.css';
 import { CalendarEventDetailProps } from '@/components/CalendarEventDetail/CalendarEventDetail';
 import { View, NavigateAction } from 'react-big-calendar';
-import { getOrganizationColor, Organization } from '../LazyImage';
+import { getOrganizationColor, Organization, SIG, SIGList } from '../LazyImage';
 import { Skeleton } from '@nextui-org/react';
 import { howManyUnitInYear, repeatMapping, RepeatMappingEntry, ValidRepeat, validRepeats } from '@/utils/dateutils';
 import { maxRenderDistance } from '../CalendarControls';
@@ -42,6 +42,7 @@ export interface CalendarEvent extends BigCalendarEvent {
     host?: Organization;
     paidEventId?: string;
     id: string;
+    repeats?: ValidRepeat;
 }
 
 export interface EventsProps {
@@ -55,6 +56,16 @@ export interface EventsProps {
   setView: React.Dispatch<React.SetStateAction<View>>;
 }
 
+const getEventColor = (event: CalendarEvent) => {
+    if (SIGList.includes(event.host as SIG)) {
+        if (event.repeats) {
+          return '#2FCC71'; // repeating SIG events
+        } 
+        return '#F23F43'; // non-repeating SIG events
+    } else {
+        return '#4577f8'; // ACM events
+    }
+}
 
 const localizer = momentLocalizer(moment);
 
@@ -205,7 +216,7 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
                 }}
                 style={{ height: calendarHeight }}
                 eventPropGetter={(event, start, end, isSelected) => {
-                    const color = getOrganizationColor(event.host || '', true);
+                    const color = getEventColor(event);
                     const darkerColor = shadeColor(color, -20);
                     return { style: { backgroundColor: isSelected ? darkerColor : color, borderRadius: '0.375rem', 'fontSize': '12px' } } // '#4577F8' } }
                 }}

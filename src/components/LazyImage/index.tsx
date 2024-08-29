@@ -77,6 +77,13 @@ export const LazyImage = ({ img, imgwebp, title, className }: LazyImageProps) =>
   </picture>
 }
 
+export const getOrganizationColor = (org: Organization) => {
+  switch (org) {
+    case 'SIGPwny':return '#33cc55';
+    default: return '#4577f8';
+  }
+}
+
 const imageRenderers : {
   [key in Organization]: (className: string) => ReactElement
 } = {

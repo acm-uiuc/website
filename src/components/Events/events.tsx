@@ -6,7 +6,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './CalendarStylesOverride.css';
 import { CalendarEventDetailProps } from '@/components/CalendarEventDetail/CalendarEventDetail';
 import { View, NavigateAction } from 'react-big-calendar';
-import { Organization } from '../LazyImage';
+import { getOrganizationColor, Organization } from '../LazyImage';
 import { Skeleton } from '@nextui-org/react';
 import { howManyUnitInYear, repeatMapping, RepeatMappingEntry, ValidRepeat, validRepeats } from '@/utils/dateutils';
 import { maxRenderDistance } from '../CalendarControls';
@@ -56,6 +56,31 @@ export interface EventsProps {
 
 const localizer = momentLocalizer(moment);
 
+// https://stackoverflow.com/a/13532993
+function shadeColor(color: string, percent: number) {
+
+    var R = parseInt(color.substring(1,3),16);
+    var G = parseInt(color.substring(3,5),16);
+    var B = parseInt(color.substring(5,7),16);
+
+    R = R * (100 + percent) / 100;
+    G = G * (100 + percent) / 100;
+    B = B * (100 + percent) / 100;
+
+    R = (R<255)?R:255;  
+    G = (G<255)?G:255;  
+    B = (B<255)?B:255;  
+
+    R = Math.round(R)
+    G = Math.round(G)
+    B = Math.round(B)
+
+    var RR = ((R.toString(16).length==1)?"0"+R.toString(16):R.toString(16));
+    var GG = ((G.toString(16).length==1)?"0"+G.toString(16):G.toString(16));
+    var BB = ((B.toString(16).length==1)?"0"+B.toString(16):B.toString(16));
+
+    return "#"+RR+GG+BB;
+}
 
 function createRecurringEvents(event: IEvent, repeatEntry: RepeatMappingEntry, repeatEnd: any) {
     const events = [];
@@ -82,6 +107,7 @@ function createRecurringEvents(event: IEvent, repeatEntry: RepeatMappingEntry, r
 const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate, updateDisplayDate, filter, hostFilter, view, setView }) => {
     const [calendarHeight, setCalendarHeight] = useState(0);
     const [filteredEvents, setFilteredEvents] = useState<CalendarEvent[]>([]);
+    const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
     useEffect(() => {
         setCalendarHeight(window.innerHeight * 0.7);
     }, []);
@@ -98,6 +124,7 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
             paidEventId: event.paidEventId
         };
         updateEventDetails(newEvent);
+        setSelectedEvent(event);
     };
 
     const dummyNav = (newDate: Date, view: View, action: NavigateAction) => { return; }
@@ -137,10 +164,16 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
                 localizer={localizer}
                 events={filteredEvents}
                 onSelectEvent={selectEvent}
+                selected={selectedEvent}
                 view={view}
                 onView={setView}
                 onDrillDown={(e, view) => {updateDisplayDate(e); setView(view);}}
                 style={{ height: calendarHeight }}
+                eventPropGetter={(event, start, end, isSelected) => {
+                    const color = getOrganizationColor(event.host || '');
+                    const darkerColor = shadeColor(color, -20);
+                    return { style: { backgroundColor: isSelected ? darkerColor : color, borderRadius: '0.375rem', 'fontSize': '12px' } } // '#4577F8' } }
+                }}
             />
         </Skeleton>
     );

@@ -33,7 +33,7 @@ export default function Card({
         {eventsPerWeek > 0 && 
         <div className="flex pt-1 flex-row items-center gap-2 text-base">
           <BsArrowRepeat className="shrink-0" />
-          <span>Meets ~{eventsPerWeek} meetings / week</span>
+          <span>Meets ~{eventsPerWeek}x / week</span>
         </div>
         }
       </div>

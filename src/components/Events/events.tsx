@@ -199,10 +199,13 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
                 selected={selectedEvent}
                 view={view}
                 onView={setView}
-                onDrillDown={(e, view) => {updateDisplayDate(e); setView(view);}}
+                onDrillDown={(e, view) => {
+                    updateDisplayDate(e)
+                    setView(view)
+                }}
                 style={{ height: calendarHeight }}
                 eventPropGetter={(event, start, end, isSelected) => {
-                    const color = getOrganizationColor(event.host || '');
+                    const color = getOrganizationColor(event.host || '', true);
                     const darkerColor = shadeColor(color, -20);
                     return { style: { backgroundColor: isSelected ? darkerColor : color, borderRadius: '0.375rem', 'fontSize': '12px' } } // '#4577F8' } }
                 }}

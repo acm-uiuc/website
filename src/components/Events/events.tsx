@@ -121,7 +121,6 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
             start: event.start,
             end: event.end,
             paidEventId: event.paidEventId,
-            id: event.id,
         };
         updateEventDetails(newEvent);
         setSelectedEvent(event);

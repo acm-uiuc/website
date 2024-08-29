@@ -25,7 +25,6 @@ export interface CalendarEventDetailProps {
     end?: Date;
     host?: Organization;
     description: string;
-    id: string;
 }
 function CalendarEventDetail({
     title,

@@ -30,6 +30,7 @@ export interface IEvent {
     paidEventId?: string;
     host?: Organization;
     featured?: boolean;
+    id: string;
 }
 
 
@@ -40,6 +41,7 @@ export interface CalendarEvent extends BigCalendarEvent {
     description: string;
     host?: Organization;
     paidEventId?: string;
+    id: string;
 }
 
 export interface EventsProps {
@@ -108,9 +110,6 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
     const [calendarHeight, setCalendarHeight] = useState(0);
     const [filteredEvents, setFilteredEvents] = useState<CalendarEvent[]>([]);
     const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
-    useEffect(() => {
-        setCalendarHeight(window.innerHeight * 0.7);
-    }, []);
 
     const selectEvent = (event: CalendarEvent) => {
         const newEvent: CalendarEventDetailProps = {
@@ -121,11 +120,42 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
             host: event.host,
             start: event.start,
             end: event.end,
-            paidEventId: event.paidEventId
+            paidEventId: event.paidEventId,
+            id: event.id,
         };
         updateEventDetails(newEvent);
         setSelectedEvent(event);
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.set('id', event.id);
+        if (event.start) {
+            urlParams.set('date', moment(event.start).format('YYYY-MM-DD'));
+        }
+        const newUrl = window.location.pathname + '?' + urlParams.toString();
+        window.history.replaceState(null, '', newUrl)
     };
+
+    useEffect(() => {
+        setCalendarHeight(window.innerHeight * 0.7);
+    }, []);
+
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+        const date = urlParams.get('date');
+        if (id && filteredEvents) {
+            const event = filteredEvents.find((event) => {
+                if (date) {
+                    return event.id === id && moment(event.start).format('YYYY-MM-DD') === date;
+                }
+                return event.id === id;
+            })
+            if (event) {
+                selectEvent(event);
+            }
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [filteredEvents]);
+
 
     const dummyNav = (newDate: Date, view: View, action: NavigateAction) => { return; }
 

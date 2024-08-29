@@ -151,6 +151,9 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
             })
             if (event) {
                 selectEvent(event);
+                if (event.start) {
+                    updateDisplayDate(event.start);
+                }
             }
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps

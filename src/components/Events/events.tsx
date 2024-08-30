@@ -61,9 +61,9 @@ const getEventColor = (event: CalendarEvent) => {
         if (event.repeats) {
           return '#3e486f'; // repeating SIG events
         } 
-        return '#F23F43'; // non-repeating SIG events
+        return '#4B006E'
     } else {
-        return '#4B006E'; // ACM events
+        return '#F23F43'; // non-repeating SIG events
         // return '#4577f8'; // ACM events
     }
 }

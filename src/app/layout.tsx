@@ -5,7 +5,7 @@ import '@/styles/global.css';
 
 export const metadata: Metadata = {
   title: 'ACM@UIUC',
-  description: "ACM is UIUC's largest CS student organization",
+  description: "ACM is UIUC's largest CS student organization.",
   icons: [
     { url: 'https://acm-brand-images.s3.amazonaws.com/square-blue.png' },
   ]

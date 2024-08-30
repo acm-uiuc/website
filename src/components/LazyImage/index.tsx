@@ -77,6 +77,30 @@ export const LazyImage = ({ img, imgwebp, title, className }: LazyImageProps) =>
   </picture>
 }
 
+export const getOrganizationColor = (org: Organization) => {
+  switch (org) {
+    case 'SIGPwny': return '#33cc55';
+    case 'SIGCHI': return '#EEAE48';
+    case 'GameBuilders': return '#29386D';
+    case 'SIGma': return '#4B65F2';
+    case 'SIGQuantum': return '#233643';
+    case 'GLUG': return '#E94A27';
+    case 'ACM': return '#4577f8';
+    case 'SIGAIDA': return '#BFDDFC';
+    case 'SIGMobile': return '#0C7BBD';
+    case 'SIGMusic': return '#F4DCA3';
+    case 'SIGNLL': return '#F59A23';
+    case 'SIGPolicy': return '#292929';
+    case 'SIGARCH': return '#155CD0';
+    case 'SIGecom': return '#00759A';
+    case 'SIGRobotics': return '#B0B0B0';
+    case 'ICPC': return '#AF2A23';
+    case 'SIGGraph': return '#7896A7';
+    default: return '#4577f8';
+  }
+}
+
+
 const imageRenderers : {
   [key in Organization]: (className: string) => ReactElement
 } = {

@@ -6,7 +6,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './CalendarStylesOverride.css';
 import { CalendarEventDetailProps } from '@/components/CalendarEventDetail/CalendarEventDetail';
 import { View, NavigateAction } from 'react-big-calendar';
-import { Organization } from '../LazyImage';
+import { getOrganizationColor, Organization, SIG, SIGList } from '../LazyImage';
 import { Skeleton } from '@nextui-org/react';
 import { howManyUnitInYear, repeatMapping, RepeatMappingEntry, ValidRepeat, validRepeats } from '@/utils/dateutils';
 import { maxRenderDistance } from '../CalendarControls';
@@ -30,6 +30,7 @@ export interface IEvent {
     paidEventId?: string;
     host?: Organization;
     featured?: boolean;
+    id: string;
 }
 
 
@@ -40,6 +41,8 @@ export interface CalendarEvent extends BigCalendarEvent {
     description: string;
     host?: Organization;
     paidEventId?: string;
+    id: string;
+    repeats?: ValidRepeat;
 }
 
 export interface EventsProps {
@@ -53,9 +56,45 @@ export interface EventsProps {
   setView: React.Dispatch<React.SetStateAction<View>>;
 }
 
+const getEventColor = (event: CalendarEvent) => {
+    if (SIGList.includes(event.host as SIG)) {
+        if (event.repeats) {
+          return '#3e486f'; // repeating SIG events
+        } 
+        return '#4B006E'
+    } else {
+        return '#F23F43'; // non-repeating SIG events
+        // return '#4577f8'; // ACM events
+    }
+}
 
 const localizer = momentLocalizer(moment);
 
+// https://stackoverflow.com/a/13532993
+function shadeColor(color: string, percent: number) {
+
+    var R = parseInt(color.substring(1,3),16);
+    var G = parseInt(color.substring(3,5),16);
+    var B = parseInt(color.substring(5,7),16);
+
+    R = R * (100 + percent) / 100;
+    G = G * (100 + percent) / 100;
+    B = B * (100 + percent) / 100;
+
+    R = (R<255)?R:255;  
+    G = (G<255)?G:255;  
+    B = (B<255)?B:255;  
+
+    R = Math.round(R)
+    G = Math.round(G)
+    B = Math.round(B)
+
+    var RR = ((R.toString(16).length==1)?"0"+R.toString(16):R.toString(16));
+    var GG = ((G.toString(16).length==1)?"0"+G.toString(16):G.toString(16));
+    var BB = ((B.toString(16).length==1)?"0"+B.toString(16):B.toString(16));
+
+    return "#"+RR+GG+BB;
+}
 
 function createRecurringEvents(event: IEvent, repeatEntry: RepeatMappingEntry, repeatEnd: any) {
     const events = [];
@@ -82,9 +121,7 @@ function createRecurringEvents(event: IEvent, repeatEntry: RepeatMappingEntry, r
 const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate, updateDisplayDate, filter, hostFilter, view, setView }) => {
     const [calendarHeight, setCalendarHeight] = useState(0);
     const [filteredEvents, setFilteredEvents] = useState<CalendarEvent[]>([]);
-    useEffect(() => {
-        setCalendarHeight(window.innerHeight * 0.7);
-    }, []);
+    const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
 
     const selectEvent = (event: CalendarEvent) => {
         const newEvent: CalendarEventDetailProps = {
@@ -95,10 +132,44 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
             host: event.host,
             start: event.start,
             end: event.end,
-            paidEventId: event.paidEventId
+            paidEventId: event.paidEventId,
         };
         updateEventDetails(newEvent);
+        setSelectedEvent(event);
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.set('id', event.id);
+        if (event.start) {
+            urlParams.set('date', moment(event.start).format('YYYY-MM-DD'));
+        }
+        const newUrl = window.location.pathname + '?' + urlParams.toString();
+        window.history.replaceState(null, '', newUrl)
     };
+
+    useEffect(() => {
+        setCalendarHeight(window.innerHeight * 0.7);
+    }, []);
+
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+        const date = urlParams.get('date');
+        if (id && filteredEvents) {
+            const event = filteredEvents.find((event) => {
+                if (date) {
+                    return event.id === id && moment(event.start).format('YYYY-MM-DD') === date;
+                }
+                return event.id === id;
+            })
+            if (event) {
+                selectEvent(event);
+                if (event.start) {
+                    updateDisplayDate(event.start);
+                }
+            }
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [filteredEvents]);
+
 
     const dummyNav = (newDate: Date, view: View, action: NavigateAction) => { return; }
 
@@ -137,10 +208,19 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
                 localizer={localizer}
                 events={filteredEvents}
                 onSelectEvent={selectEvent}
+                selected={selectedEvent}
                 view={view}
                 onView={setView}
-                onDrillDown={(e, view) => {updateDisplayDate(e); setView(view);}}
+                onDrillDown={(e, view) => {
+                    updateDisplayDate(e)
+                    setView(view)
+                }}
                 style={{ height: calendarHeight }}
+                eventPropGetter={(event, start, end, isSelected) => {
+                    const color = getEventColor(event);
+                    const darkerColor = shadeColor(color, -20);
+                    return { style: { backgroundColor: isSelected ? darkerColor : color, borderRadius: '0.375rem', 'fontSize': '12px' } } // '#4577F8' } }
+                }}
             />
         </Skeleton>
     );

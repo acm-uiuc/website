@@ -63,7 +63,7 @@ const getEventColor = (event: CalendarEvent) => {
         } 
         return '#F23F43'; // non-repeating SIG events
     } else {
-        return '#9D00FF'; // ACM events
+        return '#4B006E'; // ACM events
         // return '#4577f8'; // ACM events
     }
 }

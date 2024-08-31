@@ -51,7 +51,7 @@ export default function Home() {
           <Sigscard upcomingEvents={upcomingEvents} eventsLoading={eventsLoading} sigs={AllSigData} />
         </div>
       </section>
-      <Sponsors />
+      {/* <Sponsors /> */}
     </>
   );
 };

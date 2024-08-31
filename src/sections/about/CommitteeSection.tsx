@@ -1,12 +1,11 @@
 'use client';
 import Committee from '@/components/Card/CommitteeCard';
-import ExtLink from '@/components/Link';
 
 import social from '@/stories/assets/social.jpg';
-import capitalone from '@/stories/assets/capitalone.png';
 import instagram from '@/stories/assets/instagram.png';
 import reflections from '@/stories/assets/reflections.jpg';
 import hackillinoislogo from '@/stories/assets/hackillinoislogo.png';
+import corporatelogo from '@/stories/assets/corporatelogo.webp';
 import infrastructure from '@/stories/assets/infra_pic.jpg';
 import mentorship from '@/stories/assets/mentorship.png';
 
@@ -59,9 +58,8 @@ export default function CommitteeSection() {
       <span id="corporate">
         <Committee
           title="Corporate"
-          description="The corporate team handles communication with ACM@UIUC's sponsors, 
-          including Numerade, IMC, and more."
-          image={capitalone}
+          description="The corporate team handles communication with ACM@UIUC's sponsors."
+          image={corporatelogo}
           chairs={[
             {
               name: "Deeya Bodas",

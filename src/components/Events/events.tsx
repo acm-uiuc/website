@@ -68,8 +68,20 @@ const getEventColor = (event: CalendarEvent) => {
     }
 }
 
+export const getEventURL = (event: CalendarEvent | IEvent) => {
+    const urlParams = new URLSearchParams(window?.location?.search);
+    urlParams.set('id', event.id);
+    if (event.start) {
+        urlParams.set('date', moment(event.start).format('YYYY-MM-DD'));
+    }
+    const baseURL = window ? window.location.origin : 'https://acm.illinois.edu';
+    return baseURL + '/calendar?' + urlParams.toString();
+}
 const localizer = momentLocalizer(moment);
 
+export function toHumanDate(date: string) {
+    return moment(date).tz(moment.tz.guess()).format("MMMM Do, h:mm A z");
+}
 // https://stackoverflow.com/a/13532993
 function shadeColor(color: string, percent: number) {
 
@@ -136,13 +148,7 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
         };
         updateEventDetails(newEvent);
         setSelectedEvent(event);
-        const urlParams = new URLSearchParams(window.location.search);
-        urlParams.set('id', event.id);
-        if (event.start) {
-            urlParams.set('date', moment(event.start).format('YYYY-MM-DD'));
-        }
-        const newUrl = window.location.pathname + '?' + urlParams.toString();
-        window.history.replaceState(null, '', newUrl)
+        window.history.replaceState(null, '', getEventURL(event));
     };
 
     useEffect(() => {

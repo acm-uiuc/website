@@ -6,16 +6,9 @@ import {
 import { BsArrowRepeat } from 'react-icons/bs';
 import { getOrganizationImage, Organization } from '@/components/LazyImage';
 import { getRepeatString, ValidRepeat } from '@/utils/dateutils';
+import { getEventURL, IEvent, toHumanDate } from '@/components/Events/events';
 interface EventProps {
-  location: string;
-  locationLink?: string;
-  date: string;
-  dateLink?: string;
-  title: string;
-  description: string;
-  repeats?: ValidRepeat;
-  paidEventId?: string;
-  host?: Organization
+  event?: IEvent;
 };
 
 export function EventDetail({ href, children }: { href?: string, children: React.ReactNode }) {
@@ -35,21 +28,16 @@ export function EventDetail({ href, children }: { href?: string, children: React
 }
 
 export default function EventCard({
-  location,
-  date,
-  title,
-  description,
-  locationLink,
-  dateLink,
-  repeats,
-  paidEventId,
-  host
+  event
 }: EventProps) {
+  const { title, description, locationLink, dateLink, repeats, paidEventId, host, location } = event || {};
+  const link = event ? getEventURL(event) : "";
+  const date = event ? toHumanDate(event.start) : "";
   return (
     <div className="flex flex-col col-span-1 p-4 rounded-3xl bg-surface-050 hover:shadow-lg hover:-translate-y-1 transition-all">
       <div className="flex flex-row justify-between mb-4">
         <p className="text-2xl font-bold">
-          {title}
+          <a href={link} className="hover:underline">{title}</a>
         </p>
         {host && getOrganizationImage(host, 'w-auto h-8')}
       </div>

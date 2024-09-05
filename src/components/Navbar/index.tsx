@@ -94,14 +94,14 @@ export default function Navbar() {
                     HackIllinois
                   </NavLink>
                 </li>
-                <li>
+                {/* <li>
                   <NavLink
                     href="/#sponsors"
                     onClick={uncheck}
                   >
                     Sponsors
                   </NavLink>
-                </li>
+                </li> */}
                 <li>
                 <NavLink
                     href="/merch-store"

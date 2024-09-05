@@ -19,9 +19,7 @@ import { useEffect, useState } from 'react';
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Skeleton, useDisclosure } from '@nextui-org/react';
 import config from '../../config.json'
 
-function toHumanDate(date: string) {
-  return moment(date).tz(moment.tz.guess()).format("MMMM Do, h:mm A z");
-}
+
 
 interface HeroProps {
   upcomingEvents: IEvent[];
@@ -52,15 +50,8 @@ export default function Hero({ upcomingEvents, eventsLoading }: HeroProps) {
     {featuredEvents.map((object, i) => {
       return (
         <EventCard
-        key={i}
-        title={object.title}
-        description={object.description}
-        date={toHumanDate(object.start)}
-        repeats={(object as any)?.repeats}
-        location={object.location}
-        locationLink={object.locationLink}
-        paidEventId={object.paidEventId}
-        host={object.host}
+        key={object.id}
+        event={object}
         />
       );
     })}
@@ -69,13 +60,6 @@ export default function Hero({ upcomingEvents, eventsLoading }: HeroProps) {
     eventsLoading ? <Skeleton className="col-span-1 p-4 rounded-3xl bg-surface-050 hover:shadow-lg hover:-translate-y-1 transition-all">
       <EventCard
         key={0}
-        title={""}
-        description={""}
-        date={"August 30th, 6:00 PM EDT"}
-        repeats={"weekly"}
-        location={""}
-        locationLink={'https://google.com'}
-        host={"ACM"}
       />
     </Skeleton> : <div className='text-white'>No featured events coming up</div>
   )

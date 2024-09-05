@@ -130,6 +130,9 @@ const Payment = () => {
               Becoming a Lifetime <b>Paid Member</b> not only sustains the continued growth of our communities but also
               comes with perks such as swipe access, free printing, priority access to our computing resources, etc.
             </p>
+            <a className="text-primary"  href="https://go.acm.illinois.edu/paid-member-guide" target="_blank" rel="noopener noreferrer">
+              ACM@UIUC Paid Member Guide
+            </a>
             <Input
               value={netId}
               onValueChange={setNetId}

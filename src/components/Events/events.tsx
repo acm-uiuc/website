@@ -217,10 +217,7 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
                 selected={selectedEvent}
                 view={view}
                 onView={setView}
-                onDrillDown={(e, view) => {
-                    updateDisplayDate(e)
-                    setView(view)
-                }}
+                popup
                 style={{ height: calendarHeight }}
                 eventPropGetter={(event, start, end, isSelected) => {
                     const color = getEventColor(event);

@@ -1,8 +1,8 @@
-import { getOrganizationImage, LazyImageProps, Organization } from '@/components/LazyImage';
+import { getOrganizationImage } from '@/components/LazyImage';
 import { IEvent } from '../Events/events';
 import { getEstimatedOccurrencesInYear } from '@/utils/dateutils';
 import { BsArrowRepeat } from 'react-icons/bs';
-import { IOrgData } from '@/sections/home/SigData';
+import { IOrgData, Organization } from '@/utils/organizations';
 
 
 interface CardProps extends IOrgData {

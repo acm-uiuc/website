@@ -6,9 +6,9 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './CalendarStylesOverride.css';
 import { CalendarEventDetailProps } from '@/components/CalendarEventDetail/CalendarEventDetail';
 import { View, NavigateAction } from 'react-big-calendar';
-import { getOrganizationColor, Organization, SIG, SIGList } from '../LazyImage';
+import { Organization, SIG, SIGList } from '@/utils/organizations';
 import { Skeleton } from '@nextui-org/react';
-import { howManyUnitInYear, repeatMapping, RepeatMappingEntry, ValidRepeat, validRepeats } from '@/utils/dateutils';
+import { repeatMapping, RepeatMappingEntry, ValidRepeat, validRepeats } from '@/utils/dateutils';
 import { maxRenderDistance } from '../CalendarControls';
 
 

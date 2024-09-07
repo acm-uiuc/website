@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react"
 import Sigscard from "./Sigscard"
 import * as CardStories from '../../stories/Card.stories'
-import { IOrgData } from "./SigData";
+import { IOrgData } from "@/utils/organizations";
 
 export default {
     title: 'Sections/Sigscard',

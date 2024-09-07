@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import { IEvent } from '@/components/Events/events';
 import moment from 'moment';
 import { getEventsAfter } from '@/utils/dateutils';
-import { AllSigData } from '@/sections/home/SigData';
+import { AllSigData } from '@/utils/organizations';
 import { fetchUpcomingEvents } from '@/utils/api';
 
 export default function Home() {

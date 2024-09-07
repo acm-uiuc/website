@@ -2,7 +2,7 @@
 
 import Card from '@/components/Card/Card';
 import { IEvent } from '@/components/Events/events';
-import { IOrgData } from '@/sections/home/SigData';
+import { IOrgData } from '@/utils/organizations';
 
 interface SigscardProps {
   upcomingEvents: IEvent[];

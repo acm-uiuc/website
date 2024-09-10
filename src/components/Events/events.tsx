@@ -207,7 +207,7 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
     }, [events, filter, hostFilter]);
     return (
         <Skeleton isLoaded={calendarHeight != 0 || !events} style={{width: '100%', minHeight: '70vh'}} className="rounded-lg">
-            <Calendar
+            { calendarHeight ? <Calendar
                 dayLayoutAlgorithm='no-overlap'
                 date={displayDate}
                 onNavigate={dummyNav}
@@ -224,7 +224,7 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
                     const darkerColor = shadeColor(color, -20);
                     return { style: { backgroundColor: isSelected ? darkerColor : color, borderRadius: '0.375rem', 'fontSize': '12px' } } // '#4577F8' } }
                 }}
-            />
+            /> : <div></div> }
         </Skeleton>
     );
 };

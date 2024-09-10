@@ -6,7 +6,7 @@ import {useEffect, useState} from 'react';
 import CalendarControls from '@/components/CalendarControls';
 import { View, Views } from 'react-big-calendar';
 import { transformApiDates } from '@/utils/dateutils';
-import { OrganizationList } from '@/components/LazyImage';
+import { OrganizationList } from '@/utils/organizations';
 import { Metadata } from 'next';
 
 const defaultEvent: CalendarEventDetailProps = {

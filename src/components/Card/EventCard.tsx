@@ -4,8 +4,8 @@ import {
   FaSignInAlt,
 } from 'react-icons/fa';
 import { BsArrowRepeat } from 'react-icons/bs';
-import { getOrganizationImage, Organization } from '@/components/LazyImage';
-import { getRepeatString, ValidRepeat } from '@/utils/dateutils';
+import { getOrganizationImage } from '@/components/LazyImage';
+import { getRepeatString } from '@/utils/dateutils';
 import { getEventURL, IEvent, toHumanDate } from '@/components/Events/events';
 interface EventProps {
   event?: IEvent;

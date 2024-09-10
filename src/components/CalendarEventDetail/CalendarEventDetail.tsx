@@ -1,21 +1,9 @@
 import { FaLocationArrow, FaRegCalendarAlt, FaSignInAlt, FaUserAlt } from 'react-icons/fa';
-import { getOrganizationImage, Organization } from '@/components/LazyImage';
-import { getOrganizationInfo, IOrgData } from '@/sections/home/SigData';
+import { getOrganizationImage } from '@/components/LazyImage';
+import { getOrganizationInfo, IOrgData, Organization } from '@/utils/organizations';
 import moment from 'moment-timezone';
 import { EventDetail } from '../Card/EventCard';
 
-function formatDateAsISOString(date: Date) {
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-indexed
-    const day = date.getDate().toString().padStart(2, '0');
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    const seconds = date.getSeconds().toString().padStart(2, '0');
-    
-    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-  }
-
-  
 export interface CalendarEventDetailProps {
     title?: string;
     location?: string;

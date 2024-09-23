@@ -24,7 +24,7 @@ export default function Home() {
             Reddit Verification
           </h1>
           <p className="text-xl max-w-prose">
-            This page serves to verify that Reddit user <code><a href="https://www.reddit.com/user/YoBacon4Bacon/">u/YoBacon4Bacon</a></code> belongs to Ryan To, ACM@UIUC Treasurer/Officer Board member for the 2024-2025 Academic Year.
+            This page serves to verify that Reddit user <code><a href="https://www.reddit.com/user/YoBacon4Bacon/">u/YoBacon4Bacon</a></code> belongs to Ryan To, ACM@UIUC Treasurer/Officer Board member for the 2024-2025 Academic Year. ACM@UIUC is the parent organization for HackIllinois.
           </p>
         </div>
       </section>

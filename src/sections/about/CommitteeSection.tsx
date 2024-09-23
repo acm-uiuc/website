@@ -45,10 +45,6 @@ export default function CommitteeSection() {
           href="https://hackillinois.org/"
           chairs={[
             {
-              name: "Jennifer Xia",
-              email: "jxxia3@illinois.edu"
-            },
-            {
               name: "Kay Rivera",
               email: "krive5@illinois.edu"
             }
@@ -64,10 +60,6 @@ export default function CommitteeSection() {
             {
               name: "Deeya Bodas",
               email: "deeyaab2@illinois.edu"
-            },
-            {
-              name: "Howard Ding",
-              email: "howardd2@illinois.edu"
             }
           ]}
         />

@@ -64,10 +64,6 @@ export default function CommitteeSection() {
             {
               name: "Deeya Bodas",
               email: "deeyaab2@illinois.edu"
-            },
-            {
-              name: "Howard Ding",
-              email: "howardd2@illinois.edu"
             }
           ]}
         />

@@ -62,10 +62,6 @@ export const OrganizationDataMapping : Record<Organization, IOrgData> = {
     description: 'We are the premier data science organization at UIUC, inspiring students to reshape their perspective on data.',
     links: [
       {
-        link: 'https://sigaida.com/',
-        text: 'Website'
-      },
-      {
         link: 'https://go.acm.illinois.edu/aida_discord',
         text: 'Discord'
       }

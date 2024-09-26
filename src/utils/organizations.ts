@@ -258,7 +258,7 @@ export const OrganizationDataMapping : Record<Organization, IOrgData> = {
       {
         link: 'https://sigrobotics.acm.illinois.edu/',
         text: 'Website'
-      }
+      },
       {
         link: 'https://discord.gg/Rj75e5qGT3',
         text: 'Discord'

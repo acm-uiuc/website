@@ -256,6 +256,10 @@ export const OrganizationDataMapping : Record<Organization, IOrgData> = {
     description: 'Learn fundamental robotics skills through hands-on projects, workshops, and speaker events.',
     links: [
       {
+        link: 'https://sigrobotics.acm.illinois.edu/',
+        text: 'Website'
+      },
+      {
         link: 'https://discord.gg/Rj75e5qGT3',
         text: 'Discord'
       }

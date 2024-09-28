@@ -7,6 +7,7 @@ import reflections from '@/stories/assets/reflections.jpg';
 import hackillinoislogo from '@/stories/assets/hackillinoislogo.png';
 import corporatelogo from '@/stories/assets/corporatelogo.webp';
 import infrastructure from '@/stories/assets/infra_pic.jpg';
+import academic from '@/stories/assets/accom-logo.png';
 import mentorship from '@/stories/assets/mentorship.png';
 
 export default function CommitteeSection() {
@@ -45,8 +46,12 @@ export default function CommitteeSection() {
           href="https://hackillinois.org/"
           chairs={[
             {
-              name: "Kay Rivera",
-              email: "krive5@illinois.edu"
+              name: "Aydan Pirani",
+              email: "apirani2@illinois.edu"
+            },
+            {
+              name: "Nancy Zhang",
+              email: "nzhan2@illinois.edu"
             }
           ]}
         />
@@ -60,6 +65,42 @@ export default function CommitteeSection() {
             {
               name: "Deeya Bodas",
               email: "deeyaab2@illinois.edu"
+            }
+          ]}
+        />
+      </span>
+      <span id="infrastructure">
+        <Committee
+          title="Infrastructure"
+          description="The infra team maintains ACM@UIUC's infrastructure and engineering efforts
+          like this website."
+          image={infrastructure}
+          chairs={[
+            {
+              name: "Dev Singh",
+              email: "dsingh14@illinois.edu"
+            },
+            {
+              name: "Kaushik Varadharajan",
+              email: "kv22@illinois.edu"
+            }
+          ]}
+        />
+      </span>
+      <span id="academic">
+        <Committee
+          title="Academic"
+          description="The academic committee organizes review events for CS courses and interfaces with professors to enable student success in courses."
+          image={academic}
+          href="https://academic.acm.illinois.edu/"
+          chairs={[
+            {
+              name: "Jacob Levine",
+              email: "jlevine4@illinois.edu"
+            },
+            {
+              name: "Yanni Zhuang",
+              email: "yanniz3@illinois.edu"
             }
           ]}
         />
@@ -95,24 +136,6 @@ export default function CommitteeSection() {
             {
               name: "Meghna Goli",
               email: "goli3@illinois.edu"
-            }
-          ]}
-        />
-      </span>
-      <span id="infrastructure">
-        <Committee
-          title="Infrastructure"
-          description="The infra team maintains ACM@UIUC's infrastructure and engineering efforts
-          like this website."
-          image={infrastructure}
-          chairs={[
-            {
-              name: "Dev Singh",
-              email: "dsingh14@illinois.edu"
-            },
-            {
-              name: "Kaushik Varadharajan",
-              email: "kv22@illinois.edu"
             }
           ]}
         />

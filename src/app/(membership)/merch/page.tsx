@@ -87,7 +87,8 @@ const MerchItem = () => {
           "item_price": {"paid": 999999, "others": 999999}, "eventDetails": "",
           "item_id": "404_event",
           "total_sold": {},
-          "total_avail": {}, 
+          "total_avail": {},
+          "limit_per_person": -1,
           "item_sales_active_utc": -1, 
           "item_name": "", 
         });
@@ -152,7 +153,10 @@ const MerchItem = () => {
   };
 
   const validateQuantity = (value: string) => {
-    return value.match(/^[0-9]+$/i);
+    const num = parseInt(value);
+    if (Number.isNaN(num)) return false;
+    if (merchList["limit_per_person"] && merchList["limit_per_person"] > 0 && num > merchList["limit_per_person"]) return false;
+    return num > 0;
   };
 
   const totalCapacity = () => {

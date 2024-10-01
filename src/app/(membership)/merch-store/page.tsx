@@ -36,6 +36,7 @@ const MerchStore = () => {
           "item_id": "404_item",
           "total_sold": {},
           "total_avail": {},
+          "limit_per_person": -1,
           "item_sales_active_utc": -1,
           "item_name": "",
         }
@@ -70,6 +71,13 @@ const MerchStore = () => {
                 <p>
                   <b>Cost:</b> ${decimalHelper(val["item_price"]["paid"])} for paid ACM@UIUC members, ${decimalHelper(val["item_price"]["others"])} for non-members.
                 </p>
+                {
+                  (val["limit_per_person"] && val["limit_per_person"] > 0) ? (
+                    <p>
+                      Limit {val["limit_per_person"]} per person.
+                    </p>
+                  ) : null
+                }
                 <Button
                   color="primary"
                   size="lg"

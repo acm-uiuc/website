@@ -1,14 +1,14 @@
 'use client';
 import Committee from '@/components/Card/CommitteeCard';
 
-import social from '@/stories/assets/social.jpg';
-import instagram from '@/stories/assets/instagram.png';
+import social from '@/stories/assets/social-logo.png';
+import marketing from '@/stories/assets/marketing-logo.png';
 import reflections from '@/stories/assets/reflections.jpg';
 import hackillinoislogo from '@/stories/assets/hackillinoislogo.png';
-import corporatelogo from '@/stories/assets/corporatelogo.webp';
-import infrastructure from '@/stories/assets/infra_pic.jpg';
+import corporatelogo from '@/stories/assets/corporate-logo.png';
+import infrastructure from '@/stories/assets/infra-logo.png';
 import academic from '@/stories/assets/accom-logo.png';
-import mentorship from '@/stories/assets/mentorship.png';
+import mentorship from '@/stories/assets/mentorship-logo.png';
 
 export default function CommitteeSection() {
   return (
@@ -127,7 +127,7 @@ export default function CommitteeSection() {
         <Committee
           title="Marketing"
           description="The marketing team organizes social media and branding for ACM@UIUC."
-          image={instagram}
+          image={marketing}
           chairs={[
             {
               name: "Ayushi Chakravarty",

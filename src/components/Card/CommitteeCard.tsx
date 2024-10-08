@@ -25,14 +25,14 @@ export default function CommitteeCard({
 }: CommitteeProps) {
   return (
     <div className="flex flex-col lg:flex-row gap-4 p-4 rounded-3xl bg-surface-100 border-2 border-color-150">
-      <div className="lg:basis-1/2 flex flex-col items-center">
+      <div className="lg:basis-2/5 flex flex-col items-center">
         <NextImage
           className="rounded-2xl max-h-64 w-auto"
           src={image}
           alt=""
         />
       </div>
-      <div className="lg:basis-1/2 flex flex-col">
+      <div className="lg:basis-3/5 flex flex-col">
         <div>
           <h2>
             {href ? (

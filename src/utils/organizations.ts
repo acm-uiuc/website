@@ -17,12 +17,13 @@ export const getOrganizationColor = (org: Organization) => {
       case 'SIGRobotics': return '#B0B0B0';
       case 'ICPC': return '#AF2A23';
       case 'SIGGraph': return '#7896A7';
+      case 'SIGtricity': return '#7896A7';
       default: return '#4577f8';
     }
 }
 
 export const SIGList = ['SIGPwny' , 'SIGCHI' , 'GameBuilders' , 'SIGAIDA' , 'SIGGRAPH' 
-    , 'ICPC' , 'SIGMobile' , 'SIGMusic' , 'GLUG' , 'SIGNLL' , 'SIGma' , 'SIGQuantum' , 'SIGecom' , 'SIGPLAN' , 'SIGPolicy' , 'SIGARCH', 'SIGRobotics'] as const;
+    , 'ICPC' , 'SIGMobile' , 'SIGMusic' , 'GLUG' , 'SIGNLL' , 'SIGma' , 'SIGQuantum' , 'SIGecom' , 'SIGPLAN' , 'SIGPolicy' , 'SIGARCH', 'SIGRobotics', 'SIGtricity'] as const;
     
 export const CommitteeList = ['Infrastructure Committee', 'Social Committee', 'Mentorship Committee', 'Academic Committee']
 export const PartnerList = ['Reflections | Projections', 'HackIllinois']
@@ -261,6 +262,20 @@ export const OrganizationDataMapping : Record<Organization, IOrgData> = {
       },
       {
         link: 'https://discord.gg/Rj75e5qGT3',
+        text: 'Discord'
+      }
+    ]
+  },
+  'SIGtricity': {
+    title: 'SIGtricity',
+    description: 'Learn about electrical engineering through hands on workshops and projects. Open to all majors and experience levels!',
+    links: [
+      {
+        link: 'https://sigtricity.acm.illinois.edu/',
+        text: 'Website'
+      },
+      {
+        link: 'https://discord.gg/4yRWQuzhEV',
         text: 'Discord'
       }
     ]

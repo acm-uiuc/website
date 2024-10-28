@@ -148,7 +148,7 @@ const Payment = () => {
         >
           <ModalContent className={isPaidMember ? 'rainbow-background' : ''}>
             <ModalHeader />
-            <ModalBody className="flex flex-col items-center white-text">
+            <ModalBody className={isPaidMember ? "flex flex-col items-center white-text" : "flex flex-col items-center"}>
               <p className="text-center text-2xl font-bold">
                 {isPaidMember ? "You're a Paid Member of ACM@UIUC!" : "You're not a Paid Member of ACM@UIUC 😔"}
               </p>

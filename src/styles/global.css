@@ -2,6 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes rainbowBackground {
+  0% { background-color: #5386E4; } /* ACM Muted Primary Color */
+  33% { background-color: #00635D; } /* ACM Additional Color 1 */
+  66% { background-color: #260C1A; } /* ACM Additional Color 2 */
+  100% { background-color: #0053B3; } /* ACM Primary Color */
+}
+
+.rainbow-background {
+  animation: rainbowBackground 20s infinite alternate;
+  position: relative;
+  overflow: hidden;
+}
+
+.white-text {
+  color: #F2FDFF;
+}
+
 :root {
   --rgb-acmdark: 62 72 111;        /* #3E486F */
   --rgb-primary: 69 119 248;       /* #4577F8 */

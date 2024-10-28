@@ -1,5 +1,5 @@
 'use client';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   Button,
   Card,
@@ -44,6 +44,15 @@ const Payment = () => {
   const modalErrorMessage = useDisclosure();
   const [errorMessage, setErrorMessage] = useState<ErrorCode | null>(null);
   const [isPaidMember, setIsPaidMember] = useState<boolean | null>(null);
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   const checkHandler = () => {
     setIsLoading(true);
@@ -119,7 +128,7 @@ const Payment = () => {
           isOpen={modalErrorMessage.isOpen}
           onOpenChange={modalErrorMessage.onOpenChange}
         >
-          <ModalContent>
+          <ModalContent className={isPaidMember ? 'rainbow-background' : ''}>
             <ModalHeader />
             <ModalBody className="flex flex-col items-center">
               <p className="text-center text-2xl font-bold">Error Checking Membership Status</p>
@@ -137,21 +146,28 @@ const Payment = () => {
           isOpen={modalMembershipStatus.isOpen}
           onOpenChange={modalMembershipStatus.onOpenChange}
         >
-          <ModalContent>
+          <ModalContent className={isPaidMember ? 'rainbow-background' : ''}>
             <ModalHeader />
-            <ModalBody className="flex flex-col items-center">
+            <ModalBody className="flex flex-col items-center white-text">
               <p className="text-center text-2xl font-bold">
                 {isPaidMember ? "You're a Paid Member of ACM@UIUC!" : "You're not a Paid Member of ACM@UIUC 😔"}
               </p>
-              {isPaidMember ? <Lottie animationData={successAnimation} loop={false} style={{ width: '10em' }} /> : "Click the link below to purchase an ACM@UIUC membership."}
+              {isPaidMember && <>
+                <Lottie animationData={successAnimation} loop={false} style={{ width: '10em' }} />
+                <a>{netId}@illinois.edu</a>
+                <a>{currentTime.toLocaleString()}</a>
+              </>}
               {!isPaidMember &&
-                <Button
+              <>
+              <p>Click the link below to purchase an ACM@UIUC membership.</p>
+              <Button
                 color="primary"
                 size="lg"
                 onPress={() => {window.location.href = `/membership?netid=${netId}`}}
               >
                 Purchase for {config.membershipPrice}
-              </Button>}
+              </Button>
+              </>}
             </ModalBody>
             <ModalFooter />
           </ModalContent>

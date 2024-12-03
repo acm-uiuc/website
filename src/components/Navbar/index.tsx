@@ -78,7 +78,7 @@ export default function Navbar() {
                     SIGs
                   </NavLink>
                 </li>
-                <li>
+                {/* <li>
                   <NavLink
                     href="/about/#reflections"
                     onClick={uncheck}
@@ -93,7 +93,7 @@ export default function Navbar() {
                   >
                     HackIllinois
                   </NavLink>
-                </li>
+                </li> */}
                 {/* <li>
                   <NavLink
                     href="/#sponsors"

@@ -69,7 +69,7 @@ h5 {
 h6 {
   font-size: var(--font-size-h6);
 }
-h1, h2 {
+h1, h2{
   color: rgb(var(--rgb-acmdark));
 }
 h1, h2, h3, h4, h5, h6 {
@@ -78,4 +78,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .no-scroll {
   overflow-y: hidden;
+}
+
+.italics {
+  font-style: italic;
+  color:#5386E4
 }

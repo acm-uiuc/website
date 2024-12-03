@@ -110,6 +110,14 @@ export default function Navbar() {
                     Merch
                   </NavLink>
                 </li>
+                <li>
+                <NavLink
+                    href="/resources"
+                    onClick={uncheck}
+                  >
+                    Resources
+                  </NavLink>
+                </li>
               </ul>
             </nav>
           </div>

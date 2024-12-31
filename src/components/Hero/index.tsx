@@ -101,7 +101,7 @@ export default function Hero({ upcomingEvents, eventsLoading }: HeroProps) {
               </a>
               <div className="flex flex-row gap-4">
               <a
-                  className="flex flex-col w-full sm:w-fit px-8 ml-20 py-3 items-center text-primary text-center text-2xl rounded-full bg-surface-000 hover:bg-surface-150 transition-all"
+                  className="flex flex-col w-full sm:w-fit px-8 md:ml-20 py-3 items-center text-primary text-center text-2xl rounded-full bg-surface-000 hover:bg-surface-150 transition-all"
                   href="https://go.acm.illinois.edu/donate"
                   title="Donate"
                   target="_blank"

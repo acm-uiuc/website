@@ -7,10 +7,11 @@ const Resources = () => {
     <>
       <div className="h-5 bg-acmdark flex" />
       <Transition bgClass="bg-surface-000" />
-      <div className="flex flex-col md:flex-row gap-8 bg-surface-000 pt-6 pb-24">
+      <div className="flex flex-col md:flex-row bg-surface-000 pt-6 pb-24">
         {/*table of contents*/}
-        <nav className="w-full md:w-1/4">
-            <div className="sticky top-6 px-4 pt-6 flex flex-col items-center px-4 mx-auto">
+        <nav className="w-full md:w-72">
+            <div className="sticky top-6 flex flex-col items-center mx-auto">
+            <h1 className="text-4xl font-bold mb-8">Resources</h1>
                 <div className="space-y-4">
                   <Link href="#acm-paid-member-guide" className="block p-4 bg-acmdark hover:bg-secondary text-white rounded-lg shadow-md">
                     ACM Paid Member Guide
@@ -26,8 +27,8 @@ const Resources = () => {
         </nav>
 
         {/*paid member guide*/}
-        <div className="bg-surface-000 pt-6 pb-24 pr-4 md:pr-8 md:w-3/4">
-        <section id="acm-paid-member-guide" className="p-6 rounded-lg shadow-md">
+        <div className="bg-surface-000 md:w-5/6">
+          <section id="acm-paid-member-guide" className="p-6 rounded-lg shadow-md">
           <h2 className="text-2xl font-semibold mb-4">ACM Paid Member Guide</h2>
           <p className="mb-4">
             If you’re here to learn how to pay for membership and access all the benefits, you’re in the right place! ACM Room swipe access, resume book, free printing, and discounted events are all at your fingertips!
@@ -37,38 +38,38 @@ const Resources = () => {
           </p>
           <h2 className="text-xl font-semibold mb-4">Become A Member</h2>
           <p className="mb-6">
-            Click <ExtLink href="https://www.acm.illinois.edu/membership">here</ExtLink> to pay for your membership online. Only $20 for a lifetime ACM membership --&gt; $0 per day! You’ll need to pay with a credit or debit card.
+            Click <ExtLink href="https://www.acm.illinois.edu/membership">here</ExtLink> to pay for your membership online. Only $20 for a lifetime ACM membership &rarr; $0 per day! You’ll need to pay with a credit or debit card.
           </p>
           <h2 className="text-xl font-semibold mb-4">Perks</h2>
           <ul className="list-disc list-inside">
             <li>
               <h5 className="inline font-bold">Swipe Access Form</h5>
-              <p className="pl-4">
+              <p>
                 To obtain swipe access for the ACM room, you’ll need to fill out the ACM Swipe Form. Click{' '}
                 <ExtLink href="https://forms.gle/5eGXEMFgfHDcoWzD9">here</ExtLink> to fill out the form. More info, including any FAQ, can be found on the form.
               </p>
             </li>
             <li>
               <h5 className="inline font-bold">Resume Book</h5>
-              <p className="pl-4">
+              <p>
                 Click <ExtLink href="https://resumes.acm.illinois.edu/">here</ExtLink> to sign into Resume Book. Upload your resume and update your profile! The more detail, the more likely your resume is seen by a recruiter!
               </p>
             </li>
             <li>
               <h5 className="inline font-bold">Free Printing</h5>
-              <p className="pl-4">
+              <p>
                 The ACM printer is in the middle room! Connect and print, for paid members ONLY.
               </p>
             </li>
             <li>
               <h5 className="inline font-bold">Discounted Events</h5>
-              <p className="pl-4">
+              <p>
                 Automatically done! Your discount will be automatically applied at checkout for events such as semi-formal!
               </p>
             </li>
             <li>
               <h5 className="inline font-bold">Discounted Latea</h5>
-              <p className="pl-4">
+              <p>
                 ACM is partnering with Latea, so every paid member now has a 10% discount at Latea (non-stackable)! At the counter, go to{' '}
                 <ExtLink href="https://membership.acm.illinois.edu">membership.acm.illinois.edu</ExtLink> and enter your NetID to get confirmation that you are a paid member and enjoy your sweet treat!
               </p>

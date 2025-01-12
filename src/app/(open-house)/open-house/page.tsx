@@ -183,7 +183,10 @@ export default function VenuePage() {
                   key={booth.id} 
                   className={styles.searchResultItem}
                   onClick={() => {
-                    handleBoothSelect(booth)
+                    if (selectedBooth?.id != booth.id) {
+                        handleBoothSelect(booth)
+                        // Avoid accidental closing of modal 
+                    }
                     setIsSearchModalOpen(false)
                   }}
                 >

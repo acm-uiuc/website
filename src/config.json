@@ -2,7 +2,7 @@
     "membershipPrice": "$20.00",
     "addCalendarLinks": {
         "majorEvents": {
-            "google": "https://calendar.google.com/calendar/r?cid=http%3A%2F%2Fical.acm.illinois.edu%2FACM",
+            "google": "https://calendar.google.com/calendar/r?cid=https%3A%2F%2Fical.acm.illinois.edu%2FACM",
             "ical": "webcal://ical.acm.illinois.edu/ACM"
         }
     }

@@ -14,12 +14,12 @@ export interface IBoothDetails {
 // Record mapping booth IDs to their manual overrides
 export const boothDetails: Record<BoothType['id'], IBoothDetails> = {
   '1': {
-    description: 'The team behind the infrastructure and APIs powering ACM@UIUC.',
+    description: 'Manages ACM @ UIUC’s core software engineering and infrastructure efforts by building robust and scalable solutions.',
     links: [
-        { text: 'Website', link: 'https://acm-infra.com' },
-        { text: 'GitHub', link: 'https://github.com/acm-infra' },
+        { text: 'Website', link: 'https://infra.acm.illinois.edu' },
+        { text: 'GitHub', link: 'https://github.com/acm-uiuc/' },
     ],
-    keywords: ['infrastructure', 'tech', 'engineering'],
+    keywords: ['infrastructure', 'tech', 'engineering', 'swe', 'infra'],
   },
   '2': {
     links: [

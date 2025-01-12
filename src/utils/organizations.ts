@@ -31,7 +31,7 @@ export const OrganizationList = ['ACM', ...SIGList, ...CommitteeList, ...Partner
 export type SIG = typeof SIGList[number];
 export type Organization = typeof OrganizationList[number];
 
-interface Link {
+export interface Link {
   link: string
   text: string
 }

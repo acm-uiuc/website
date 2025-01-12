@@ -40,6 +40,17 @@ import sigarchlogo from '@/stories/assets/sigarchlogo.png';
 import sigroboticslogo from '@/stories/assets/sigroboticslogo.png';
 import sigtricitylogo from '@/stories/assets/sigtricitylogo.png';
 
+
+// add committee logos here
+import social from '@/stories/assets/social-logo.png';
+import marketing from '@/stories/assets/marketing-logo.png';
+import reflections from '@/stories/assets/reflections.jpg';
+import hackillinoislogo from '@/stories/assets/hackillinoislogo.png';
+import corporatelogo from '@/stories/assets/corporate-logo.png';
+import infrastructure from '@/stories/assets/infra-logo.png';
+import academic from '@/stories/assets/accom-logo.png';
+import mentorship from '@/stories/assets/mentorship-logo.png';
+
 import acmlogo from '@/stories/assets/acm-square-blue.png';
 import { Organization } from '@/utils/organizations';
 
@@ -95,6 +106,14 @@ const imageRenderers : {
   'SIGARCH': (className) => <LazyImage img={sigarchlogo} imgwebp={webp_sigarchlogo} title="SIGARCH" className={className} />,
   'SIGRobotics': (className) => <LazyImage img={sigroboticslogo} imgwebp={webp_sigroboticslogo} title="SIGRobotics" className={className} />,
   'SIGtricity': (className) => <LazyImage img={sigtricitylogo} imgwebp={webp_sigtricitylogo} title="SIGtricity" className={className} />,
+  'Infrastructure Committee': (className) => <LazyImage img={infrastructure} title="ACM Infrastructure" className={className} />,
+  'Social Committee': (className) => <LazyImage img={social} title="ACM Social" className={className} />,
+  'Marketing Committee': (className) => <LazyImage img={marketing} title="ACM Marketing" className={className} />,
+  'Academic Committee': (className) => <LazyImage img={academic} title="ACM Academic" className={className} />,
+  'Corporate Committee': (className) => <LazyImage img={corporatelogo} title="ACM Corporate" className={className} />,
+  'Mentorship Committee': (className) => <LazyImage img={mentorship} title="ACM Mentorship" className={className} />,
+  'Reflections | Projections': (className) => <LazyImage img={reflections} title="Reflections | Projections" className={className} />,
+  'HackIllinois': (className) => <LazyImage img={hackillinoislogo} title="HackIllinois" className={className} />,
   'ACM': (className) => <LazyImage img={acmlogo} title="ACM" className={className} />,
 }
 

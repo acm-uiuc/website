@@ -1,5 +1,4 @@
-/* page.module.css */
-.container {
+  .container {
     position: relative;
     width: 100%;
     height: 100vh;
@@ -10,7 +9,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    background-color: #0040B2;
+    background-color: #0053B3;
   }
   
   .searchIcon {
@@ -45,7 +44,7 @@
   }
   
   .searchInput {
-    width: 95%;
+    width: 100%;
     padding: 0.75rem;
     margin-bottom: 1rem;
     border: 1px solid #ddd;
@@ -168,19 +167,8 @@
     object-fit: contain;
     cursor: pointer;
     transition: all 0.3s ease;
-    border: 3px solid #ffffff;
+    border: 3px solid #ffffff00;
     border-radius: 10px;
-  }
-  
-  @media screen and (max-width: 768px) {
-    .boothLogosContainer {
-      gap: 0.5rem;
-    }
-  
-    .boothLogo {
-      width: 70px;
-      height: 70px;
-    }
   }
   
   
@@ -210,12 +198,8 @@
 
   .noBoothDetails {
     margin: 0 auto;
-    /* width: 0%; */
     max-width: 0%;
     height: 100%;
-    /* padding: 1rem; */
-    /* box-shadow: 0 4px 6px rgba(0,0,0,0.1); */
-    /* border-radius: 1.5rem; */
     transition: width 0.3s ease;
   }
 
@@ -226,54 +210,7 @@
     width: 100%;
     min-height: 325px;
   }
-  
-  @media screen and (max-width: 768px) {
-    .mapAndDetailsContainer {
-      flex-direction: column;
-      align-items: center;
-      min-height: auto;
-    }
-  
-    .mapContainer {
-      width: 100%;
-    }
-  
-    .boothDetails {
-      margin: 10px;
-      /* padding: 5px 4%; */
-      max-width: 87%;
-      width: 87%;
-      height: auto;
-      position: relative;
-      transition: all 0.3s ease;
-    }
 
-    .noBoothDetails {
-      margin: 10px;
-      /* padding: 5px 4%; */
-      max-width: 87%;
-      width: 87%;
-      height: auto;
-      position: relative;
-      transition: all 0.3s ease;
-    }
-  }
-  
-
-  /* @media screen and (max-width: 768px) {
-    .boothDetails{
-      position: relative;
-      top: 0%;
-      right: 0%;
-      width: auto;
-    }
-
-    .map-left {
-      width: auto;
-    }
-    
-  } */
-  
   .boothLinks {
     display: flex;
     gap: 1rem;
@@ -307,7 +244,7 @@
   .boothTypeLabel {
     display: flex;
     justify-content: space-between;
-    color: #0040B2;
+    color: #0053B3;
     background-color: rgb(214, 208, 208);
     padding: 10px;
     align-items: center;
@@ -349,27 +286,71 @@
   }
   
   .boothLogoName {
-    font-size: 0.8rem;
+    font-size: 0.875rem;
     text-align: center;
     max-width: 90px;
+    height: 30px;
     /* white-space: nowrap; */
     /* overflow: hidden; */
     text-overflow: ellipsis;
   }
   
+  
   @media screen and (max-width: 768px) {
+
     .boothLogosContainer {
       justify-content: center;
     }
-  
+
     .boothLogo {
       width: 75px;
       height: 75px;
     }
-  
+
     .boothLogoName {
-      font-size: 0.65rem;
+      font-size: 0.75rem;
       max-width: 70px;
+    }
+
+    .boothLogosContainer {
+      gap: 0.5rem;
+    }
+    
+    .boothLogo {
+       width: 70px;
+       height: 70px;
+    }
+
+    .boothLogoWrapper {
+      gap: 0.3rem;
+    }
+
+    .mapAndDetailsContainer {
+      flex-direction: column;
+      align-items: center;
+      min-height: auto;
+    }
+  
+    .mapContainer {
+      width: 100%;
+    }
+  
+    .boothDetails {
+      margin: 10px;
+      max-width: 87%;
+      width: 87%;
+      height: auto;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .noBoothDetails {
+      margin: 10px;
+      max-width: 87%;
+      width: 87%;
+      height: auto;
+      position: relative;
+      transition: all 0.3s ease;
     }
   }
   

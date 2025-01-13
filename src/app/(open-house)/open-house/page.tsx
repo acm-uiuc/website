@@ -218,7 +218,7 @@ export default function VenuePage() {
       <div className={styles.mapAndDetailsContainer}>
             <div className={`${styles.mapContainer} ${styles[`map-${mapPosition}`]}`}>
             <img 
-                src="./img/open-house/CIF_map.png" 
+                src="./img/open-house/CIF_map.svg" 
                 alt="Venue Map" 
                 className={styles.venueMap}
             />

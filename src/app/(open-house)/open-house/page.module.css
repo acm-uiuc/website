@@ -100,7 +100,7 @@
     left: 0;
     right: 0;
     margin: 0 auto;
-    width: min(618px, 100%);
+    width: min(891px, 100%);
     height: 100%;
     pointer-events: none;
     z-index: 10;
@@ -354,7 +354,7 @@
     }
   }
   
-  @media screen and (min-width: 1250px) {
+  @media screen and (min-width: 1800px) {
     .boothDetails {
         margin: auto 7% auto 0;
     }

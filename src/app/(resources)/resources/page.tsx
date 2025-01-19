@@ -70,7 +70,7 @@ const Resources = () => {
             <li>
               <h5 className="inline font-bold">Discounted Latea</h5>
               <p>
-                ACM is partnering with Latea, so every paid member now has a 10% discount at Latea (non-stackable)! At the counter, go to{' '}
+                ACM is partnering with Latea, so every paid member now has a 10% discount (non-stackable) at Latea! At the counter, go to{' '}
                 <ExtLink href="https://membership.acm.illinois.edu">membership.acm.illinois.edu</ExtLink> and enter your NetID to get confirmation that you are a paid member and enjoy your sweet treat!
               </p>
             </li>

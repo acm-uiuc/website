@@ -75,14 +75,15 @@ export default function CommitteeSection() {
           description="The infra team maintains ACM@UIUC's infrastructure and engineering efforts
           like this website."
           image={infrastructure}
+          href="https://infra.acm.illinois.edu/"
           chairs={[
             {
               name: "Dev Singh",
               email: "dsingh14@illinois.edu"
             },
             {
-              name: "Kaushik Varadharajan",
-              email: "kv22@illinois.edu"
+              name: "Kay Rivera",
+              email: "krive5@illinois.edu"
             }
           ]}
         />

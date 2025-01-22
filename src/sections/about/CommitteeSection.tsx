@@ -25,12 +25,12 @@ export default function CommitteeSection() {
           href="https://reflectionsprojections.org/"
           chairs={[
             {
-              name: "Ojaswee Chaudhary",
-              email: "ojaswee2@illinois.edu"
+              name: "Cole Jordan",
+              email: "coleej2@illinois.edu"
             },
             {
-              name: "Ritika Vithani",
-              email: "ritikav2@illinois.edu"
+              name: "Shreenija Daggavolu",
+              email: "srd8@illinois.edu"
             }
           ]}
         />
@@ -75,14 +75,15 @@ export default function CommitteeSection() {
           description="The infra team maintains ACM@UIUC's infrastructure and engineering efforts
           like this website."
           image={infrastructure}
+          href="https://infra.acm.illinois.edu/"
           chairs={[
             {
               name: "Dev Singh",
               email: "dsingh14@illinois.edu"
             },
             {
-              name: "Kaushik Varadharajan",
-              email: "kv22@illinois.edu"
+              name: "Kay Rivera",
+              email: "krive5@illinois.edu"
             }
           ]}
         />

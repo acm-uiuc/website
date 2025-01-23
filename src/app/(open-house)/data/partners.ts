@@ -88,6 +88,7 @@ import { BoothType } from './booths';
         description: 'The mission of the Association for Quant Trading Education (AQTE) is to develop a community of people who are interested in quantitative finance and provide them with resources, training, and experiential learning opportunities to succeed in a multi-disciplinary and highly proprietary industry.',
         links: [
             { text: 'Website', link: 'https://quanteducation.web.illinois.edu' },
+            { text: 'Discord', link: 'https://discord.gg/yDyxY72Z' },
         ],
         keywords: ['finance', 'quantitative', 'education'],
         tableId: 33,

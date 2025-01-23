@@ -78,6 +78,14 @@ export default function Navbar() {
                     SIGs
                   </NavLink>
                 </li>
+                <li>
+                  <NavLink
+                    href="/about/#committees"
+                    onClick={uncheck}
+                  >
+                    Committees
+                  </NavLink>
+                </li>
                 {/* <li>
                   <NavLink
                     href="/about/#reflections"
@@ -116,6 +124,14 @@ export default function Navbar() {
                     onClick={uncheck}
                   >
                     Resources
+                  </NavLink>
+                </li>
+                <li>
+                <NavLink
+                    href="/open-house"
+                    onClick={uncheck}
+                  >
+                    Open House
                   </NavLink>
                 </li>
               </ul>

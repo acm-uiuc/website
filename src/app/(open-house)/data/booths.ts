@@ -11,7 +11,7 @@ export interface Booth {
     description: string
     links?: Link[]; // Array of dynamic links
     keywords: string[]
-    tableId: number
+    tableId?: number
 }
 
 export type {Booth as BoothType}
@@ -37,7 +37,9 @@ const eventBooths = PartnerList.map((committee, index) => ({
     keywords: ['committee', committee.toLowerCase()],
 }));
 
-const sigBooths = SIGList.map((sig, index) => ({
+const filteredSIGList = SIGList.filter(sig => sig !== 'SIGMobile' && sig !== 'SIGARCH'); // Exclude SIGPLAN and SIGMobile
+
+const sigBooths = filteredSIGList.map((sig, index) => ({
     id: eventBooths.length + committeeBooths.length + index + 1,
     type: 'SIG',
     name: getOrganizationInfo(sig).title,
@@ -53,6 +55,7 @@ const partnerBooths = partners.map((partner, index) => ({
     type: 'Partner',
     name: partner.name,
     logo: partner.logo,
+    customLogo: partner.customLogo,
     description: partner.description,
     tableId: sigBooths.length + committeeBooths.length + eventBooths.length + index + 1,
     keywords: partner.keywords,

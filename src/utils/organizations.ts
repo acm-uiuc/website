@@ -22,7 +22,7 @@ export const getOrganizationColor = (org: Organization) => {
 }
 
 export const SIGList = ['SIGPwny' , 'SIGCHI' , 'GameBuilders' , 'SIGAIDA' , 'SIGGRAPH' 
-    , 'ICPC' , 'SIGMobile' , 'SIGMusic' , 'GLUG' , 'SIGNLL' , 'SIGma' , 'SIGQuantum' , 'SIGecom' , 'SIGPLAN' , 'SIGPolicy' , 'SIGARCH', 'SIGRobotics', 'SIGtricity'] as const;
+    , 'ICPC' , 'SIGMobile' , 'SIGMusic', 'SIGPLAN' , 'GLUG' , 'SIGNLL' , 'SIGma' , 'SIGQuantum' , 'SIGecom' , 'SIGPolicy' , 'SIGARCH', 'SIGRobotics', 'SIGtricity'] as const;
     
 export const CommitteeList = ['Infrastructure Committee', 'Social Committee', 'Corporate Committee', 'Marketing Committee', 'Mentorship Committee', 'Academic Committee']
 export const PartnerList = ['Reflections | Projections', 'HackIllinois']
@@ -218,7 +218,7 @@ export const OrganizationDataMapping : Record<Organization, IOrgData> = {
     description: 'Learn about the theory behind programming languages and type systems, and then make projects!',
     links: [
       {
-        link: 'https://discord.gg/t4TmDRDf9c',
+        link: 'https://discord.gg/fm7ZFGj3',
         text: 'Discord'
       }
     ]

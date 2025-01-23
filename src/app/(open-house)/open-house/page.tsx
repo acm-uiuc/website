@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import styles from './page.module.css'
-import { FaSearch } from 'react-icons/fa';
+import { FaCalendar, FaSearch } from 'react-icons/fa';
 import Link from 'next/link';
 import { getOrganizationImage } from '@/components/LazyImage';
 import booths, { Booth } from '../data/booths'
@@ -34,8 +34,8 @@ interface BoothSectionProps {
         onClick={onToggle}
       >
         {title}
-        <span className={styles.collapseIcon}>
-          {collapsed ? '▶' : '▼'}
+        <span className={`${styles.collapseIcon} ${collapsed ? styles.collapsed : styles.uncollapsed}`}>
+          ▼
         </span>
       </h3>
       {!collapsed && (
@@ -74,7 +74,16 @@ export default function VenuePage() {
   const [selectedBooth, setSelectedBooth] = useState<Booth | null>(null)
   const [mapPosition, setMapPosition] = useState<'middle' | 'left'>('middle')
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false)
+  const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('')
+
+  const boothOrder = [1, 26, 9, 23];
+  const boothTimes: Record<number, string> = {
+    1: '7:30 PM - 7:45 PM',
+    26: '7:45 PM - 8:00 PM',
+    9: '8:00 PM - 8:15 PM',
+    23: '8:15 PM - 8:30 PM',
+  };
 
   const filteredBooths = booths.filter(booth => {
     const searchTerms = searchQuery.toLowerCase().split(' ')
@@ -152,11 +161,19 @@ export default function VenuePage() {
                 <img src="https://acm-brand-images.s3.amazonaws.com/banner-white.png" alt="ACM@UIUC" />
             </Link>
         </div>
-        <div 
-          className={styles.searchIcon}
-          onClick={() => setIsSearchModalOpen(true)}
-        >
+        <div className={styles.navbarIcons}>
+          <div 
+            className={styles.calendarIcon} 
+            onClick={() => setIsCalendarModalOpen(true)}
+          >
+            <FaCalendar />
+          </div>
+          <div 
+            className={styles.searchIcon} 
+            onClick={() => setIsSearchModalOpen(true)}
+          >
             <FaSearch />
+          </div>
         </div>
       </nav>
 
@@ -215,6 +232,52 @@ export default function VenuePage() {
         </div>
       )}
 
+      {isCalendarModalOpen && (
+        <div 
+          className={styles.calendarModalOverlay}
+          onClick={() => setIsCalendarModalOpen(false)}
+        >
+          <div 
+            className={styles.calendarModalContent}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3>Demo Room Schedule – CIF 0018</h3>
+            <div className={styles.tableList}>
+              {boothOrder.map((boothId) => {
+                const booth = booths.find((b) => b.id === boothId);
+                if (!booth) return null;
+
+                return (
+                  <div 
+                    key={boothId} 
+                    className={styles.tableItem}
+                    onClick={() => {
+                      if (selectedBooth?.id != booth.id) {
+                        handleBoothSelect(booth);
+                      }
+                      setIsCalendarModalOpen(false);
+                    }}
+                  >
+                    <div className={styles.tableIcon}>
+                      <span>{booth.name}</span>
+                    </div>
+                    <div className={styles.tableTiming}>
+                      <p>{boothTimes[boothId]}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            <button 
+              className={styles.closeCalendarModal}
+              onClick={() => setIsCalendarModalOpen(false)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className={styles.mapAndDetailsContainer}>
             <div className={`${styles.mapContainer} ${styles[`map-${mapPosition}`]}`}>
             <img 
@@ -239,7 +302,18 @@ export default function VenuePage() {
                         height: `${table.height}%`
                     }}
                     onClick={() => handleBoothSelect(booth)}
-                    >{booth.tableId}</div>
+                    >
+                      {booth.customLogo ? (
+                        <img 
+                          src={booth.logo} 
+                          alt={booth.name}
+                          className={styles.tableLogo}
+                        />
+                      ) : (
+                        getOrganizationImage(booth.name, styles.tableLogo)
+                      )}
+
+                    </div>
                 )
                 })}
             </div>
@@ -248,6 +322,11 @@ export default function VenuePage() {
         {selectedBooth && (
             <div className={ selectedBooth ? styles.boothDetails : styles.noBoothDetails}>
                 <h2>{selectedBooth.name}</h2>
+                {selectedBooth.tableId === 0 ? (
+                  <i>No table assigned for this booth.</i>
+                ) : (
+                  <p></p>
+                )}
                 <p>{selectedBooth.description}</p>
                 
                 {selectedBooth.links && (

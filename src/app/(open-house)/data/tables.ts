@@ -24,29 +24,29 @@ const tables: Table[] = [
     {
       id: 3,
       top: 82,
-      left: 45,
-      width: 10,
+      left: 60,
+      width: 14,
       height: 7
     },
     {
       id: 4,
       top: 82,  
-      left: 35,  
-      width: 10,
+      left: 45,  
+      width: 14,
       height: 7
     },
     {
       id: 5,
       top: 82,  
-      left: 25,  
-      width: 10,
+      left: 30,  
+      width: 14,
       height: 7
     },
     {
       id: 6,
       top: 82,
       left: 15,
-      width: 10,
+      width: 14,
       height: 7
     },
     {
@@ -59,22 +59,22 @@ const tables: Table[] = [
     {
       id: 8,
       top: 63,
-      left: 51,
-      width: 10,
+      left: 58,
+      width: 13,
       height: 7
     },
     {
       id: 9,
       top: 63,
-      left: 41,
-      width: 10,
+      left: 44,
+      width: 14,
       height: 7
     },
     {
       id: 10,
       top: 63,
       left: 31,
-      width: 10,
+      width: 13,
       height: 7
     },
     {
@@ -93,79 +93,79 @@ const tables: Table[] = [
     },
     {
       id: 13,
-      top: 56,  
+      top: 66,  
       left: 8,  
       width: 6,
-      height: 12 
+      height: 15 
     },
     {
       id: 14,
-      top: 44,
+      top: 50,
       left: 25,
       width: 6,
-      height: 13
+      height: 20
     },
     {
       id: 15,
-      top: 43,
+      top: 50,
       left: 8,
       width: 6,
-      height: 12
+      height: 15
     },
     {
       id: 16,
       top: 30,
       left: 25,
       width: 6,
-      height: 14
+      height: 20
     },
     {
       id: 17,
-      top: 30,  
+      top: 34,  
       left: 8,  
       width: 6,
-      height: 12 
+      height: 15 
     },
     {
       id: 18,
-      top: 17,  
+      top: 18,  
       left: 8,  
       width: 6,
-      height: 12 
+      height: 15 
     },
     {
       id: 19,
       top: 9,  
       left: 15,  
-      width: 10,
+      width: 14,
       height: 7
     },
     {
       id: 20,
       top: 9,
-      left: 25,
-      width: 10,
+      left: 29,
+      width: 14,
       height: 7
     },
     {
       id: 21,
       top: 9,
-      left: 35,
-      width: 10,
+      left: 43,
+      width: 14,
       height: 7
     },
     {
       id: 22,
       top: 9,
-      left: 45,
-      width: 10,
+      left: 57,
+      width: 14,
       height: 7
     },
     {
       id: 23,
       top: 9,
-      left: 55,
-      width: 10,
+      left: 71,
+      width: 14,
       height: 7
     },
     {
@@ -186,21 +186,21 @@ const tables: Table[] = [
       id: 26,
       top: 30,
       left: 31,
-      width: 10,
+      width: 13,
       height: 7
     },
     {
       id: 27,
       top: 30,
-      left: 41,
-      width: 10,
+      left: 44,
+      width: 14,
       height: 7
     },
     {
       id: 28,
       top: 30,
-      left: 51,
-      width: 10,
+      left: 58,
+      width: 13,
       height: 7
     },
     {
@@ -215,21 +215,21 @@ const tables: Table[] = [
       top: 17,  
       left: 87,  
       width: 6,
-      height: 12 
+      height: 16
     },
     {
       id: 31,
-      top: 30,  
+      top: 34,  
       left: 87,  
       width: 6,
-      height: 12
+      height: 16
     },
     {
       id: 32,
-      top: 43,  
+      top: 51,  
       left: 87,  
       width: 6,
-      height: 12 
+      height: 16 
     },
     {
       id: 33,
@@ -243,14 +243,14 @@ const tables: Table[] = [
       top: 30,
       left: 71,
       width: 6,
-      height: 14
+      height: 20
     },
     {
       id: 35,
-      top: 44,
+      top: 50,
       left: 71,
       width: 6,
-      height: 13
+      height: 20
     },
     {
       id: 36,

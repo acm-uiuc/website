@@ -81,8 +81,7 @@ export default function VenuePage() {
   const boothTimes: Record<number, string> = {
     1: '7:30 PM - 7:45 PM',
     26: '7:45 PM - 8:00 PM',
-    9: '8:00 PM - 8:15 PM',
-    23: '8:15 PM - 8:30 PM',
+    23: '8:00 PM - 8:15 PM',
   };
 
   const filteredBooths = booths.filter(booth => {

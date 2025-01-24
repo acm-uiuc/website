@@ -77,11 +77,12 @@ export default function VenuePage() {
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('')
 
-  const boothOrder = [1, 26, 23];
+
+  const boothOrder = [1, 23];
   const boothTimes: Record<number, string> = {
     1: '7:30 PM - 7:45 PM',
-    26: '7:45 PM - 8:00 PM',
-    23: '8:00 PM - 8:15 PM',
+    23: '7:45 PM - 8:00 PM',
+
   };
 
   const filteredBooths = booths.filter(booth => {

@@ -126,14 +126,14 @@ export default function Navbar() {
                     Resources
                   </NavLink>
                 </li>
-                <li>
+                {/* <li>
                 <NavLink
                     href="/open-house"
                     onClick={uncheck}
                   >
                     Open House
                   </NavLink>
-                </li>
+                </li> */}
               </ul>
             </nav>
           </div>

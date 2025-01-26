@@ -14,6 +14,13 @@ export default function LeadershipSection() {
       img={chair}
       email="mailto:ronita2@illinois.edu"
     />,
+    <LeadershipCard 
+      key={"vicechair"}
+      title="Vice Chair"
+      name="Yanni Zhuang" 
+      img={vicechair} 
+      email="mailto:yanniz3@illinois.edu"
+    />,
     <LeadershipCard
       key={"treasurer"}
       title="Treasurer"
@@ -33,7 +40,7 @@ export default function LeadershipSection() {
   return (
     <section id="leadership" className="container flex flex-col gap-6">
       <h1>Leadership</h1>
-      <div className={`grid gap-6 grid-cols-1 sm:grid-cols-${Math.floor(cards.length / 2)} lg:grid-cols-${cards.length}`}>
+      <div className={`grid gap-6 grid-cols-1 sm:grid-cols-${cards.length / 2} lg:grid-cols-${cards.length}`}>
         {cards}
       </div>
     </section>

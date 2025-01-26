@@ -8,18 +8,21 @@ import secretary from "@/stories/assets/secretary.jpg";
 export default function LeadershipSection() {
   const cards = [
     <LeadershipCard
+      key={"chair"}
       title="Chair"
       name="Ronit Anandani"
       img={chair}
       email="mailto:ronita2@illinois.edu"
     />,
     <LeadershipCard
+      key={"treasurer"}
       title="Treasurer"
       name="Ryan To"
       img={treasurer}
       email="mailto:treasurer@acm.illinois.edu"
     />,
     <LeadershipCard
+      key={"secretary"}
       title="Secretary"
       name="Akshay Vellore"
       img={secretary}

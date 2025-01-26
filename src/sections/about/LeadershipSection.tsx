@@ -40,7 +40,7 @@ export default function LeadershipSection() {
   return (
     <section id="leadership" className="container flex flex-col gap-6">
       <h1>Leadership</h1>
-      <div className={`grid gap-6 grid-cols-1 sm:grid-cols-${cards.length / 2} lg:grid-cols-${cards.length}`}>
+      <div className={`grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4`}>
         {cards}
       </div>
     </section>

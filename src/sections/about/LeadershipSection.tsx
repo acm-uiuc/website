@@ -12,23 +12,23 @@ export default function LeadershipSection() {
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         <LeadershipCard
           title="Chair"
-          name="Abhived Pulapaka"
+          name="Ronit Anandani"
           img={chair}
-          email="mailto:abhived2@illinois.edu"
-        />
-        <LeadershipCard 
-          title="Vice Chair"
-          name="Ronit Anandani" 
-          img={vicechair} 
           email="mailto:ronita2@illinois.edu"
         />
-        <LeadershipCard 
+        {/* <LeadershipCard
+          title="Vice Chair"
+          name="Ronit Anandani"
+          img={vicechair}
+          email="mailto:ronita2@illinois.edu"
+        /> */}
+        <LeadershipCard
           title="Treasurer"
           name="Ryan To"
-          img={treasurer} 
+          img={treasurer}
           email="mailto:treasurer@acm.illinois.edu"
         />
-        <LeadershipCard 
+        <LeadershipCard
           title="Secretary"
           name="Akshay Vellore"
           img={secretary}

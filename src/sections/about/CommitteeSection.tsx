@@ -98,10 +98,6 @@ export default function CommitteeSection() {
             {
               name: "Jacob Levine",
               email: "jlevine4@illinois.edu"
-            },
-            {
-              name: "Yanni Zhuang",
-              email: "yanniz3@illinois.edu"
             }
           ]}
         />

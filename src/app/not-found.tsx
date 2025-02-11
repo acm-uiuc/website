@@ -74,7 +74,7 @@ export default function NotFound() {
                 <h1 className="text-2xl sm:text-4xl font-bold mt-4 text-center text-white">Page Not Found</h1>
                 <p className="mt-4 text-center text-white">Perhaps you would like to <Link href="/" className="text-primary hover:text-secondary">go home?</Link></p>
             </header>
-            <div className="w-full max-w-2xl h-48 sm:h-56 p-4 bg-gray-800 border border-gray-700 text-white overflow-hidden rounded-md">
+            <div className="w-full max-w-2xl h-48 sm:h-56 p-4 m-4 bg-gray-800 border border-gray-700 text-white overflow-hidden rounded-md">
                 <textarea
                     ref={textAreaRef}
                     className="w-full h-full bg-transparent border-none text-white resize-none focus:outline-none font-mono overflow-hidden"

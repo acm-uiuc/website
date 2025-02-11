@@ -6,7 +6,8 @@ import Link from 'next/link';
 import Footer from '@/components/Footer';
 
 const messages = [
-    "\nThe requested document is no more.",
+    "cat message.txt",
+    "The requested document is no more.",
     "No file found.",
     "Even tried multi.",
     "Nothing helped.",
@@ -31,7 +32,7 @@ const messages = [
 
 export default function NotFound() {
     const [displayedText, setDisplayedText] = useState(
-        `<span style="color: #00ff00;">public@acm.illinois.edu</span>:<span style="color: #800080">~</span>$ cat message.txt`
+        `<span style="color: #00ff00;">public@acm.illinois.edu</span>:<span style="color: #800080">~</span>$ `
     );
     const [index, setIndex] = useState(0);
     const [textPos, setTextPos] = useState(0);

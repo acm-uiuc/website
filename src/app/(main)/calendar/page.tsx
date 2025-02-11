@@ -2,7 +2,7 @@
 import Events, { IEvent } from '@/components/Events/events'
 import moment from 'moment-timezone'
 import EventDetail, { CalendarEventDetailProps } from '@/components/CalendarEventDetail/CalendarEventDetail';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import CalendarControls from '@/components/CalendarControls';
 import { View, Views } from 'react-big-calendar';
 import { transformApiDates } from '@/utils/dateutils';
@@ -67,7 +67,7 @@ const Calendar = () => {
     setFilter(e.target.value);
   };
   return (
-    <>
+    <Suspense>
       <section className="container">
         <h1 className='mt-0 pt-0 mb-4'>Our Events</h1>
         <div className="flex">
@@ -121,7 +121,7 @@ const Calendar = () => {
           </div>
         </div>
       </section>
-    </>
+    </Suspense>
   );
 };
 

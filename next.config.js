@@ -9,6 +9,9 @@ const nextConfig = {
   reactStrictMode: true,
   output: 'export',
   distDir: 'build',
+  experimental: {
+    missingSuspenseWithCSRBailout: false,
+  },
 }
 
 module.exports = nextConfig

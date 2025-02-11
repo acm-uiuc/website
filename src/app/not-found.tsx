@@ -6,7 +6,7 @@ import Link from 'next/link';
 import Footer from '@/components/Footer';
 
 const messages = [
-    "The requested document is no more.",
+    "\nThe requested document is no more.",
     "No file found.",
     "Even tried multi.",
     "Nothing helped.",
@@ -30,11 +30,15 @@ const messages = [
 ];
 
 export default function NotFound() {
-    const [displayedText, setDisplayedText] = useState("public@acm.illinois.edu~$ cat message.txt\n");
+    const [displayedText, setDisplayedText] = useState(
+        `<span style="color: #00ff00;">public@acm.illinois.edu</span>:<span style="color: #800080">~</span>$ cat message.txt`
+    );
     const [index, setIndex] = useState(0);
     const [textPos, setTextPos] = useState(0);
-    const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
+    const [showCursor, setShowCursor] = useState(true);
+    const textAreaRef = useRef<HTMLDivElement | null>(null);
 
+    // Simulate typing effect
     useEffect(() => {
         if (index < messages.length) {
             if (textPos < messages[index].length) {
@@ -54,6 +58,15 @@ export default function NotFound() {
         }
     }, [index, textPos]);
 
+    // Blink cursor effect
+    useEffect(() => {
+        const cursorInterval = setInterval(() => {
+            setShowCursor(prev => !prev);
+        }, 500);
+        return () => clearInterval(cursorInterval);
+    }, []);
+
+    // Auto-scroll down
     useEffect(() => {
         if (textAreaRef.current) {
             textAreaRef.current.scrollTop = textAreaRef.current.scrollHeight;
@@ -72,14 +85,15 @@ export default function NotFound() {
                     />
                 </Link>
                 <h1 className="text-2xl sm:text-4xl font-bold mt-4 text-center text-white">Page Not Found</h1>
-                <p className="mt-4 text-center text-white">Perhaps you would like to <Link href="/" className="text-primary hover:text-secondary">go home?</Link></p>
+                <p className="mt-4 text-center text-white">
+                    Perhaps you would like to <Link href="/" className="text-primary hover:text-secondary">go home?</Link>
+                </p>
             </header>
-            <div className="w-full max-w-2xl h-48 sm:h-56 p-4 m-4 bg-gray-800 border border-gray-700 text-white overflow-hidden rounded-md">
-                <textarea
+            <div className="w-full max-w-2xl h-80 sm:h-96 p-4 m-4 bg-gray-800 border border-gray-700 text-white overflow-hidden rounded-md">
+                <div
                     ref={textAreaRef}
-                    className="w-full h-full bg-transparent border-none text-white resize-none focus:outline-none font-mono overflow-hidden"
-                    value={displayedText}
-                    readOnly
+                    className="w-full h-full bg-transparent text-white font-mono whitespace-pre-wrap overflow-hidden"
+                    dangerouslySetInnerHTML={{ __html: displayedText + (showCursor ? ' _' : ' ') }}
                 />
             </div>
             <Footer />

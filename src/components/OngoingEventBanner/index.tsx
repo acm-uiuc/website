@@ -26,7 +26,7 @@ const StickyHeader = () => {
     }
     return (
         <>
-            <div className="fixed top-0 left-0 right-0 z-50 bg-gray-900 text-white px-4 py-2 flex items-center justify-center mb-4" style={{ background: config.bgColor }}>
+            <div className="fixed top-0 left-0 right-0 bg-gray-900 text-white px-4 py-2 flex items-center justify-center mb-4" style={{ background: config.bgColor, zIndex: 1000 }}>
                 <div className="flex items-center justify-between w-full max-w-6xl">
                     <div className="flex-1"></div>
                     <div className="">

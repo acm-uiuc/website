@@ -30,7 +30,7 @@ const messages = [
 ];
 
 export default function NotFound() {
-    const [displayedText, setDisplayedText] = useState("");
+    const [displayedText, setDisplayedText] = useState("public@acm.illinois.edu~$ cat message.txt\n");
     const [index, setIndex] = useState(0);
     const [textPos, setTextPos] = useState(0);
     const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -77,7 +77,7 @@ export default function NotFound() {
             <div className="w-full max-w-2xl h-48 sm:h-56 p-4 bg-gray-800 border border-gray-700 text-white overflow-hidden rounded-md">
                 <textarea
                     ref={textAreaRef}
-                    className="w-full h-full bg-transparent border-none text-white resize-none focus:outline-none"
+                    className="w-full h-full bg-transparent border-none text-white resize-none focus:outline-none font-mono overflow-hidden"
                     value={displayedText}
                     readOnly
                 />

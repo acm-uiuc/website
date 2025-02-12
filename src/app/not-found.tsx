@@ -1,9 +1,19 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
+import dynamic from 'next/dynamic';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'ACM@UIUC',
+    description: "404 - Page Not Found",
+    icons: [
+        { url: 'https://acm-brand-images.s3.amazonaws.com/square-blue.png' },
+    ]
+};
 
 const messages = [
     "cat message.txt",
@@ -30,7 +40,28 @@ const messages = [
     "I'm so depressed."
 ];
 
-export default function NotFound() {
+const headers = [
+    "This is Awkward...",
+    "Oops! Lost in Cyberspace",
+    "Nothing to See Here",
+    "Uh-oh! This Page is Missing",
+    "Whoops!",
+    "Well, This is Embarrassing...",
+    "Hmmm... That Page Doesn't Exist",
+    "Sorry, We Couldn't Find That",
+    "Dead End! No Page Here",
+    "Yikes! That Link is Broken",
+    "Gone with the Wind",
+    "This Page Took a Vacation",
+    "Houston, We Have a 404",
+    "Looks Like You're Lost",
+    "Error: Page Vanished!",
+    "404 - Try Again Later?",
+    "The Internet Ate This Page",
+    "Welp, That Didn't Work",
+];
+
+const component = function NotFound() {
     const [displayedText, setDisplayedText] = useState(
         `<span style="color: #00ff00;">public@acm.illinois.edu</span>:<span style="color: #800080">~</span>$ `
     );
@@ -38,6 +69,7 @@ export default function NotFound() {
     const [textPos, setTextPos] = useState(0);
     const [showCursor, setShowCursor] = useState(true);
     const textAreaRef = useRef<HTMLDivElement | null>(null);
+    const chosenHeader = useMemo(() => Math.floor(Math.random() * headers.length), []);
 
     // Simulate typing effect
     useEffect(() => {
@@ -85,9 +117,9 @@ export default function NotFound() {
                         alt="ACM@UIUC Logo"
                     />
                 </Link>
-                <h1 className="text-2xl sm:text-4xl font-bold mt-4 text-center text-white">Page Not Found</h1>
+                <h1 className="text-2xl sm:text-4xl font-bold mt-4 text-center text-white">{headers[chosenHeader]}</h1>
                 <p className="mt-4 text-center text-white">
-                    Perhaps you would like to <Link href="/" className="text-primary hover:text-secondary">go home?</Link>
+                    The page you requested was not found. Would you like to <Link href="/" className="text-primary hover:text-secondary">go home?</Link>
                 </p>
             </header>
             <div className="w-full max-w-2xl h-80 sm:h-96 p-4 m-4 bg-gray-800 border border-gray-700 text-white overflow-hidden rounded-md">
@@ -101,3 +133,7 @@ export default function NotFound() {
         </div>
     );
 }
+
+export default dynamic(() => Promise.resolve(component), {
+    ssr: false
+})

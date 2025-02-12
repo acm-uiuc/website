@@ -46,14 +46,14 @@ export default function NotFound() {
                 const timeout = setTimeout(() => {
                     setDisplayedText(prev => prev + messages[index][textPos]);
                     setTextPos(prev => prev + 1);
-                }, 60);
+                }, 50);
                 return () => clearTimeout(timeout);
             } else {
                 const timeout = setTimeout(() => {
                     setDisplayedText(prev => prev + '\n');
                     setIndex(prev => prev + 1);
                     setTextPos(0);
-                }, 1500);
+                }, index === 0 ? 1250 : 750);
                 return () => clearTimeout(timeout);
             }
         }

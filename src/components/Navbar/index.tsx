@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import DevModePopup from '../DevModePopup';
 
 import styles from './index.module.css';
+import StickyHeader from '../OngoingEventBanner';
 
 function NavLink({ children, ...rest }: { children: React.ReactNode } & LinkProps) {
   return (
@@ -28,6 +29,7 @@ export default function Navbar() {
 
   return (
     <div className="bg-acmdark text-white">
+      <StickyHeader />
       {!prod ? <DevModePopup /> : null}
       <div className="relative">
         <header className="container flex flex-row justify-between py-4">

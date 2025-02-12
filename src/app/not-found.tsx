@@ -56,9 +56,10 @@ const headers = [
     "Houston, We Have a 404",
     "Looks Like You're Lost",
     "Error: Page Vanished!",
-    "404 - Try Again Later?",
+    "Try Again Later?",
     "The Internet Ate This Page",
     "Welp, That Didn't Work",
+    "Where Did It Go?"
 ];
 
 const component = function NotFound() {

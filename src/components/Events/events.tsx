@@ -222,7 +222,7 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
                 eventPropGetter={(event, start, end, isSelected) => {
                     const color = getEventColor(event);
                     const darkerColor = shadeColor(color, -20);
-                    return { style: { backgroundColor: isSelected ? darkerColor : color, borderRadius: '0.375rem', 'fontSize': '12px' } } // '#4577F8' } }
+                    return { style: { backgroundColor: isSelected ? darkerColor : color, borderRadius: '0.375rem', 'fontSize': '12px', 'color': 'white', 'fontFamily':  'var(--font-dm-sans), sans-serif'} } // '#4577F8' } }
                 }}
             /> : <div></div> }
         </Skeleton>

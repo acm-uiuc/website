@@ -30,7 +30,7 @@ function CalendarEventDetail({
     }
     if (title === undefined) {
         return (
-            <p className='text-center mt-2'>Click on an event to see more details!</p>
+            <p className='text-center mt-2 xl:w-full xl:pt-5'>Click on an event to see more details!</p>
         )
     } else {
         moment.tz.guess()

@@ -107,7 +107,7 @@ const Calendar = () => {
             </div>
           </div>
         </div>
-        <div className='grid justify-between pb-10 gap-6 grid-cols-8'>
+        <div className='grid justify-between pb-10 gapx-6 grid-cols-8'>
           <div className="flex xl:order-last col-span-8 xl:col-span-3">
             <EventDetail
               title={eventDetail.title}

@@ -70,7 +70,7 @@ const Calendar = () => {
     <Suspense>
       <section className="container">
         <h1 className='mt-0 pt-0 mb-4'>Our Events</h1>
-        <div className="grid lg:grid-cols-3 xl:grid-cols-8 w-full gap-4">
+        <div className="grid lg:grid-cols-3 xl:grid-cols-8 w-full gap-6">
           <div className='flex lg:col-span-2 xl:col-span-5'>
             <CalendarControls currDisplayDate={displayDate} updateDisplayDate={setDisplayDate} currView={view} updateCurrView={setView} />
           </div>
@@ -107,7 +107,7 @@ const Calendar = () => {
             </div>
           </div>
         </div>
-        <div className='grid justify-between pb-10 gap-4 grid-cols-8'>
+        <div className='grid justify-between pb-10 gap-6 grid-cols-8'>
           <div className="flex xl:order-last col-span-8 xl:col-span-3">
             <EventDetail
               title={eventDetail.title}

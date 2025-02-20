@@ -93,7 +93,7 @@ export default function Hero({ upcomingEvents, eventsLoading }: HeroProps) {
             <div className="flex flex-col max-sm:items-center sm:flex-row gap-4">
               <a
                 className="flex flex-col w-full sm:w-fit px-16 py-3 items-center text-white text-center text-2xl rounded-full bg-primary hover:bg-secondary transition-all"
-                href="/membership"
+                href="/join"
                 target="_blank"
                 rel="noopener noreferrer"
               >

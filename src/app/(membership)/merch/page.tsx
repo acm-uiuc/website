@@ -212,19 +212,20 @@ const MerchItem = () => {
                 <img alt={merchList["item_name"] + " image."} src={merchList["item_image"]} />
               ) : null}
 
-              {merchList["description"] ? (<p>{merchList["description"]}</p>) : null}
+              {merchList["description"] ? (<p style={{ whiteSpace: 'pre-line' }}>{merchList["description"]}</p>) : null}
 
               {totalCapacity() as number < 10 ? <p> <b>We are running out, order soon!</b></p> : null}
-              {
-                (merchList["limit_per_person"] && merchList["limit_per_person"] > 0) ? (
-                  <p>
-                    Limit {merchList["limit_per_person"]} per person.
-                  </p>
-                ) : null
-              }
               <p>
                 <b>Cost:</b> ${merchList["item_price"]["paid"]} for paid ACM@UIUC members, ${merchList["item_price"]["others"]} for nonmembers.
               </p>
+
+              {
+                (merchList["limit_per_person"] && merchList["limit_per_person"] > 0) ? (
+                  <i>
+                    Limit {merchList["limit_per_person"]} per person.
+                  </i>
+                ) : null
+              }
 
               <Select
                 isRequired={true}

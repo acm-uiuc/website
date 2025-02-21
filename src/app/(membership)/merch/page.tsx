@@ -21,6 +21,13 @@ import {
 import axios from 'axios';
 import Layout from '../MembershipLayout';
 
+const decimalHelper = (num: number) => {
+  if (Number.isInteger(num)) {
+    return num;
+  } else {
+    return num.toFixed(2);
+  }
+}
 
 interface ErrorCode {
   code?: number | string,
@@ -216,7 +223,7 @@ const MerchItem = () => {
 
               {totalCapacity() as number < 10 ? <p> <b>We are running out, order soon!</b></p> : null}
               <p>
-                <b>Cost:</b> ${merchList["item_price"]["paid"]} for paid ACM@UIUC members, ${merchList["item_price"]["others"]} for nonmembers.
+                <b>Cost:</b> ${decimalHelper(merchList["item_price"]["paid"])} for {(merchList['valid_member_lists'] && merchList['valid_member_lists'].length > 0) ? 'paid ACM@UIUC and eligible partner organization' : 'paid ACM@UIUC'} members, ${decimalHelper(merchList["item_price"]["others"])} for non-members.
               </p>
 
               {

@@ -1,6 +1,6 @@
 'use client';
 import React, { Suspense } from 'react'
-import { useEffect, useMemo, useState} from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import {
   Button,
@@ -80,18 +80,18 @@ const MerchItem = () => {
           });
           // set default paid schema so it renders the error page
           setMerchList({
-          "member_price": "", 
-          "nonmember_price": "",
-          "item_image": "", 
-          "sizes" : [],
-          "item_price": {"paid": 999999, "others": 999999}, "eventDetails": "",
-          "item_id": "404_event",
-          "total_sold": {},
-          "total_avail": {},
-          "limit_per_person": -1,
-          "item_sales_active_utc": -1, 
-          "item_name": "", 
-        });
+            "member_price": "",
+            "nonmember_price": "",
+            "item_image": "",
+            "sizes": [],
+            "item_price": { "paid": 999999, "others": 999999 }, "eventDetails": "",
+            "item_id": "404_event",
+            "total_sold": {},
+            "total_avail": {},
+            "limit_per_person": -1,
+            "item_sales_active_utc": -1,
+            "item_name": "",
+          });
           setIsLoading(false);
           modalErrorMessage.onOpen();
         }, 1000)
@@ -101,7 +101,7 @@ const MerchItem = () => {
 
   useEffect(() => {
     metaLoader();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const purchaseHandler = () => {
@@ -149,7 +149,7 @@ const MerchItem = () => {
   };
 
   const changeSize = (e: { target: { value: React.SetStateAction<string>; }; }) => {
-    setSize(e? e.target? e.target.value : "" : "");
+    setSize(e ? e.target ? e.target.value : "" : "");
   };
 
   const validateQuantity = (value: string) => {
@@ -160,6 +160,9 @@ const MerchItem = () => {
   };
 
   const totalCapacity = () => {
+    if (merchList['overall_cap']) {
+      return merchList['overall_cap'];
+    }
     return Object.values(merchList["total_avail"]).reduce((acc: any, val: any) => acc + val, 0);
   };
 
@@ -194,7 +197,7 @@ const MerchItem = () => {
     }
     return <Layout name="Merch Store"></Layout>;
   } else {
-    return ( 
+    return (
       <Layout name={merchList["item_name"]}>
         <div className="h-screen w-screen absolute top-0 left-0 flex flex-col items-center py-24">
           <Card className="max-w-[512px] mx-4 my-auto shrink-0">
@@ -209,22 +212,29 @@ const MerchItem = () => {
                 <img alt={merchList["item_name"] + " image."} src={merchList["item_image"]} />
               ) : null}
 
-              {merchList["description"] ? (<p>{merchList["description"]}</p>) : null}
+              {merchList["description"] ? (<p style={{ whiteSpace: 'pre-line' }}>{merchList["description"]}</p>) : null}
 
-              {totalCapacity() as number < 10 ? <p> <b>We are running out, order soon!</b></p>: null}
-
+              {totalCapacity() as number < 10 ? <p> <b>We are running out, order soon!</b></p> : null}
               <p>
                 <b>Cost:</b> ${merchList["item_price"]["paid"]} for paid ACM@UIUC members, ${merchList["item_price"]["others"]} for nonmembers.
               </p>
 
+              {
+                (merchList["limit_per_person"] && merchList["limit_per_person"] > 0) ? (
+                  <i>
+                    Limit {merchList["limit_per_person"]} per person.
+                  </i>
+                ) : null
+              }
+
               <Select
                 isRequired={true}
-                label="Size"
-                placeholder="Select an size"
+                label={merchList['variant_friendly_name'] || 'Size'}
+                placeholder="Select one"
                 selectedKeys={[size]}
                 disabledKeys={merchList["sizes"].filter(filterSoldOut)}
                 onChange={changeSize}
-                >
+              >
                 {merchList["sizes"].map((val: string) => (
                   <SelectItem key={val} value={val}>
                     {filterSoldOut(val) ? val + " [SOLD OUT]" : val}
@@ -284,7 +294,7 @@ const MerchItem = () => {
                   input: ["text-base"]
                 }}
               />
-              
+
               <Button
                 color="primary"
                 size="lg"

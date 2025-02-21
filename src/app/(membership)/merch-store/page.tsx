@@ -73,11 +73,12 @@ const MerchStore = () => {
                 </p>
                 {
                   (val["limit_per_person"] && val["limit_per_person"] > 0) ? (
-                    <p>
+                    <i>
                       Limit {val["limit_per_person"]} per person.
-                    </p>
+                    </i>
                   ) : null
                 }
+                <br className='mb-4' />
                 <Button
                   color="primary"
                   size="lg"

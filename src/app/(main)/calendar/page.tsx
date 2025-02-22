@@ -70,12 +70,12 @@ const Calendar = () => {
     <Suspense>
       <section className="container">
         <h1 className='mt-0 pt-0 mb-4'>Our Events</h1>
-        <div className="grid lg:grid-cols-2 xl:grid-cols-8 w-full gap-x-6">
-          <div className='flex lg:col-span-1 xl:col-span-5'>
+        <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-8 w-full gap-x-6">
+          <div className='flex md:col-span-1 lg:col-span-1 xl:col-span-5'>
             <CalendarControls currDisplayDate={displayDate} updateDisplayDate={setDisplayDate} currView={view} updateCurrView={setView} />
           </div>
-          <div className='flex lg:col-span-1 xl:col-span-3 w-full gap-x-4 justify-end'>
-            <div className="hidden lg:flex lg:w-2/5">
+          <div className='flex md:col-span-1 lg:col-span-1 xl:col-span-3 w-full gap-x-4 justify-end'>
+            <div className="hidden md:flex md:w-1/2 lg:w-2/5">
               <select
                 value={hostFilter}
                 onChange={(e) => {
@@ -96,7 +96,7 @@ const Calendar = () => {
                 ))}
               </select>
             </div>
-            <div className="hidden lg:flex lg:w-3/5">
+            <div className="hidden md:flex md:w-1/2 lg:w-3/5">
               <input
                 type="text"
                 placeholder="Search events"

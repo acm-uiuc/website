@@ -70,12 +70,12 @@ const Calendar = () => {
     <Suspense>
       <section className="container">
         <h1 className='mt-0 pt-0 mb-4'>Our Events</h1>
-        <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-8 w-full gap-x-6">
-          <div className='flex md:col-span-1 lg:col-span-1 xl:col-span-5'>
+        <div className="grid grid-cols-2 xl:grid-cols-8 w-full gap-x-6">
+          <div className='flex col-span-1 xl:col-span-5'>
             <CalendarControls currDisplayDate={displayDate} updateDisplayDate={setDisplayDate} currView={view} updateCurrView={setView} />
           </div>
-          <div className='flex h-[2.5rem] mt-auto md:col-span-1 lg:col-span-1 lg:mt-0 xl:col-span-3 w-full gap-x-4 justify-end'>
-            <div className="hidden md:flex md:w-1/2 lg:w-2/5">
+          <div className='flex h-[2.5rem] mt-auto col-span-1 lg:mt-0 xl:col-span-3 w-full gap-x-4 justify-end'>
+            <div className="md:flex md:w-1/2 lg:w-2/5">
               <select
                 value={hostFilter}
                 onChange={(e) => {
@@ -88,7 +88,7 @@ const Calendar = () => {
 
                   }
                 }}
-                className="px-2 border-2 border-gray-300 rounded-md w-full" // Styling for the dropdown
+                className="px-2 border-2 border-gray-300 rounded-md w-full h-full" // Styling for the dropdown
               >
                 <option value="">Filter by host</option>
                 {validOrganizations.map((org) => (
@@ -102,7 +102,7 @@ const Calendar = () => {
                 placeholder="Search events"
                 value={filter}
                 onChange={handleFilterChange}
-                className="px-2 border-2 border-gray-300 focus:border-blue-500 rounded-md w-full" // Updated styling
+                className="px-2 border-2 border-gray-300 focus:border-blue-500 rounded-md w-full h-full" // Updated styling
               />
             </div>
           </div>

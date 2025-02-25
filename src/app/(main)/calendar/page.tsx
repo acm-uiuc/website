@@ -66,16 +66,20 @@ const Calendar = () => {
   const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilter(e.target.value);
   };
+
+  // Label text showing on the filter box
+  const filterLabel = window.innerWidth >= 460 ? "Filter by host" : "Filter";
+
   return (
     <Suspense>
       <section className="container">
         <h1 className='mt-0 pt-0 mb-4'>Our Events</h1>
-        <div className="grid grid-cols-2 xl:grid-cols-8 w-full gap-x-6">
-          <div className='flex col-span-1 xl:col-span-5'>
+        <div className="flex sm:grid sm:grid-cols-2 xl:grid-cols-8 w-full gap-x-6">
+          <div className='flex sm:col-span-1 xl:col-span-5'>
             <CalendarControls currDisplayDate={displayDate} updateDisplayDate={setDisplayDate} currView={view} updateCurrView={setView} />
           </div>
-          <div className='flex h-[2.5rem] mt-auto col-span-1 lg:mt-0 xl:col-span-3 w-full gap-x-4 justify-end'>
-            <div className="md:flex md:w-1/2 lg:w-2/5">
+          <div className='flex h-[2.5rem] mt-auto sm:col-span-1 lg:mt-0 xl:col-span-3 w-full gap-x-4 justify-end'>
+            <div className="flex md:w-1/2 lg:w-2/5">
               <select
                 value={hostFilter}
                 onChange={(e) => {
@@ -90,7 +94,7 @@ const Calendar = () => {
                 }}
                 className="px-2 border-2 border-gray-300 rounded-md w-full h-full" // Styling for the dropdown
               >
-                <option value="">Filter by host</option>
+                <option value="">{filterLabel}</option>
                 {validOrganizations.map((org) => (
                   <option key={org} value={org}>{org}</option>
                 ))}

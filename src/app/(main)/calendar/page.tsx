@@ -68,7 +68,7 @@ const Calendar = () => {
   };
 
   // Label text showing on the filter box
-  const filterLabel = window.innerWidth >= 460 ? "Filter by host" : "Filter";
+  const filterLabel = typeof window !== "undefined" && window.innerWidth >= 460 ? "Filter by host" : "Filter";
 
   return (
     <Suspense>

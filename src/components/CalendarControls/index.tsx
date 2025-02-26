@@ -46,7 +46,7 @@ export default function CalendarControls({currDisplayDate, updateDisplayDate, cu
     }
     return (
     <>
-    <div className="gap-y-4 lg:flex lg:grid-cols-2 lg:w-full lg:justify-between">
+    <div className="sm:flex sm:flex-row md:grid lg:flex lg:grid-cols-2 w-full justify-between gap-x-4">
       <div className="flex items-center pb-1 lg:pb-0 lg:col-span-1">
         <div className="text-xl font-bold">{currView == Views.DAY ? getCurrentDate(currDisplayDate) : extractMonthAndYear(currDisplayDate)}</div>
       </div>

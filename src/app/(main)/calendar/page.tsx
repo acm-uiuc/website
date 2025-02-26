@@ -74,11 +74,11 @@ const Calendar = () => {
     <Suspense>
       <section className="container">
         <h1 className='mt-0 pt-0 mb-4'>Our Events</h1>
-        <div className="flex sm:grid sm:grid-cols-2 xl:grid-cols-8 w-full gap-x-6">
-          <div className='flex sm:col-span-1 xl:col-span-5'>
+        <div className="flex sm:grid sm:grid-cols-3 md:grid-cols-2 xl:grid-cols-8 w-full gap-x-6">
+          <div className='flex sm:col-span-2 md:col-span-1 xl:col-span-5'>
             <CalendarControls currDisplayDate={displayDate} updateDisplayDate={setDisplayDate} currView={view} updateCurrView={setView} />
           </div>
-          <div className='flex h-[2.5rem] mt-auto sm:col-span-1 lg:mt-0 xl:col-span-3 w-full gap-x-4 justify-end'>
+          <div className='flex h-[2.5rem] mt-auto sm:col-span-1 md:col-span-1 lg:mt-0 xl:col-span-3 w-full gap-x-4 justify-end'>
             <div className="flex md:w-1/2 lg:w-2/5">
               <select
                 value={hostFilter}

@@ -66,44 +66,52 @@ const Calendar = () => {
   const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilter(e.target.value);
   };
+
+  // Label text showing on the filter box
+  const filterLabel = typeof window !== "undefined" && window.innerWidth >= 460 ? "Filter by host" : "Filter";
+
   return (
     <Suspense>
       <section className="container">
         <h1 className='mt-0 pt-0 mb-4'>Our Events</h1>
-        <div className="flex">
-          <CalendarControls currDisplayDate={displayDate} updateDisplayDate={setDisplayDate} currView={view} updateCurrView={setView} />
-          <div className="hidden xl:flex">
-            <select
-              value={hostFilter}
-              onChange={(e) => {
-                setHostFilter(e.target.value);
-                const baseURL = window ? window.location.origin : 'https://acm.illinois.edu';
-                if (e.target.value === "") {
-                  window.history.replaceState(null, '', baseURL + `/calendar`);
-                } else {
-                  window.history.replaceState(null, '', baseURL + `/calendar?host=${e.target.value.replaceAll(" ", "+")}`);
-
-                }
-              }}
-              className="border-2 border-gray-300 rounded-md mr-2 px-2" // Styling for the dropdown
-            >
-              <option value="">Filter by host</option>
-              {validOrganizations.map((org) => (
-                <option key={org} value={org}>{org}</option>
-              ))}
-            </select>
+        <div className="flex sm:grid sm:grid-cols-3 md:grid-cols-2 xl:grid-cols-8 w-full gap-x-6">
+          <div className='flex sm:col-span-2 md:col-span-1 xl:col-span-5'>
+            <CalendarControls currDisplayDate={displayDate} updateDisplayDate={setDisplayDate} currView={view} updateCurrView={setView} />
           </div>
-          <div className="hidden lg:flex">
-            <input
-              type="text"
-              placeholder="Search events"
-              value={filter}
-              onChange={handleFilterChange}
-              className="ml-4 px-2 border-2 border-gray-300 focus:border-blue-500 rounded-md" // Updated styling
-            />
+          <div className='flex h-[2.5rem] mt-auto sm:col-span-1 md:col-span-1 lg:mt-0 xl:col-span-3 w-full gap-x-4 justify-end'>
+            <div className="flex md:w-1/2 lg:w-2/5">
+              <select
+                value={hostFilter}
+                onChange={(e) => {
+                  setHostFilter(e.target.value);
+                  const baseURL = window ? window.location.origin : 'https://acm.illinois.edu';
+                  if (e.target.value === "") {
+                    window.history.replaceState(null, '', baseURL + `/calendar`);
+                  } else {
+                    window.history.replaceState(null, '', baseURL + `/calendar?host=${e.target.value.replaceAll(" ", "+")}`);
+
+                  }
+                }}
+                className="px-2 border-2 border-gray-300 rounded-md w-full h-full" // Styling for the dropdown
+              >
+                <option value="">{filterLabel}</option>
+                {validOrganizations.map((org) => (
+                  <option key={org} value={org}>{org}</option>
+                ))}
+              </select>
+            </div>
+            <div className="hidden md:flex md:w-1/2 lg:w-3/5">
+              <input
+                type="text"
+                placeholder="Search events"
+                value={filter}
+                onChange={handleFilterChange}
+                className="px-2 border-2 border-gray-300 focus:border-blue-500 rounded-md w-full h-full" // Updated styling
+              />
+            </div>
           </div>
         </div>
-        <div className='grid justify-between pb-10 gap-4 grid-cols-8'>
+        <div className='grid justify-between pb-10 gap-x-6 grid-cols-8'>
           <div className="flex xl:order-last col-span-8 xl:col-span-3">
             <EventDetail
               title={eventDetail.title}

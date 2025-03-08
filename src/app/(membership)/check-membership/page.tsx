@@ -87,6 +87,7 @@ const Payment = () => {
     try {
       await axios.post(`${walletApiBaseUrl}/api/v1/mobileWallet/membership`, null, {
         params: { email: `${netId}@illinois.edu` }
+        headers: { Content-Type: 'application/json' }
       });
       setIsWalletLoading(false);
     } catch (error: any) {

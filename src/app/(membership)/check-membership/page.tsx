@@ -37,7 +37,7 @@ enum InputStatus {
 
 const baseUrl = process.env.NEXT_PUBLIC_MEMBERSHIP_BASE_URL;
 const walletApiBaseUrl = process.env.NODE_ENV === 'production' 
-   ? 'https://core.aws.acmuiuc.org'
+   ? 'https://core.acm.illinois.edu'
    : 'https://core.aws.qa.acmuiuc.org';
 
 

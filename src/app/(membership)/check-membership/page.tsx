@@ -16,7 +16,9 @@ import {
 } from '@nextui-org/react';
 import {Spinner} from "@nextui-org/spinner";
 
-import Lottie from 'lottie-react';
+// import Lottie from 'lottie-react';
+import dynamic from 'next/dynamic';
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 import axios from 'axios';
 import Layout from '../MembershipLayout';
 import successAnimation from '../success.json';
@@ -33,15 +35,21 @@ enum InputStatus {
   VALID
 }
 
-
 const baseUrl = process.env.NEXT_PUBLIC_MEMBERSHIP_BASE_URL;
+const walletApiBaseUrl = process.env.NODE_ENV === 'production' 
+   ? 'https://core.acm.illinois.edu'
+   : 'https://core.aws.qa.acmuiuc.org';
+
 
 const Payment = () => {
   const [netId, setNetId] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isWalletLoading, setIsWalletLoading] = useState(false);
+  const [walletError, setWalletError] = useState<ErrorCode | null>(null);
 
   const modalMembershipStatus = useDisclosure();
   const modalErrorMessage = useDisclosure();
+  const modalWalletError = useDisclosure();
   const [errorMessage, setErrorMessage] = useState<ErrorCode | null>(null);
   const [isPaidMember, setIsPaidMember] = useState<boolean | null>(null);
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -67,7 +75,30 @@ const Payment = () => {
         code: error?.response?.status || 500,
         message: error?.message || "An unknown error occurred"
       });
+      modalErrorMessage.onOpen();
     });
+  };
+
+  const handleAddToWallet = async () => {
+    setIsWalletLoading(true);
+    setWalletError(null);
+    
+    try {
+      await axios.post(`${walletApiBaseUrl}/api/v1/mobileWallet/membership`, null, {
+        params: { email: `${netId}@illinois.edu` },
+        headers: { 'Content-Type': 'application/json' }
+      });
+      setIsWalletLoading(false);
+    } catch (error: any) {
+      setIsWalletLoading(false);
+      setWalletError({
+        code: error?.response?.status || 500,
+        message: error?.response?.status === 403 
+          ? "You must be a paid member to add your membership to Apple Wallet"
+          : error?.message || "Failed to generate Apple Wallet pass. Please try again later."
+      });
+      modalWalletError.onOpen();
+    }
   };
 
   const validateNetId = (value: string) => {
@@ -128,13 +159,31 @@ const Payment = () => {
           isOpen={modalErrorMessage.isOpen}
           onOpenChange={modalErrorMessage.onOpenChange}
         >
-          <ModalContent className={isPaidMember ? 'rainbow-background' : ''}>
+          <ModalContent>
             <ModalHeader />
             <ModalBody className="flex flex-col items-center">
               <p className="text-center text-2xl font-bold">Error Checking Membership Status</p>
               <p className="text-center">Error Code: {errorMessage && errorMessage.code}</p>
               <p className="text-center">{errorMessage && errorMessage.message}</p>
               {errorMessage && errorMessage.code && (<p>
+                Please try again. If the error continues, contact the <a href='mailto:infra@acm.illinois.edu'>ACM
+                Infra team</a> with the error code.
+              </p>)}
+            </ModalBody>
+            <ModalFooter />
+          </ModalContent>
+        </Modal>
+        <Modal
+          isOpen={modalWalletError.isOpen}
+          onOpenChange={modalWalletError.onOpenChange}
+        >
+          <ModalContent>
+            <ModalHeader />
+            <ModalBody className="flex flex-col items-center">
+              <p className="text-center text-2xl font-bold">Error Adding to Apple Wallet</p>
+              <p className="text-center">Error Code: {walletError && walletError.code}</p>
+              <p className="text-center">{walletError && walletError.message}</p>
+              {walletError && walletError.code && (<p>
                 Please try again. If the error continues, contact the <a href='mailto:infra@acm.illinois.edu'>ACM
                 Infra team</a> with the error code.
               </p>)}
@@ -156,6 +205,21 @@ const Payment = () => {
                 <Lottie animationData={successAnimation} loop={false} style={{ width: '10em' }} />
                 <a>{netId}@illinois.edu</a>
                 <a>{currentTime.toLocaleString()}</a>
+                <Button
+                  color="secondary"
+                  size="lg"
+                  isDisabled={isWalletLoading}
+                  onPress={handleAddToWallet}
+                  className="mt-4"
+                >
+                  {isWalletLoading ? 
+                    <><Spinner color='white' size="sm"/><a>Generating pass...</a></> : 
+                    "Add to Apple Wallet"
+                  }
+                </Button>
+                <p className="text-sm mt-2">
+                  Check your Illinois email for the Apple Wallet pass after clicking.
+                </p>
               </>}
               {!isPaidMember &&
               <>

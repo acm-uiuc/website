@@ -69,15 +69,16 @@ const MerchStore = () => {
                   ) : null}
                 </CardBody>
                 <p>
-                  <b>Cost:</b> ${decimalHelper(val["item_price"]["paid"])} for paid ACM@UIUC members, ${decimalHelper(val["item_price"]["others"])} for non-members.
+                  <b>Cost:</b> ${decimalHelper(val["item_price"]["paid"])} for {(val['valid_member_lists'] && val['valid_member_lists'].length > 0) ? 'paid ACM@UIUC and eligible partner organization' : 'paid ACM@UIUC'} members, ${decimalHelper(val["item_price"]["others"])} for non-members.
                 </p>
                 {
                   (val["limit_per_person"] && val["limit_per_person"] > 0) ? (
-                    <p>
+                    <i>
                       Limit {val["limit_per_person"]} per person.
-                    </p>
+                    </i>
                   ) : null
                 }
+                <br className='mb-4' />
                 <Button
                   color="primary"
                   size="lg"

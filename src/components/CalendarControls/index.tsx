@@ -46,11 +46,11 @@ export default function CalendarControls({currDisplayDate, updateDisplayDate, cu
     }
     return (
     <>
-    <div className="grid lg:grid-cols-12 grid-cols-8 w-full">
-      <div className="flex col-span-3 md:col-span-4 lg:col-span-5 items-center">
+    <div className="sm:flex sm:flex-row md:grid lg:flex lg:grid-cols-2 w-full justify-between gap-x-4">
+      <div className="flex items-center pb-1 lg:pb-0 lg:col-span-1">
         <div className="text-xl font-bold">{currView == Views.DAY ? getCurrentDate(currDisplayDate) : extractMonthAndYear(currDisplayDate)}</div>
       </div>
-        <div className="flex items-center ml-4 gap-x-4 col-span-5 md:col-span-4 lg:col-span-6">
+        <div className="flex items-center gap-x-4 lg:ml-4 lg:col-span-1">
           <Button onPress={()=> {resetDate()}} variant="bordered" className="border-surface-000 border-1 bg-primary text-white hover:cursor-pointer hidden md:block">Today</Button>
           <ButtonGroup>
               <Button isIconOnly onPress={() => {changeDate(-1, currView)}} variant="bordered" className="border-surface-000 border-1 bg-primary text-white hover:cursor-pointer "><FaArrowLeft /></Button>

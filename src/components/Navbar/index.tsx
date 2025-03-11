@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import DevModePopup from '../DevModePopup';
 
 import styles from './index.module.css';
+import StickyHeader from '../OngoingEventBanner';
 
 function NavLink({ children, ...rest }: { children: React.ReactNode } & LinkProps) {
   return (
@@ -28,11 +29,12 @@ export default function Navbar() {
 
   return (
     <div className="bg-acmdark text-white">
-      {!prod ? <DevModePopup/> : null}
+      <StickyHeader />
+      {!prod ? <DevModePopup /> : null}
       <div className="relative">
         <header className="container flex flex-row justify-between py-4">
           <Link href="/">
-            <img src="https://acm-brand-images.s3.amazonaws.com/banner-white.png" alt="ACM@UIUC" height="104px" width="202px"/>
+            <img src="https://acm-brand-images.s3.amazonaws.com/banner-white.png" alt="ACM@UIUC" height="104px" width="202px" />
           </Link>
 
           <div className="flex items-center">
@@ -51,7 +53,7 @@ export default function Navbar() {
             </label>
             <nav
               className="z-50 absolute left-0 top-full w-full h-0 overflow-hidden lg:flex lg:relative lg:top-0 lg:h-auto lg:overflow-visible peer-checked:max-lg:h-screen peer-checked:max-lg:bg-acmdark"
-              style={{transition: "all 0.2s ease-out"}}
+              style={{ transition: "all 0.2s ease-out" }}
             >
               <ul className="flex flex-col lg:flex-row my-4 gap-x-6 gap-y-12 p-4 max-lg:container">
                 <li>
@@ -76,6 +78,14 @@ export default function Navbar() {
                     onClick={uncheck}
                   >
                     SIGs
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    href="/about/#committees"
+                    onClick={uncheck}
+                  >
+                    Committees
                   </NavLink>
                 </li>
                 {/* <li>
@@ -103,7 +113,7 @@ export default function Navbar() {
                   </NavLink>
                 </li> */}
                 <li>
-                <NavLink
+                  <NavLink
                     href="/merch-store"
                     onClick={uncheck}
                   >
@@ -111,7 +121,7 @@ export default function Navbar() {
                   </NavLink>
                 </li>
                 <li>
-                <NavLink
+                  <NavLink
                     href="/resources"
                     onClick={uncheck}
                   >

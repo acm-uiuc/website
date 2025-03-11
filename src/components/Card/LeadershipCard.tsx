@@ -22,20 +22,13 @@ export default function LeadershipCard({
           src={img}
           alt={name}
         />
-      ): null}
+      ) : null}
       <p className="text-3xl text-acmdark font-bold">
         {title}
       </p>
       <p className="text-xl">
         {name}
       </p>
-      <a
-        className="p-2 rounded-md text-primary hover:bg-surface-100 transition-all"
-        href={email}
-        title="Email"
-      >
-        <BsEnvelope className="w-6 h-6" />
-      </a>
     </div>
   );
 };

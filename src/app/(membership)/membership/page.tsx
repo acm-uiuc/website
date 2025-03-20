@@ -14,7 +14,7 @@ import {
   ModalFooter,
   useDisclosure
 } from '@nextui-org/react';
-import {Spinner} from "@nextui-org/spinner";
+import { Spinner } from "@nextui-org/spinner";
 
 import Lottie from 'lottie-react';
 import axios from 'axios';
@@ -35,7 +35,7 @@ enum InputStatus {
 }
 
 
-const baseUrl = process.env.NEXT_PUBLIC_MEMBERSHIP_BASE_URL;
+const baseUrl = process.env.NEXT_PUBLIC_EVENTS_API_BASE_URL;
 const WrappedPayment = () => {
   return (
     <Suspense>
@@ -54,7 +54,7 @@ const Payment = () => {
   const [netIdConfirm, setNetIdConfirm] = useState(prefilledNetId);
   const purchaseHandler = useCallback(() => {
     setIsLoading(true);
-    const url = `${baseUrl}/api/v1/checkout/session?netid=${netId}`;
+    const url = `${baseUrl}/api/v1/membership/checkout/${netId}`;
     axios.get(url).then(response => {
       window.location.replace(response.data);
     }).catch((error) => {
@@ -68,22 +68,24 @@ const Payment = () => {
           });
           modalErrorMessage.onOpen();
         } else if (error.response.status === 400) {
-          const errorObj = error.response.data.errors;
-          setErrorMessage({
-            code: 400,
-            message: errorObj[0].msg + ' for ' + errorObj[0].param
-          });
-          modalErrorMessage.onOpen();
+          const errorObj = error.response.data;
+          if (errorObj.message === `${netId} is already a paid member!`) {
+            setErrorMessage({
+              code: 409,
+              message: "The specified user is already a paid member."
+            });
+            modalAlreadyMember.onOpen();
+          } else {
+            setErrorMessage({
+              code: errorObj.id,
+              message: errorObj.message
+            });
+            modalErrorMessage.onOpen();
+          }
         } else if (error.response.status === 409) {
           setErrorMessage({
-            code: 409,
-            message: "The specified user is already a paid member."
-          });
-          modalAlreadyMember.onOpen();
-        } else {
-          setErrorMessage({
             code: 500,
-            message: 'Internal server error: ' + (error.response.data || "could not process request")
+            message: 'Internal server error: ' + (error.response.data.message || "could not process request")
           });
           modalErrorMessage.onOpen();
         }
@@ -93,7 +95,7 @@ const Payment = () => {
 
   useEffect(() => {
     if (prefilledNetId != '') {
-      purchaseHandler(); 
+      purchaseHandler();
     }
   }, [purchaseHandler, prefilledNetId])
 
@@ -130,7 +132,7 @@ const Payment = () => {
               Becoming a Lifetime <b>Paid Member</b> not only sustains the continued growth of our communities but also
               comes with perks such as swipe access, free printing, priority access to our computing resources, etc.
             </p>
-            <a className="text-primary"  href="https://go.acm.illinois.edu/paid-member-guide" target="_blank" rel="noopener noreferrer">
+            <a className="text-primary" href="https://go.acm.illinois.edu/paid-member-guide" target="_blank" rel="noopener noreferrer">
               ACM@UIUC Paid Member Guide
             </a>
             <Input
@@ -173,7 +175,7 @@ const Payment = () => {
               isDisabled={!isFormValidated || isLoading}
               onPress={purchaseHandler}
             >
-              {isLoading ? <><Spinner color='white' size="sm"/><a>Loading...</a></> : `Purchase for ${config.membershipPrice}`}
+              {isLoading ? <><Spinner color='white' size="sm" /><a>Loading...</a></> : `Purchase for ${config.membershipPrice}`}
             </Button>
           </CardBody>
         </Card>
@@ -184,12 +186,12 @@ const Payment = () => {
           <ModalContent>
             <ModalHeader />
             <ModalBody className="flex flex-col items-center">
-              <p className="text-center text-2xl font-bold">Payment Failed</p>
+              <p className="text-center text-2xl font-bold">Checkout Failed</p>
               <p className="text-center">Error Code: {errorMessage && errorMessage.code}</p>
               <p className="text-center">{errorMessage && errorMessage.message}</p>
               {errorMessage && errorMessage.code && (<p>
-                If you believe that your payment has gone through, contact the <a href='mailto:treasurer@acm.illinois.edu'>ACM
-                Treasurer</a> with the error code. Otherwise, feel free to try again.
+                If you believe that you are recieving this message in error, please contact the <a href='mailto:infra@acm.illinois.edu'>ACM
+                  Infrastructure Team</a> with the error code. Otherwise, feel free to try again.
               </p>)}
             </ModalBody>
             <ModalFooter />

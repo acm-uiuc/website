@@ -14,7 +14,7 @@ import {
   ModalFooter,
   useDisclosure
 } from '@nextui-org/react';
-import {Spinner} from "@nextui-org/spinner";
+import { Spinner } from "@nextui-org/spinner";
 
 // import Lottie from 'lottie-react';
 import dynamic from 'next/dynamic';
@@ -35,10 +35,8 @@ enum InputStatus {
   VALID
 }
 
-const baseUrl = process.env.NEXT_PUBLIC_MEMBERSHIP_BASE_URL;
-const walletApiBaseUrl = process.env.NODE_ENV === 'production' 
-   ? 'https://core.acm.illinois.edu'
-   : 'https://core.aws.qa.acmuiuc.org';
+const baseUrl = process.env.NEXT_PUBLIC_EVENTS_API_BASE_URL;
+const walletApiBaseUrl = process.env.NEXT_PUBLIC_EVENTS_API_BASE_URL;
 
 
 const Payment = () => {
@@ -82,7 +80,7 @@ const Payment = () => {
   const handleAddToWallet = async () => {
     setIsWalletLoading(true);
     setWalletError(null);
-    
+
     try {
       await axios.post(`${walletApiBaseUrl}/api/v1/mobileWallet/membership`, null, {
         params: { email: `${netId}@illinois.edu` },
@@ -93,7 +91,7 @@ const Payment = () => {
       setIsWalletLoading(false);
       setWalletError({
         code: error?.response?.status || 500,
-        message: error?.response?.status === 403 
+        message: error?.response?.status === 403
           ? "You must be a paid member to add your membership to Apple Wallet"
           : error?.message || "Failed to generate Apple Wallet pass. Please try again later."
       });
@@ -151,7 +149,7 @@ const Payment = () => {
               isDisabled={!isFormValidated || isLoading}
               onPress={checkHandler}
             >
-              {isLoading ? <><Spinner color='white' size="sm"/><a>Loading...</a></> : "Check Membership Status"}
+              {isLoading ? <><Spinner color='white' size="sm" /><a>Loading...</a></> : "Check Membership Status"}
             </Button>
           </CardBody>
         </Card>
@@ -167,7 +165,7 @@ const Payment = () => {
               <p className="text-center">{errorMessage && errorMessage.message}</p>
               {errorMessage && errorMessage.code && (<p>
                 Please try again. If the error continues, contact the <a href='mailto:infra@acm.illinois.edu'>ACM
-                Infra team</a> with the error code.
+                  Infra team</a> with the error code.
               </p>)}
             </ModalBody>
             <ModalFooter />
@@ -185,7 +183,7 @@ const Payment = () => {
               <p className="text-center">{walletError && walletError.message}</p>
               {walletError && walletError.code && (<p>
                 Please try again. If the error continues, contact the <a href='mailto:infra@acm.illinois.edu'>ACM
-                Infra team</a> with the error code.
+                  Infra team</a> with the error code.
               </p>)}
             </ModalBody>
             <ModalFooter />
@@ -212,8 +210,8 @@ const Payment = () => {
                   onPress={handleAddToWallet}
                   className="mt-4"
                 >
-                  {isWalletLoading ? 
-                    <><Spinner color='white' size="sm"/><a>Generating pass...</a></> : 
+                  {isWalletLoading ?
+                    <><Spinner color='white' size="sm" /><a>Generating pass...</a></> :
                     "Add to Apple Wallet"
                   }
                 </Button>
@@ -222,16 +220,16 @@ const Payment = () => {
                 </p>
               </>}
               {!isPaidMember &&
-              <>
-              <p>Click the link below to purchase an ACM@UIUC membership.</p>
-              <Button
-                color="primary"
-                size="lg"
-                onPress={() => {window.location.href = `/membership?netid=${netId}`}}
-              >
-                Purchase for {config.membershipPrice}
-              </Button>
-              </>}
+                <>
+                  <p>Click the link below to purchase an ACM@UIUC membership.</p>
+                  <Button
+                    color="primary"
+                    size="lg"
+                    onPress={() => { window.location.href = `/membership?netid=${netId}` }}
+                  >
+                    Purchase for {config.membershipPrice}
+                  </Button>
+                </>}
             </ModalBody>
             <ModalFooter />
           </ModalContent>

@@ -62,7 +62,7 @@ const Payment = () => {
 
   const checkHandler = () => {
     setIsLoading(true);
-    const url = `${baseUrl}/api/v1/checkMembership?netId=${netId}`;
+    const url = `${baseUrl}/api/v1/membership/${netId}`;
     axios.get(url).then(response => {
       setIsPaidMember(response.data.isPaidMember || false);
       setIsLoading(false);

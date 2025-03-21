@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: 'ACM@UIUC',
     description: "404 - Page Not Found",
     icons: [
-        { url: 'https://acm-brand-images.s3.amazonaws.com/square-blue.png' },
+        { url: 'https://static.acm.illinois.edu/square-blue.png' },
     ]
 };
 
@@ -112,7 +112,7 @@ const component = function NotFound() {
             <header className="flex flex-col items-center mb-6">
                 <Link href="https://acm.illinois.edu/">
                     <Image
-                        src="https://acm-brand-images.s3.amazonaws.com/banner-white.png"
+                        src="https://static.acm.illinois.edu/banner-white.png"
                         width={240}
                         height={240}
                         alt="ACM@UIUC Logo"

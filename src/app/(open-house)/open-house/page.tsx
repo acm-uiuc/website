@@ -158,7 +158,7 @@ export default function VenuePage() {
       <nav className={styles.navbar}>
         <div className={styles.navbarLogo}>
             <Link href="/">
-                <img src="https://acm-brand-images.s3.amazonaws.com/banner-white.png" alt="ACM@UIUC" />
+                <img src="https://static.acm.illinois.edu/banner-white.png" alt="ACM@UIUC" />
             </Link>
         </div>
         <div className={styles.navbarIcons}>

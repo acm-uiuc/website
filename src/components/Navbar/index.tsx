@@ -34,7 +34,7 @@ export default function Navbar() {
       <div className="relative">
         <header className="container flex flex-row justify-between py-4">
           <Link href="/">
-            <img src="https://acm-brand-images.s3.amazonaws.com/banner-white.png" alt="ACM@UIUC" height="104px" width="202px" />
+            <img src="https://static.acm.illinois.edu/banner-white.png" alt="ACM@UIUC" height="104px" width="202px" />
           </Link>
 
           <div className="flex items-center">

@@ -190,7 +190,7 @@ const Event = () => {
                 <b>Cost:</b> ${paidEventList["eventCost"]["paid"]} for paid ACM@UIUC members, ${paidEventList["eventCost"]["others"]} for all other participants.
               </p>
               <p>
-                <b>You must use your Illinois email to recieve the member discount!</b>
+                <b>You must use your Illinois email to receive the member discount!</b>
               </p>
               <p>{isRunningOut ? <i>Tickets are running out, order soon!</i> : null}</p>
               <Input

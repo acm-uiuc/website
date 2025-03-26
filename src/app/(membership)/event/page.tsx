@@ -70,16 +70,18 @@ const Event = () => {
             message: error.response.data.message
           });
           // set default paid schema so it renders the error page
-          setPaidEventList({"event_time": 0, 
-          "member_price": "", 
-          "eventImage": "", 
-          "eventCost": {"paid": 999999, "others": 999999}, "eventDetails": "",
-          "event_id": "404_event",
-          "tickets_sold": -1,
-          "event_capacity": -1, 
-          "event_sales_active_utc": -1, 
-          "event_name": "", 
-          "nonmember_price": ""});
+          setPaidEventList({
+            "event_time": 0,
+            "member_price": "",
+            "eventImage": "",
+            "eventCost": { "paid": 999999, "others": 999999 }, "eventDetails": "",
+            "event_id": "404_event",
+            "tickets_sold": -1,
+            "event_capacity": -1,
+            "event_sales_active_utc": -1,
+            "event_name": "",
+            "nonmember_price": ""
+          });
           setIsLoading(false);
           modalErrorMessage.onOpen();
         }, 1000)
@@ -89,7 +91,7 @@ const Event = () => {
 
   useEffect(() => {
     metaLoader();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const purchaseHandler = () => {
@@ -155,8 +157,8 @@ const Event = () => {
     return <Layout name="Event Signup"></Layout>;
   } else {
     const dateString = new Date(paidEventList['event_time'] * 1000)
-    const isRunningOut = (paidEventList['tickets_sold']/paidEventList['event_capacity'] > 0.75)
-    return ( 
+    const isRunningOut = (paidEventList['tickets_sold'] / paidEventList['event_capacity'] > 0.75)
+    return (
       <Layout name={paidEventList["event_name"]}>
         <div className="h-screen w-screen absolute top-0 left-0 flex flex-col items-center py-24">
           <Card className="max-w-[512px] mx-4 my-auto shrink-0">
@@ -186,6 +188,9 @@ const Event = () => {
               </p>
               <p>
                 <b>Cost:</b> ${paidEventList["eventCost"]["paid"]} for paid ACM@UIUC members, ${paidEventList["eventCost"]["others"]} for all other participants.
+              </p>
+              <p>
+                <b>You must use your Illinois email to recieve the member discount!</b>
               </p>
               <p>{isRunningOut ? <i>Tickets are running out, order soon!</i> : null}</p>
               <Input

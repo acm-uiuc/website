@@ -225,7 +225,9 @@ const MerchItem = () => {
               <p>
                 <b>Cost:</b> ${decimalHelper(merchList["item_price"]["paid"])} for {(merchList['valid_member_lists'] && merchList['valid_member_lists'].length > 0) ? 'paid ACM@UIUC and eligible partner organization' : 'paid ACM@UIUC'} members, ${decimalHelper(merchList["item_price"]["others"])} for non-members.
               </p>
-
+              <p>
+                <b>You must use your Illinois email to recieve the member discount!</b>
+              </p>
               {
                 (merchList["limit_per_person"] && merchList["limit_per_person"] > 0) ? (
                   <i>

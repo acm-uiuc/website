@@ -72,7 +72,7 @@ const MerchStore = () => {
                   <b>Cost:</b> ${decimalHelper(val["item_price"]["paid"])} for {(val['valid_member_lists'] && val['valid_member_lists'].length > 0) ? 'paid ACM@UIUC and eligible partner organization' : 'paid ACM@UIUC'} members, ${decimalHelper(val["item_price"]["others"])} for non-members.
                 </p>
                 <p>
-                  <b>You must use your Illinois email to recieve the member discount!</b>
+                  <b>You must use your Illinois email to receive the member discount!</b>
                 </p>
                 {
                   (val["limit_per_person"] && val["limit_per_person"] > 0) ? (

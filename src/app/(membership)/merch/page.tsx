@@ -152,9 +152,12 @@ const MerchItem = () => {
   };
 
   const validateEmail = (value: string) => {
-    return value.match(/^[A-Z0-9]+@[A-Z0-9]+\.[A-Z0-9]+$/i);
+    return value
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
   };
-
   const changeSize = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setSize(e ? e.target ? e.target.value : "" : "");
   };

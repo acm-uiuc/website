@@ -152,8 +152,8 @@ const MerchItem = () => {
   };
 
   const validateEmail = (value: string) => {
-    return value.match(/^[A-Z0-9]+@[A-Z0-9]+\.[A-Z0-9]+$/i);
-  };
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+  }
 
   const changeSize = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setSize(e ? e.target ? e.target.value : "" : "");

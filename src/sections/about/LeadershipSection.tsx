@@ -3,7 +3,7 @@ import LeadershipCard from '@/components/Card/LeadershipCard';
 import chair from "@/stories/assets/chair.jpg";
 import vicechair from "@/stories/assets/vicechair.jpg";
 import treasurer from "@/stories/assets/treasurer.jpg";
-import secretary from "@/stories/assets/secretary.jpg";
+import placeholder from "@/stories/assets/placeholder.jpg"
 import Link from 'next/link';
 
 export default function LeadershipSection() {
@@ -11,26 +11,26 @@ export default function LeadershipSection() {
     <LeadershipCard
       key={"chair"}
       title="Chair"
-      name="Ronit Anandani"
+      name="Jacob Levine"
       img={chair}
     />,
     <LeadershipCard
       key={"vicechair"}
       title="Vice Chair"
-      name="Yanni Zhuang"
+      name="Sherry Long"
       img={vicechair}
     />,
     <LeadershipCard
       key={"treasurer"}
       title="Treasurer"
-      name="Ryan To"
+      name="Adhi Thirumala"
       img={treasurer}
     />,
     <LeadershipCard
       key={"secretary"}
       title="Secretary"
-      name="Akshay Vellore"
-      img={secretary}
+      name="Krish Gangal"
+      img={placeholder}
     />
 
   ]

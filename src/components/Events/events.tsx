@@ -207,6 +207,7 @@ const Events: React.FC<EventsProps> = ({ events, updateEventDetails, displayDate
     }, [events, filter, hostFilter]);
     return (
         <Skeleton isLoaded={calendarHeight != 0 || !events} style={{width: '100%', minHeight: '70vh'}} className="rounded-lg">
+            {/* @ts-ignore */}
             { calendarHeight ? <Calendar
                 dayLayoutAlgorithm='no-overlap'
                 date={displayDate}

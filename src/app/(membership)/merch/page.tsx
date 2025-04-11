@@ -243,6 +243,8 @@ const MerchItem = () => {
                 selectedKeys={[size]}
                 disabledKeys={merchList["sizes"].filter(filterSoldOut)}
                 onChange={changeSize}
+                maxListboxHeight={400}
+                itemHeight={40}
               >
                 {merchList["sizes"].map((val: string) => (
                   <SelectItem key={val} value={val}>

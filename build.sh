@@ -5,4 +5,5 @@ if [ "$CF_PAGES_BRANCH" != "main" ]; then
     echo "Using staging variables in build"
     cp .env.staging .env.production
 fi
+yarn
 yarn run build

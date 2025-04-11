@@ -1,195 +1,193 @@
 body {
-   background:url("/web/20150814132522im_/https://www-s.acm.illinois.edu/static/img/whitey.png");
+  background: url('/web/20150814132522im_/https://www-s.acm.illinois.edu/static/img/whitey.png');
 }
 
-.header{
-   height:137px;
-   background:#ffffff;
-   width:980px;
-   margin-left:-20px;
+.header {
+  height: 137px;
+  background: #ffffff;
+  width: 980px;
+  margin-left: -20px;
 
-   position:relative;
+  position: relative;
 }
 
-.header_bar{
-   background: #3E486F;
-   height:100px;
-   margin-bottom:15px;
-   width:1010px;
-   margin-top:25px;
-   margin-left:-15px;
+.header_bar {
+  background: #3e486f;
+  height: 100px;
+  margin-bottom: 15px;
+  width: 1010px;
+  margin-top: 25px;
+  margin-left: -15px;
 }
 
-.logo{
-   margin-top: 10px;
-   margin-left: 5px;
-   float:left;
+.logo {
+  margin-top: 10px;
+  margin-left: 5px;
+  float: left;
 }
 
-
-a.brand,a:hover.brand{
-   color:#FFFFFF;
-   text-decoration:none;
+a.brand,
+a:hover.brand {
+  color: #ffffff;
+  text-decoration: none;
 }
 
-a.brand div{
-   position:relative;
-   top:28px;
-   left:12px;
-   margin-right: 440px;
+a.brand div {
+  position: relative;
+  top: 28px;
+  left: 12px;
+  margin-right: 440px;
 }
 
-a.brand strong{
-   margin-top:15px;
-   font-size:24px;
-   font-weight:normal;
+a.brand strong {
+  margin-top: 15px;
+  font-size: 24px;
+  font-weight: normal;
 }
 
-a.brand em{
-   font-style:normal;
-   font-size:18px;
-   color:#dcdcdc;
+a.brand em {
+  font-style: normal;
+  font-size: 18px;
+  color: #dcdcdc;
 }
 
-.main_nav{
-   margin-top:-12px;
+.main_nav {
+  margin-top: -12px;
 }
 
-.right_nav{
-   margin-bottom:0px;
-   margin-right:15px;
+.right_nav {
+  margin-bottom: 0px;
+  margin-right: 15px;
 }
 
-.nav_name{
-   padding-top: 8px;
-   padding-bottom: 8px;
-   margin-top: 2px;
-   margin-bottom: 2px;
-   -webkit-border-radius: 5px;
-   -moz-border-radius: 5px;
-   border-radius: 5px;
-   padding-right: 12px;
-   padding-left: 12px;
-   margin-right: 2px;
-   line-height: 14px;
-   display:block;
+.nav_name {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding-right: 12px;
+  padding-left: 12px;
+  margin-right: 2px;
+  line-height: 14px;
+  display: block;
 }
 
-.main{
-   background:#ffffff;
-   padding:20px;
-   border-bottom:3px solid #3dade1;
+.main {
+  background: #ffffff;
+  padding: 20px;
+  border-bottom: 3px solid #3dade1;
 }
 
-footer{
-   margin-top:15px;
-   margin-bottom:15px;
+footer {
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .carousel-control {
-  display:none;
+  display: none;
 }
 
 div.carousel-inner:hover ~ a.carousel-control {
-  display:block;
+  display: block;
 }
 
-
-
-.controls ul li input[type='checkbox']{
-   display: inline;
+.controls ul li input[type='checkbox'] {
+  display: inline;
 }
 
-.controls ul li{
-   list-style: none;
+.controls ul li {
+  list-style: none;
 }
 
-.help-block{
-   display:none;
+.help-block {
+  display: none;
 }
 
-.resume-image-loader{
-   background: url("/web/20150814132522im_/https://www-s.acm.illinois.edu/static/img/ajax-loader.gif");
-   background-position: center;
-   background-repeat: no-repeat;
-   background-color: #ffffff;
+.resume-image-loader {
+  background: url('/web/20150814132522im_/https://www-s.acm.illinois.edu/static/img/ajax-loader.gif');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #ffffff;
 }
 
-.resume-image-loader img{
-   background: #ffffff;
+.resume-image-loader img {
+  background: #ffffff;
 }
 
-.resume-thumbnail{
-   width: 102px;
-   height: 132px;
+.resume-thumbnail {
+  width: 102px;
+  height: 132px;
 }
-.resume-thumbnail-top{
-   width: 544px;
-   height: 100px;
-}
-
-.resume-referred-preview-container{
-   height:inherit;
+.resume-thumbnail-top {
+  width: 544px;
+  height: 100px;
 }
 
-.resume-referred-preview{
-   width: inherit;
-   height: inherit;
+.resume-referred-preview-container {
+  height: inherit;
 }
 
-.calendar thead tr td{
-   text-align: center;
-   font-weight: bold;
-   background: #F9F9F9;
+.resume-referred-preview {
+  width: inherit;
+  height: inherit;
 }
 
-.calendar tr td.info{
-   background: #D9EDF7;
+.calendar thead tr td {
+  text-align: center;
+  font-weight: bold;
+  background: #f9f9f9;
 }
 
-.calendar tr td div{
-   min-height: 100px;
-   height:auto !important;
-   height: 100px;
+.calendar tr td.info {
+  background: #d9edf7;
 }
 
-.calendar .date_label{
-   color: #999;
-   border-bottom: 1px solid #ddd;
+.calendar tr td div {
+  min-height: 100px;
+  height: auto !important;
+  height: 100px;
 }
 
-.event-details-inner{
-   display: none;
+.calendar .date_label {
+  color: #999;
+  border-bottom: 1px solid #ddd;
 }
 
-.email-subscribe{
-   width: 320px;
+.event-details-inner {
+  display: none;
 }
 
-a.job-email:hover{
-   text-decoration: none;
+.email-subscribe {
+  width: 320px;
 }
 
-.row.notif-row{
-   margin: 0;
+a.job-email:hover {
+  text-decoration: none;
+}
+
+.row.notif-row {
+  margin: 0;
 }
 
 .send-event,
-.send-job{
-   margin-right: 1%;
+.send-job {
+  margin-right: 1%;
 }
 
-.send-job{
-   margin-top: 1%;
+.send-job {
+  margin-top: 1%;
 }
-.send-event{
-   margin-bottom: 1%;
+.send-event {
+  margin-bottom: 1%;
 }
 
-.footer-icon{
-   font-size: 15px;
-   padding-left: 5px;
-   padding-right: 5px;
+.footer-icon {
+  font-size: 15px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 /*

@@ -6,7 +6,7 @@ import {
   FaCalendar,
   FaCalendarPlus,
   FaDiscord,
-  FaInstagram
+  FaInstagram,
 } from 'react-icons/fa';
 
 import EventCard from '@/components/Card/EventCard';
@@ -16,10 +16,21 @@ import headerJpg from './header.jpg';
 import headerWebp from './header.webp';
 import { IEvent } from '@/components/Events/events';
 import { useEffect, useState } from 'react';
-import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Skeleton, useDisclosure } from "@heroui/react";
-import config from '../../config.json'
-
-
+import {
+  Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  Skeleton,
+  useDisclosure,
+} from '@heroui/react';
+import config from '../../config.json';
 
 interface HeroProps {
   upcomingEvents: IEvent[];
@@ -29,7 +40,7 @@ interface HeroProps {
 export default function Hero({ upcomingEvents, eventsLoading }: HeroProps) {
   const [featuredEvents, setFeaturedEvents] = useState<IEvent[]>([]);
   const [numEvents, setNumEvents] = useState(3);
-  
+
   useEffect(() => {
     if (eventsLoading) return;
 
@@ -45,30 +56,30 @@ export default function Hero({ upcomingEvents, eventsLoading }: HeroProps) {
     setNumEvents(Math.min(firstFilteredEvents.length, 3));
   }, [upcomingEvents, eventsLoading]);
 
-  const featuredEventsHTML = (featuredEvents.length > 0) ? (
-  <div className={`pt-1 grid gap-4 grid-rows-1 md:grid-cols-${numEvents} lg:grid-cols-${numEvents}`}>
-    {featuredEvents.map((object, i) => {
-      return (
-        <EventCard
-        key={object.id}
-        event={object}
-        />
-      );
-    })}
-  </div>
-  ) : (
-    eventsLoading ? <Skeleton className="col-span-1 p-4 rounded-3xl bg-surface-050 hover:shadow-lg hover:-translate-y-1 transition-all">
-      <EventCard
-        key={0}
-      />
-    </Skeleton> : <div className='text-white'>No featured events coming up</div>
-  )
-  const {isOpen, onOpen, onOpenChange} = useDisclosure();
-  const [selectedCalPlatform, setCalPlatform] = useState<"google"|"ical"|null>(null);
+  const featuredEventsHTML =
+    featuredEvents.length > 0 ? (
+      <div
+        className={`pt-1 grid gap-4 grid-rows-1 md:grid-cols-${numEvents} lg:grid-cols-${numEvents}`}
+      >
+        {featuredEvents.map((object, i) => {
+          return <EventCard key={object.id} event={object} />;
+        })}
+      </div>
+    ) : eventsLoading ? (
+      <Skeleton className="col-span-1 p-4 rounded-3xl bg-surface-050 hover:shadow-lg hover:-translate-y-1 transition-all">
+        <EventCard key={0} />
+      </Skeleton>
+    ) : (
+      <div className="text-white">No featured events coming up</div>
+    );
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [selectedCalPlatform, setCalPlatform] = useState<
+    'google' | 'ical' | null
+  >(null);
   const calPlatformKeyMapping = {
-    "google": "Google Calendar",
-    "ical": "Other"
-  }
+    google: 'Google Calendar',
+    ical: 'Other',
+  };
 
   return (
     <div className="hero-background">
@@ -100,7 +111,7 @@ export default function Hero({ upcomingEvents, eventsLoading }: HeroProps) {
                 Join Now
               </a>
               <div className="flex flex-row gap-4">
-              <a
+                <a
                   className="flex flex-col w-full sm:w-fit px-8 xl:ml-20 py-3 items-center text-primary text-center text-2xl rounded-full bg-surface-000 hover:bg-surface-150 transition-all"
                   href="https://go.acm.illinois.edu/donate"
                   title="Donate"
@@ -141,67 +152,90 @@ export default function Hero({ upcomingEvents, eventsLoading }: HeroProps) {
           </div>
         </div>
         <div className={`pb-20`}>
-          <h3 className='text-white'>Featured Events</h3>
+          <h3 className="text-white">Featured Events</h3>
           {featuredEventsHTML}
 
-          <div className={`flex flex-row justify-start pt-4`} style={{gap: '1vw'}}>
-          <a
-            className="inline-flex flex-row grow-0 items-center gap-2 px-4 py-2 text-white rounded-2xl bg-primary hover:bg-secondary transition-all"
-            href="/calendar"
+          <div
+            className={`flex flex-row justify-start pt-4`}
+            style={{ gap: '1vw' }}
           >
-            <FaCalendar className="shrink-0" />
-            <span>View all events</span>
-          </a>
-          <button
-            className="inline-flex flex-row grow-0 items-center gap-2 px-4 py-2 text-white rounded-2xl bg-primary hover:bg-secondary transition-all"
-            onClick={onOpen}
-          >
-            <FaCalendarPlus className="shrink-0" />
-            <span>Subscribe to calendar</span>
-          </button>
+            <a
+              className="inline-flex flex-row grow-0 items-center gap-2 px-4 py-2 text-white rounded-2xl bg-primary hover:bg-secondary transition-all"
+              href="/calendar"
+            >
+              <FaCalendar className="shrink-0" />
+              <span>View all events</span>
+            </a>
+            <button
+              className="inline-flex flex-row grow-0 items-center gap-2 px-4 py-2 text-white rounded-2xl bg-primary hover:bg-secondary transition-all"
+              onClick={onOpen}
+            >
+              <FaCalendarPlus className="shrink-0" />
+              <span>Subscribe to calendar</span>
+            </button>
           </div>
         </div>
       </section>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="lg">
-      <ModalContent>
-        {(onClose) => (
-          <>
-            <ModalHeader className="flex flex-col gap-1">Subscribe to ACM@UIUC's Events Calendar</ModalHeader>
-            <ModalBody>
-              <p>Adding this calendar will display ACM@UIUC's major events on your calendar. Select your preferred calendar platform to continue.</p>
-              {selectedCalPlatform === 'ical' && <strong>If your calendar software supports it, set the calendar refresh interval to "Every day" to ensure your calendar is up to date.</strong>}
-              <Dropdown>
-                <DropdownTrigger>
-                  <Button>
-                    {selectedCalPlatform ? `${calPlatformKeyMapping[selectedCalPlatform]}` : 'Select an option'}            
-                  </Button>
-                </DropdownTrigger>
-                <DropdownMenu onAction={(key) => setCalPlatform(key as any)}>
-                  {/* Dropdown Items */}
-                  <DropdownItem key="google">Google Calendar</DropdownItem>
-                  <DropdownItem key="ical">Other</DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
-            </ModalBody>
-            <ModalFooter>
-              <Button color="danger" variant="light" onPress={onClose}>
-                Close
-              </Button>
-              <Button color="primary" disabled={!selectedCalPlatform} onPress={() => {
-                if (!selectedCalPlatform) {
-                  return;
-                }
-                const url = config['addCalendarLinks']['majorEvents'][selectedCalPlatform];
-                window.open(url, '_blank')?.focus();
-              }}>
-                Subscribe
-              </Button>
-            </ModalFooter>
-          </>
-        )}
-      </ModalContent>
-    </Modal>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                Subscribe to ACM@UIUC's Events Calendar
+              </ModalHeader>
+              <ModalBody>
+                <p>
+                  Adding this calendar will display ACM@UIUC's major events on
+                  your calendar. Select your preferred calendar platform to
+                  continue.
+                </p>
+                {selectedCalPlatform === 'ical' && (
+                  <strong>
+                    If your calendar software supports it, set the calendar
+                    refresh interval to "Every day" to ensure your calendar is
+                    up to date.
+                  </strong>
+                )}
+                <Dropdown>
+                  <DropdownTrigger>
+                    <Button>
+                      {selectedCalPlatform
+                        ? `${calPlatformKeyMapping[selectedCalPlatform]}`
+                        : 'Select an option'}
+                    </Button>
+                  </DropdownTrigger>
+                  <DropdownMenu onAction={(key) => setCalPlatform(key as any)}>
+                    {/* Dropdown Items */}
+                    <DropdownItem key="google">Google Calendar</DropdownItem>
+                    <DropdownItem key="ical">Other</DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="danger" variant="light" onPress={onClose}>
+                  Close
+                </Button>
+                <Button
+                  color="primary"
+                  disabled={!selectedCalPlatform}
+                  onPress={() => {
+                    if (!selectedCalPlatform) {
+                      return;
+                    }
+                    const url =
+                      config['addCalendarLinks']['majorEvents'][
+                        selectedCalPlatform
+                      ];
+                    window.open(url, '_blank')?.focus();
+                  }}
+                >
+                  Subscribe
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </div>
-
   );
-};
+}

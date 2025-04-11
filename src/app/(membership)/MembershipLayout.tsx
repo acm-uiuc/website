@@ -6,8 +6,8 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  HeroUIProvider
-} from "@heroui/react";
+  HeroUIProvider,
+} from '@heroui/react';
 
 import acmlogo from './acmlogo.png';
 
@@ -16,7 +16,7 @@ export declare interface LayoutProps {
   name?: string;
 }
 
-const prod = Boolean(process.env.NEXT_PUBLIC_RUN_ENV === 'prod')
+const prod = Boolean(process.env.NEXT_PUBLIC_RUN_ENV === 'prod');
 
 const Layout = (props: LayoutProps) => {
   return (
@@ -27,20 +27,15 @@ const Layout = (props: LayoutProps) => {
             <NextImage alt="ACM Logo" src={acmlogo} style={styles.logo} />
           </Link>
         </NavbarBrand>
-        <NavbarContent className='hidden sm:flex' justify='center'>
-          {prod ? null : <a style={{color: 'red'}}>DEVELOPMENT MODE</a>}
+        <NavbarContent className="hidden sm:flex" justify="center">
+          {prod ? null : <a style={{ color: 'red' }}>DEVELOPMENT MODE</a>}
         </NavbarContent>
-        <NavbarContent
-          className="hidden sm:flex"
-          justify="end"
-        >
+        <NavbarContent className="hidden sm:flex" justify="end">
           <NavbarItem>
-            <Link href="/">
-              Home
-            </Link>
+            <Link href="/">Home</Link>
           </NavbarItem>
           <NavbarItem isActive aria-current="page">
-            {props.name ? props.name : "Membership"}
+            {props.name ? props.name : 'Membership'}
           </NavbarItem>
         </NavbarContent>
       </Navbar>
@@ -54,8 +49,8 @@ const styles = {
     maxHeight: '50px',
     width: 'auto',
     padding: '5px 7px 0px 8px',
-    borderRadius: '0.75em'
-  }
+    borderRadius: '0.75em',
+  },
 };
 
 export default Layout;

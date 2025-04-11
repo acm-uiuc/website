@@ -6,8 +6,8 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalFooter
-} from "@heroui/react";
+  ModalFooter,
+} from '@heroui/react';
 import Lottie from 'lottie-react';
 import axios from 'axios';
 import Layout from '../MembershipLayout';
@@ -17,8 +17,8 @@ const WrappedEventPaid = () => {
     <Suspense>
       <EventPaid />
     </Suspense>
-  )
-}
+  );
+};
 const EventPaid = () => {
   const eventid = useSearchParams().get('id') || '';
   const [paidEventList, setPaidEventList] = useState<Record<string, any>>({});
@@ -27,34 +27,34 @@ const EventPaid = () => {
 
   const metaLoader = async () => {
     const url = `${baseUrl}/api/v1/event/details?eventid=${eventid}`;
-    axios.get(url).then(response => {
+    axios.get(url).then((response) => {
       setPaidEventList(response.data);
-    })
-  }
+    });
+  };
 
   useEffect(() => {
     metaLoader();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   if (Object.keys(paidEventList).length === 0) {
     return <Layout name="Event Signup"></Layout>;
   } else {
     return (
       <Layout name={paidEventList['event_name']}>
-        <Modal
-          isOpen={true}
-          onClose={() => window.location.replace("/")}
-        >
+        <Modal isOpen={true} onClose={() => window.location.replace('/')}>
           <ModalContent>
             <ModalHeader />
             <ModalBody className="flex flex-col items-center">
               <p className="text-center text-2xl font-bold">
-                You&apos;ve successfully registered for {paidEventList['event_name']}!
+                You&apos;ve successfully registered for{' '}
+                {paidEventList['event_name']}!
               </p>
-              <Lottie animationData={successAnimation} loop={false} style={{ width: '10em' }} />
-              <p>
-                Your ticket has been sent to your Illinois email.
-              </p>
+              <Lottie
+                animationData={successAnimation}
+                loop={false}
+                style={{ width: '10em' }}
+              />
+              <p>Your ticket has been sent to your Illinois email.</p>
             </ModalBody>
             <ModalFooter />
           </ModalContent>

@@ -25,13 +25,13 @@ export default function CommitteeSection() {
           href="https://reflectionsprojections.org/"
           chairs={[
             {
-              name: "Cole Jordan",
-              email: "coleej2@illinois.edu"
+              name: 'Cole Jordan',
+              email: 'coleej2@illinois.edu',
             },
             {
-              name: "Shreenija Daggavolu",
-              email: "srd8@illinois.edu"
-            }
+              name: 'Shreenija Daggavolu',
+              email: 'srd8@illinois.edu',
+            },
           ]}
         />
       </span>
@@ -46,13 +46,13 @@ export default function CommitteeSection() {
           href="https://hackillinois.org/"
           chairs={[
             {
-              name: "Aydan Pirani",
-              email: "apirani2@illinois.edu"
+              name: 'Aydan Pirani',
+              email: 'apirani2@illinois.edu',
             },
             {
-              name: "Nancy Zhang",
-              email: "nzhan2@illinois.edu"
-            }
+              name: 'Nancy Zhang',
+              email: 'nzhan2@illinois.edu',
+            },
           ]}
         />
       </span>
@@ -63,9 +63,9 @@ export default function CommitteeSection() {
           image={corporatelogo}
           chairs={[
             {
-              name: "Deeya Bodas",
-              email: "deeyaab2@illinois.edu"
-            }
+              name: 'Deeya Bodas',
+              email: 'deeyaab2@illinois.edu',
+            },
           ]}
         />
       </span>
@@ -78,13 +78,13 @@ export default function CommitteeSection() {
           href="https://infra.acm.illinois.edu/"
           chairs={[
             {
-              name: "Dev Singh",
-              email: "dsingh14@illinois.edu"
+              name: 'Dev Singh',
+              email: 'dsingh14@illinois.edu',
             },
             {
-              name: "Kay Rivera",
-              email: "krive5@illinois.edu"
-            }
+              name: 'Kay Rivera',
+              email: 'krive5@illinois.edu',
+            },
           ]}
         />
       </span>
@@ -96,9 +96,9 @@ export default function CommitteeSection() {
           href="https://academic.acm.illinois.edu/"
           chairs={[
             {
-              name: "Jacob Levine",
-              email: "jlevine4@illinois.edu"
-            }
+              name: 'Jacob Levine',
+              email: 'jlevine4@illinois.edu',
+            },
           ]}
         />
       </span>
@@ -110,13 +110,13 @@ export default function CommitteeSection() {
           image={social}
           chairs={[
             {
-              name: "Ashika Koripelly",
-              email: "akori3@illinois.edu"
+              name: 'Ashika Koripelly',
+              email: 'akori3@illinois.edu',
             },
             {
-              name: "Naomi Lin",
-              email: "naomil4@illinois.edu"
-            }
+              name: 'Naomi Lin',
+              email: 'naomil4@illinois.edu',
+            },
           ]}
         />
       </span>
@@ -127,13 +127,13 @@ export default function CommitteeSection() {
           image={marketing}
           chairs={[
             {
-              name: "Ayushi Chakravarty",
-              email: "ayushic3@illinois.edu"
+              name: 'Ayushi Chakravarty',
+              email: 'ayushic3@illinois.edu',
             },
             {
-              name: "Meghna Goli",
-              email: "goli3@illinois.edu"
-            }
+              name: 'Meghna Goli',
+              email: 'goli3@illinois.edu',
+            },
           ]}
         />
       </span>
@@ -144,16 +144,16 @@ export default function CommitteeSection() {
           image={mentorship}
           chairs={[
             {
-              name: "Jasmine Liu",
-              email: "jrliu2@illinois.edu"
+              name: 'Jasmine Liu',
+              email: 'jrliu2@illinois.edu',
             },
             {
-              name: "Sherry Long",
-              email: "sherryl4@illinois.edu"
-            }
+              name: 'Sherry Long',
+              email: 'sherryl4@illinois.edu',
+            },
           ]}
         />
       </span>
     </section>
   );
-};
+}

@@ -2,11 +2,11 @@ import NextImage, { StaticImageData } from 'next/image';
 import { BsEnvelope } from 'react-icons/bs';
 
 interface LeadershipCardProps {
-  title: string
-  name: string
-  img?: StaticImageData
-  email?: string
-};
+  title: string;
+  name: string;
+  img?: StaticImageData;
+  email?: string;
+}
 
 export default function LeadershipCard({
   title,
@@ -23,12 +23,8 @@ export default function LeadershipCard({
           alt={name}
         />
       ) : null}
-      <p className="text-3xl text-acmdark font-bold">
-        {title}
-      </p>
-      <p className="text-xl">
-        {name}
-      </p>
+      <p className="text-3xl text-acmdark font-bold">{title}</p>
+      <p className="text-xl">{name}</p>
     </div>
   );
-};
+}

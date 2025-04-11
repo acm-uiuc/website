@@ -1,4 +1,5 @@
 # ACM at UIUC's Website
+
 View the website at [acm.illinois.edu](https://www.acm.illinois.edu/).
 
 The frontend source code for ACM's website is built mainly with TypeScript and [Next.js](https://nextjs.org/). Viewers can learn about our organization, upcoming events, Special Interest Groups, and committees. Sponsors are also listed.

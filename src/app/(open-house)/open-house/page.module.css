@@ -1,460 +1,452 @@
-  .container {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-  }
-  
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    background-color: #0053B3;
-  }
+.container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
 
-  .navbarIcons {
-    display: flex;
-    align-items: center;
-  }
-  
-  .searchIcon {
-    cursor: pointer;
-    font-size: 1.5rem;
-    color: white;
-    padding: 0.5rem;
-  }
-  
-  .searchModalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  .searchModalContent {
-    background-color: white;
-    width: 90%;
-    max-width: 600px;
-    max-height: 70%;
-    border-radius: 10px;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .searchInput {
-    width: 100%;
-    padding: 0.75rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1rem;
-  }
-  
-  .searchResults {
-    overflow-y: auto;
-    max-height: 400px;
-  }
-  
-  .searchResultItem {
-    display: flex;
-    align-items: center;
-    padding: 0.5rem;
-    cursor: pointer;
-    border-bottom: 1px solid #eee;
-  }
-  
-  .searchResultItem img {
-    width: 50px;
-    height: 50px;
-    object-fit: contain;
-    margin-right: 1rem;
-  }
-  
-  .searchResultItem:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .closeSearchModal {
-    margin-top: 1rem;
-    padding: 0.5rem;
-    background-color: #0070f3;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  
-  .navbarLogo img {
-    height: 50px;
-  }
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #0053b3;
+}
 
-  .mapOverlay {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    background-color: #0041b200;
-    top: 0;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    width: min(891px, 100%);
-    height: 100%;
-    pointer-events: none;
-    z-index: 10;
-  }
+.navbarIcons {
+  display: flex;
+  align-items: center;
+}
 
-  .boothMarker {
-    position: absolute;
-    background-color: rgb(255, 255, 255);
-    border: 2px solid #0070f3;
-    border-radius: 8px;
-    cursor: pointer;
-    pointer-events: auto;
-    transition: all 0.3s ease;
-  }
-  
-  .boothMarker:hover {
-    background-color: rgba(0, 112, 243, 0.5);
-  }
-  
-  .selectedBoothMarker {
-    background-color: rgba(0, 112, 243, 0.6);
-    filter: drop-shadow(0 0 3px #0053B3de);
-    border: 3px solid #0070f3;
-    transform: scale(1.1);
-  }
-  
-  .mapContainer {
-    position: relative; /* Ensures absolute positioning of overlay works correctly */
-  }
-  
-  .map-middle {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    transition: width 0.5s ease;
-  }
-  
-  .map-left {
-    display: flex;
-    justify-content: center;
-    width: 60%;
-    transition: width 0.5s ease;
-  }
-  
-  .venueMap {
-    max-width: 100%;
-    height: auto;
-    max-height: 700px;
-  }
-  
+.searchIcon {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: white;
+  padding: 0.5rem;
+}
+
+.searchModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.searchModalContent {
+  background-color: white;
+  width: 90%;
+  max-width: 600px;
+  max-height: 70%;
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.searchResults {
+  overflow-y: auto;
+  max-height: 400px;
+}
+
+.searchResultItem {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+}
+
+.searchResultItem img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  margin-right: 1rem;
+}
+
+.searchResultItem:hover {
+  background-color: #f0f0f0;
+}
+
+.closeSearchModal {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.navbarLogo img {
+  height: 50px;
+}
+
+.mapOverlay {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  background-color: #0041b200;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: min(891px, 100%);
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.boothMarker {
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  border: 2px solid #0070f3;
+  border-radius: 8px;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: all 0.3s ease;
+}
+
+.boothMarker:hover {
+  background-color: rgba(0, 112, 243, 0.5);
+}
+
+.selectedBoothMarker {
+  background-color: rgba(0, 112, 243, 0.6);
+  filter: drop-shadow(0 0 3px #0053b3de);
+  border: 3px solid #0070f3;
+  transform: scale(1.1);
+}
+
+.mapContainer {
+  position: relative; /* Ensures absolute positioning of overlay works correctly */
+}
+
+.map-middle {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  transition: width 0.5s ease;
+}
+
+.map-left {
+  display: flex;
+  justify-content: center;
+  width: 60%;
+  transition: width 0.5s ease;
+}
+
+.venueMap {
+  max-width: 100%;
+  height: auto;
+  max-height: 700px;
+}
+
+.boothLogosContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.boothLogo {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 3px solid #ffffff00;
+  border-radius: 10px;
+}
+
+.tableLogo {
+  width: auto;
+  height: 100%;
+  padding: 1px;
+  margin: 0% auto;
+  object-fit: contain;
+  transition: all 0.3s ease;
+}
+
+.boothLogo:hover {
+  transform: scale(1.1);
+}
+
+.selectedBoothLogo {
+  transform: scale(1.2);
+  box-shadow: 0 0 15px rgba(0, 112, 243, 0.5);
+  border: 3px solid #0070f3;
+  background-color: rgba(0, 112, 243, 0.1);
+}
+
+.boothDetails {
+  margin: auto 2%;
+  width: 40%;
+  max-width: 40%;
+  height: 100%;
+  background-color: white;
+  padding: 1rem;
+  box-shadow: 8px 2px 19px rgba(0, 0, 0, 0.1);
+  border-radius: 1.5rem;
+  transition: width 0.3s ease;
+}
+
+.noBoothDetails {
+  margin: 0 auto;
+  max-width: 0%;
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.mapAndDetailsContainer {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 325px;
+}
+
+.boothLinks {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.boothLinks a {
+  background-color: #0070f3;
+  color: white;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.boothTypesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.boothTypeSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.boothTypeLabel {
+  display: flex;
+  justify-content: space-between;
+  color: #0053b3;
+  background-color: rgb(214, 208, 208);
+  padding: 10px;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.collapseIcon {
+  margin-left: 10px;
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+}
+
+.collapsed {
+  transform: rotate(270deg);
+}
+
+.uncollapsed {
+  transform: rotate(360deg);
+}
+
+.boothTypeLabel:hover {
+  opacity: 0.7;
+}
+
+.boothLogosContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.boothLogoWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.boothLogo {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  transition: all 0.3s ease;
+  border-radius: 10px;
+}
+
+.boothLogoName {
+  font-size: 0.875rem;
+  text-align: center;
+  max-width: 90px;
+  height: 30px;
+  /* white-space: nowrap; */
+  /* overflow: hidden; */
+  text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 768px) {
   .boothLogosContainer {
-    display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem;
-    max-width: 1200px;
-    margin: 0 auto;
   }
-  
+
   .boothLogo {
-    width: 90px;
-    height: 90px;
-    object-fit: contain;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: 3px solid #ffffff00;
-    border-radius: 10px;
+    width: 75px;
+    height: 75px;
   }
 
-  .tableLogo {
-    width: auto;
-    height: 100%;
-    padding: 1px;
-    margin: 0% auto;
-    object-fit: contain;
-    transition: all 0.3s ease;
-  }
-  
-  
-  .boothLogo:hover {
-    transform: scale(1.1);
-  }
-  
-  .selectedBoothLogo {
-    transform: scale(1.2);
-    box-shadow: 0 0 15px rgba(0, 112, 243, 0.5);
-    border: 3px solid #0070f3;
-    background-color: rgba(0, 112, 243, 0.1);
-  }
-  
-  
-  .boothDetails {
-    margin: auto 2%;
-    width: 40%;
-    max-width: 40%;
-    height: 100%;
-    background-color: white;
-    padding: 1rem;
-    box-shadow: 8px 2px 19px rgba(0,0,0,0.1);
-    border-radius: 1.5rem;
-    transition: width 0.3s ease;
+  .boothLogoName {
+    font-size: 0.75rem;
+    max-width: 70px;
   }
 
-  .noBoothDetails {
-    margin: 0 auto;
-    max-width: 0%;
-    height: 100%;
-    transition: width 0.3s ease;
+  .boothLogosContainer {
+    gap: 0.5rem;
+  }
+
+  .boothLogo {
+    width: 70px;
+    height: 70px;
+  }
+
+  .boothLogoWrapper {
+    gap: 0.3rem;
   }
 
   .mapAndDetailsContainer {
-    display: flex;
-    gap: 1rem;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: center;
+    min-height: auto;
+  }
+
+  .mapContainer {
     width: 100%;
-    min-height: 325px;
   }
 
-  .boothLinks {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-  
-  .boothLinks a {
-    background-color: #0070f3;
-    color: white;
-    padding: 0.5rem 1rem;
-    text-decoration: none;
-    border-radius: 4px;
-  }
-
-  .boothTypesContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem;
-  }
-  
-  .boothTypeSection {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .boothTypeLabel {
-    display: flex;
-    justify-content: space-between;
-    color: #0053B3;
-    background-color: rgb(214, 208, 208);
-    padding: 10px;
-    align-items: center;
-    cursor: pointer;
-    user-select: none;
-  }
-  
-  .collapseIcon {
-    margin-left: 10px;
-    font-size: 0.8rem;
-    transition: transform 0.3s ease;
-  }
-
-  .collapsed {
-    transform: rotate(270deg);
-  }
-
-  .uncollapsed {
-    transform: rotate(360deg);
-  }
-
-  
-  
-  .boothTypeLabel:hover {
-    opacity: 0.7;
-  }
-  
-  
-  .boothLogosContainer {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-  
-  .boothLogoWrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-  }
-  
-  .boothLogo {
-    width: 90px;
-    height: 90px;
-    object-fit: contain;
+  .boothDetails {
+    margin: 10px;
+    max-width: 87%;
+    width: 87%;
+    height: auto;
+    position: relative;
     transition: all 0.3s ease;
-    border-radius: 10px;
-  }
-  
-  .boothLogoName {
-    font-size: 0.875rem;
-    text-align: center;
-    max-width: 90px;
-    height: 30px;
-    /* white-space: nowrap; */
-    /* overflow: hidden; */
-    text-overflow: ellipsis;
-  }
-  
-  
-  @media screen and (max-width: 768px) {
-
-    .boothLogosContainer {
-      justify-content: center;
-    }
-
-    .boothLogo {
-      width: 75px;
-      height: 75px;
-    }
-
-    .boothLogoName {
-      font-size: 0.75rem;
-      max-width: 70px;
-    }
-
-    .boothLogosContainer {
-      gap: 0.5rem;
-    }
-    
-    .boothLogo {
-       width: 70px;
-       height: 70px;
-    }
-
-    .boothLogoWrapper {
-      gap: 0.3rem;
-    }
-
-    .mapAndDetailsContainer {
-      flex-direction: column;
-      align-items: center;
-      min-height: auto;
-    }
-  
-    .mapContainer {
-      width: 100%;
-    }
-  
-    .boothDetails {
-      margin: 10px;
-      max-width: 87%;
-      width: 87%;
-      height: auto;
-      position: relative;
-      transition: all 0.3s ease;
-    }
-
-    .noBoothDetails {
-      margin: 10px;
-      max-width: 87%;
-      width: 87%;
-      height: auto;
-      position: relative;
-      transition: all 0.3s ease;
-    }
-  }
-  
-  @media screen and (min-width: 1800px) {
-    .boothDetails {
-        margin: auto 7% auto 0;
-    }
   }
 
-  .calendarIcon {
-    cursor: pointer;
-    font-size: 1.5rem;
-    color: white;
-    padding: 0.5rem;
-    margin-right: 1rem;
+  .noBoothDetails {
+    margin: 10px;
+    max-width: 87%;
+    width: 87%;
+    height: auto;
+    position: relative;
+    transition: all 0.3s ease;
   }
-  
-  .calendarModalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+}
+
+@media screen and (min-width: 1800px) {
+  .boothDetails {
+    margin: auto 7% auto 0;
   }
-  
-  .calendarModalContent {
-    background-color: white;
-    width: 90%;
-    max-width: 600px;
-    border-radius: 10px;
-    padding: 1rem;
-  }
-  
-  .tableList {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin: 1rem 0;
-  }
-  
-  .tableItem {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.75rem;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .tableItem:hover {
-    background-color: #e6f7ff;
-  }
-  
-  .tableIcon {
-    font-weight: bold;
-    margin-right: 1rem;
-  }
-  
-  .tableTiming {
-    font-size: 0.9rem;
-    text-align: left;
-    color: gray;
-  }
-  
-  .closeCalendarModal {
-    margin-top: 1rem;
-    width: 100%;
-    padding: 0.5rem;
-    background-color: #0070f3;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+}
+
+.calendarIcon {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: white;
+  padding: 0.5rem;
+  margin-right: 1rem;
+}
+
+.calendarModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.calendarModalContent {
+  background-color: white;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.tableList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.tableItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.tableItem:hover {
+  background-color: #e6f7ff;
+}
+
+.tableIcon {
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
+.tableTiming {
+  font-size: 0.9rem;
+  text-align: left;
+  color: gray;
+}
+
+.closeCalendarModal {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.5rem;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

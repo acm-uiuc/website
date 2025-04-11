@@ -13,8 +13,8 @@ import {
   ModalHeader,
   ModalFooter,
   useDisclosure
-} from '@nextui-org/react';
-import { Spinner } from "@nextui-org/spinner";
+} from "@heroui/react";
+import { Spinner } from "@heroui/spinner";
 
 import Lottie from 'lottie-react';
 import axios from 'axios';

@@ -7,7 +7,7 @@ import './CalendarStylesOverride.css';
 import { CalendarEventDetailProps } from '@/components/CalendarEventDetail/CalendarEventDetail';
 import { View, NavigateAction } from 'react-big-calendar';
 import { Organization, SIG, SIGList } from '@/utils/organizations';
-import { Skeleton } from '@nextui-org/react';
+import { Skeleton } from "@heroui/react";
 import { repeatMapping, RepeatMappingEntry, ValidRepeat, validRepeats } from '@/utils/dateutils';
 import { maxRenderDistance } from '../CalendarControls';
 

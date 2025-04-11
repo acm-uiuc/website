@@ -7,7 +7,7 @@ import {
   CardBody,
   CardHeader,
   Link
-} from '@nextui-org/react';
+} from "@heroui/react";
 import axios from 'axios';
 import Layout from '../MembershipLayout';
 

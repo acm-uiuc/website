@@ -16,8 +16,9 @@ import {
   ModalFooter,
   useDisclosure,
   Select,
-  SelectItem
-} from '@nextui-org/react';
+  SelectItem,
+  ListboxProps
+} from "@heroui/react";
 import axios from 'axios';
 import Layout from '../MembershipLayout';
 
@@ -152,7 +153,7 @@ const MerchItem = () => {
   };
 
   const validateEmail = (value: string) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
   }
 
   const changeSize = (e: { target: { value: React.SetStateAction<string>; }; }) => {
@@ -244,10 +245,9 @@ const MerchItem = () => {
                 disabledKeys={merchList["sizes"].filter(filterSoldOut)}
                 onChange={changeSize}
                 maxListboxHeight={400}
-                itemHeight={40}
               >
                 {merchList["sizes"].map((val: string) => (
-                  <SelectItem key={val} value={val}>
+                  <SelectItem key={val} textValue={val}>
                     {filterSoldOut(val) ? val + " [SOLD OUT]" : val}
                   </SelectItem>
                 ))}

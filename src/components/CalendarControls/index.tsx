@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Dropdown, DropdownItem, DropdownTrigger, DropdownMenu, } from "@nextui-org/react";
+import { Button, ButtonGroup, Dropdown, DropdownItem, DropdownTrigger, DropdownMenu, } from "@heroui/react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 import moment, { max } from 'moment-timezone'

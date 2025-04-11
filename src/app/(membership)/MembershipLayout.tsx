@@ -6,8 +6,8 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  NextUIProvider
-} from '@nextui-org/react';
+  HeroUIProvider
+} from "@heroui/react";
 
 import acmlogo from './acmlogo.png';
 
@@ -20,7 +20,7 @@ const prod = Boolean(process.env.NEXT_PUBLIC_RUN_ENV === 'prod')
 
 const Layout = (props: LayoutProps) => {
   return (
-    <NextUIProvider className="enable-tailwind">
+    <HeroUIProvider className="enable-tailwind">
       <Navbar>
         <NavbarBrand>
           <Link href="/">
@@ -45,7 +45,7 @@ const Layout = (props: LayoutProps) => {
         </NavbarContent>
       </Navbar>
       {props.children}
-    </NextUIProvider>
+    </HeroUIProvider>
   );
 };
 

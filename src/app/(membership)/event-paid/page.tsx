@@ -7,7 +7,7 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter
-} from '@nextui-org/react';
+} from "@heroui/react";
 import Lottie from 'lottie-react';
 import axios from 'axios';
 import Layout from '../MembershipLayout';

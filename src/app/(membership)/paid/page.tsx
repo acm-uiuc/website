@@ -5,7 +5,7 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-} from '@nextui-org/react';
+} from "@heroui/react";
 import Lottie from 'lottie-react';
 import Layout from '../MembershipLayout';
 import successAnimation from '../success.json';

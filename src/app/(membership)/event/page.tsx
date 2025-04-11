@@ -14,7 +14,7 @@ import {
   ModalHeader,
   ModalFooter,
   useDisclosure
-} from '@nextui-org/react';
+} from "@heroui/react";
 import axios from 'axios';
 import Layout from '../MembershipLayout';
 

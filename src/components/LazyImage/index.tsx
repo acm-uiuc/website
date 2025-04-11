@@ -40,7 +40,6 @@ import sigarchlogo from '@/stories/assets/sigarchlogo.png';
 import sigroboticslogo from '@/stories/assets/sigroboticslogo.png';
 import sigtricitylogo from '@/stories/assets/sigtricitylogo.png';
 
-
 // add committee logos here
 import social from '@/stories/assets/social-logo.png';
 import marketing from '@/stories/assets/marketing-logo.png';
@@ -54,73 +53,242 @@ import mentorship from '@/stories/assets/mentorship-logo.png';
 import acmlogo from '@/stories/assets/acm-square-blue.png';
 import { Organization } from '@/utils/organizations';
 
-
 export interface LazyImageProps {
-  img: StaticImageData
-  imgwebp?: StaticImageData
-  title: string
-  className: string
-};
+  img: StaticImageData;
+  imgwebp?: StaticImageData;
+  title: string;
+  className: string;
+}
 
-export const LazyImage = ({ img, imgwebp, title, className }: LazyImageProps) => {
+export const LazyImage = ({
+  img,
+  imgwebp,
+  title,
+  className,
+}: LazyImageProps) => {
   if (!imgwebp) {
-    return <NextImage
-      className={className}
-      src={img}
-      alt={title + " Logo"}
-      loading="lazy"
-    />
+    return (
+      <NextImage
+        className={className}
+        src={img}
+        alt={title + ' Logo'}
+        loading="lazy"
+      />
+    );
   }
 
-  return <picture>
-  <source type="image/webp" srcSet={imgwebp as unknown as string} />
-  <NextImage
-    className={className}
-    src={img}
-    alt={title + " Logo"}
-    loading="lazy"
-  />
-  </picture>
-}
+  return (
+    <picture>
+      <source type="image/webp" srcSet={imgwebp as unknown as string} />
+      <NextImage
+        className={className}
+        src={img}
+        alt={title + ' Logo'}
+        loading="lazy"
+      />
+    </picture>
+  );
+};
 
-
-
-const imageRenderers : {
-  [key in Organization]: (className: string) => ReactElement
+const imageRenderers: {
+  [key in Organization]: (className: string) => ReactElement;
 } = {
-  'SIGPwny' : (className) => <LazyImage img={sigpwnylogo} imgwebp={webp_sigpwnylogo} title="SIGPwny" className={className} />,
-  'SIGCHI' : (className) => <LazyImage img={sigchilogo} imgwebp={webp_sigchilogo} title="SIGCHI" className={className} />,
-  'GameBuilders' : (className) => <LazyImage img={gamebuildlogo} imgwebp={webp_gamebuildlogo} title="GameBuilders" className={className} />,
-  'SIGAIDA' : (className) => <LazyImage img={sigaidalogo} imgwebp={webp_sigaidalogo} title="SIGAIDA" className={className} />,
-  'SIGGRAPH' : (className) => <LazyImage img={siggraphlogo} imgwebp={webp_siggraphlogo} title="SIGGRAPH" className={className} />,
-  'ICPC' : (className) => <LazyImage img={icpclogo} imgwebp={webp_icpclogo} title="ICPC" className={className} />,
-  'SIGMobile' : (className) => <LazyImage img={sigmobilelogo} imgwebp={webp_sigmobilelogo} title="SIGMobile" className={className} />,
-  'SIGMusic' : (className) => <LazyImage img={sigmusiclogo} imgwebp={webp_sigmusiclogo} title="SIGMusic" className={className} />,
-  'GLUG' : (className) => <LazyImage img={gluglogo} imgwebp={webp_gluglogo} title="GLUG" className={className} />,
-  'SIGNLL': (className) => <LazyImage img={signlllogo} imgwebp={webp_signlllogo} title="SIGNLL" className={className} />,
-  'SIGma': (className) => <LazyImage img={sigmalogo} imgwebp={webp_sigmalogo} title="SIGma" className={className} />,
-  'SIGQuantum': (className) => <LazyImage img={quiuclogo} imgwebp={webp_quiuclogo} title="SIGQuantum" className={className} />,
-  'SIGecom': (className) => <LazyImage img={sigecomlogo} imgwebp={webp_sigecomlogo} title="SIGecom" className={className} />,
-  'SIGPLAN': (className) => <LazyImage img={sigplanlogo} imgwebp={webp_sigplanlogo} title="SIGPLAN" className={className} />,
-  'SIGPolicy': (className) => <LazyImage img={sigpolicylogo} imgwebp={webp_sigpolicylogo} title="SIGPolicy" className={className} />,
-  'SIGARCH': (className) => <LazyImage img={sigarchlogo} imgwebp={webp_sigarchlogo} title="SIGARCH" className={className} />,
-  'SIGRobotics': (className) => <LazyImage img={sigroboticslogo} imgwebp={webp_sigroboticslogo} title="SIGRobotics" className={className} />,
-  'SIGtricity': (className) => <LazyImage img={sigtricitylogo} imgwebp={webp_sigtricitylogo} title="SIGtricity" className={className} />,
-  'Infrastructure Committee': (className) => <LazyImage img={infrastructure} title="ACM Infrastructure" className={className} />,
-  'Social Committee': (className) => <LazyImage img={social} title="ACM Social" className={className} />,
-  'Marketing Committee': (className) => <LazyImage img={marketing} title="ACM Marketing" className={className} />,
-  'Academic Committee': (className) => <LazyImage img={academic} title="ACM Academic" className={className} />,
-  'Corporate Committee': (className) => <LazyImage img={corporatelogo} title="ACM Corporate" className={className} />,
-  'Mentorship Committee': (className) => <LazyImage img={mentorship} title="ACM Mentorship" className={className} />,
-  'Reflections | Projections': (className) => <LazyImage img={reflections} title="Reflections | Projections" className={className} />,
-  'HackIllinois': (className) => <LazyImage img={hackillinoislogo} title="HackIllinois" className={className} />,
-  'ACM': (className) => <LazyImage img={acmlogo} title="ACM" className={className} />,
-}
+  SIGPwny: (className) => (
+    <LazyImage
+      img={sigpwnylogo}
+      imgwebp={webp_sigpwnylogo}
+      title="SIGPwny"
+      className={className}
+    />
+  ),
+  SIGCHI: (className) => (
+    <LazyImage
+      img={sigchilogo}
+      imgwebp={webp_sigchilogo}
+      title="SIGCHI"
+      className={className}
+    />
+  ),
+  GameBuilders: (className) => (
+    <LazyImage
+      img={gamebuildlogo}
+      imgwebp={webp_gamebuildlogo}
+      title="GameBuilders"
+      className={className}
+    />
+  ),
+  SIGAIDA: (className) => (
+    <LazyImage
+      img={sigaidalogo}
+      imgwebp={webp_sigaidalogo}
+      title="SIGAIDA"
+      className={className}
+    />
+  ),
+  SIGGRAPH: (className) => (
+    <LazyImage
+      img={siggraphlogo}
+      imgwebp={webp_siggraphlogo}
+      title="SIGGRAPH"
+      className={className}
+    />
+  ),
+  ICPC: (className) => (
+    <LazyImage
+      img={icpclogo}
+      imgwebp={webp_icpclogo}
+      title="ICPC"
+      className={className}
+    />
+  ),
+  SIGMobile: (className) => (
+    <LazyImage
+      img={sigmobilelogo}
+      imgwebp={webp_sigmobilelogo}
+      title="SIGMobile"
+      className={className}
+    />
+  ),
+  SIGMusic: (className) => (
+    <LazyImage
+      img={sigmusiclogo}
+      imgwebp={webp_sigmusiclogo}
+      title="SIGMusic"
+      className={className}
+    />
+  ),
+  GLUG: (className) => (
+    <LazyImage
+      img={gluglogo}
+      imgwebp={webp_gluglogo}
+      title="GLUG"
+      className={className}
+    />
+  ),
+  SIGNLL: (className) => (
+    <LazyImage
+      img={signlllogo}
+      imgwebp={webp_signlllogo}
+      title="SIGNLL"
+      className={className}
+    />
+  ),
+  SIGma: (className) => (
+    <LazyImage
+      img={sigmalogo}
+      imgwebp={webp_sigmalogo}
+      title="SIGma"
+      className={className}
+    />
+  ),
+  SIGQuantum: (className) => (
+    <LazyImage
+      img={quiuclogo}
+      imgwebp={webp_quiuclogo}
+      title="SIGQuantum"
+      className={className}
+    />
+  ),
+  SIGecom: (className) => (
+    <LazyImage
+      img={sigecomlogo}
+      imgwebp={webp_sigecomlogo}
+      title="SIGecom"
+      className={className}
+    />
+  ),
+  SIGPLAN: (className) => (
+    <LazyImage
+      img={sigplanlogo}
+      imgwebp={webp_sigplanlogo}
+      title="SIGPLAN"
+      className={className}
+    />
+  ),
+  SIGPolicy: (className) => (
+    <LazyImage
+      img={sigpolicylogo}
+      imgwebp={webp_sigpolicylogo}
+      title="SIGPolicy"
+      className={className}
+    />
+  ),
+  SIGARCH: (className) => (
+    <LazyImage
+      img={sigarchlogo}
+      imgwebp={webp_sigarchlogo}
+      title="SIGARCH"
+      className={className}
+    />
+  ),
+  SIGRobotics: (className) => (
+    <LazyImage
+      img={sigroboticslogo}
+      imgwebp={webp_sigroboticslogo}
+      title="SIGRobotics"
+      className={className}
+    />
+  ),
+  SIGtricity: (className) => (
+    <LazyImage
+      img={sigtricitylogo}
+      imgwebp={webp_sigtricitylogo}
+      title="SIGtricity"
+      className={className}
+    />
+  ),
+  'Infrastructure Committee': (className) => (
+    <LazyImage
+      img={infrastructure}
+      title="ACM Infrastructure"
+      className={className}
+    />
+  ),
+  'Social Committee': (className) => (
+    <LazyImage img={social} title="ACM Social" className={className} />
+  ),
+  'Marketing Committee': (className) => (
+    <LazyImage img={marketing} title="ACM Marketing" className={className} />
+  ),
+  'Academic Committee': (className) => (
+    <LazyImage img={academic} title="ACM Academic" className={className} />
+  ),
+  'Corporate Committee': (className) => (
+    <LazyImage
+      img={corporatelogo}
+      title="ACM Corporate"
+      className={className}
+    />
+  ),
+  'Mentorship Committee': (className) => (
+    <LazyImage img={mentorship} title="ACM Mentorship" className={className} />
+  ),
+  'Reflections | Projections': (className) => (
+    <LazyImage
+      img={reflections}
+      title="Reflections | Projections"
+      className={className}
+    />
+  ),
+  HackIllinois: (className) => (
+    <LazyImage
+      img={hackillinoislogo}
+      title="HackIllinois"
+      className={className}
+    />
+  ),
+  ACM: (className) => (
+    <LazyImage img={acmlogo} title="ACM" className={className} />
+  ),
+};
 
-export const getOrganizationImage = (org: Organization, className: string = 'h-14 w-auto') => {
+export const getOrganizationImage = (
+  org: Organization,
+  className: string = 'h-14 w-auto',
+) => {
   try {
     return imageRenderers[org](className);
   } catch {
-    return imageRenderers["ACM"](className);
+    return imageRenderers['ACM'](className);
   }
-}
+};

@@ -1,5 +1,5 @@
 'use client';
-import React, { Suspense } from 'react'
+import React, { Suspense } from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import {
@@ -16,8 +16,9 @@ import {
   ModalFooter,
   useDisclosure,
   Select,
-  SelectItem
-} from '@nextui-org/react';
+  SelectItem,
+  ListboxProps,
+} from '@heroui/react';
 import axios from 'axios';
 import Layout from '../MembershipLayout';
 
@@ -27,18 +28,18 @@ const decimalHelper = (num: number) => {
   } else {
     return num.toFixed(2);
   }
-}
+};
 
 interface ErrorCode {
-  code?: number | string,
-  message: string,
-  title?: string
+  code?: number | string;
+  message: string;
+  title?: string;
 }
 
 enum InputStatus {
   EMPTY,
   INVALID,
-  VALID
+  VALID,
 }
 
 const baseUrl = process.env.NEXT_PUBLIC_MERCH_API_BASE_URL;
@@ -48,8 +49,8 @@ const WrapepdMerchItem = () => {
     <Suspense>
       <MerchItem />
     </Suspense>
-  )
-}
+  );
+};
 
 const MerchItem = () => {
   const itemid = useSearchParams().get('id') || '';
@@ -58,8 +59,8 @@ const MerchItem = () => {
 
   const [email, setEmail] = useState('');
   const [emailConfirm, setEmailConfirm] = useState('');
-  const [size, setSize] = React.useState("");
-  const [quantity, setQuantity] = useState("");
+  const [size, setSize] = React.useState('');
+  const [quantity, setQuantity] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const modalErrorMessage = useDisclosure();
@@ -72,39 +73,43 @@ const MerchItem = () => {
 
   const metaLoader = async () => {
     const url = `${baseUrl}/api/v1/merch/details?itemid=${itemid}`;
-    axios.get(url).then(response => {
-      setMerchList(response.data);
-      setMerchLoaded(true);
-      modalErrorMessage.onClose();
-      setIsLoading(false);
-    }).catch((error) => {
-      if (error.response && error.response.status === 404) {
-        setTimeout(() => {
-          setErrorMessage({
-            title: "Error 404",
-            code: "This event could not be loaded.",
-            message: error.response.data.message
-          });
-          // set default paid schema so it renders the error page
-          setMerchList({
-            "member_price": "",
-            "nonmember_price": "",
-            "item_image": "",
-            "sizes": [],
-            "item_price": { "paid": 999999, "others": 999999 }, "eventDetails": "",
-            "item_id": "404_event",
-            "total_sold": {},
-            "total_avail": {},
-            "limit_per_person": -1,
-            "item_sales_active_utc": -1,
-            "item_name": "",
-          });
-          setIsLoading(false);
-          modalErrorMessage.onOpen();
-        }, 1000)
-      }
-    })
-  }
+    axios
+      .get(url)
+      .then((response) => {
+        setMerchList(response.data);
+        setMerchLoaded(true);
+        modalErrorMessage.onClose();
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 404) {
+          setTimeout(() => {
+            setErrorMessage({
+              title: 'Error 404',
+              code: 'This event could not be loaded.',
+              message: error.response.data.message,
+            });
+            // set default paid schema so it renders the error page
+            setMerchList({
+              member_price: '',
+              nonmember_price: '',
+              item_image: '',
+              sizes: [],
+              item_price: { paid: 999999, others: 999999 },
+              eventDetails: '',
+              item_id: '404_event',
+              total_sold: {},
+              total_avail: {},
+              limit_per_person: -1,
+              item_sales_active_utc: -1,
+              item_name: '',
+            });
+            setIsLoading(false);
+            modalErrorMessage.onOpen();
+          }, 1000);
+        }
+      });
+  };
 
   useEffect(() => {
     metaLoader();
@@ -114,55 +119,67 @@ const MerchItem = () => {
   const purchaseHandler = () => {
     setIsLoading(true);
     const url = `${baseUrl}/api/v1/checkout/session?email=${email}&itemid=${itemid}&size=${size}&quantity=${quantity}`;
-    axios.get(url).then(response => {
-      window.location.replace(response.data);
-    }).catch((error) => {
-      if (!error.response) {
-        modalErrorMessage.onOpen();
+    axios
+      .get(url)
+      .then((response) => {
+        window.location.replace(response.data);
+      })
+      .catch((error) => {
+        if (!error.response) {
+          modalErrorMessage.onOpen();
+          setIsLoading(false);
+          return;
+        }
+        if (error.response.status === 422) {
+          const errorObj = error.response.data;
+          setErrorMessage({
+            code: errorObj.details[0].issue,
+            message: errorObj.details[0].description,
+          });
+        } else if (error.response.status === 400) {
+          const errorObj = error.response.data.errors;
+          setErrorMessage({
+            code: 400,
+            message: errorObj[0].msg + ' for ' + errorObj[0].param,
+          });
+        } else if (error.response.status === 404) {
+          const errorObj = error.response.data.errors;
+          setErrorMessage({
+            code: 'Merch not availiable.',
+            message: error.response.data,
+          });
+        } else {
+          setErrorMessage({
+            code: 500,
+            message:
+              'Internal server error: ' +
+              (error.response.data || 'could not process request'),
+          });
+        }
         setIsLoading(false);
-        return;
-      }
-      if (error.response.status === 422) {
-        const errorObj = error.response.data;
-        setErrorMessage({
-          code: errorObj.details[0].issue,
-          message: errorObj.details[0].description
-        });
-      } else if (error.response.status === 400) {
-        const errorObj = error.response.data.errors;
-        setErrorMessage({
-          code: 400,
-          message: errorObj[0].msg + ' for ' + errorObj[0].param
-        });
-      } else if (error.response.status === 404) {
-        const errorObj = error.response.data.errors;
-        setErrorMessage({
-          code: "Merch not availiable.",
-          message: error.response.data
-        });
-      } else {
-        setErrorMessage({
-          code: 500,
-          message: 'Internal server error: ' + (error.response.data || "could not process request")
-        });
-      }
-      setIsLoading(false);
-      modalErrorMessage.onOpen();
-    });
+        modalErrorMessage.onOpen();
+      });
   };
 
   const validateEmail = (value: string) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
-  }
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  };
 
-  const changeSize = (e: { target: { value: React.SetStateAction<string>; }; }) => {
-    setSize(e ? e.target ? e.target.value : "" : "");
+  const changeSize = (e: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setSize(e ? (e.target ? e.target.value : '') : '');
   };
 
   const validateQuantity = (value: string) => {
     const num = parseInt(value);
     if (Number.isNaN(num)) return false;
-    if (merchList["limit_per_person"] && merchList["limit_per_person"] > 0 && num > merchList["limit_per_person"]) return false;
+    if (
+      merchList['limit_per_person'] &&
+      merchList['limit_per_person'] > 0 &&
+      num > merchList['limit_per_person']
+    )
+      return false;
     return num > 0;
   };
 
@@ -170,83 +187,110 @@ const MerchItem = () => {
     if (merchList['overall_cap']) {
       return merchList['overall_cap'];
     }
-    return Object.values(merchList["total_avail"]).reduce((acc: any, val: any) => acc + val, 0);
+    return Object.values(merchList['total_avail']).reduce(
+      (acc: any, val: any) => acc + val,
+      0,
+    );
   };
 
   const filterSoldOut = (value: string) => {
-    return (!(value in merchList["total_avail"])) || (merchList["total_avail"][value] === 0);
-  }
+    return (
+      !(value in merchList['total_avail']) ||
+      merchList['total_avail'][value] === 0
+    );
+  };
 
   const inputQuantityStatus = useMemo(() => {
-    if (quantity === "") return InputStatus.EMPTY;
+    if (quantity === '') return InputStatus.EMPTY;
     return validateQuantity(quantity) ? InputStatus.VALID : InputStatus.INVALID;
   }, [quantity]);
 
   const inputEmailStatus = useMemo(() => {
-    if (email === "") return InputStatus.EMPTY;
+    if (email === '') return InputStatus.EMPTY;
     return validateEmail(email) ? InputStatus.VALID : InputStatus.INVALID;
   }, [email]);
 
   const inputEmailConfirmStatus = useMemo(() => {
-    if (emailConfirm === "") return InputStatus.EMPTY;
+    if (emailConfirm === '') return InputStatus.EMPTY;
     else if (email === emailConfirm) return InputStatus.VALID;
     return InputStatus.INVALID;
   }, [email, emailConfirm]);
 
   const isFormValidated = useMemo(() => {
-    return inputEmailStatus === InputStatus.VALID && inputEmailConfirmStatus === InputStatus.VALID;
+    return (
+      inputEmailStatus === InputStatus.VALID &&
+      inputEmailConfirmStatus === InputStatus.VALID
+    );
   }, [inputEmailStatus, inputEmailConfirmStatus]);
 
   if (Object.keys(merchList).length === 0) {
     if (itemid === '') {
-      window.location.replace("../merch-store");
+      window.location.replace('../merch-store');
       return <Layout name="Merch Store"></Layout>;
     }
     return <Layout name="Merch Store"></Layout>;
   } else {
     return (
-      <Layout name={merchList["item_name"]}>
+      <Layout name={merchList['item_name']}>
         <div className="h-screen w-screen absolute top-0 left-0 flex flex-col items-center py-24">
           <Card className="max-w-[512px] mx-4 my-auto shrink-0">
             <CardHeader>
-              <p className="font-bold">
-                {merchList["item_name"]}
-              </p>
+              <p className="font-bold">{merchList['item_name']}</p>
             </CardHeader>
             <Divider />
             <CardBody className="gap-4">
-              {merchList["item_image"] ? (
-                <img alt={merchList["item_name"] + " image."} src={merchList["item_image"]} />
+              {merchList['item_image'] ? (
+                <img
+                  alt={merchList['item_name'] + ' image.'}
+                  src={merchList['item_image']}
+                />
               ) : null}
 
-              {merchList["description"] ? (<p style={{ whiteSpace: 'pre-line' }}>{merchList["description"]}</p>) : null}
+              {merchList['description'] ? (
+                <p style={{ whiteSpace: 'pre-line' }}>
+                  {merchList['description']}
+                </p>
+              ) : null}
 
-              {totalCapacity() as number < 10 ? <p> <b>We are running out, order soon!</b></p> : null}
+              {(totalCapacity() as number) < 10 ? (
+                <p>
+                  {' '}
+                  <b>We are running out, order soon!</b>
+                </p>
+              ) : null}
               <p>
-                <b>Cost:</b> ${decimalHelper(merchList["item_price"]["paid"])} for {(merchList['valid_member_lists'] && merchList['valid_member_lists'].length > 0) ? 'paid ACM@UIUC and eligible partner organization' : 'paid ACM@UIUC'} members, ${decimalHelper(merchList["item_price"]["others"])} for non-members.
+                <b>Cost:</b> ${decimalHelper(merchList['item_price']['paid'])}{' '}
+                for{' '}
+                {merchList['valid_member_lists'] &&
+                merchList['valid_member_lists'].length > 0
+                  ? 'paid ACM@UIUC and eligible partner organization'
+                  : 'paid ACM@UIUC'}{' '}
+                members, ${decimalHelper(merchList['item_price']['others'])} for
+                non-members.
               </p>
               <p>
-                <b>You must use your Illinois email to receive the member discount!</b>
+                <b>
+                  You must use your Illinois email to receive the member
+                  discount!
+                </b>
               </p>
-              {
-                (merchList["limit_per_person"] && merchList["limit_per_person"] > 0) ? (
-                  <i>
-                    Limit {merchList["limit_per_person"]} per person.
-                  </i>
-                ) : null
-              }
+              {merchList['limit_per_person'] &&
+              merchList['limit_per_person'] > 0 ? (
+                <i>Limit {merchList['limit_per_person']} per person.</i>
+              ) : null}
 
               <Select
                 isRequired={true}
                 label={merchList['variant_friendly_name'] || 'Size'}
                 placeholder="Select one"
                 selectedKeys={[size]}
-                disabledKeys={merchList["sizes"].filter(filterSoldOut)}
+                disabledKeys={merchList['sizes'].filter(filterSoldOut)}
                 onChange={changeSize}
+                maxListboxHeight={400}
               >
-                {merchList["sizes"].map((val: string) => (
-                  <SelectItem key={val} value={val}>
-                    {filterSoldOut(val) ? val + " [SOLD OUT]" : val}
+                {merchList['sizes'].map((val: string) => (
+                  <SelectItem key={val} textValue={val}>
+                    {filterSoldOut(val) ? val + ' [SOLD OUT]' : val}
                   </SelectItem>
                 ))}
               </Select>
@@ -258,14 +302,21 @@ const MerchItem = () => {
                 endContent=""
                 variant="bordered"
                 isInvalid={inputQuantityStatus === InputStatus.INVALID}
-                color={inputQuantityStatus === InputStatus.INVALID ? 'danger' : 'default'}
-                errorMessage={inputQuantityStatus === InputStatus.INVALID && 'Invalid Quantity'}
+                color={
+                  inputQuantityStatus === InputStatus.INVALID
+                    ? 'danger'
+                    : 'default'
+                }
+                errorMessage={
+                  inputQuantityStatus === InputStatus.INVALID &&
+                  'Invalid Quantity'
+                }
                 autoCapitalize="none"
                 autoComplete="off"
                 autoCorrect="off"
                 spellCheck="false"
                 classNames={{
-                  input: ["text-base"]
+                  input: ['text-base'],
                 }}
               />
 
@@ -276,14 +327,20 @@ const MerchItem = () => {
                 endContent=""
                 variant="bordered"
                 isInvalid={inputEmailStatus === InputStatus.INVALID}
-                color={inputEmailStatus === InputStatus.INVALID ? 'danger' : 'default'}
-                errorMessage={inputEmailStatus === InputStatus.INVALID && 'Invalid Email'}
+                color={
+                  inputEmailStatus === InputStatus.INVALID
+                    ? 'danger'
+                    : 'default'
+                }
+                errorMessage={
+                  inputEmailStatus === InputStatus.INVALID && 'Invalid Email'
+                }
                 autoCapitalize="none"
                 autoComplete="off"
                 autoCorrect="off"
                 spellCheck="false"
                 classNames={{
-                  input: ["text-base"]
+                  input: ['text-base'],
                 }}
               />
               <Input
@@ -293,21 +350,30 @@ const MerchItem = () => {
                 endContent=""
                 variant="bordered"
                 isInvalid={inputEmailConfirmStatus === InputStatus.INVALID}
-                color={inputEmailConfirmStatus === InputStatus.INVALID ? 'danger' : 'default'}
-                errorMessage={inputEmailConfirmStatus === InputStatus.INVALID && 'Emails do not match'}
+                color={
+                  inputEmailConfirmStatus === InputStatus.INVALID
+                    ? 'danger'
+                    : 'default'
+                }
+                errorMessage={
+                  inputEmailConfirmStatus === InputStatus.INVALID &&
+                  'Emails do not match'
+                }
                 autoCapitalize="none"
                 autoComplete="off"
                 autoCorrect="off"
                 spellCheck="false"
                 classNames={{
-                  input: ["text-base"]
+                  input: ['text-base'],
                 }}
               />
 
               <Button
                 color="primary"
                 size="lg"
-                isDisabled={(!isFormValidated) || isLoading || totalCapacity() === 0}
+                isDisabled={
+                  !isFormValidated || isLoading || totalCapacity() === 0
+                }
                 onPress={purchaseHandler}
               >
                 {isLoading ? 'Verifying information...' : 'Purchase now'}
@@ -322,13 +388,26 @@ const MerchItem = () => {
             <ModalContent>
               <ModalHeader />
               <ModalBody className="flex flex-col items-center">
-                <p className="text-center text-2xl font-bold">{(errorMessage && errorMessage.title) || 'Verification Failed'}</p>
-                <p className="text-center">Error Code: {errorMessage && errorMessage.code}</p>
-                <p className="text-center">{errorMessage && errorMessage.message}</p>
-                {errorMessage && errorMessage.code && (<p>
-                  If you believe you are receiving this message in error, contact the <a href='mailto:infra@acm.illinois.edu'>ACM Infrastructure Team
-                  </a> with the error code. Otherwise, feel free to try again.
-                </p>)}
+                <p className="text-center text-2xl font-bold">
+                  {(errorMessage && errorMessage.title) ||
+                    'Verification Failed'}
+                </p>
+                <p className="text-center">
+                  Error Code: {errorMessage && errorMessage.code}
+                </p>
+                <p className="text-center">
+                  {errorMessage && errorMessage.message}
+                </p>
+                {errorMessage && errorMessage.code && (
+                  <p>
+                    If you believe you are receiving this message in error,
+                    contact the{' '}
+                    <a href="mailto:infra@acm.illinois.edu">
+                      ACM Infrastructure Team
+                    </a>{' '}
+                    with the error code. Otherwise, feel free to try again.
+                  </p>
+                )}
               </ModalBody>
               <ModalFooter />
             </ModalContent>

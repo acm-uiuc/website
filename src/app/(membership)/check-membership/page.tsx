@@ -12,9 +12,9 @@ import {
   ModalContent,
   ModalHeader,
   ModalFooter,
-  useDisclosure
-} from '@nextui-org/react';
-import { Spinner } from "@nextui-org/spinner";
+  useDisclosure,
+} from '@heroui/react';
+import { Spinner } from '@heroui/spinner';
 
 // import Lottie from 'lottie-react';
 import dynamic from 'next/dynamic';
@@ -22,22 +22,21 @@ const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 import axios from 'axios';
 import Layout from '../MembershipLayout';
 import successAnimation from '../success.json';
-import config from '@/config.json'
+import config from '@/config.json';
 
 interface ErrorCode {
-  code?: number | string,
-  message: string
+  code?: number | string;
+  message: string;
 }
 
 enum InputStatus {
   EMPTY,
   INVALID,
-  VALID
+  VALID,
 }
 
 const baseUrl = process.env.NEXT_PUBLIC_EVENTS_API_BASE_URL;
 const walletApiBaseUrl = process.env.NEXT_PUBLIC_EVENTS_API_BASE_URL;
-
 
 const Payment = () => {
   const [netId, setNetId] = useState('');
@@ -63,18 +62,21 @@ const Payment = () => {
   const checkHandler = () => {
     setIsLoading(true);
     const url = `${baseUrl}/api/v1/membership/${netId}`;
-    axios.get(url).then(response => {
-      setIsPaidMember(response.data.isPaidMember || false);
-      setIsLoading(false);
-      modalMembershipStatus.onOpen();
-    }).catch((error) => {
-      setIsLoading(false);
-      setErrorMessage({
-        code: error?.response?.status || 500,
-        message: error?.message || "An unknown error occurred"
+    axios
+      .get(url)
+      .then((response) => {
+        setIsPaidMember(response.data.isPaidMember || false);
+        setIsLoading(false);
+        modalMembershipStatus.onOpen();
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        setErrorMessage({
+          code: error?.response?.status || 500,
+          message: error?.message || 'An unknown error occurred',
+        });
+        modalErrorMessage.onOpen();
       });
-      modalErrorMessage.onOpen();
-    });
   };
 
   const handleAddToWallet = async () => {
@@ -82,18 +84,24 @@ const Payment = () => {
     setWalletError(null);
 
     try {
-      await axios.post(`${walletApiBaseUrl}/api/v1/mobileWallet/membership`, null, {
-        params: { email: `${netId}@illinois.edu` },
-        headers: { 'Content-Type': 'application/json' }
-      });
+      await axios.post(
+        `${walletApiBaseUrl}/api/v1/mobileWallet/membership`,
+        null,
+        {
+          params: { email: `${netId}@illinois.edu` },
+          headers: { 'Content-Type': 'application/json' },
+        },
+      );
       setIsWalletLoading(false);
     } catch (error: any) {
       setIsWalletLoading(false);
       setWalletError({
         code: error?.response?.status || 500,
-        message: error?.response?.status === 403
-          ? "You must be a paid member to add your membership to Apple Wallet"
-          : error?.message || "Failed to generate Apple Wallet pass. Please try again later."
+        message:
+          error?.response?.status === 403
+            ? 'You must be a paid member to add your membership to Apple Wallet'
+            : error?.message ||
+              'Failed to generate Apple Wallet pass. Please try again later.',
       });
       modalWalletError.onOpen();
     }
@@ -104,7 +112,7 @@ const Payment = () => {
   };
 
   const inputNetIdStatus = useMemo(() => {
-    if (netId === "") return InputStatus.EMPTY;
+    if (netId === '') return InputStatus.EMPTY;
     return validateNetId(netId) ? InputStatus.VALID : InputStatus.INVALID;
   }, [netId]);
 
@@ -117,9 +125,7 @@ const Payment = () => {
       <div className="h-screen w-screen absolute top-0 left-0 flex flex-col items-center py-24">
         <Card className="max-w-[512px] mx-4 my-auto shrink-0">
           <CardHeader>
-            <p className="font-bold">
-              Check ACM@UIUC Membership
-            </p>
+            <p className="font-bold">Check ACM@UIUC Membership</p>
           </CardHeader>
           <Divider />
           <CardBody className="gap-4">
@@ -133,14 +139,18 @@ const Payment = () => {
               endContent="@illinois.edu"
               variant="bordered"
               isInvalid={inputNetIdStatus === InputStatus.INVALID}
-              color={inputNetIdStatus === InputStatus.INVALID ? 'danger' : 'default'}
-              errorMessage={inputNetIdStatus === InputStatus.INVALID && 'Invalid NetID'}
+              color={
+                inputNetIdStatus === InputStatus.INVALID ? 'danger' : 'default'
+              }
+              errorMessage={
+                inputNetIdStatus === InputStatus.INVALID && 'Invalid NetID'
+              }
               autoCapitalize="none"
               autoComplete="off"
               autoCorrect="off"
               spellCheck="false"
               classNames={{
-                input: ["text-base"]
+                input: ['text-base'],
               }}
             />
             <Button
@@ -149,7 +159,14 @@ const Payment = () => {
               isDisabled={!isFormValidated || isLoading}
               onPress={checkHandler}
             >
-              {isLoading ? <><Spinner color='white' size="sm" /><a>Loading...</a></> : "Check Membership Status"}
+              {isLoading ? (
+                <>
+                  <Spinner color="white" size="sm" />
+                  <a>Loading...</a>
+                </>
+              ) : (
+                'Check Membership Status'
+              )}
             </Button>
           </CardBody>
         </Card>
@@ -160,13 +177,22 @@ const Payment = () => {
           <ModalContent>
             <ModalHeader />
             <ModalBody className="flex flex-col items-center">
-              <p className="text-center text-2xl font-bold">Error Checking Membership Status</p>
-              <p className="text-center">Error Code: {errorMessage && errorMessage.code}</p>
-              <p className="text-center">{errorMessage && errorMessage.message}</p>
-              {errorMessage && errorMessage.code && (<p>
-                Please try again. If the error continues, contact the <a href='mailto:infra@acm.illinois.edu'>ACM
-                  Infra team</a> with the error code.
-              </p>)}
+              <p className="text-center text-2xl font-bold">
+                Error Checking Membership Status
+              </p>
+              <p className="text-center">
+                Error Code: {errorMessage && errorMessage.code}
+              </p>
+              <p className="text-center">
+                {errorMessage && errorMessage.message}
+              </p>
+              {errorMessage && errorMessage.code && (
+                <p>
+                  Please try again. If the error continues, contact the{' '}
+                  <a href="mailto:infra@acm.illinois.edu">ACM Infra team</a>{' '}
+                  with the error code.
+                </p>
+              )}
             </ModalBody>
             <ModalFooter />
           </ModalContent>
@@ -178,13 +204,22 @@ const Payment = () => {
           <ModalContent>
             <ModalHeader />
             <ModalBody className="flex flex-col items-center">
-              <p className="text-center text-2xl font-bold">Error Adding to Apple Wallet</p>
-              <p className="text-center">Error Code: {walletError && walletError.code}</p>
-              <p className="text-center">{walletError && walletError.message}</p>
-              {walletError && walletError.code && (<p>
-                Please try again. If the error continues, contact the <a href='mailto:infra@acm.illinois.edu'>ACM
-                  Infra team</a> with the error code.
-              </p>)}
+              <p className="text-center text-2xl font-bold">
+                Error Adding to Apple Wallet
+              </p>
+              <p className="text-center">
+                Error Code: {walletError && walletError.code}
+              </p>
+              <p className="text-center">
+                {walletError && walletError.message}
+              </p>
+              {walletError && walletError.code && (
+                <p>
+                  Please try again. If the error continues, contact the{' '}
+                  <a href="mailto:infra@acm.illinois.edu">ACM Infra team</a>{' '}
+                  with the error code.
+                </p>
+              )}
             </ModalBody>
             <ModalFooter />
           </ModalContent>
@@ -195,41 +230,65 @@ const Payment = () => {
         >
           <ModalContent className={isPaidMember ? 'rainbow-background' : ''}>
             <ModalHeader />
-            <ModalBody className={isPaidMember ? "flex flex-col items-center white-text" : "flex flex-col items-center"}>
+            <ModalBody
+              className={
+                isPaidMember
+                  ? 'flex flex-col items-center white-text'
+                  : 'flex flex-col items-center'
+              }
+            >
               <p className="text-center text-2xl font-bold">
-                {isPaidMember ? "You're a Paid Member of ACM@UIUC!" : "You're not a Paid Member of ACM@UIUC 😔"}
+                {isPaidMember
+                  ? "You're a Paid Member of ACM@UIUC!"
+                  : "You're not a Paid Member of ACM@UIUC 😔"}
               </p>
-              {isPaidMember && <>
-                <Lottie animationData={successAnimation} loop={false} style={{ width: '10em' }} />
-                <a>{netId}@illinois.edu</a>
-                <a>{currentTime.toLocaleString()}</a>
-                <Button
-                  color="secondary"
-                  size="lg"
-                  isDisabled={isWalletLoading}
-                  onPress={handleAddToWallet}
-                  className="mt-4"
-                >
-                  {isWalletLoading ?
-                    <><Spinner color='white' size="sm" /><a>Generating pass...</a></> :
-                    "Add to Apple Wallet"
-                  }
-                </Button>
-                <p className="text-sm mt-2">
-                  Check your Illinois email for the Apple Wallet pass after clicking.
-                </p>
-              </>}
-              {!isPaidMember &&
+              {isPaidMember && (
                 <>
-                  <p>Click the link below to purchase an ACM@UIUC membership.</p>
+                  <Lottie
+                    animationData={successAnimation}
+                    loop={false}
+                    style={{ width: '10em' }}
+                  />
+                  <a>{netId}@illinois.edu</a>
+                  <a>{currentTime.toLocaleString()}</a>
+                  <Button
+                    color="secondary"
+                    size="lg"
+                    isDisabled={isWalletLoading}
+                    onPress={handleAddToWallet}
+                    className="mt-4"
+                  >
+                    {isWalletLoading ? (
+                      <>
+                        <Spinner color="white" size="sm" />
+                        <a>Generating pass...</a>
+                      </>
+                    ) : (
+                      'Add to Apple Wallet'
+                    )}
+                  </Button>
+                  <p className="text-sm mt-2">
+                    Check your Illinois email for the Apple Wallet pass after
+                    clicking.
+                  </p>
+                </>
+              )}
+              {!isPaidMember && (
+                <>
+                  <p>
+                    Click the link below to purchase an ACM@UIUC membership.
+                  </p>
                   <Button
                     color="primary"
                     size="lg"
-                    onPress={() => { window.location.href = `/membership?netid=${netId}` }}
+                    onPress={() => {
+                      window.location.href = `/membership?netid=${netId}`;
+                    }}
                   >
                     Purchase for {config.membershipPrice}
                   </Button>
-                </>}
+                </>
+              )}
             </ModalBody>
             <ModalFooter />
           </ModalContent>

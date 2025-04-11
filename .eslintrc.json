@@ -1,10 +1,15 @@
 {
   "extends": [
     "next/core-web-vitals",
-    "plugin:storybook/recommended"
+    "plugin:storybook/recommended",
+    "prettier"
   ],
   "rules": {
     "@next/next/no-img-element": "off",
     "react/no-unescaped-entities": "off"
+  },
+  "env": {
+    "es2021": true,
+    "node": true
   }
 }

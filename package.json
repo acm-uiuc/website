@@ -11,10 +11,11 @@
     "serve": "serve build",
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "prettier:write": "prettier --write ."
   },
   "dependencies": {
-    "@nextui-org/react": "^2.2.9",
+    "@heroui/react": "2.7.6",
     "axios": "^0.28.0",
     "framer-motion": "^10.17.9",
     "lottie-react": "^2.3.1",
@@ -45,8 +46,10 @@
     "cross-env": "^7.0.3",
     "eslint": "^8",
     "eslint-config-next": "^14.2.5",
+    "eslint-config-prettier": "^10.1.2",
     "eslint-plugin-storybook": "^0.6.15",
     "postcss": "^8.4.33",
+    "prettier": "^3.5.3",
     "serve": "^14.2.1",
     "storybook": "^7.6.7",
     "tailwindcss": "^3.4.1",
@@ -55,5 +58,5 @@
   "resolutions": {
     "jackspeak": "2.1.1"
   },
-  "packageManager": "yarn@1.22.21"
+  "packageManager": "yarn@1.22.19"
 }

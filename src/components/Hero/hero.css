@@ -15,8 +15,12 @@
 @media screen(xl) {
   .hero-background {
     background-image: url('horizontal.svg'), url('vertical.svg');
-    background-position: top 35vh left -10vw, top right -15vw;
+    background-position:
+      top 35vh left -10vw,
+      top right -15vw;
     background-repeat: no-repeat, no-repeat;
-    background-size: auto 120%, auto 150%;
+    background-size:
+      auto 120%,
+      auto 150%;
   }
 }

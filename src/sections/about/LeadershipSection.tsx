@@ -13,14 +13,12 @@ export default function LeadershipSection() {
       title="Chair"
       name="Jacob Levine"
       img={chair}
-      email="mailto:jlevine4@illinois.edu"
     />,
     <LeadershipCard 
       key={"vicechair"}
       title="Vice Chair"
       name="Sherry Long" 
       img={vicechair} 
-      email="mailto:sherryl4@illinois.edu"
     />,
     <LeadershipCard
       key={'treasurer'}
@@ -33,7 +31,6 @@ export default function LeadershipSection() {
       title="Secretary"
       name="Krish Gangal"
       img={secretary}
-      email="mailto:kgangal2@illinois.edu"
     />
 
   ]

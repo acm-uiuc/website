@@ -23,12 +23,6 @@ export default function LeadershipSection() {
       email="mailto:sherryl4@illinois.edu"
     />,
     <LeadershipCard
-      key={'vicechair'}
-      title="Vice Chair"
-      name="Yanni Zhuang"
-      img={vicechair}
-    />,
-    <LeadershipCard
       key={'treasurer'}
       title="Treasurer"
       name="Adhi Thirumala"

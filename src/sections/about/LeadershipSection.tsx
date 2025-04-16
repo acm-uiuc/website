@@ -11,28 +11,29 @@ export default function LeadershipSection() {
     <LeadershipCard
       key={'chair'}
       title="Chair"
-      name="Ronit Anandani"
+      name="Jacob Levine"
       img={chair}
     />,
-    <LeadershipCard
-      key={'vicechair'}
+    <LeadershipCard 
+      key={"vicechair"}
       title="Vice Chair"
-      name="Yanni Zhuang"
-      img={vicechair}
+      name="Sherry Long" 
+      img={vicechair} 
     />,
     <LeadershipCard
       key={'treasurer'}
       title="Treasurer"
-      name="Ryan To"
+      name="Adhi Thirumala"
       img={treasurer}
     />,
     <LeadershipCard
       key={'secretary'}
       title="Secretary"
-      name="Akshay Vellore"
+      name="Krish Gangal"
       img={secretary}
-    />,
-  ];
+    />
+
+  ]
   return (
     <section id="leadership" className="container flex flex-col">
       <h1>Leadership</h1>

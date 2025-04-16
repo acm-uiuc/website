@@ -66,6 +66,10 @@ export default function CommitteeSection() {
               name: 'Deeya Bodas',
               email: 'deeyaab2@illinois.edu',
             },
+            {
+              name: 'Adya Daruka',
+              email: 'adaruka2@illinois.edu',
+            },
           ]}
         />
       </span>
@@ -96,8 +100,8 @@ export default function CommitteeSection() {
           href="https://academic.acm.illinois.edu/"
           chairs={[
             {
-              name: 'Jacob Levine',
-              email: 'jlevine4@illinois.edu',
+              name: 'Yanni Zhuang',
+              email: 'yanniz3@illinois.edu',
             },
           ]}
         />
@@ -148,8 +152,8 @@ export default function CommitteeSection() {
               email: 'jrliu2@illinois.edu',
             },
             {
-              name: 'Sherry Long',
-              email: 'sherryl4@illinois.edu',
+              name: 'Alice Fan',
+              email: 'alfan2@illinois.edu',
             },
           ]}
         />

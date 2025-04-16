@@ -96,8 +96,8 @@ export default function CommitteeSection() {
           href="https://academic.acm.illinois.edu/"
           chairs={[
             {
-              name: 'Jacob Levine',
-              email: 'jlevine4@illinois.edu',
+              name: 'Yanni Zhuang',
+              email: 'yanniz3@illinois.edu',
             },
           ]}
         />

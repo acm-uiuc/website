@@ -11,8 +11,16 @@ export default function LeadershipSection() {
     <LeadershipCard
       key={'chair'}
       title="Chair"
-      name="Ronit Anandani"
+      name="Jacob Levine"
       img={chair}
+      email="mailto:jlevine4@illinois.edu"
+    />,
+    <LeadershipCard 
+      key={"vicechair"}
+      title="Vice Chair"
+      name="Sherry Long" 
+      img={vicechair} 
+      email="mailto:sherryl4@illinois.edu"
     />,
     <LeadershipCard
       key={'vicechair'}
@@ -23,16 +31,18 @@ export default function LeadershipSection() {
     <LeadershipCard
       key={'treasurer'}
       title="Treasurer"
-      name="Ryan To"
+      name="Adhi Thirumala"
       img={treasurer}
     />,
     <LeadershipCard
       key={'secretary'}
       title="Secretary"
-      name="Akshay Vellore"
+      name="Krish Gangal"
       img={secretary}
-    />,
-  ];
+      email="mailto:kgangal2@illinois.edu"
+    />
+
+  ]
   return (
     <section id="leadership" className="container flex flex-col">
       <h1>Leadership</h1>

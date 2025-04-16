@@ -10,30 +10,30 @@ export default function LeadershipSection() {
     <LeadershipCard
       key={"chair"}
       title="Chair"
-      name="Ronit Anandani"
+      name="Jacob Levine"
       img={chair}
-      email="mailto:ronita2@illinois.edu"
+      email="mailto:jlevine4@illinois.edu"
     />,
     <LeadershipCard 
       key={"vicechair"}
       title="Vice Chair"
-      name="Yanni Zhuang" 
+      name="Sherry Long" 
       img={vicechair} 
-      email="mailto:yanniz3@illinois.edu"
+      email="mailto:sherryl4@illinois.edu"
     />,
     <LeadershipCard
       key={"treasurer"}
       title="Treasurer"
-      name="Ryan To"
+      name="Adhi Thirumala"
       img={treasurer}
       email="mailto:treasurer@acm.illinois.edu"
     />,
     <LeadershipCard
       key={"secretary"}
       title="Secretary"
-      name="Akshay Vellore"
+      name="Krish Gangal"
       img={secretary}
-      email="mailto:akshayv4@illinois.edu"
+      email="mailto:kgangal2@illinois.edu"
     />
 
   ]

@@ -46,12 +46,12 @@ export default function CommitteeSection() {
           href="https://hackillinois.org/"
           chairs={[
             {
-              name: 'Aydan Pirani',
-              email: 'apirani2@illinois.edu',
+              name: 'Lucy Wu',
+              email: 'lucywu3@illinois.edu',
             },
             {
-              name: 'Nancy Zhang',
-              email: 'nzhan2@illinois.edu',
+              name: 'Sada Challa',
+              email: 'pchal7@illinois.edu',
             },
           ]}
         />

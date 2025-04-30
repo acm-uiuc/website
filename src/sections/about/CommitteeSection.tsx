@@ -131,12 +131,12 @@ export default function CommitteeSection() {
           image={marketing}
           chairs={[
             {
-              name: 'Ayushi Chakravarty',
-              email: 'ayushic3@illinois.edu',
+              name: 'Jasmine Liu',
+              email: 'jrliu2@illinois.edu',
             },
             {
-              name: 'Meghna Goli',
-              email: 'goli3@illinois.edu',
+              name: 'Veda Fernandes',
+              email: 'vedaf2@illinois.edu',
             },
           ]}
         />
@@ -147,10 +147,6 @@ export default function CommitteeSection() {
           description="The mentorship team organizes mentorship programs for ACM@UIUC, welcoming everyone to CS @ Illinois."
           image={mentorship}
           chairs={[
-            {
-              name: 'Jasmine Liu',
-              email: 'jrliu2@illinois.edu',
-            },
             {
               name: 'Alice Fan',
               email: 'alfan2@illinois.edu',

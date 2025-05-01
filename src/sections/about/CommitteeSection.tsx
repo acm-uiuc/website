@@ -63,12 +63,12 @@ export default function CommitteeSection() {
           image={corporatelogo}
           chairs={[
             {
-              name: 'Deeya Bodas',
-              email: 'deeyaab2@illinois.edu',
-            },
-            {
               name: 'Adya Daruka',
               email: 'adaruka2@illinois.edu',
+            },
+            {
+              name: 'Akshay Vellore',
+              email: 'akshayv4@illinois.edu',
             },
           ]}
         />

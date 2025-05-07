@@ -151,6 +151,10 @@ export default function CommitteeSection() {
               name: 'Alice Fan',
               email: 'alfan2@illinois.edu',
             },
+            {
+              name: 'Mitali Ahlawat',
+              email: 'mitalia2@illinois.edu',
+            },
           ]}
         />
       </span>

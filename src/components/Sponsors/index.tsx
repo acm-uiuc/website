@@ -19,8 +19,8 @@ function Sponsors() {
       <Transition bgClass="bg-surface-100" />
       <section id="sponsors" className="bg-surface-100 pt-6 pb-24">
         <div className="container flex flex-col gap-6">
-          <h1>{sponsors.length > 0 ? "Sponsors" : "Sponsor Us"}</h1>
-          < p className="text-xl max-w-prose">
+          <h1>{sponsors.length > 0 ? 'Sponsors' : 'Sponsor Us'}</h1>
+          <p className="text-xl max-w-prose">
             {sponsors.length > 0 &&
               'ACM is thankful to these generous companies who support our organization.'}{' '}
             Sponsor companies get access to our resume book, ability to hold

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const config = {
-  enabled: true,
+  enabled: false,
   visibleStartUtc: Date.parse('2025-02-27T18:00:00Z'), // UTC time
   visibleEndUtc: Date.parse('2025-03-02T18:00:00Z'), // UTC time
   title: "HackIllinois, UIUC's premier collegiate hackathon, is happening now!",

@@ -53,7 +53,7 @@ export default function Home() {
           />
         </div>
       </section>
-      {/* <Sponsors /> */}
+      <Sponsors />
     </>
   );
 }

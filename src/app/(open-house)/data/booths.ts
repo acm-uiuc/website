@@ -1,10 +1,8 @@
 import {
-  SIGList,
-  CommitteeList,
-  PartnerList,
   getOrganizationInfo,
   Link,
 } from '@/utils/organizations';
+import { SIGList, CommitteeCoreList as CommitteeList, CommitteePartnerList as PartnerList } from '@acm-uiuc/js-shared';
 import { partners } from '../data/partners';
 import { boothDetails } from './details';
 

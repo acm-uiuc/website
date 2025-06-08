@@ -10,7 +10,8 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './CalendarStylesOverride.css';
 import { CalendarEventDetailProps } from '@/components/CalendarEventDetail/CalendarEventDetail';
 import { View, NavigateAction } from 'react-big-calendar';
-import { Organization, SIG, SIGList } from '@/utils/organizations';
+import { Organization, SIG } from '@/utils/organizations';
+import { SIGList } from '@acm-uiuc/js-shared';
 import { Skeleton } from '@heroui/react';
 import {
   repeatMapping,

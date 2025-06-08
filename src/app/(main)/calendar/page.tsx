@@ -8,7 +8,7 @@ import { Suspense, useEffect, useState } from 'react';
 import CalendarControls from '@/components/CalendarControls';
 import { View, Views } from 'react-big-calendar';
 import { transformApiDates } from '@/utils/dateutils';
-import { OrganizationList } from '@/utils/organizations';
+import { AllOrganizationList as OrganizationList } from '@acm-uiuc/js-shared';
 import { useSearchParams } from 'next/navigation';
 
 const defaultEvent: CalendarEventDetailProps = {
@@ -39,11 +39,10 @@ const Calendar = () => {
     async function fetcher() {
       const urls = [
         `${baseurl}/api/v1/events`,
-        `${baseurl}/api/v1/organizations`,
       ];
 
       try {
-        const [eventsResponse, organizationsResponse] =
+        const [eventsResponse] =
           await Promise.allSettled(urls.map((url) => fetch(url)));
         if (eventsResponse.status === 'fulfilled') {
           const eventsData = await eventsResponse.value.json();
@@ -51,17 +50,7 @@ const Calendar = () => {
         } else {
           setAllEvents([]); // Handle error for events fetch
         }
-
-        // Handle organizations response
-        if (organizationsResponse.status === 'fulfilled') {
-          const organizationsData = await organizationsResponse.value.json();
-          setValidOrganizations(organizationsData as string[]);
-          if (!organizationsData.includes(hostFilter)) {
-            setHostFilter('');
-          }
-        } else {
-          setValidOrganizations(OrganizationList);
-        }
+        setValidOrganizations(OrganizationList);
       } catch (err) {
         console.error('Error in processing fetch results:', err);
         setAllEvents([]); // Fallback error handling for critical failure
@@ -115,7 +104,7 @@ const Calendar = () => {
                       null,
                       '',
                       baseURL +
-                        `/calendar?host=${e.target.value.replaceAll(' ', '+')}`,
+                      `/calendar?host=${e.target.value.replaceAll(' ', '+')}`,
                     );
                   }
                 }}

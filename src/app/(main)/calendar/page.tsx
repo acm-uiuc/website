@@ -8,7 +8,7 @@ import { Suspense, useEffect, useState } from 'react';
 import CalendarControls from '@/components/CalendarControls';
 import { View, Views } from 'react-big-calendar';
 import { transformApiDates } from '@/utils/dateutils';
-import { OrganizationList } from '@/utils/organizations';
+import { AllOrganizationList as OrganizationList } from '@acm-uiuc/js-shared';
 import { useSearchParams } from 'next/navigation';
 
 const defaultEvent: CalendarEventDetailProps = {
@@ -115,7 +115,7 @@ const Calendar = () => {
                       null,
                       '',
                       baseURL +
-                        `/calendar?host=${e.target.value.replaceAll(' ', '+')}`,
+                      `/calendar?host=${e.target.value.replaceAll(' ', '+')}`,
                     );
                   }
                 }}

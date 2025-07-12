@@ -22,6 +22,9 @@ import Layout from '../MembershipLayout';
 import successAnimation from '../success.json';
 import { useSearchParams } from 'next/navigation';
 import config from '@/config.json';
+import { type IPublicClientApplication } from "@azure/msal-browser";
+import { getUserIdToken, initMsalClient } from '@/utils/msal';
+
 
 interface ErrorCode {
   code?: number | string;
@@ -48,14 +51,39 @@ const Payment = () => {
   const modalAlreadyMember = useDisclosure();
   const modalErrorMessage = useDisclosure();
   const [errorMessage, setErrorMessage] = useState<ErrorCode | null>(null);
-  const prefilledNetId = useSearchParams().get('netid') || '';
-  const [netId, setNetId] = useState(prefilledNetId);
-  const [netIdConfirm, setNetIdConfirm] = useState(prefilledNetId);
-  const purchaseHandler = useCallback(() => {
+  const initOnCall = !!useSearchParams().get('initOnCall') || false;
+  const [pca, setPca] = useState<IPublicClientApplication | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      setPca(await initMsalClient());
+    })();
+  }, [])
+
+  const purchaseHandler = useCallback(async () => {
     setIsLoading(true);
-    const url = `${baseUrl}/api/v1/membership/checkout/${netId}`;
+    if (!pca) {
+      setErrorMessage({
+        code: -1,
+        message: "Failed to authenticate NetID."
+      });
+      modalErrorMessage.onOpen();
+      return;
+    }
+    const accessToken = await getUserIdToken(pca);
+    if (!accessToken) {
+      setErrorMessage({
+        code: -1,
+        message: "Failed to authenticate NetID."
+      });
+      modalErrorMessage.onOpen();
+      return;
+    }
+    const url = `${baseUrl}/api/v2/membership/checkout`;
     axios
-      .get(url)
+      .get(url, {
+        headers: { "Content-Type": "text/plain", 'x-uiuc-id-token': accessToken }
+      })
       .then((response) => {
         window.location.replace(response.data);
       })
@@ -69,9 +97,16 @@ const Payment = () => {
               message: errorObj.details[0].description,
             });
             modalErrorMessage.onOpen();
+          }
+          else if (error.response.status === 403) {
+            setErrorMessage({
+              code: 409,
+              message: 'Could not verify NetID.',
+            });
+            modalAlreadyMember.onOpen();
           } else if (error.response.status === 400) {
             const errorObj = error.response.data;
-            if (errorObj.message === `${netId} is already a paid member!`) {
+            if ((errorObj.message as string).includes("is already a paid member")) {
               setErrorMessage({
                 code: 409,
                 message: 'The specified user is already a paid member.',
@@ -95,35 +130,14 @@ const Payment = () => {
           }
         }
       });
-  }, [netId, modalAlreadyMember, modalErrorMessage]);
+  }, [modalAlreadyMember, modalErrorMessage]);
 
   useEffect(() => {
-    if (prefilledNetId != '') {
+    if (initOnCall) {
       purchaseHandler();
     }
-  }, [purchaseHandler, prefilledNetId]);
+  }, [purchaseHandler, initOnCall]);
 
-  const validateNetId = (value: string) => {
-    return value.match(/^[A-Z0-9]+$/i) !== null;
-  };
-
-  const inputNetIdStatus = useMemo(() => {
-    if (netId === '') return InputStatus.EMPTY;
-    return validateNetId(netId) ? InputStatus.VALID : InputStatus.INVALID;
-  }, [netId]);
-
-  const inputNetIdConfirmStatus = useMemo(() => {
-    if (netIdConfirm === '') return InputStatus.EMPTY;
-    else if (netId === netIdConfirm) return InputStatus.VALID;
-    return InputStatus.INVALID;
-  }, [netId, netIdConfirm]);
-
-  const isFormValidated = useMemo(() => {
-    return (
-      inputNetIdStatus === InputStatus.VALID &&
-      inputNetIdConfirmStatus === InputStatus.VALID
-    );
-  }, [inputNetIdStatus, inputNetIdConfirmStatus]);
   return (
     <Layout>
       <div className="h-screen w-screen absolute top-0 left-0 flex flex-col items-center py-24">
@@ -147,55 +161,10 @@ const Payment = () => {
             >
               ACM@UIUC Paid Member Guide
             </a>
-            <Input
-              value={netId}
-              onValueChange={setNetId}
-              label="NetID"
-              endContent="@illinois.edu"
-              variant="bordered"
-              isInvalid={inputNetIdStatus === InputStatus.INVALID}
-              color={
-                inputNetIdStatus === InputStatus.INVALID ? 'danger' : 'default'
-              }
-              errorMessage={
-                inputNetIdStatus === InputStatus.INVALID && 'Invalid NetID'
-              }
-              autoCapitalize="none"
-              autoComplete="off"
-              autoCorrect="off"
-              spellCheck="false"
-              classNames={{
-                input: ['text-base'],
-              }}
-            />
-            <Input
-              value={netIdConfirm}
-              onValueChange={setNetIdConfirm}
-              label="Confirm NetID"
-              endContent="@illinois.edu"
-              variant="bordered"
-              isInvalid={inputNetIdConfirmStatus === InputStatus.INVALID}
-              color={
-                inputNetIdConfirmStatus === InputStatus.INVALID
-                  ? 'danger'
-                  : 'default'
-              }
-              errorMessage={
-                inputNetIdConfirmStatus === InputStatus.INVALID &&
-                'NetIDs do not match'
-              }
-              autoCapitalize="none"
-              autoComplete="off"
-              autoCorrect="off"
-              spellCheck="false"
-              classNames={{
-                input: ['text-base'],
-              }}
-            />
             <Button
               color="primary"
               size="lg"
-              isDisabled={!isFormValidated || isLoading}
+              isDisabled={!pca || isLoading}
               onPress={purchaseHandler}
             >
               {isLoading ? (
@@ -207,6 +176,9 @@ const Payment = () => {
                 `Purchase for ${config.membershipPrice}`
               )}
             </Button>
+            <p className="text-sm ml-2">
+              Log in with your NetID to purchase a membership.
+            </p>
           </CardBody>
         </Card>
         <Modal

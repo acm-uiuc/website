@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@acm-uiuc/js-shared@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@acm-uiuc/js-shared/-/js-shared-2.0.0.tgz#d2d918c549cb4fdccf993f18b09fc13818002376"
-  integrity sha512-2SqVmIwFPPyF4l/TWRELFVMOhRqg0lgYoaNhHGRMR8IKQytczBo+GP9+7tTQUVEEU4jvIQoZ9/ZORPVfvBsbUQ==
+"@acm-uiuc/js-shared@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@acm-uiuc/js-shared/-/js-shared-2.1.0.tgz#c70f6d41a18daa4c2eb5f8be5de9e7a323e8f84c"
+  integrity sha512-d8JX9lXaVoEnA5oVDniaoHj0JLayA78uCFAWhmpF6BxxDpQPm7sLd6aeUfhdfrkvkWFq4AYBMTiSwYXKQsVbuA==
 
 "@adobe/css-tools@^4.4.0":
   version "4.4.3"
@@ -31,6 +31,23 @@
   integrity sha512-Xk1sIhyNC/esHGGVjL/niHLowM0csl/kFO5uawBy4IrWwy0o1G8LGt3jP6nmWGz+USxeeqbihAmp/oVZju6wug==
   dependencies:
     default-browser-id "3.0.0"
+
+"@azure/msal-browser@^4.15.0":
+  version "4.15.0"
+  resolved "https://registry.yarnpkg.com/@azure/msal-browser/-/msal-browser-4.15.0.tgz#059d270127550c2502a0d06090abc00c2c7822ef"
+  integrity sha512-+AIGTvpVz+FIx5CsM1y+nW0r/qOb/ChRdM8/Cbp+jKWC0Wdw4ldnwPdYOBi5NaALUQnYITirD9XMZX7LdklEzQ==
+  dependencies:
+    "@azure/msal-common" "15.8.1"
+
+"@azure/msal-common@15.8.1":
+  version "15.8.1"
+  resolved "https://registry.yarnpkg.com/@azure/msal-common/-/msal-common-15.8.1.tgz#2710f0ff9e4b1347c84da1c26857213c7530d76c"
+  integrity sha512-ltIlFK5VxeJ5BurE25OsJIfcx1Q3H/IZg2LjV9d4vmH+5t4c1UCyRQ/HgKLgXuCZShs7qfc/TC95GYZfsUsJUQ==
+
+"@azure/msal-react@^3.0.15":
+  version "3.0.15"
+  resolved "https://registry.yarnpkg.com/@azure/msal-react/-/msal-react-3.0.15.tgz#93ed45dce70afdd8a7dc80f304465b81b8b7e1ef"
+  integrity sha512-nVOWlPrhemKya7GZyEONISQk4MDV2vOoV3638dqFmIPd+3WIi98ZS1HSpQsOw1YL9nBEImhwqrXKnC/MFWrKoA==
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4", "@babel/code-frame@^7.16.7", "@babel/code-frame@^7.27.1":
   version "7.27.1"

@@ -23,6 +23,8 @@ import axios from 'axios';
 import Layout from '../MembershipLayout';
 import successAnimation from '../success.json';
 import config from '@/config.json';
+import { getUserIdToken, initMsalClient } from '@/utils/msal';
+import { IPublicClientApplication } from '@azure/msal-browser';
 
 interface ErrorCode {
   code?: number | string;
@@ -50,13 +52,21 @@ const Payment = () => {
   const [errorMessage, setErrorMessage] = useState<ErrorCode | null>(null);
   const [isPaidMember, setIsPaidMember] = useState<boolean | null>(null);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [pca, setPca] = useState<IPublicClientApplication | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      setPca(await initMsalClient());
+    })();
+  }, [])
+
 
   useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
-
     return () => clearInterval(intervalId);
+
   }, []);
 
   const checkHandler = () => {
@@ -82,14 +92,30 @@ const Payment = () => {
   const handleAddToWallet = async () => {
     setIsWalletLoading(true);
     setWalletError(null);
-
+    if (!pca) {
+      setErrorMessage({
+        code: -1,
+        message: "Failed to authenticate NetID."
+      });
+      modalErrorMessage.onOpen();
+      return;
+    }
+    const accessToken = await getUserIdToken(pca);
+    if (!accessToken) {
+      setErrorMessage({
+        code: -1,
+        message: "Failed to authenticate NetID."
+      });
+      modalErrorMessage.onOpen();
+      return;
+    }
+    let response;
     try {
-      await axios.post(
-        `${walletApiBaseUrl}/api/v1/mobileWallet/membership`,
-        null,
+      response = await axios.get(
+        `${walletApiBaseUrl}/api/v2/mobileWallet/membership`,
         {
-          params: { email: `${netId}@illinois.edu` },
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', 'x-uiuc-id-token': accessToken },
+          responseType: 'blob',
         },
       );
       setIsWalletLoading(false);
@@ -98,13 +124,24 @@ const Payment = () => {
       setWalletError({
         code: error?.response?.status || 500,
         message:
-          error?.response?.status === 403
-            ? 'You must be a paid member to add your membership to Apple Wallet'
-            : error?.message ||
-              'Failed to generate Apple Wallet pass. Please try again later.',
+          error?.message
+            ? error?.message
+            : 'Failed to generate Apple Wallet pass. Please try again later.',
       });
       modalWalletError.onOpen();
     }
+    if (!response) {
+      return;
+    }
+    const pkpassBlob = response.data;
+    const url = window.URL.createObjectURL(pkpassBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'acm_uiuc_membership.pkpass');
+    document.body.appendChild(link);
+    link.click();
+    link.parentNode!.removeChild(link);
+    window.URL.revokeObjectURL(url);
   };
 
   const validateNetId = (value: string) => {
@@ -119,7 +156,6 @@ const Payment = () => {
   const isFormValidated = useMemo(() => {
     return inputNetIdStatus === InputStatus.VALID;
   }, [inputNetIdStatus]);
-
   return (
     <Layout name="Check Membership Status">
       <div className="h-screen w-screen absolute top-0 left-0 flex flex-col items-center py-24">
@@ -258,18 +294,23 @@ const Payment = () => {
                     onPress={handleAddToWallet}
                     className="mt-4"
                   >
-                    {isWalletLoading ? (
-                      <>
-                        <Spinner color="white" size="sm" />
-                        <a>Generating pass...</a>
-                      </>
-                    ) : (
-                      'Add to Apple Wallet'
-                    )}
+                    {!pca && <>
+                      <Spinner color="white" size="sm" />
+                      <a>Loading...</a>
+                    </>}
+                    {pca && <>
+                      {isWalletLoading ? (
+                        <>
+                          <Spinner color="white" size="sm" />
+                          <a>Generating pass...</a>
+                        </>
+                      ) : (
+                        'Add to Wallet'
+                      )}
+                    </>}
                   </Button>
                   <p className="text-sm mt-2">
-                    Check your Illinois email for the Apple Wallet pass after
-                    clicking.
+                    Log in with your NetID to get your virtual membership card.
                   </p>
                 </>
               )}
@@ -283,18 +324,19 @@ const Payment = () => {
                     size="lg"
                     onPress={() => {
                       window.location.href = `/membership?netid=${netId}`;
-                    }}
+                    }
+                    }
                   >
                     Purchase for {config.membershipPrice}
-                  </Button>
+                  </Button >
                 </>
               )}
-            </ModalBody>
+            </ModalBody >
             <ModalFooter />
-          </ModalContent>
-        </Modal>
-      </div>
-    </Layout>
+          </ModalContent >
+        </Modal >
+      </div >
+    </Layout >
   );
 };
 

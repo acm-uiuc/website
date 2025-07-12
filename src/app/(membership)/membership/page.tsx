@@ -51,9 +51,7 @@ const Payment = () => {
   const modalAlreadyMember = useDisclosure();
   const modalErrorMessage = useDisclosure();
   const [errorMessage, setErrorMessage] = useState<ErrorCode | null>(null);
-  const prefilledNetId = useSearchParams().get('netid') || '';
-  const [netId, setNetId] = useState(prefilledNetId);
-  const [netIdConfirm, setNetIdConfirm] = useState(prefilledNetId);
+  const initOnCall = !!useSearchParams().get('initOnCall') || false;
   const [pca, setPca] = useState<IPublicClientApplication | null>(null);
 
   useEffect(() => {
@@ -132,13 +130,13 @@ const Payment = () => {
           }
         }
       });
-  }, [netId, modalAlreadyMember, modalErrorMessage]);
+  }, [modalAlreadyMember, modalErrorMessage]);
 
   useEffect(() => {
-    if (prefilledNetId != '') {
+    if (initOnCall) {
       purchaseHandler();
     }
-  }, [purchaseHandler, prefilledNetId]);
+  }, [purchaseHandler, initOnCall]);
 
   return (
     <Layout>

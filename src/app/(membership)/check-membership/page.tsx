@@ -323,7 +323,7 @@ const Payment = () => {
                     color="primary"
                     size="lg"
                     onPress={() => {
-                      window.location.href = `/membership?netid=${netId}`;
+                      window.location.href = `/membership?initOnCall=true`;
                     }
                     }
                   >

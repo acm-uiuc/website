@@ -2,11 +2,13 @@ import { IPublicClientApplication, BrowserAuthError, createStandardPublicClientA
 
 
 export const UIUC_ENTRA_ID_TENANT = "44467e6f-462c-4ea2-823f-7800de5434e3";
+export const CLIENT_ID = "d64e9c50-d144-4b4a-a315-ad2ed456c37c"
+const scopes = ["https://graph.microsoft.com/.default"]
 
 export const initMsalClient = async () => {
   const iPca = await createStandardPublicClientApplication({
     auth: {
-      clientId: "d64e9c50-d144-4b4a-a315-ad2ed456c37c",
+      clientId: CLIENT_ID,
       authority: `https://login.microsoftonline.com/${UIUC_ENTRA_ID_TENANT}`,
     },
   });
@@ -19,7 +21,7 @@ export const getUserAccessToken = async (pca: IPublicClientApplication): Promise
   if (!account) {
     try {
       const loginResponse = await pca.loginPopup({
-        scopes: ["openid", "profile", "email", "https://graph.microsoft.com/.default"],
+        scopes,
       });
       pca.setActiveAccount(loginResponse.account);
       account = loginResponse.account;
@@ -33,7 +35,7 @@ export const getUserAccessToken = async (pca: IPublicClientApplication): Promise
   }
 
   const tokenRequest = {
-    scopes: ["openid", "profile", "email", "https://graph.microsoft.com/.default"],
+    scopes,
     account: account as AccountInfo,
     authority: `https://login.microsoftonline.com/${UIUC_ENTRA_ID_TENANT}`,
     forceRefresh: true

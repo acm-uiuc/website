@@ -23,7 +23,7 @@ import successAnimation from '../success.json';
 import { useSearchParams } from 'next/navigation';
 import config from '@/config.json';
 import { type IPublicClientApplication } from "@azure/msal-browser";
-import { getUserIdToken, initMsalClient } from '@/utils/msal';
+import { getUserAccessToken, initMsalClient } from '@/utils/msal';
 
 
 interface ErrorCode {
@@ -70,7 +70,7 @@ const Payment = () => {
       modalErrorMessage.onOpen();
       return;
     }
-    const accessToken = await getUserIdToken(pca);
+    const accessToken = await getUserAccessToken(pca);
     if (!accessToken) {
       setErrorMessage({
         code: -1,
@@ -82,7 +82,7 @@ const Payment = () => {
     const url = `${baseUrl}/api/v2/membership/checkout`;
     axios
       .get(url, {
-        headers: { "Content-Type": "text/plain", 'x-uiuc-id-token': accessToken }
+        headers: { "Content-Type": "text/plain", 'x-uiuc-token': accessToken }
       })
       .then((response) => {
         window.location.replace(response.data);

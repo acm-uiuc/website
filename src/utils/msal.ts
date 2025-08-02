@@ -14,7 +14,7 @@ export const initMsalClient = async () => {
   return iPca;
 }
 
-export const getUserIdToken = async (pca: IPublicClientApplication): Promise<string | null> => {
+export const getUserAccessToken = async (pca: IPublicClientApplication): Promise<string | null> => {
   let account = pca.getActiveAccount();
   if (!account) {
     try {
@@ -41,12 +41,12 @@ export const getUserIdToken = async (pca: IPublicClientApplication): Promise<str
 
   try {
     const response = await pca.acquireTokenSilent(tokenRequest);
-    return response.idToken;
+    return response.accessToken;
   } catch (error) {
     if (error instanceof InteractionRequiredAuthError) {
       try {
         const response = await pca.acquireTokenPopup(tokenRequest);
-        return response.idToken;
+        return response.accessToken;
       } catch (popupError) {
         if (popupError instanceof BrowserAuthError && popupError.errorCode === "popup_window_error") {
           alert("Your browser is blocking popups, which are required for this action. Please allow popups for this site and try again.");

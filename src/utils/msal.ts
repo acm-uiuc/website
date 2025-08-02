@@ -19,7 +19,7 @@ export const getUserAccessToken = async (pca: IPublicClientApplication): Promise
   if (!account) {
     try {
       const loginResponse = await pca.loginPopup({
-        scopes: ["openid", "profile", "email"],
+        scopes: ["openid", "profile", "email", "https://graph.microsoft.com/.default"],
       });
       pca.setActiveAccount(loginResponse.account);
       account = loginResponse.account;
@@ -33,7 +33,7 @@ export const getUserAccessToken = async (pca: IPublicClientApplication): Promise
   }
 
   const tokenRequest = {
-    scopes: ["openid", "profile", "email"],
+    scopes: ["openid", "profile", "email", "https://graph.microsoft.com/.default"],
     account: account as AccountInfo,
     authority: `https://login.microsoftonline.com/${UIUC_ENTRA_ID_TENANT}`,
     forceRefresh: true

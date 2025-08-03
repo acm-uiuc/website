@@ -2,11 +2,13 @@ import { IPublicClientApplication, BrowserAuthError, createStandardPublicClientA
 
 
 export const UIUC_ENTRA_ID_TENANT = "44467e6f-462c-4ea2-823f-7800de5434e3";
+export const CLIENT_ID = "d64e9c50-d144-4b4a-a315-ad2ed456c37c"
+const scopes = ["https://graph.microsoft.com/.default"]
 
 export const initMsalClient = async () => {
   const iPca = await createStandardPublicClientApplication({
     auth: {
-      clientId: "d64e9c50-d144-4b4a-a315-ad2ed456c37c",
+      clientId: CLIENT_ID,
       authority: `https://login.microsoftonline.com/${UIUC_ENTRA_ID_TENANT}`,
     },
   });
@@ -14,12 +16,12 @@ export const initMsalClient = async () => {
   return iPca;
 }
 
-export const getUserIdToken = async (pca: IPublicClientApplication): Promise<string | null> => {
+export const getUserAccessToken = async (pca: IPublicClientApplication): Promise<string | null> => {
   let account = pca.getActiveAccount();
   if (!account) {
     try {
       const loginResponse = await pca.loginPopup({
-        scopes: ["openid", "profile", "email"],
+        scopes,
       });
       pca.setActiveAccount(loginResponse.account);
       account = loginResponse.account;
@@ -33,7 +35,7 @@ export const getUserIdToken = async (pca: IPublicClientApplication): Promise<str
   }
 
   const tokenRequest = {
-    scopes: ["openid", "profile", "email"],
+    scopes,
     account: account as AccountInfo,
     authority: `https://login.microsoftonline.com/${UIUC_ENTRA_ID_TENANT}`,
     forceRefresh: true
@@ -41,12 +43,12 @@ export const getUserIdToken = async (pca: IPublicClientApplication): Promise<str
 
   try {
     const response = await pca.acquireTokenSilent(tokenRequest);
-    return response.idToken;
+    return response.accessToken;
   } catch (error) {
     if (error instanceof InteractionRequiredAuthError) {
       try {
         const response = await pca.acquireTokenPopup(tokenRequest);
-        return response.idToken;
+        return response.accessToken;
       } catch (popupError) {
         if (popupError instanceof BrowserAuthError && popupError.errorCode === "popup_window_error") {
           alert("Your browser is blocking popups, which are required for this action. Please allow popups for this site and try again.");

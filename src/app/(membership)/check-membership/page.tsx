@@ -23,7 +23,7 @@ import axios from 'axios';
 import Layout from '../MembershipLayout';
 import successAnimation from '../success.json';
 import config from '@/config.json';
-import { getUserIdToken, initMsalClient } from '@/utils/msal';
+import { getUserAccessToken, initMsalClient } from '@/utils/msal';
 import { IPublicClientApplication } from '@azure/msal-browser';
 
 interface ErrorCode {
@@ -100,7 +100,7 @@ const Payment = () => {
       modalErrorMessage.onOpen();
       return;
     }
-    const accessToken = await getUserIdToken(pca);
+    const accessToken = await getUserAccessToken(pca);
     if (!accessToken) {
       setErrorMessage({
         code: -1,
@@ -114,7 +114,7 @@ const Payment = () => {
       response = await axios.get(
         `${walletApiBaseUrl}/api/v2/mobileWallet/membership`,
         {
-          headers: { 'Content-Type': 'application/json', 'x-uiuc-id-token': accessToken },
+          headers: { 'Content-Type': 'application/json', 'x-uiuc-token': accessToken },
           responseType: 'blob',
         },
       );

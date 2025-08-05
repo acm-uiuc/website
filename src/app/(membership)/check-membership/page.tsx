@@ -1,12 +1,11 @@
 'use client';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Button,
   Card,
   CardBody,
   CardHeader,
   Divider,
-  Input,
   Modal,
   ModalBody,
   ModalContent,
@@ -42,6 +41,7 @@ const walletApiBaseUrl = process.env.NEXT_PUBLIC_EVENTS_API_BASE_URL;
 
 const Payment = () => {
   const [netId, setNetId] = useState('');
+  const [fullName, setFullName] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isWalletLoading, setIsWalletLoading] = useState(false);
   const [walletError, setWalletError] = useState<ErrorCode | null>(null);
@@ -69,12 +69,56 @@ const Payment = () => {
 
   }, []);
 
-  const checkHandler = () => {
+  const checkHandler = async () => {
+    if (!pca) {
+      setErrorMessage({
+        code: -1,
+        message: "Failed to authenticate NetID."
+      });
+      modalErrorMessage.onOpen();
+      return;
+    }
+    let account = pca.getActiveAccount()
+    if (!account) {
+      await getUserAccessToken(pca);
+      account = pca.getActiveAccount();
+    }
+    if (!account) {
+      setErrorMessage({
+        code: 403,
+        message: "Failed to authenticate NetID."
+      });
+      modalErrorMessage.onOpen();
+      return;
+    }
+    const accessToken = await getUserAccessToken(pca);
+    if (!accessToken) {
+      setErrorMessage({
+        code: 403,
+        message: "Failed to authenticate NetID."
+      });
+      modalErrorMessage.onOpen();
+      return;
+    }
+    const username = account.username;
+    if (!username.endsWith("@illinois.edu")) {
+      setErrorMessage({
+        code: 403,
+        message: "Account is not for the Illinois campus."
+      });
+      modalErrorMessage.onOpen();
+      return;
+    }
+    const netId = username.replace("@illinois.edu", "")
+    setNetId(netId);
     setIsLoading(true);
-    const url = `${baseUrl}/api/v1/membership/${netId}`;
+    const url = `${baseUrl}/api/v1/membership`;
     axios
-      .get(url)
+      .get(url, { headers: { "x-uiuc-token": accessToken } })
       .then((response) => {
+        if (response.data.givenName && response.data.surname) {
+          setFullName(`${response.data.givenName} ${response.data.surname}`)
+        }
         setIsPaidMember(response.data.isPaidMember || false);
         setIsLoading(false);
         modalMembershipStatus.onOpen();
@@ -144,18 +188,6 @@ const Payment = () => {
     window.URL.revokeObjectURL(url);
   };
 
-  const validateNetId = (value: string) => {
-    return value.match(/^[A-Z0-9]+$/i) !== null;
-  };
-
-  const inputNetIdStatus = useMemo(() => {
-    if (netId === '') return InputStatus.EMPTY;
-    return validateNetId(netId) ? InputStatus.VALID : InputStatus.INVALID;
-  }, [netId]);
-
-  const isFormValidated = useMemo(() => {
-    return inputNetIdStatus === InputStatus.VALID;
-  }, [inputNetIdStatus]);
   return (
     <Layout name="Check Membership Status">
       <div className="h-screen w-screen absolute top-0 left-0 flex flex-col items-center py-24">
@@ -166,33 +198,12 @@ const Payment = () => {
           <Divider />
           <CardBody className="gap-4">
             <p>
-              Enter your NetID here to check if you are an ACM@UIUC Paid Member.
+              Log in with your Illinois NetID to check your paid membership status.
             </p>
-            <Input
-              value={netId}
-              onValueChange={setNetId}
-              label="NetID"
-              endContent="@illinois.edu"
-              variant="bordered"
-              isInvalid={inputNetIdStatus === InputStatus.INVALID}
-              color={
-                inputNetIdStatus === InputStatus.INVALID ? 'danger' : 'default'
-              }
-              errorMessage={
-                inputNetIdStatus === InputStatus.INVALID && 'Invalid NetID'
-              }
-              autoCapitalize="none"
-              autoComplete="off"
-              autoCorrect="off"
-              spellCheck="false"
-              classNames={{
-                input: ['text-base'],
-              }}
-            />
             <Button
               color="primary"
               size="lg"
-              isDisabled={!isFormValidated || isLoading}
+              isDisabled={isLoading}
               onPress={checkHandler}
             >
               {isLoading ? (
@@ -285,6 +296,7 @@ const Payment = () => {
                     loop={false}
                     style={{ width: '10em' }}
                   />
+                  {fullName && <b>{fullName}</b>}
                   <a>{netId}@illinois.edu</a>
                   <a>{currentTime.toLocaleString()}</a>
                   <Button
@@ -305,13 +317,10 @@ const Payment = () => {
                           <a>Generating pass...</a>
                         </>
                       ) : (
-                        'Add to Wallet'
+                        'Add to mobile wallet'
                       )}
                     </>}
                   </Button>
-                  <p className="text-sm mt-2">
-                    Log in with your NetID to get your virtual membership card.
-                  </p>
                 </>
               )}
               {!isPaidMember && (

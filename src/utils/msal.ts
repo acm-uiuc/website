@@ -16,6 +16,7 @@ export const initMsalClient = async () => {
   return iPca;
 }
 
+
 export const getUserAccessToken = async (pca: IPublicClientApplication): Promise<string | null> => {
   let account = pca.getActiveAccount();
   if (!account) {

@@ -58,7 +58,6 @@ const WrappedMerchItem = () => {
 const MerchItem = () => {
   const itemid = useSearchParams().get('id') || '';
   const [merchList, setMerchList] = useState<Record<string, any>>({});
-  const [merchLoaded, setMerchLoaded] = useState(false);
   const [pca, setPca] = useState<IPublicClientApplication | null>(null);
 
   // Form State
@@ -96,7 +95,6 @@ const MerchItem = () => {
       .get(url)
       .then((response) => {
         setMerchList(response.data);
-        setMerchLoaded(true);
         setIsLoading(false);
       })
       .catch((error) => {

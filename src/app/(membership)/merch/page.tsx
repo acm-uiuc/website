@@ -47,7 +47,7 @@ enum InputStatus {
 
 const baseUrl = process.env.NEXT_PUBLIC_MERCH_API_BASE_URL;
 
-const WrapepdMerchItem = () => {
+const WrappedMerchItem = () => {
   return (
     <Suspense>
       <MerchItem />
@@ -441,4 +441,4 @@ const MerchItem = () => {
   }
 };
 
-export default WrapepdMerchItem;
+export default WrappedMerchItem;

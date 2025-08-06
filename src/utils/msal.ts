@@ -39,7 +39,7 @@ export const getUserAccessToken = async (pca: IPublicClientApplication): Promise
     scopes,
     account: account as AccountInfo,
     authority: `https://login.microsoftonline.com/${UIUC_ENTRA_ID_TENANT}`,
-    forceRefresh: true
+    forceRefresh: false
   };
 
   try {

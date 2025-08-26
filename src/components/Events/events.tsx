@@ -36,6 +36,7 @@ export interface IEvent {
   description: string;
   repeats?: ValidRepeat;
   repeatEnds?: string;
+  repeatExcludes?: string[];
   paidEventId?: string;
   host?: Organization;
   featured?: boolean;
@@ -125,16 +126,23 @@ function createRecurringEvents(
   const events = [];
   let start = moment(event.start);
   let end = event.end ? moment(event.end) : null;
+  const exclusionDates = new Set(event.repeatExcludes || []);
+
   while (start?.isSameOrBefore(maxRenderDistance)) {
     const repeatCond = end || start;
     if (repeatCond.isSameOrAfter(repeatEnd)) {
       break;
     }
-    events.push({
-      ...event,
-      start: start.toDate(),
-      end: end ? end.toDate() : undefined,
-    });
+
+    // Skip dates present in repeatExcludes
+    if (!exclusionDates.has(start.format('YYYY-MM-DD'))) {
+      events.push({
+        ...event,
+        start: start.toDate(),
+        end: end ? end.toDate() : undefined,
+      });
+    }
+
     start.add(repeatEntry.increment, repeatEntry.unit);
     if (end) {
       end.add(repeatEntry.increment, repeatEntry.unit);

@@ -60,6 +60,17 @@ export default function About() {
             drive discussion about important ACM matters and make decisions
             based on the consensus of meeting attendees.
           </p>
+          <p>
+            Corporate inquiries should also be directed to{' '}
+            <ExtLink href="mailto:corporate@acm.illinois.edu">
+              corporate@acm.illinois.edu
+            </ExtLink>{' '}
+            as well as to{' '}
+            <ExtLink href="mailto:officers@acm.illinois.edu">
+              officers@acm.illinois.edu
+            </ExtLink>{' '}
+            .
+          </p>
           <p>ACM@UIUC is a registered 501(c)(3) nonprofit organization.</p>
         </section>
         <LeadershipSection />

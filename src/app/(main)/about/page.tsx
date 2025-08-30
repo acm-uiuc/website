@@ -69,7 +69,7 @@ export default function About() {
             <ExtLink href="mailto:officers@acm.illinois.edu">
               officers@acm.illinois.edu
             </ExtLink>{' '}
-            .
+           .
           </p>
           <p>ACM@UIUC is a registered 501(c)(3) nonprofit organization.</p>
         </section>

@@ -413,7 +413,7 @@
     "type": "partner",
     "logo": "./img/open-house/logos/sail.png",
     "links": [
-      { "text": "Application Form", "link": "tinyurl.com/apply-sail-26" }
+      { "text": "Application Form", "link": "https://tinyurl.com/apply-sail-26" }
     ]
   },
   "gwc": {

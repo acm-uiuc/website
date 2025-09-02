@@ -173,6 +173,8 @@ export default function VenuePage() {
 
     if (row_selected && assignmentsConfigData[row_selected][idx_selected]){
       setSelectedBooth(assignmentsConfigData[row_selected][idx_selected]);
+    } else {
+      setSelectedBooth(null);
     }
     
   };

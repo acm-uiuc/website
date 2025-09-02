@@ -56,7 +56,7 @@ jobs:
           comment-author: 'github-actions[bot]'
           body-includes: Cloudflare Pages -
 
-      - uses: austenstone/job-summary-to-pdf@main
+      - uses: austenstone/job-summary-to-pdf@0c3b6d3b0b883b058c2c6843c142c8026b6b34be
         id: job-summary
         with:
           create-pdf: false

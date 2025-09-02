@@ -435,5 +435,15 @@
     "links": [
       { "text": "Website", "link": "https://honors.cs124.org" }
     ]
+  },
+  "osai": {
+    "name": "Open Source at Illinois",
+    "description": "At Open-Source @ Illinois, our primary focus is empowering developers and engineers, enabling them to actively contribute to the tools they rely on. By embracing open-source principles, we aim to cultivate a culture where members freely share ideas, expertise, maintain shared resources, and drive the development of impactful projects that benefit the wider community.",
+    "demo_time": null,
+    "type": "partner",
+    "logo": "./img/open-house/logos/osai.png",
+    "links": [
+      { "text": "Website", "link": "https://www.opensourceatillinois.com/" }
+    ]
   }
 }

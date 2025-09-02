@@ -1,10 +1,10 @@
 {
 "top_outer":["signll", "sigpolicy", "sigecom", "gamebuilders", "sigrobotics", "sigarch", "glug"],
 "right_outer":["sigpwny", "wicys", "queercoded", "sigmusic", "osai"],
-"bottom_outer":["mentorship", "marketing", "social"],
+"bottom_outer":["mentorship", "marketing", "social", "124h"],
   "left_outer": ["sigaida", "icpc", "siggraph", "sail", "rp"],
   "top_inner": ["built", "wcs", "gwc", "wyse", "retrotech"],
   "right_inner":["sigquantum", "sigma", "sigplan"],
-  "bottom_inner":["corporate", "infra", "124h"],
+  "bottom_inner":["corporate", "infra"],
   "left_inner": ["sigchi", "hack", "accom"]
 }

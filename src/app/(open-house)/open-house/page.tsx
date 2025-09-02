@@ -219,7 +219,7 @@ export default function VenuePage() {
             <div className={styles.tableList}>
               {Object.keys(orgsConfigData).map((orgId) => {
                return [orgId, (orgsConfigData as any)[orgId].name,  (orgsConfigData as any)[orgId].demo_time]
-              }).filter(x => x[2] != null).sort(x => x[2]).map((data) => {
+              }).filter(x => x[2] != null).sort((a, b) => a[2] > b[2] ? 1 : -1).map((data) => {
                 return (
                   <div
                     key={data[0]}

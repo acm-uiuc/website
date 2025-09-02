@@ -9,9 +9,15 @@ import booths, { Booth } from '../data/booths';
 import tables, { Table } from '../data/tables';
 import React from 'react';
 import CanvasMap from './CanvasMap';
-import svgLayoutData from '../data/tables_config.json';
-import orgsConfigData from '../data/orgs_config.json';
-import assignmentsConfigData from '../data/assignments_config.json';
+import * as svgLayoutData from '../data/tables_config.json';
+import * as orgsConfigData from '../data/orgs_config.json';
+import * as assignmentsConfigData from '../data/assignments_config.json';
+
+/* 
+* This has been hacked together twice. This hacking together is at least a bit more modular, 
+* but it needs to be partially redone. Most importantly, there's a lot of typing hacks that assume 
+* a guarantee that the json is properly configured. -JL
+*/
 
 interface BoothSectionProps {
   title: string;
@@ -41,17 +47,17 @@ const BoothSection: React.FC<BoothSectionProps> = ({
     </h3>
     {!collapsed && (
       <div className={styles.boothLogosContainer}>
-        {Object.keys(orgsConfigData).filter((orgId => orgsConfigData[orgId].type === type))
+        {Object.keys(orgsConfigData).filter((orgId => (orgsConfigData as any)[orgId].type === type))
           .map((orgId) => (
             <div
               key={orgId}
               className={styles.boothLogoWrapper}
               onClick={() => handleBoothSelect(orgId)}
             >
-              {orgsConfigData[orgId].logo ? (
+              {(orgsConfigData as any)[orgId].logo ? (
                 <img
-                  src={orgsConfigData[orgId].logo}
-                  alt={orgsConfigData[orgId].name}
+                  src={(orgsConfigData as any)[orgId].logo}
+                  alt={(orgsConfigData as any)[orgId].name}
                   className={`${styles.boothLogo} ${
                     selectedBooth === orgId
                       ? styles.selectedBoothLogo
@@ -59,7 +65,7 @@ const BoothSection: React.FC<BoothSectionProps> = ({
                   }`}
                 />
               ) : ""}
-              <span className={styles.boothLogoName}>{orgsConfigData[orgId].name}</span>
+              <span className={styles.boothLogoName}>{(orgsConfigData as any)[orgId].name}</span>
             </div>
           ))}
       </div>
@@ -154,7 +160,7 @@ export default function VenuePage() {
     let idx_selected = -1;
 
     for (const row in svgLayoutData.rows) {
-      const row_info = svgLayoutData.rows[row];
+      const row_info = (svgLayoutData as any).rows[row];
       if (row_info.orientation == "vertical"){
         if (xnorm >= row_info.start_x && xnorm <= row_info.start_x + svgLayoutData.image_details.table_height && ynorm >= row_info.start_y && ynorm <= row_info.start_y + row_info.num_tables * svgLayoutData.image_details.table_width){
           row_selected = row;
@@ -171,8 +177,8 @@ export default function VenuePage() {
       }
     }
 
-    if (row_selected && assignmentsConfigData[row_selected][idx_selected]){
-      setSelectedBooth(assignmentsConfigData[row_selected][idx_selected]);
+    if (row_selected && (assignmentsConfigData as any)[row_selected][idx_selected]){
+      setSelectedBooth((assignmentsConfigData as any)[row_selected][idx_selected]);
     } else {
       setSelectedBooth(null);
     }
@@ -212,14 +218,14 @@ export default function VenuePage() {
             <h3>Demo Room Schedule – CIF 0018</h3>
             <div className={styles.tableList}>
               {Object.keys(orgsConfigData).map((orgId) => {
-               return [orgId, orgsConfigData[orgId].name,  orgsConfigData[orgId].demo_time]
+               return [orgId, (orgsConfigData as any)[orgId].name,  (orgsConfigData as any)[orgId].demo_time]
               }).filter(x => x[2] != null).sort(x => x[2]).map((data) => {
                 return (
                   <div
                     key={data[0]}
                     className={styles.tableItem}
                     onClick={() => {
-                      if (selectedBooth?.id != data[0]) {
+                      if (selectedBooth != data[0]) {
                         handleBoothSelect(data[0]);
                       }
                       setIsCalendarModalOpen(false);
@@ -254,13 +260,13 @@ export default function VenuePage() {
               selectedBooth ? styles.boothDetails : styles.noBoothDetails
             }
           >
-            <h2>{orgsConfigData[selectedBooth].name}</h2>
+            <h2>{(orgsConfigData as any)[selectedBooth].name}</h2>
             <p></p>
-            <p>{orgsConfigData[selectedBooth].description}</p>
+            <p>{(orgsConfigData as any)[selectedBooth].description}</p>
 
-            {orgsConfigData[selectedBooth].links && (
+            {(orgsConfigData as any)[selectedBooth].links && (
               <div className={styles.boothLinks}>
-                {orgsConfigData[selectedBooth].links.map((link, index) => (
+                {(orgsConfigData as any)[selectedBooth].links.map((link:any, index:any) => (
                   <a
                     key={index}
                     href={link.link}

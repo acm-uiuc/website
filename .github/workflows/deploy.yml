@@ -56,6 +56,11 @@ jobs:
           comment-author: 'github-actions[bot]'
           body-includes: Cloudflare Pages -
 
+      - uses: austenstone/job-summary-to-pdf@main
+        id: job-summary
+        with:
+          create-pdf: false
+
       - name: Update PR with Preview URL
         if: success() && github.event_name == 'pull_request'
         uses: peter-evans/create-or-update-comment@v4
@@ -65,11 +70,8 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           body: |
             ⚡️ **Cloudflare Pages - Deployment successful!**
-            Preview URL: ${{ steps.deploy.outputs.deployment-url || steps.deploy.outputs.pages-deployment-alias-url }}
 
-            ```
-            ${{ steps.deploy.outputs.command-output }}
-            ```
+            ${{ steps.job-summary.outputs.job-summary }}
           edit-mode: "replace"
 
       - name: Update PR with Failure

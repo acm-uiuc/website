@@ -202,6 +202,7 @@ export default function VenuePage() {
             onClick={() => setIsCalendarModalOpen(true)}
           >
             <FaCalendar />
+            Schedule
           </div>
         </div>
       </nav>

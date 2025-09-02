@@ -10,6 +10,7 @@ on:
 
 jobs:
   deploy-delete:
+    environment: ${{ (github.ref == 'refs/heads/main' && 'Production') || 'Preview' }}
     permissions:
       contents: read
       deployments: write

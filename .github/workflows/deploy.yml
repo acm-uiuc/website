@@ -33,14 +33,16 @@ jobs:
           restore-keys: |
             yarn-modules-${{ runner.arch }}-${{ runner.os }}-
 
-      - run: yarn && yarn build
-      - name: Deploy to Cloudflare Pages
-        uses: andykenward/github-actions-cloudflare-pages@v3.0.0
-        id: pages
+      - name: Install dependencies
+        run: yarn
+
+      - name: Build website
+        run: yarn build
+
+      - name: Deploy to Cloudflare
+        uses: cloudflare/wrangler-action@v3
         with:
-          cloudflare-api-token: ${{ secrets.PAGES_API_TOKEN }}
-          cloudflare-account-id: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-          cloudflare-project-name: ${{ vars.CLOUDFLARE_PROJECT_NAME }}
-          directory: build/
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          github-environment: ${{ (github.ref == 'refs/heads/main' && 'Production') || 'Preview' }}
+          apiToken: ${{ secrets.PAGES_API_TOKEN }}
+          accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy YOUR_DIST_FOLDER --project-name=${{ vars.CLOUDFLARE_PROJECT_NAME }}
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

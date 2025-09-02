@@ -5,6 +5,6 @@
   "left_outer": ["sigaida", "icpc", "siggraph", "sail", "rp"],
   "top_inner": ["built", "wcs", "gwc", "wyse", "retrotech"],
   "right_inner":["sigquantum", "sigma", "sigplan"],
-  "bottom_inner":["mentorship", "infra"],
+  "bottom_inner":["corporate", "infra", "124h"],
   "left_inner": ["sigchi", "hack", "accom"]
 }

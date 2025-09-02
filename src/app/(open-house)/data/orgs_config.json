@@ -312,7 +312,7 @@
     ]
   },
   "mentorship": {
-    "name": "mentorship",
+    "name": "Mentorship",
     "description": "ACM is excited to announce that we will be hosting our mentorship program this fall! ACM’s Mentorship Committee supports incoming undergraduate computer science students as they transition to life at UIUC. Each mentee is matched with a current student based on shared interests in order to provide a reliable point of contact before the semester starts. In the fall, we host several in-person events (with free food) to help students connect with each other and  prepare for academic, extracurricular, and professional opportunities.",
     "logo": "./img/open-house/logos/mentorship-logo.png",
     "demo_time": null,
@@ -424,6 +424,16 @@
     "logo": "./img/open-house/logos/gwc.png",
     "links": [
       { "text": "Instagram", "link": "https://www.instagram.com/illinoisgwc/" }
+    ]
+  },
+  "124h": {
+    "name": "CS 124 Honors",
+    "description": "If you are a CS 124 student this semester, then CS124 Honors may be a great add-on for you! This honors section lets you blend creativity and learning through a hands-on, project-based experience. You will work under the support of Project Managers and collaborate closely with other students. You will be a part of a welcoming community and expand your network and expertise through workshops, events, and other enriching opportunities. At the end of this journey, you will have brought a project to life from start to finish! Please check out honors.cs124.org for more info.",
+    "demo_time": null,
+    "type": "partner",
+    "logo": "./img/open-house/logos/cs124h.png",
+    "links": [
+      { "text": "Website", "link": "https://honors.cs124.org" }
     ]
   }
 }

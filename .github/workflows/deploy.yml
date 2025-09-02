@@ -35,26 +35,37 @@ jobs:
         with:
           apiToken: ${{ secrets.PAGES_API_TOKEN }}
           accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy build/ --project-name=${{ vars.CLOUDFLARE_PROJECT_NAME }}
+          command: pages deploy build/ --project-name=${{ vars.CLOUDFLARE_PROJECT_NAME }} --branch=${{ github.head_ref || github.ref_name }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Find Comment
+        uses: peter-evans/find-comment@v3
+        id: fc
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: Cloudflare Pages -
 
       - name: Update PR with Preview URL
         if: success() && github.event_name == 'pull_request'
         uses: peter-evans/create-or-update-comment@v4
         with:
+          comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           token: ${{ secrets.GITHUB_TOKEN }}
           body: |
-            ⚡️ **Deployment successful!**
-            Preview URL: ${{ steps.deploy.outputs.url }}
+            ⚡️ **Cloudflare Pages - Deployment successful!**
+            Preview URL: ${{ steps.deploy.outputs.deployment-url }}
+          edit-mode: "replace"
 
       - name: Update PR with Failure
         if: failure() && github.event_name == 'pull_request'
         uses: peter-evans/create-or-update-comment@v4
         with:
+          comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           token: ${{ secrets.GITHUB_TOKEN }}
           body: |
-            😢 **Deployment failed**
+            😢 **Cloudflare Pages - Deployment failed**
             Please check the workflow logs for details.
-            ```
+          edit-mode: "replace"

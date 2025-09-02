@@ -25,16 +25,8 @@ jobs:
           node-version: 22.x
           cache: "yarn"
 
-      - name: Restore Yarn Cache
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: yarn-modules-${{ runner.arch }}-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-dev
-          restore-keys: |
-            yarn-modules-${{ runner.arch }}-${{ runner.os }}-
-
       - name: Install dependencies
-        run: yarn
+        run: yarn -D
 
       - name: Build website
         run: yarn build
@@ -44,5 +36,5 @@ jobs:
         with:
           apiToken: ${{ secrets.PAGES_API_TOKEN }}
           accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy YOUR_DIST_FOLDER --project-name=${{ vars.CLOUDFLARE_PROJECT_NAME }}
+          command: pages deploy build/ --project-name=${{ vars.CLOUDFLARE_PROJECT_NAME }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}

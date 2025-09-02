@@ -7,6 +7,45 @@
     "type": "sig",
     "links": [{ "text": "Discord", "link": "https://discord.gg/FUF3drS4Fd" }]
   },
+  "sigarch": {
+    "name": "SIGARCH",
+    "description": "University of Illinois Urbana-Champaign's student-run computer architecture interest group. We try and make comparch accessible to beginners through workshops and also have paper discussions on bleeding edge comparch topics.",
+    "logo": "./img/open-house/logos/sigarchlogo.png",
+    "demo_time": null,
+    "type": "sig",
+    "links": [{"text": "Website", "link": "https://sigarch.net/"},
+    { "text": "Discord", "link": "https://discord.gg/Mx8R389hWz" }]
+  },
+  "sigchi": {
+    "name": "SIGCHI",
+    "description": "We are SIGCHI, ACM's special interest group for Human-Computer Interaction! HCI is a multidisciplinary field within computer science that focuses on the interaction between humans and computers. We look at how technology can be designed and engineered to help humans.",
+    "logo": "./img/open-house/logos/sigchilogo.png",
+    "demo_time": null,
+    "type": "sig",
+    "links": [{"text": "Website", "link": "https://sigarch.net/"},
+    { "text": "Discord", "link": "https://discord.gg/Mx8R389hWz" }]
+  },
+  "sigecom": {
+    "name": "SIGecom",
+    "description": "SIGecom, the Special Interest Group in Economics and Computation, focuses on various topics at the intersection of economics and computer science, including algorithmic game theory simulations, applications of AI and Machine Learning in the social sciences and finance, cryptocurrency, and more. ",
+    "logo":"./img/open-house/logos/hackillinoislogo.png",
+    "demo_time": null,
+    "type": "sig",
+    "links": [{ "text": "Discord", "link": "https://go.acm.illinois.edu/ecom_discord" }]
+  },
+  "gamebuilders": {},
+  "glug": {},
+  "siggraph":{},
+  "icpc": {},
+  "sigmusic": {},
+  "sigma": {},
+  "signll": {},
+  "sigplan": {},
+  "sigpolicy": {},
+  "sigpwny": {},
+  "sigrobotics": {},
+  "sigquantum": {},
+
   "hack": {
     "name": "HackIllinois",
     "description": "HackIllinois is the premier student-run hackathon at the University of Illinois at Urbana-Champaign. Each spring, HackIllinois hosts nearly a thousand students who work together for a weekend to learn new skills and technologies to create innovative hacks such as websites, mobile apps, and many more!",
@@ -18,6 +57,13 @@
       { "text": "Linktree", "link": "https://linktr.ee/hackillinois" }
     ]
   },
+  "rp": {},
+  "infra": {},
+  "marketing": {},
+  "social": {},
+  "corporate": {},
+  "mentorship": {},
+  "accom": {},
   "retrotech": {
     "name": "UIUC RetroTech",
     "description": "We discuss, repair, and modify retro and vintage technology! We also have events like CRT watch parties, collaborating with other RSOs, and tabling at VCFMW (Vintage Computer Fest Midwest.) Our meetings are typically in the ECEB OpenLab Thursdays at 7 PM. We are beginner-friendly - you don't need to own or have any experience with repairing retro technology to join.",
@@ -30,5 +76,12 @@
         "link": "https://www.instagram.com/uiuc_retrotech/"
       }
     ]
-  }
+  },
+  "wcs": {},
+  "built": {},
+  "wicys": {},
+  "queercoded": {},
+  "wyse": {},
+  "sail": {},
+  "gwc": {}
 }

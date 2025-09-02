@@ -11,13 +11,12 @@ on:
 
 jobs:
   deploy:
-    environment: ${{ (github.ref == 'refs/heads/main' && 'Production') || 'Preview' }}
     permissions:
       contents: read
       deployments: write
       pull-requests: write
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -38,3 +37,24 @@ jobs:
           accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy build/ --project-name=${{ vars.CLOUDFLARE_PROJECT_NAME }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update PR with Preview URL
+        if: success() && github.event_name == 'pull_request'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          body: |
+            ⚡️ **Deployment successful!**
+            Preview URL: ${{ steps.deploy.outputs.url }}
+
+      - name: Update PR with Failure
+        if: failure() && github.event_name == 'pull_request'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          body: |
+            😢 **Deployment failed**
+            Please check the workflow logs for details.
+            ```

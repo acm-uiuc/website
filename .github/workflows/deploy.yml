@@ -54,7 +54,7 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           comment-author: 'github-actions[bot]'
-          body-includes: Cloudflare Pages -
+          body-includes: Cloudflare Pages
 
       - uses: austenstone/job-summary-to-pdf@0c3b6d3b0b883b058c2c6843c142c8026b6b34be
         id: job-summary
@@ -68,10 +68,7 @@ jobs:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          body: |
-            ⚡️ **Cloudflare Pages - Deployment successful!**
-
-            ${{ steps.job-summary.outputs.job-summary }}
+          body: ${{ steps.job-summary.outputs.job-summary }}
           edit-mode: "replace"
 
       - name: Update PR with Failure

@@ -152,7 +152,8 @@
 .venueMap {
   max-width: 100%;
   height: auto;
-  max-height: 700px;
+  max-height: 1200px;
+  min-height: 600px;
 }
 
 .boothLogosContainer {
@@ -220,7 +221,7 @@
   gap: 1rem;
   align-items: flex-start;
   width: 100%;
-  min-height: 325px;
+  min-height: 600px;
 }
 
 .boothLinks {
@@ -244,7 +245,7 @@
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 0.5rem 1rem 1rem 1rem;
 }
 
 .boothTypeSection {

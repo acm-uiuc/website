@@ -8,6 +8,7 @@ import { getOrganizationImage } from '@/components/LazyImage';
 import booths, { Booth } from '../data/booths';
 import tables, { Table } from '../data/tables';
 import React from 'react';
+import CanvasMap from './CanvasMap';
 
 interface BoothSectionProps {
   title: string;
@@ -282,48 +283,9 @@ export default function VenuePage() {
       )}
 
       <div className={styles.mapAndDetailsContainer}>
-        <div
-          className={`${styles.mapContainer} ${styles[`map-${mapPosition}`]}`}
-        >
-          <img
-            src="./img/open-house/CIF_map.svg"
-            alt="Venue Map"
-            className={styles.venueMap}
-          />
-          <div className={styles.mapOverlay}>
-            {booths.map((booth) => {
-              const table = tables.find((t: Table) => t.id === booth.tableId); // Find corresponding Table
-              if (!table) return null;
-              return (
-                <div
-                  key={booth.id}
-                  className={`${styles.boothMarker} ${
-                    selectedBooth?.id === booth.id
-                      ? styles.selectedBoothMarker
-                      : ''
-                  }`}
-                  style={{
-                    top: `${table.top}%`,
-                    left: `${table.left}%`,
-                    width: `${table.width}%`,
-                    height: `${table.height}%`,
-                  }}
-                  onClick={() => handleBoothSelect(booth)}
-                >
-                  {booth.customLogo ? (
-                    <img
-                      src={booth.logo}
-                      alt={booth.name}
-                      className={styles.tableLogo}
-                    />
-                  ) : (
-                    getOrganizationImage(booth.name, styles.tableLogo)
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
+        <CanvasMap
+          mapPosition={mapPosition}
+        />
 
         {selectedBooth && (
           <div

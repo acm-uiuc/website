@@ -1,0 +1,34 @@
+{
+  "sigaida": {
+    "name": "SIGAIDA",
+    "description": "We are SIGAIDA, the premier AI, Machine Learning, and data science organization at UIUC. This semester we will be working on real-world projects, teaching the basics of AI/ML, having research talks, and hosting several related networking/social events. Come stop by our weekly meetings Mondays at 6pm in Everitt Lab 1306. No application or experience required!",
+    "logo": "./img/open-house/logos/sigaidalogo.png",
+    "demo_time": null,
+    "type": "sig",
+    "links": [{ "text": "Discord", "link": "https://discord.gg/FUF3drS4Fd" }]
+  },
+  "hack": {
+    "name": "HackIllinois",
+    "description": "HackIllinois is the premier student-run hackathon at the University of Illinois at Urbana-Champaign. Each spring, HackIllinois hosts nearly a thousand students who work together for a weekend to learn new skills and technologies to create innovative hacks such as websites, mobile apps, and many more!",
+    "logo": "./img/open-house/logos/hackillinoislogo.png",
+    "demo_time": "7:35 - 7:40 PM",
+    "type": "committee",
+    "links": [
+      { "text": "Website", "link": "https://www.hackillinois.org/" },
+      { "text": "Linktree", "link": "https://linktr.ee/hackillinois" }
+    ]
+  },
+  "retrotech": {
+    "name": "UIUC RetroTech",
+    "description": "We discuss, repair, and modify retro and vintage technology! We also have events like CRT watch parties, collaborating with other RSOs, and tabling at VCFMW (Vintage Computer Fest Midwest.) Our meetings are typically in the ECEB OpenLab Thursdays at 7 PM. We are beginner-friendly - you don't need to own or have any experience with repairing retro technology to join.",
+    "logo": "./img/open-house/logos/retrotech.png",
+    "demo_time": "8:15 - 8:20 PM",
+    "type": "partner",
+    "links": [
+      {
+        "text": "Instagram",
+        "link": "https://www.instagram.com/uiuc_retrotech/"
+      }
+    ]
+  }
+}

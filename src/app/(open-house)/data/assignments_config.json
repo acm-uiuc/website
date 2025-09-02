@@ -1,0 +1,5 @@
+{
+  "left_outer": ["sigaida"],
+  "top_inner": [null, null, null, null, "retrotech"],
+  "left_inner": [null, "hack"]
+}

@@ -9,15 +9,17 @@ import booths, { Booth } from '../data/booths';
 import tables, { Table } from '../data/tables';
 import React from 'react';
 import CanvasMap from './CanvasMap';
+import svgLayoutData from '../data/tables_config.json';
+import orgsConfigData from '../data/orgs_config.json';
+import assignmentsConfigData from '../data/assignments_config.json';
 
 interface BoothSectionProps {
   title: string;
   type: Booth['type'];
   collapsed: boolean;
   onToggle: () => void;
-  booths: Booth[];
-  selectedBooth: Booth | null;
-  handleBoothSelect: (booth: Booth) => void;
+  selectedBooth: string | null;
+  handleBoothSelect: (booth: string) => void;
 }
 
 const BoothSection: React.FC<BoothSectionProps> = ({
@@ -25,7 +27,6 @@ const BoothSection: React.FC<BoothSectionProps> = ({
   type,
   collapsed,
   onToggle,
-  booths,
   selectedBooth,
   handleBoothSelect,
 }) => (
@@ -40,35 +41,25 @@ const BoothSection: React.FC<BoothSectionProps> = ({
     </h3>
     {!collapsed && (
       <div className={styles.boothLogosContainer}>
-        {booths
-          .filter((booth) => booth.type === type)
-          .map((booth) => (
+        {Object.keys(orgsConfigData).filter((orgId => orgsConfigData[orgId].type === type))
+          .map((orgId) => (
             <div
-              key={booth.id}
+              key={orgId}
               className={styles.boothLogoWrapper}
-              onClick={() => handleBoothSelect(booth)}
+              onClick={() => handleBoothSelect(orgId)}
             >
-              {booth.customLogo ? (
+              {orgsConfigData[orgId].logo ? (
                 <img
-                  src={booth.logo}
-                  alt={booth.name}
+                  src={orgsConfigData[orgId].logo}
+                  alt={orgsConfigData[orgId].name}
                   className={`${styles.boothLogo} ${
-                    selectedBooth?.id === booth.id
+                    selectedBooth === orgId
                       ? styles.selectedBoothLogo
                       : ''
                   }`}
                 />
-              ) : (
-                getOrganizationImage(
-                  booth.name,
-                  `${styles.boothLogo} ${
-                    selectedBooth?.id === booth.id
-                      ? styles.selectedBoothLogo
-                      : ''
-                  }`,
-                )
-              )}
-              <span className={styles.boothLogoName}>{booth.name}</span>
+              ) : ""}
+              <span className={styles.boothLogoName}>{orgsConfigData[orgId].name}</span>
             </div>
           ))}
       </div>
@@ -77,7 +68,7 @@ const BoothSection: React.FC<BoothSectionProps> = ({
 );
 
 export default function VenuePage() {
-  const [selectedBooth, setSelectedBooth] = useState<Booth | null>(null);
+  const [selectedBooth, setSelectedBooth] = useState<string | null>(null);
   const [mapPosition, setMapPosition] = useState<'middle' | 'left'>('middle');
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
@@ -123,12 +114,9 @@ export default function VenuePage() {
     return bKeywordMatches - aKeywordMatches;
   });
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-  };
 
-  const handleBoothSelect = (booth: Booth) => {
-    if (selectedBooth?.id === booth.id) {
+  const handleBoothSelect = (booth: string) => {
+    if (selectedBooth === booth) {
       setSelectedBooth(null);
       setMapPosition('middle');
       return;
@@ -157,6 +145,38 @@ export default function VenuePage() {
     Partner: false,
   });
 
+  const handleClick = (event: React.MouseEvent) => {
+    
+    const box = event.currentTarget.getBoundingClientRect();
+    const xnorm = (event.clientX - box.left) / box.width * svgLayoutData.image_details.im_width;
+    const ynorm = (event.clientY - box.top) / box.height * svgLayoutData.image_details.im_height;
+    let row_selected = null;
+    let idx_selected = -1;
+
+    for (const row in svgLayoutData.rows) {
+      const row_info = svgLayoutData.rows[row];
+      if (row_info.orientation == "vertical"){
+        if (xnorm >= row_info.start_x && xnorm <= row_info.start_x + svgLayoutData.image_details.table_height && ynorm >= row_info.start_y && ynorm <= row_info.start_y + row_info.num_tables * svgLayoutData.image_details.table_width){
+          row_selected = row;
+          idx_selected = Math.floor((ynorm - row_info.start_y) / svgLayoutData.image_details.table_width);
+          break;
+        }
+      }
+      if (row_info.orientation == "horizontal"){
+        if (xnorm >= row_info.start_x && xnorm <= row_info.start_x + row_info.num_tables * svgLayoutData.image_details.table_width && ynorm >= row_info.start_y && ynorm <= row_info.start_y + svgLayoutData.image_details.table_height){
+          row_selected = row;
+          idx_selected = Math.floor((xnorm - row_info.start_x) / svgLayoutData.image_details.table_width);
+          break;
+        }
+      }
+    }
+
+    if (row_selected && assignmentsConfigData[row_selected][idx_selected]){
+      setSelectedBooth(assignmentsConfigData[row_selected][idx_selected]);
+    }
+    
+  };
+
   return (
     <div className={styles.container}>
       <nav className={styles.navbar}>
@@ -175,66 +195,8 @@ export default function VenuePage() {
           >
             <FaCalendar />
           </div>
-          <div
-            className={styles.searchIcon}
-            onClick={() => setIsSearchModalOpen(true)}
-          >
-            <FaSearch />
-          </div>
         </div>
       </nav>
-
-      {/* Search Modal */}
-      {isSearchModalOpen && (
-        <div
-          className={styles.searchModalOverlay}
-          onClick={() => setIsSearchModalOpen(false)}
-        >
-          <div
-            className={styles.searchModalContent}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <input
-              type="text"
-              placeholder="Search booths..."
-              value={searchQuery}
-              onChange={handleSearch}
-              className={styles.searchInput}
-            />
-            <div className={styles.searchResults}>
-              {sortedFilteredBooths.map((booth) => (
-                <div
-                  key={booth.id}
-                  className={styles.searchResultItem}
-                  onClick={() => {
-                    if (selectedBooth?.id != booth.id) {
-                      handleBoothSelect(booth);
-                      // Avoid accidental closing of modal
-                    }
-                    setIsSearchModalOpen(false);
-                  }}
-                >
-                  {booth.customLogo ? (
-                    <img src={booth.logo} alt={booth.name} />
-                  ) : (
-                    getOrganizationImage(booth.name)
-                  )}
-                  <div>
-                    <h4>{booth.name}</h4>
-                    <p>{booth.type}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <button
-              className={styles.closeSearchModal}
-              onClick={() => setIsSearchModalOpen(false)}
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
 
       {isCalendarModalOpen && (
         <div
@@ -247,26 +209,25 @@ export default function VenuePage() {
           >
             <h3>Demo Room Schedule – CIF 0018</h3>
             <div className={styles.tableList}>
-              {boothOrder.map((boothId) => {
-                const booth = booths.find((b) => b.id === boothId);
-                if (!booth) return null;
-
+              {Object.keys(orgsConfigData).map((orgId) => {
+               return [orgId, orgsConfigData[orgId].name,  orgsConfigData[orgId].demo_time]
+              }).filter(x => x[2] != null).sort(x => x[2]).map((data) => {
                 return (
                   <div
-                    key={boothId}
+                    key={data[0]}
                     className={styles.tableItem}
                     onClick={() => {
-                      if (selectedBooth?.id != booth.id) {
-                        handleBoothSelect(booth);
+                      if (selectedBooth?.id != data[0]) {
+                        handleBoothSelect(data[0]);
                       }
                       setIsCalendarModalOpen(false);
                     }}
                   >
                     <div className={styles.tableIcon}>
-                      <span>{booth.name}</span>
+                      <span>{data[1]}</span>
                     </div>
                     <div className={styles.tableTiming}>
-                      <p>{boothTimes[boothId]}</p>
+                      <p>{data[2]}</p>
                     </div>
                   </div>
                 );
@@ -283,9 +244,7 @@ export default function VenuePage() {
       )}
 
       <div className={styles.mapAndDetailsContainer}>
-        <CanvasMap
-          mapPosition={mapPosition}
-        />
+        <div ><img src='/oh_map.svg' id="svg" alt="map of event" style={{ cursor: "pointer", width: "100%" }} onClick={handleClick}/></div>
 
         {selectedBooth && (
           <div
@@ -293,17 +252,13 @@ export default function VenuePage() {
               selectedBooth ? styles.boothDetails : styles.noBoothDetails
             }
           >
-            <h2>{selectedBooth.name}</h2>
-            {selectedBooth.tableId === 0 ? (
-              <i>No table assigned for this booth.</i>
-            ) : (
-              <p></p>
-            )}
-            <p>{selectedBooth.description}</p>
+            <h2>{orgsConfigData[selectedBooth].name}</h2>
+            <p></p>
+            <p>{orgsConfigData[selectedBooth].description}</p>
 
-            {selectedBooth.links && (
+            {orgsConfigData[selectedBooth].links && (
               <div className={styles.boothLinks}>
-                {selectedBooth.links.map((link, index) => (
+                {orgsConfigData[selectedBooth].links.map((link, index) => (
                   <a
                     key={index}
                     href={link.link}
@@ -324,28 +279,25 @@ export default function VenuePage() {
         {/* Committees Section */}
         <BoothSection
           title="Committees"
-          type="Committee"
+          type="committee"
           collapsed={collapsedSections['Committee']}
           onToggle={() => toggleSection('Committee')}
-          booths={booths}
           selectedBooth={selectedBooth}
           handleBoothSelect={handleBoothSelect}
         />
         <BoothSection
           title="Special Interest Groups"
-          type="SIG"
+          type="sig"
           collapsed={collapsedSections['SIG']}
           onToggle={() => toggleSection('SIG')}
-          booths={booths}
           selectedBooth={selectedBooth}
           handleBoothSelect={handleBoothSelect}
         />
         <BoothSection
           title="Partners"
-          type="Partner"
+          type="partner"
           collapsed={collapsedSections['Partner']}
           onToggle={() => toggleSection('Partner')}
-          booths={booths}
           selectedBooth={selectedBooth}
           handleBoothSelect={handleBoothSelect}
         />

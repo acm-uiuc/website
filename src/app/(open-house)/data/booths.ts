@@ -1,6 +1,7 @@
 import {
   getOrganizationInfo,
   Link,
+  Organization,
 } from '@/utils/organizations';
 import { SIGList, CommitteeCoreList as CommitteeList, CommitteePartnerList as PartnerList } from '@acm-uiuc/js-shared';
 import { partners } from '../data/partners';
@@ -44,16 +45,19 @@ const filteredSIGList = SIGList.filter(
   (sig) => sig !== 'SIGMobile' && sig !== 'SIGARCH',
 ); // Exclude SIGPLAN and SIGMobile
 
-const sigBooths = filteredSIGList.map((sig, index) => ({
-  id: eventBooths.length + committeeBooths.length + index + 1,
-  type: 'SIG',
-  name: getOrganizationInfo(sig).title,
-  logo: `/assets/logos/${sig.toLowerCase()}.png`,
-  description: getOrganizationInfo(sig).description,
-  tableId: eventBooths.length + committeeBooths.length + index + 1,
-  keywords: getOrganizationInfo(sig).description.split(' '), // Generate Keywords from description
-  links: getOrganizationInfo(sig).links,
-}));
+const sigBooths = filteredSIGList.map((sig, index) => {
+  const orgInfo = getOrganizationInfo(sig as Organization);
+  return {
+    id: eventBooths.length + committeeBooths.length + index + 1,
+    type: 'SIG',
+    name: orgInfo.title,
+    logo: `/assets/logos/${sig.toLowerCase()}.png`,
+    description: orgInfo.description,
+    tableId: eventBooths.length + committeeBooths.length + index + 1,
+    keywords: orgInfo.description.split(' '), // Generate Keywords from description
+    links: orgInfo.links,
+  };
+});
 
 const partnerBooths = partners.map((partner, index) => ({
   id:

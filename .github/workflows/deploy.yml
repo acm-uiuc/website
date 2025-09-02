@@ -40,6 +40,7 @@ jobs:
         run: yarn build
 
       - name: Deploy to Cloudflare
+        id: deploy
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.PAGES_API_TOKEN }}
@@ -64,7 +65,11 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           body: |
             ⚡️ **Cloudflare Pages - Deployment successful!**
-            Preview URL: ${{ steps.deploy.outputs.deployment-url }}
+            Preview URL: ${{ steps.deploy.outputs.deployment-url || steps.deploy.outputs.pages-deployment-alias-url }}
+
+            ```
+            ${{ steps.deploy.outputs.command-output }}
+            ```
           edit-mode: "replace"
 
       - name: Update PR with Failure

@@ -42,3 +42,4 @@ jobs:
           cloudflare-project-name: acmuiuc
           directory: build/
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-environment: ${{ (github.ref == 'refs/heads/main' && 'Production') || 'Preview' }}

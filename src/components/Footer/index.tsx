@@ -27,7 +27,7 @@ export default function Footer() {
             <NavLink href="https://go.acm.illinois.edu/discord">
               Discord
             </NavLink>
-            <NavLink href="https://www.facebook.com/acmuiuc">Facebook</NavLink>
+            <NavLink href="https://www.linkedin.com/company/acm-uiuc">LinkedIn</NavLink>
             <NavLink href="https://instagram.com/acm.uiuc">Instagram</NavLink>
             <NavLink href="https://github.com/acm-uiuc">GitHub</NavLink>
           </div>

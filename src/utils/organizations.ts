@@ -245,7 +245,7 @@ export const OrganizationDataMapping: Record<Organization, IOrgData> = {
       'Learn about the theory behind programming languages and type systems, and then make projects!',
     links: [
       {
-        link: 'https://discord.gg/fm7ZFGj3',
+        link: 'https://go.acm.illinois.edu/sigplan_discord',
         text: 'Discord',
       },
     ],

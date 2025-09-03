@@ -14,11 +14,11 @@ export default function LeadershipSection() {
       name="Jacob Levine"
       img={chair}
     />,
-    <LeadershipCard 
-      key={"vicechair"}
+    <LeadershipCard
+      key={'vicechair'}
       title="Vice Chair"
-      name="Sherry Long" 
-      img={vicechair} 
+      name="Sherry Long"
+      img={vicechair}
     />,
     <LeadershipCard
       key={'treasurer'}
@@ -31,9 +31,8 @@ export default function LeadershipSection() {
       title="Secretary"
       name="Krish Gangal"
       img={secretary}
-    />
-
-  ]
+    />,
+  ];
   return (
     <section id="leadership" className="container flex flex-col">
       <h1>Leadership</h1>

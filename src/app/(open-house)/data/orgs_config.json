@@ -1,0 +1,449 @@
+{
+  "sigaida": {
+    "name": "SIGAIDA",
+    "description": "We are SIGAIDA, the premier AI, Machine Learning, and data science organization at UIUC. This semester we will be working on real-world projects, teaching the basics of AI/ML, having research talks, and hosting several related networking/social events. Come stop by our weekly meetings Mondays at 6pm in Everitt Lab 1306. No application or experience required!",
+    "logo": "./img/open-house/logos/sigaidalogo.png",
+    "demo_time": null,
+    "type": "sig",
+    "links": [{ "text": "Discord", "link": "https://discord.gg/FUF3drS4Fd" }]
+  },
+  "sigarch": {
+    "name": "SIGARCH",
+    "description": "University of Illinois Urbana-Champaign's student-run computer architecture interest group. We try and make comparch accessible to beginners through workshops and also have paper discussions on bleeding edge comparch topics.",
+    "logo": "./img/open-house/logos/sigarchlogo.png",
+    "demo_time": "8:05 - 8:10 PM",
+    "type": "sig",
+    "links": [
+      { "text": "Website", "link": "https://sigarch.net/" },
+      { "text": "Discord", "link": "https://discord.gg/Mx8R389hWz" }
+    ]
+  },
+  "sigchi": {
+    "name": "SIGCHI",
+    "description": "We are SIGCHI, ACM's special interest group for Human-Computer Interaction! HCI is a multidisciplinary field within computer science that focuses on the interaction between humans and computers. We look at how technology can be designed and engineered to help humans.",
+    "logo": "./img/open-house/logos/sigchilogo.png",
+    "demo_time": null,
+    "type": "sig",
+    "links": [
+      { "text": "Website", "link": "https://sigarch.net/" },
+      { "text": "Discord", "link": "https://discord.gg/Mx8R389hWz" }
+    ]
+  },
+  "sigecom": {
+    "name": "SIGecom",
+    "description": "SIGecom, the Special Interest Group in Economics and Computation, focuses on various topics at the intersection of economics and computer science, including algorithmic game theory simulations, applications of AI and Machine Learning in the social sciences and finance, cryptocurrency, and more. ",
+    "logo": "./img/open-house/logos/sigecomlogo.png",
+    "demo_time": null,
+    "type": "sig",
+    "links": [
+      { "text": "Website", "link": "https://go.acm.illinois.edu/ecom_discord" }
+    ]
+  },
+  "gamebuilders": {
+    "name": "GameBuilders",
+    "description": "Gamebuilders is a SIG that focuses game development. We focus on semester long projects, but also host game jams, workshops, industry panels, and other events!",
+    "logo": "./img/open-house/logos/gamebuildlogo.png",
+    "demo_time": null,
+    "type": "sig",
+    "links": [
+      {
+        "text": "Website",
+        "link": "https://gamebuilders.acm.illinois.edu/"
+      },
+      {
+        "text": "Discord",
+        "link": "https://discordapp.com/invite/2rND6FT"
+      }
+    ]
+  },
+  "glug": {
+    "name": "GNU / Linux User Group",
+    "description": "We run weekly meetings talking about everything Linux, UNIX, systems, and open-source software. Whether you've used Linux for years or are just curious and want to learn, GLUG is the perfect place for you (all skill levels are welcome!).",
+    "logo": "./img/open-house/logos/gluglogo.png",
+    "demo_time": null,
+    "type": "sig",
+    "links": [
+      {
+        "text": "Website",
+        "link": "http://lug.acm.illinois.edu/"
+      },
+      {
+        "text": "Discord",
+        "link": "https://discord.gg/sWD3zxPyc2"
+      },
+      {
+        "text": "Matrix",
+        "link": "https://matrix.to/#/#gnulug:matrix.org"
+      }
+    ]
+  },
+  "siggraph": {
+    "name": "SIGGRAPH",
+    "description": "Siggraph@UIUC is Illinois' primary organization for everything Computer Graphics. We cover topics from real-time rendering to extended reality and provide interactive, hands-on workshops where members can gain experience with graphics programming. All backgrounds are welcome and no experience is required! We are passionate about this vast, ever-changing field and can't wait to explore it with you.",
+    "logo": "./img/open-house/logos/siggraphlogo.png",
+    "demo_time": "7:50 - 8:00 PM",
+    "type": "sig",
+    "links": [
+      {
+        "text": "Website",
+        "link": "https://siggraph.acm.illinois.edu/#/"
+      },
+      {
+        "text": "Discord",
+        "link": "https://discord.com/invite/a5U333fNMX"
+      }
+    ]
+  },
+  "icpc": {
+    "name": "ICPC",
+    "description": "SIG-ICPC is for anyone who enjoys competitive programming or challenging algorithmic problems. We meet every week to explain how to solve problems that appear in ICPC and other programming competitions!",
+    "logo": "./img/open-house/logos/icpclogo.png",
+    "demo_time": null,
+    "type": "sig",
+    "links": [
+      {
+        "text": "Website",
+        "link": "http://icpc.cs.illinois.edu/"
+      },
+      {
+        "text": "Discord",
+        "link": "http://go.acm.illinois.edu/icpc_discord"
+      }
+    ]
+  },
+  "sigmusic": {
+    "name": "SIGMusic",
+    "description": "A project-based SIG with presentations focused on audio synthesis, algorithmic composition, audio plugins, and more.",
+    "logo": "./img/open-house/logos/sigmusiclogo.png",
+    "demo_time": null,
+    "type": "sig",
+    "links": [
+      {
+        "text": "Website",
+        "link": "http://sigmusic.acm.illinois.edu/"
+      },
+      {
+        "text": "Discord",
+        "link": "http://go.acm.illinois.edu/sigmusic_discord"
+      }
+    ]
+  },
+  "sigma": {
+    "name": "SIGma",
+    "description": "We are the Special Interest Group for math and algorithms. Each Monday at 6 PM, we meet in Siebel CS 1302 to dive into a variety of interesting topics relating to theoretical computer science. Everyone is welcome, regardless of prior experience or knowledge. Learn more about us at our website, cstheory.org!",
+    "demo_time": null,
+    "logo": "./img/open-house/logos/sigmalogo.png",
+    "type": "sig",
+    "links": [
+      {
+        "text": "Website",
+        "link": "http://cstheory.org"
+      },
+      {
+        "text": "Discord",
+        "link": "https://discord.gg/Sxf3h3pBbv"
+      }
+    ]
+  },
+  "signll": {
+    "name": "SIGNLL",
+    "description": "SIGNLL covers the latest and greatest in Natural Language Learning and Natural Language Processing. We go over the basics of NLP, along with resources and guides for help. We host interactive workshops to learn about the different types and ways it is implemented. We also host and work on semester-long projects for members to get hands-on experience in the hottest and most exciting field of computer science!",
+    "demo_time": null,
+    "logo": "./img/open-house/logos/signll_logo.png",
+    "type": "sig",
+    "links": [
+      {
+        "text": "Discord",
+        "link": "https://discord.gg/wwYeewYkCG"
+      }
+    ]
+  },
+  "sigplan": {
+    "name": "SIGPLAN",
+    "description": "SIGPLAN is the special interest group for programming languages. We host student-led talks that cover a wide range of topics, from theory and design to implementation. Join us every other Wednesday at 5 p.m. in Siebel CS 1302. All are welcome to attend!",
+    "demo_time": null,
+    "logo": "./img/open-house/logos/sigplanlogo.png",
+    "type": "sig",
+    "links": [
+      {
+        "text": "Discord",
+        "link": "https://discord.gg/fm7ZFGj3"
+      }
+    ]
+  },
+  "sigpolicy": {
+    "name": "SIGPolicy",
+    "description": "At SIGPolicy, we learn, discuss, and debate tech issues and ethics. We have talked about everything from cyberwarfare to social media, but are always looking for new things that our members find fascinating! We place a priority on having meetings that require absolutely no prior information not only to attend, but to fully join into, so we start every general meeting with the information you need. We are looking for as broad a group as possible, to have discussions that incorporate everyone’s views and ideas. That means we want to see (and hear from) YOU at our meetings!",
+    "demo_time": null,
+    "logo": "./img/open-house/logos/sigpolicylogo.png",
+    "type": "sig",
+    "links": [
+      {
+        "text": "Website",
+        "link": "https://sigpolicy.acm.illinois.edu/"
+      },
+      {
+        "text": "Discord",
+        "link": "https://discord.gg/gKjMH54YBF"
+      }
+    ]
+  },
+  "sigpwny": {
+    "name": "SIGPwny",
+    "description": "Learn cybersecurity from the ground up, play in competitions, and do research. Beginners welcome!",
+    "demo_time": "7:25 - 7:35 PM",
+    "logo": "./img/open-house/logos/sigpwnylogo.png",
+    "type": "sig",
+    "links": [
+      {
+        "text": "Website",
+        "link": "https://sigpwny.com/"
+      },
+      {
+        "text": "Discord",
+        "link": "https://sigpwny.com/discord"
+      }
+    ]
+  },
+  "sigrobotics": {
+    "name": "SIGRobotics",
+    "description": "SIGRobotics is ACM’s special interest group in robotics. We host and fund a variety of projects that allow students to develop and demonstrate their robotics passion and expertise. Using our robots, students can lead their own project or join an existing one. We also have multiple corporate-sponsored projects. SIGRobotics is open to beginners and all majors, and we run educational workshops on specific robotics topics throughout the year. Our meetings are Saturdays 1-3 pm, and Tuesdays 7-8 pm in Siebel CS 2405, and our Discord join code is 2fpaTVcZvu. We look forward to meeting you!",
+    "demo_time": null,
+    "logo": "./img/open-house/logos/sigroboticslogo.png",
+    "type": "sig",
+    "links": [
+      {
+        "text": "Website",
+        "link": "https://sigrobotics.acm.illinois.edu/"
+      },
+      {
+        "text": "Discord",
+        "link": "https://discord.gg/Rj75e5qGT3"
+      },
+      {
+        "text": "Twitter",
+        "link": "https://x.com/sigrobotics/"
+      }
+    ]
+  },
+  "sigquantum": {
+    "name": "SIGQuantum",
+    "description": "Pull up to SIGQuantum Wednesdays 6 - 7pm to learn about various topics in quantum computing! From quantum cryptography to quantum hardware, from quantum error correcting codes to quantum software, we love everything quantum. We host amazing speakers, participate in fun quantum Hackathons, and present on our own interests. This year, we're also excited to host a sponsored IBM Qiskit Fall Fest!",
+    "demo_time": null,
+    "logo": "./img/open-house/logos/quiuclogo.png",
+    "type": "sig",
+    "links": [
+      {
+        "text": "Discord",
+        "link": "https://discord.gg/PmaXeHPaFs"
+      }
+    ]
+  },
+
+  "hack": {
+    "name": "HackIllinois",
+    "description": "HackIllinois is the premier student-run hackathon at the University of Illinois at Urbana-Champaign. Each spring, HackIllinois hosts nearly a thousand students who work together for a weekend to learn new skills and technologies to create innovative hacks such as websites, mobile apps, and many more!",
+    "logo": "./img/open-house/logos/hackillinoislogo.png",
+    "demo_time": "7:35 - 7:40 PM",
+    "type": "committee",
+    "links": [
+      { "text": "Website", "link": "https://www.hackillinois.org/" },
+      { "text": "Linktree", "link": "https://linktr.ee/hackillinois" }
+    ]
+  },
+  "rp": {
+    "name": "Reflections | Projections",
+    "description": "Start your engines and step into the driver’s seat at the Midwest’s largest student-run technology conference! 🏎️ \n\n Hosted at the Siebel Center for Computer Science at UIUC from September 16–20, we’ll race towards the future with guest speakers, tech talks, a career fair, free food/merch, and more. At Reflections | Projections, you’ll reflect on your growth through inspiring talks and project your future by applying new skills and forming connections. Register now for free at reflectionsprojections.org and gear up for the road ahead. 🏁",
+    "logo": "./img/open-house/logos/reflections.jpg",
+    "demo_time": null,
+    "type": "committee",
+    "links": [
+      { "text": "Website", "link": "https://reflectionsprojections.org/" },
+      {
+        "text": "Registration",
+        "link": "https://reflectionsprojections.org/register"
+      }
+    ]
+  },
+  "infra": {
+    "name": "Infrastructure",
+    "description": "The Infra Committee is responsible for managing ACM @ UIUC’s core software engineering and infrastructure efforts, both on-premises and in the cloud. Infra specializes in delivering high-quality, enterprise-level solutions that empower our members and enhance their experience, while also enabling SIG and committee chairs to do their work effectively.",
+    "logo": "./img/open-house/logos/infra-logo.png",
+    "demo_time": null,
+    "type": "committee",
+    "links": [
+      { "text": "Website", "link": "https://infra.acm.illinois.edu/" },
+      { "text": "Discord", "link": "https://discord.gg/f29bq5Byd5" }
+    ]
+  },
+  "marketing": {
+    "name": "Marketing",
+    "description": "Marketing Committee handles all the marketing for ACM and ACM activities.",
+    "logo": "./img/open-house/logos/marketing-logo.png",
+    "demo_time": null,
+    "type": "committee",
+    "links": [
+      { "text": "Instagram", "link": "https://www.instagram.com/acm.uiuc/" },
+      {
+        "text": "Application Form",
+        "link": "https://docs.google.com/forms/d/e/1FAIpQLScFNpxaLqDttORoCirmNHPukUqoZiYxMzNBTkaE-vX7hOIPJQ/viewform"
+      }
+    ]
+  },
+  "social": {
+    "name": "Social",
+    "description": "Join us to plan all of our fun social events, such as boba socials, halloween party, bar crawl, etc!",
+    "logo": "./img/open-house/logos/social-logo.png",
+    "demo_time": null,
+    "type": "committee",
+    "links": [{ "text": "Discord", "link": "https://discord.gg/hZ8WwvFy6B" }]
+  },
+  "corporate": {
+    "name": "Corporate",
+    "description": "We are essentially the industry/corporate outreach arm of ACM. We reach out to a variety of companies looking for tech talent and connect them with our students through tech talks, information sessions, and special events. Look out for announcements about upcoming events with major companies that are HIRING specialists like YOU!",
+    "logo": "./img/open-house/logos/corporate-logo.png",
+    "demo_time": null,
+    "type": "committee",
+    "links": [
+      {
+        "text": "Interest Form",
+        "link": "https://docs.google.com/forms/d/e/1FAIpQLSfZ2W9aFklHRsRAzEqJ88zS2XQeVtrS8iIN2e0mOia7gb-VXQ/viewform"
+      }
+    ]
+  },
+  "mentorship": {
+    "name": "Mentorship",
+    "description": "ACM is excited to announce that we will be hosting our mentorship program this fall! ACM’s Mentorship Committee supports incoming undergraduate computer science students as they transition to life at UIUC. Each mentee is matched with a current student based on shared interests in order to provide a reliable point of contact before the semester starts. In the fall, we host several in-person events (with free food) to help students connect with each other and  prepare for academic, extracurricular, and professional opportunities.",
+    "logo": "./img/open-house/logos/mentorship-logo.png",
+    "demo_time": null,
+    "type": "committee",
+    "links": [
+      {
+        "text": "Signup Form",
+        "link": "https://docs.google.com/forms/d/e/1FAIpQLSd0_Yps4c5iYhhHEqW9-qOHhP3yzkd2qS_ftgj_8Dt763U4PA/viewform"
+      }
+    ]
+  },
+  "accom": {
+    "name": "Academic",
+    "description": "Academic Committee aims to help students in the Illinois CS and CS-adjacent community by bridging the gap between professors and students. Currently, we run independent review sessions, and we are looking to host socials and collaborate with other CS organizations. We're always looking for new ideas on how to elevate the student experience at Illinois CS, so if you have suggestions or want to help out, please reach out to academic@acm.illinois.edu!",
+    "logo": "./img/open-house/logos/accom-logo.png",
+    "demo_time": null,
+    "type": "committee",
+    "links": [
+      {
+        "text": "Website",
+        "link": "https://academic.acm.illinois.edu"
+      }
+    ]
+  },
+  "retrotech": {
+    "name": "UIUC RetroTech",
+    "description": "We discuss, repair, and modify retro and vintage technology! We also have events like CRT watch parties, collaborating with other RSOs, and tabling at VCFMW (Vintage Computer Fest Midwest.) Our meetings are typically in the ECEB OpenLab Thursdays at 7 PM. We are beginner-friendly - you don't need to own or have any experience with repairing retro technology to join.",
+    "logo": "./img/open-house/logos/retrotech.png",
+    "demo_time": "8:15 - 8:20 PM",
+    "type": "partner",
+    "links": [
+      {
+        "text": "Instagram",
+        "link": "https://www.instagram.com/uiuc_retrotech/"
+      }
+    ]
+  },
+  "wcs": {
+    "name": "Women in Computer Science",
+    "description": "We're Women in Computer Science (WCS), but you don't have to be a woman nor in computer science to join! Our mission is to promote equity and diversity and technology. To that end, we host socials, corporate networking sessions, beginner-friendly technical workshops, mentoring events, and so much more! We have no formal membership process, so feel free to find us at https://wcs.illinois.edu and come to as many events as you'd like! ",
+    "logo": "./img/open-house/logos/wcs.png",
+    "demo_time": null,
+    "type": "partner",
+    "links": [
+      { "text": "Website", "link": "https://wcs.illinois.edu/" },
+      {
+        "text": "Instagram",
+        "link": "https://www.instagram.com/illinoiswcs/"
+      }
+    ]
+  },
+  "built": {
+    "name": "B[U]ILT",
+    "description": "Empowering underrepresented voices in computing at UIUC -- join us in building a diverse future!",
+    "logo": "./img/open-house/logos/built.png",
+    "demo_time": null,
+    "type": "partner",
+    "links": [
+      { "text": "Website", "link": "https://built-illinois.org/#/Home" },
+      {
+        "text": "Instagram",
+        "link": "https://www.instagram.com/built_uiuc/"
+      }
+    ]
+  },
+  "wicys": {
+    "name": "Women in Cybersecurity",
+    "description": "Women in CyberSecurity (WiCyS) is UIUC’s very own student chapter of the national organization dedicated to bringing together women in cybersecurity from academia, research and industry to share knowledge, experience, networking and mentoring. Our organization provides resources for women interested in cybersecurity through tech talks, workshops, networking opportunities, research, conferences, and leadership opportunities.",
+    "logo": "./img/open-house/logos/wicys.jpg",
+    "demo_time": null,
+    "type": "partner",
+    "links": [
+      { "text": "Linktree", "link": "https://linktr.ee/wicys_illinois" }
+    ]
+  },
+  "queercoded": {
+    "name": "QueerCoded",
+    "description": "QueerCoded is a new student org for LGBTQ+ students and allies in computer science. We aim to provide a safe and welcoming community for LGBTQ+ students in computer science and adjacent fields to talk about their experiences and interests in CS. We will have a room in the Siebel basement (room number TBD) open to all, come visit us and join us at upcoming social events! As we are new, we are looking for passionate student leaders to help run QueerCoded, please email al68@illinois.edu if you are interested!",
+    "logo": "./img/open-house/logos/qc_bitmap.png",
+    "demo_time": null,
+    "type": "partner",
+    "links": [{"text": "Discord", "link": "https://discord.gg/47eqFA8Jcp"}]
+  },
+  "wyse": {
+    "name": "WYSE",
+    "description": "WYSE organizes pre-college opportunities for students to explore engineering and the sciences through hands-on, minds-on activities. FACES provides a centralized resource for locating rich and diverse STEAMM content, research support, professional development, and outreach activities for pre-college students & families, K-12 educators, and youth-serving community organizations. James Scholar students can recieve HCLA credit by participating in WYSE/FACES events and RSOs can collaborate on events for STEM community engagement.",
+    "demo_time": "8:10 - 8:15 PM",
+    "type": "partner",
+    "logo": "./img/open-house/logos/wyse.png",
+    "links": [
+      { "text": "Website", "link": "https://wyse.grainger.illinois.edu/" }
+    ]
+  },
+  "sail": {
+    "name": "CS Sail",
+    "description": "CS Sail hosts the largest CS outreach event at Illinois! \n\n Applications open NOW to join our Sail 2026 core staff.\n\nSail is a great way to get involved in Illinois CS, even as a freshman! Build your resume with hands-on experience in technical event management and operations, from planning to execution. You’ll be part of a tight-knit team and make a real difference inspiring the next generation of CS students. (Plus free merch!)\n\nSpots available on software development, logistics, marketing, and design teams.\n\nApplication due Sept 12 @ 11:59pm CT.",
+    "demo_time": null,
+    "type": "partner",
+    "logo": "./img/open-house/logos/sail.png",
+    "links": [
+      { "text": "Application Form", "link": "https://tinyurl.com/apply-sail-26" }
+    ]
+  },
+  "gwc": {
+    "name": "Girls Who Code UIUC",
+    "description": "Girls Who Code College Loop at UIUC is a student-led organization dedicated to empowering students in technology. We create spaces for members to build skills and confidence through a mix of professional development and community events. This year, we'll host guest speakers from the SWE industry, company talks focused on recruiting and career pathways, and hands-on learn to code workshops where students can explore new technologies. Beyond tech skills, our chapter provides mentorship, networking, and a supportive community to help members succeed in school and prepare for careers in technology.",
+    "demo_time": null,
+    "type": "partner",
+    "logo": "./img/open-house/logos/gwc.png",
+    "links": [
+      { "text": "Instagram", "link": "https://www.instagram.com/illinoisgwc/" }
+    ]
+  },
+  "124h": {
+    "name": "CS 124 Honors",
+    "description": "If you are a CS 124 student this semester, then CS124 Honors may be a great add-on for you! This honors section lets you blend creativity and learning through a hands-on, project-based experience. You will work under the support of Project Managers and collaborate closely with other students. You will be a part of a welcoming community and expand your network and expertise through workshops, events, and other enriching opportunities. At the end of this journey, you will have brought a project to life from start to finish! Please check out honors.cs124.org for more info.",
+    "demo_time": null,
+    "type": "partner",
+    "logo": "./img/open-house/logos/cs124h.png",
+    "links": [
+      { "text": "Website", "link": "https://honors.cs124.org" }
+    ]
+  },
+  "osai": {
+    "name": "Open Source at Illinois",
+    "description": "At Open-Source @ Illinois, our primary focus is empowering developers and engineers, enabling them to actively contribute to the tools they rely on. By embracing open-source principles, we aim to cultivate a culture where members freely share ideas, expertise, maintain shared resources, and drive the development of impactful projects that benefit the wider community.",
+    "demo_time": null,
+    "type": "partner",
+    "logo": "./img/open-house/logos/osai.png",
+    "links": [
+      { "text": "Website", "link": "https://www.opensourceatillinois.com/" }
+    ]
+  }
+}

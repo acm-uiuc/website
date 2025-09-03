@@ -12,18 +12,18 @@ export const transformApiDates = (events: IEvent[]): IEvent[] => {
         .format('YYYY-MM-DDTHH:mm:ss'),
       end: event.end
         ? moment
-            .tz(event.end, 'America/Chicago')
-            .tz(moment.tz.guess())
-            .format('YYYY-MM-DDTHH:mm:ss')
+          .tz(event.end, 'America/Chicago')
+          .tz(moment.tz.guess())
+          .format('YYYY-MM-DDTHH:mm:ss')
         : moment
-            .tz(event.start, 'America/Chicago')
-            .tz(moment.tz.guess())
-            .format('YYYY-MM-DDTHH:mm:ss'),
+          .tz(event.start, 'America/Chicago')
+          .tz(moment.tz.guess())
+          .format('YYYY-MM-DDTHH:mm:ss'),
       repeatEnds: event.repeatEnds
         ? moment
-            .tz(event.repeatEnds, 'America/Chicago')
-            .tz(moment.tz.guess())
-            .format('YYYY-MM-DDTHH:mm:ss')
+          .tz(event.repeatEnds, 'America/Chicago')
+          .tz(moment.tz.guess())
+          .format('YYYY-MM-DDTHH:mm:ss')
         : undefined,
     };
   });
@@ -65,50 +65,67 @@ export const getRepeatString = (repeats: ValidRepeat) => {
 };
 
 /**
- * Moves events that repeat to the next occurrence after the current time
- * Afterwards, filters out events that have already ended and sorts the events by start time
+ * Moves events that repeat to the next valid occurrence after the current time,
+ * accounting for excluded dates. Afterwards, it filters out events that have
+ * already ended and sorts the remaining events by start time.
  */
 export const getEventsAfter = (
   events: IEvent[],
   now: moment.Moment,
 ): IEvent[] => {
   const eventsAfterNow = events.map((event) => {
+    // Check if the event is a valid repeating event
     if (event.repeats && validRepeats.includes(event.repeats)) {
       const start = moment(event.start);
+      const end = event.end ? moment(event.end) : null;
       let repeatEnds;
+
       try {
-        repeatEnds = moment(event.repeatEnds) || maxRenderDistance;
+        // Use the defined repeat end date or a max default
+        repeatEnds = moment(event.repeatEnds);
+        if (!repeatEnds.isValid()) throw new Error();
       } catch {
         repeatEnds = maxRenderDistance;
       }
-      const end = event.end ? moment(event.end) : null;
-      const comparisonEnd = end || moment(event.end).add(1, 'hour'); // used for comparing against repeat as a "fake end time"
-      const { increment, unit } = repeatMapping[event.repeats];
 
-      while (start.isBefore(now)) {
-        // find the most recent iteration
-        if (repeatEnds.isSameOrBefore(comparisonEnd)) {
-          // skip
-          return null;
-        }
+      const { increment, unit } = repeatMapping[event.repeats];
+      const excludedDates = new Set(
+        event.repeatExcludes?.map((date) => moment(date).format('YYYY-MM-DD')) ?? [],
+      );
+
+      while (start.isBefore(now) || excludedDates.has(start.format('YYYY-MM-DD'))) {
         start.add(increment, unit);
         if (end) {
           end.add(increment, unit);
         }
       }
+
+      // If the calculated start time is after the event's repeating period ends,
+      // then there are no more future occurrences of this event.
+      if (start.isAfter(repeatEnds)) {
+        return null;
+      }
+
+      // Return the updated event with its next valid start and end times
       return {
         ...event,
         start: start.toISOString(),
         end: end ? end.toISOString() : undefined,
       };
     }
+    // Return non-repeating events as is
     return event;
   });
 
-  const definedEvents = eventsAfterNow.filter((event) => {
-    return event !== null;
+  // Filter out null values (from repeating events that have concluded)
+  // and events whose end time is in the past.
+  const definedEvents = eventsAfterNow.filter((event): event is IEvent => {
+    if (event === null) return false;
+    const eventEnd = event.end ? moment(event.end) : moment(event.start).add(1, 'hour');
+    return eventEnd.isAfter(now);
   });
 
+  // Sort the final list of events chronologically by start time
   const sortedEvents = definedEvents.sort((a, b) => {
     return moment(a.start).unix() - moment(b.start).unix();
   });

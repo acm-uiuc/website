@@ -18,10 +18,9 @@ import { Spinner } from '@heroui/spinner';
 
 import Lottie from 'lottie-react';
 import axios from 'axios';
-import Layout from '../MembershipLayout';
-import successAnimation from '../success.json';
+import Layout from '../../MembershipLayout';
+import successAnimation from '../../success.json';
 import { useSearchParams } from 'next/navigation';
-import config from '@/config.json';
 import { type IPublicClientApplication } from "@azure/msal-browser";
 import { getUserAccessToken, initMsalClient } from '@/utils/msal';
 
@@ -31,24 +30,18 @@ interface ErrorCode {
   message: string;
 }
 
-enum InputStatus {
-  EMPTY,
-  INVALID,
-  VALID,
-}
-
 const baseUrl = process.env.NEXT_PUBLIC_EVENTS_API_BASE_URL;
-const WrappedPayment = () => {
+const WrappedSync = () => {
   return (
     <Suspense>
-      <Payment />
+      <Sync />
     </Suspense>
   );
 };
-const Payment = () => {
+const Sync = () => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const modalAlreadyMember = useDisclosure();
+  const modalSynced = useDisclosure();
   const modalErrorMessage = useDisclosure();
   const [errorMessage, setErrorMessage] = useState<ErrorCode | null>(null);
   const initOnCall = !!useSearchParams().get('initOnCall') || false;
@@ -60,7 +53,7 @@ const Payment = () => {
     })();
   }, [])
 
-  const purchaseHandler = useCallback(async () => {
+  const syncHandler = useCallback(async () => {
     setIsLoading(true);
     if (!pca) {
       setErrorMessage({
@@ -79,93 +72,49 @@ const Payment = () => {
       modalErrorMessage.onOpen();
       return;
     }
-    const url = `${baseUrl}/api/v2/membership/checkout`;
+    const url = `${baseUrl}/api/v1/syncIdentity`;
     axios
-      .get(url, {
-        headers: { "Content-Type": "text/plain", 'x-uiuc-token': accessToken }
+      .post(url, {}, {
+        headers: { 'x-uiuc-token': accessToken }
       })
-      .then((response) => {
-        window.location.replace(response.data);
+      .then(() => {
+        modalSynced.onOpen();
+        setIsLoading(false);
       })
       .catch((error) => {
         setIsLoading(false);
         if (error.response) {
-          if (error.response.status === 422) {
-            const errorObj = error.response.data;
-            setErrorMessage({
-              code: errorObj.details[0].issue,
-              message: errorObj.details[0].description,
-            });
-            modalErrorMessage.onOpen();
-          }
-          else if (error.response.status === 403) {
-            setErrorMessage({
-              code: 409,
-              message: 'Could not verify NetID.',
-            });
-            modalAlreadyMember.onOpen();
-          } else if (error.response.status === 400) {
-            const errorObj = error.response.data;
-            if ((errorObj.message as string).includes("is already a paid member")) {
-              setErrorMessage({
-                code: 409,
-                message: 'The specified user is already a paid member.',
-              });
-              modalAlreadyMember.onOpen();
-            } else {
-              setErrorMessage({
-                code: errorObj.id,
-                message: errorObj.message,
-              });
-              modalErrorMessage.onOpen();
-            }
-          } else if (error.response.status === 409) {
-            setErrorMessage({
-              code: 500,
-              message:
-                'Internal server error: ' +
-                (error.response.data.message || 'could not process request'),
-            });
-            modalErrorMessage.onOpen();
-          }
+          setErrorMessage({
+            code: error.response.status,
+            message: "Failed to sync identity.",
+          });
         }
       });
-  }, [modalAlreadyMember, modalErrorMessage]);
+  }, [modalSynced, modalErrorMessage]);
 
   useEffect(() => {
     if (initOnCall) {
-      purchaseHandler();
+      syncHandler();
     }
-  }, [purchaseHandler, initOnCall]);
+  }, [syncHandler, initOnCall]);
 
   return (
     <Layout>
       <div className="h-screen w-screen absolute top-0 left-0 flex flex-col items-center py-24">
         <Card className="max-w-[512px] mx-4 my-auto shrink-0">
           <CardHeader>
-            <p className="font-bold">ACM@UIUC Membership</p>
+            <p className="font-bold">Sync ACM@UIUC Identity</p>
           </CardHeader>
           <Divider />
           <CardBody className="gap-4">
             <p>
-              Becoming a Lifetime <b>Paid Member</b> not only sustains the
-              continued growth of our communities but also comes with perks such
-              as swipe access, free printing, priority access to our computing
-              resources, etc.
+              Only use this tool if prompted to by the ACM @ UIUC Infrastructure Team.
             </p>
-            <a
-              className="text-primary"
-              href="https://go.acm.illinois.edu/paid-member-guide"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              ACM@UIUC Paid Member Guide
-            </a>
             <Button
               color="primary"
               size="lg"
               isDisabled={!pca || isLoading}
-              onPress={purchaseHandler}
+              onPress={syncHandler}
             >
               {isLoading ? (
                 <>
@@ -173,12 +122,9 @@ const Payment = () => {
                   <a>Loading...</a>
                 </>
               ) : (
-                `Purchase for ${config.membershipPrice}`
+                `Log in to sync identity`
               )}
             </Button>
-            <p className="text-sm ml-2">
-              Log in with your NetID to purchase a membership.
-            </p>
           </CardBody>
         </Card>
         <Modal
@@ -188,7 +134,7 @@ const Payment = () => {
           <ModalContent>
             <ModalHeader />
             <ModalBody className="flex flex-col items-center">
-              <p className="text-center text-2xl font-bold">Checkout Failed</p>
+              <p className="text-center text-2xl font-bold">Sync Failed</p>
               <p className="text-center">
                 Error Code: {errorMessage && errorMessage.code}
               </p>
@@ -210,14 +156,14 @@ const Payment = () => {
           </ModalContent>
         </Modal>
         <Modal
-          isOpen={modalAlreadyMember.isOpen}
-          onOpenChange={modalAlreadyMember.onOpenChange}
+          isOpen={modalSynced.isOpen}
+          onOpenChange={modalSynced.onOpenChange}
         >
           <ModalContent>
             <ModalHeader />
             <ModalBody className="flex flex-col items-center">
               <p className="text-center text-2xl font-bold">
-                You&apos;re already a Paid Member of ACM@UIUC!
+                Identity synced!
               </p>
               <Lottie
                 animationData={successAnimation}
@@ -233,4 +179,4 @@ const Payment = () => {
   );
 };
 
-export default WrappedPayment;
+export default WrappedSync;

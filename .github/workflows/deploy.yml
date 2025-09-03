@@ -1,0 +1,86 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+name: 'Deployment'
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    permissions:
+      contents: read
+      deployments: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: "yarn"
+
+      - name: Restore Yarn Cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: yarn-modules-${{ runner.arch }}-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-dev
+          restore-keys: |
+            yarn-modules-${{ runner.arch }}-${{ runner.os }}-
+
+
+      - name: Install dependencies
+        run: yarn -D
+
+      - name: Build website
+        run: yarn build
+
+      - name: Deploy to Cloudflare
+        id: deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.PAGES_API_TOKEN }}
+          accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy build/ --project-name=${{ vars.CLOUDFLARE_PROJECT_NAME }} --branch=${{ github.head_ref || github.ref_name }}
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Find Comment
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/find-comment@v3
+        id: fc
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: Cloudflare Pages
+
+      - uses: austenstone/job-summary-to-pdf@0c3b6d3b0b883b058c2c6843c142c8026b6b34be
+        if: github.event_name == 'pull_request'
+        id: job-summary
+        with:
+          create-pdf: false
+
+      - name: Update PR with Preview URL
+        if: success() && github.event_name == 'pull_request'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          comment-id: ${{ steps.fc.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          body: ${{ steps.job-summary.outputs.job-summary }}
+          edit-mode: "replace"
+
+      - name: Update PR with Failure
+        if: failure() && github.event_name == 'pull_request'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          comment-id: ${{ steps.fc.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          body: |
+            😢 **Cloudflare Pages - Deployment failed**
+            Please check the workflow logs for details.
+          edit-mode: "replace"

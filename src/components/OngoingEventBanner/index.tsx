@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
 const config = {
-  enabled: false,
-  visibleStartUtc: Date.parse('2025-02-27T18:00:00Z'), // UTC time
-  visibleEndUtc: Date.parse('2025-03-02T18:00:00Z'), // UTC time
-  title: "HackIllinois, UIUC's premier collegiate hackathon, is happening now!",
-  link: 'https://hackillinois.org',
-  linkTitle: 'Learn more',
+  enabled: true,
+  visibleStartUtc: Date.parse('2025-09-02T17:00:00Z'), // UTC time
+  visibleEndUtc: Date.parse('2025-09-03T02:00:00Z'), // UTC time
+  title: "ACM Open House is happening from 6PM to 9PM today!",
+  link: '/open-house', // relative path to the page
+  linkTitle: 'View booth information.',
   bgColor: '#000000',
 };
 

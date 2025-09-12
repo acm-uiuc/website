@@ -105,7 +105,6 @@ export default function Hero({ upcomingEvents, eventsLoading }: HeroProps) {
               <a
                 className="flex flex-col w-full sm:w-fit md:px-10 px-12 py-3 items-center text-white text-center text-2xl rounded-full bg-primary hover:bg-secondary transition-all"
                 href="/join"
-                target="_blank"
                 rel="noopener noreferrer"
               >
                 Join Now
@@ -224,7 +223,7 @@ export default function Hero({ upcomingEvents, eventsLoading }: HeroProps) {
                     }
                     const url =
                       config['addCalendarLinks']['majorEvents'][
-                        selectedCalPlatform
+                      selectedCalPlatform
                       ];
                     window.open(url, '_blank')?.focus();
                   }}

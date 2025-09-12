@@ -3,15 +3,14 @@
 import Script from 'next/script';
 import Hero from '@/components/Hero';
 import NewsletterPopup from '@/components/NewsletterPopup';
-import Sponsors from '@/components/Sponsors';
 import Transition from '@/components/Transition';
 import Sigscard from '@/sections/home/Sigscard';
 import { useEffect, useState } from 'react';
 import { IEvent } from '@/components/Events/events';
-import moment from 'moment';
-import { getEventsAfter } from '@/utils/dateutils';
 import { AllSigData } from '@/utils/organizations';
 import { fetchUpcomingEvents } from '@/utils/api';
+import moment from 'moment';
+import { getEventsAfter } from '@/utils/dateutils';
 
 export default function Home() {
   const [upcomingEvents, setUpcomingEvents] = useState<IEvent[]>([]);

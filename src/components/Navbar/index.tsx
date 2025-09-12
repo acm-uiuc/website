@@ -31,10 +31,10 @@ export default function Navbar() {
   };
 
   return (
-    <div className="bg-acmdark text-white">
+    <div className="bg-primary-300 text-white">
       <StickyHeader />
       {!prod ? <DevModePopup /> : null}
-      <div className="relative">
+      <div className="relative max-h-15vh">
         <header className="container flex flex-row justify-between py-4">
           <Link href="/">
             <img
@@ -60,7 +60,7 @@ export default function Navbar() {
               <span className={styles.hambLine}></span>
             </label>
             <nav
-              className="z-50 absolute left-0 top-full w-full h-0 overflow-hidden lg:flex lg:relative lg:top-0 lg:h-auto lg:overflow-visible peer-checked:max-lg:h-screen peer-checked:max-lg:bg-acmdark"
+              className="z-50 absolute left-0 top-full w-full h-0 overflow-hidden lg:flex lg:relative lg:top-0 lg:h-auto lg:overflow-visible peer-checked:max-lg:h-screen peer-checked:max-lg:bg-primary-300"
               style={{ transition: 'all 0.2s ease-out' }}
             >
               <ul className="flex flex-col lg:flex-row my-4 gap-x-6 gap-y-12 p-4 max-lg:container">
@@ -110,7 +110,7 @@ export default function Navbar() {
                 </li> */}
                 <li>
                   <NavLink href="/merch-store" onClick={uncheck}>
-                    Merch
+                    Store
                   </NavLink>
                 </li>
                 <li>

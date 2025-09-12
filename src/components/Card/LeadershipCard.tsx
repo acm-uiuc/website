@@ -23,7 +23,7 @@ export default function LeadershipCard({
           alt={name}
         />
       ) : null}
-      <p className="text-3xl text-acmdark font-bold">{title}</p>
+      <p className="text-3xl text-primary font-bold">{title}</p>
       <p className="text-xl">{name}</p>
     </div>
   );

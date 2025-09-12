@@ -74,7 +74,7 @@ export default function CalendarControls({
               resetDate();
             }}
             variant="bordered"
-            className="border-surface-000 border-1 bg-primary text-white hover:cursor-pointer hidden md:block"
+            className="border-surface-000 border-1 bg-yale_blue text-white hover:cursor-pointer hidden md:block"
           >
             Today
           </Button>
@@ -85,7 +85,7 @@ export default function CalendarControls({
                 changeDate(-1, currView);
               }}
               variant="bordered"
-              className="border-surface-000 border-1 bg-primary text-white hover:cursor-pointer "
+              className="border-surface-000 border-1 bg-yale_blue text-white hover:cursor-pointer "
             >
               <FaArrowLeft />
             </Button>
@@ -96,7 +96,7 @@ export default function CalendarControls({
                 changeDate(1, currView);
               }}
               variant="bordered"
-              className="border-surface-000 border-1 bg-primary text-white hover:cursor-pointer"
+              className="border-surface-000 border-1 bg-yale_blue text-white hover:cursor-pointer"
             >
               <FaArrowRight />
             </Button>

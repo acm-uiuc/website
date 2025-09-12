@@ -1,5 +1,8 @@
 'use client';
 
+import { buttonStyles } from "@/components/Hero";
+import config from "@/config.json"
+
 const MembershipOptions = () => {
   return (
     <>
@@ -11,7 +14,7 @@ const MembershipOptions = () => {
         <p className="text-gray-300 text-center max-w-3xl mx-auto">
           Becoming a paid member unlocks exclusive benefits like our resume book, Latea discount, discounts on events, free printing, and more!
           <a
-            href="https://go.acm.illinois.edu/paid-member-guide"
+            href={config.paidMemberGuide}
             target="_blank"
             rel="noopener noreferrer"
             className="font-semibold text-white underline hover:text-secondary transition-colors ml-1"
@@ -23,7 +26,7 @@ const MembershipOptions = () => {
         <div className="max-md:my-8 lg:my-10 w-full max-w-6xl text-center">
           <a
             href="/check-membership"
-            className="block w-full sm:w-fit mx-auto px-16 py-3 text-white text-center text-xl rounded-full bg-blush-400 hover:bg-blush-600 transition-all"
+            className={`block w-full sm:w-fit mx-auto px-16 py-3 text-white text-center text-xl rounded-full ${buttonStyles} transition-all`}
           >
             Already a member? Get your verification pass here!
           </a>
@@ -38,7 +41,7 @@ const MembershipOptions = () => {
             </p>
             <a
               className="flex flex-col w-full sm:w-fit px-16 py-3 items-center text-white text-center text-xl rounded-full bg-atomic_tangerine-400 hover:bg-atomic_tangerine-600 transition-all"
-              href="https://discord.gg/w8kX7YgD3F"
+              href={config.discordInvite}
               target="_blank"
               rel="noopener noreferrer"
             >

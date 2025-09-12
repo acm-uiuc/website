@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { FaRegTimesCircle } from 'react-icons/fa';
+import config from "@/config.json"
 
 import styles from './index.module.css';
 
@@ -43,7 +44,7 @@ export default function NewsletterPopup() {
         </p>
         <a
           className="flex flex-col w-full p-2 items-center text-white text-center rounded-full bg-yale_blue hover:bg-secondary transition-all"
-          href="https://listmonk.acm.illinois.edu/subscription/form"
+          href={config.mailingListSignup}
           target="_blank"
           rel="noopener noreferrer"
         >

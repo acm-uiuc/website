@@ -34,7 +34,7 @@ export default function Navbar() {
     <div className="bg-primary-300 text-white">
       <StickyHeader />
       {!prod ? <DevModePopup /> : null}
-      <div className="relative">
+      <div className="relative max-h-15vh">
         <header className="container flex flex-row justify-between py-4">
           <Link href="/">
             <img
@@ -110,7 +110,7 @@ export default function Navbar() {
                 </li> */}
                 <li>
                   <NavLink href="/merch-store" onClick={uncheck}>
-                    Merch
+                    Store
                   </NavLink>
                 </li>
                 <li>

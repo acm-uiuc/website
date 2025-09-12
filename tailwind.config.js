@@ -15,7 +15,6 @@ module.exports = {
     },
     extend: {
       colors: {
-        acmdark: 'rgb(var(--rgb-acmdark) / <alpha-value>)',
         surface: {
           '000': 'rgb(var(--rgb-surface-000) / <alpha-value>)',
           '050': 'rgb(var(--rgb-surface-050) / <alpha-value>)',

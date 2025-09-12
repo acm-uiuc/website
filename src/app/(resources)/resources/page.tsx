@@ -131,8 +131,8 @@ const Resources = () => {
             <p>
               CS CARES is a confidential resource for students to discuss
               concerns about potential Code of Conduct violations; feel free to
-              ask them for guidance or support in addressing any academic
-              integrity issues inside and outside of ACM.{' '}
+              ask them for guidance or support in addressing any issues inside
+              and/or outside of ACM.{' '}
               <ExtLink href="https://siebelschool.illinois.edu/about/cs-cares">
                 https://siebelschool.illinois.edu/about/cs-cares
               </ExtLink>

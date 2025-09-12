@@ -57,7 +57,7 @@ function CalendarEventDetail({
         ? `${moment(start).format('h:mm A')} - ${moment(end).format('h:mm A z')} ${timezoneAbbr}`
         : start && `${moment(start).format('h:mm A z')} ${timezoneAbbr}`;
     return (
-      <div className="flex flex-col flex-grow bg-surface-000 break-words border-2 border-acmdark border-opacity-10 mt-2 border-t-transparent border rounded-2xl">
+      <div className="flex flex-col flex-grow bg-surface-000 break-words border-2 border-primary border-opacity-10 mt-2 border-t-transparent border rounded-2xl">
         <div className="text-xl w-full text-surface-000 text-center bg-primary-300 rounded-t-2xl pb-2 pt-2 font-semibold">
           Event Information
         </div>

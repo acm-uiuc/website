@@ -10,7 +10,6 @@ import {
 } from 'react-icons/fa';
 
 import EventCard from '@/components/Card/EventCard';
-import './hero.css';
 
 import headerJpg from './header.jpg';
 import headerWebp from './header.webp';
@@ -82,10 +81,10 @@ export default function Hero({ upcomingEvents, eventsLoading }: HeroProps) {
   };
 
   return (
-    <div className="hero-background">
+    <div className="bg-primary-300">
       <section className="container">
         <div className="flex flex-col gap-4 lg:flex-row pt-8">
-          <div className="h-fit rounded-3xl bg-surface-050 shadow-lg overflow-hidden lg:order-last lg:basis-1/2">
+          <div className="h-fit rounded-3xl shadow-lg overflow-hidden lg:order-last lg:basis-1/2">
             <picture>
               <source type="image/webp" srcSet={headerWebp.src} />
               <Image src={headerJpg} alt="ACM@UIUC" />
@@ -101,17 +100,17 @@ export default function Hero({ upcomingEvents, eventsLoading }: HeroProps) {
               strong network of students and alumni, bringing their diverse
               interests to ACM.
             </p>
-            <div className="flex flex-col max-sm:items-center sm:flex-row gap-4 mb-8">
+            <div className="flex flex-col items-center sm:flex-row gap-4 mb-8">
               <a
-                className="flex flex-col w-full sm:w-fit md:px-10 px-12 py-3 items-center text-white text-center text-2xl rounded-full bg-primary hover:bg-secondary transition-all"
+                className="flex flex-col w-full py-3 sm:px-6 lg:mr-2 items-center text-white text-center text-2xl rounded-full bg-blush-400 hover:bg-blush-600 transition-all"
                 href="/join"
                 rel="noopener noreferrer"
               >
-                Join Now
+                Membership
               </a>
-              <div className="flex flex-row gap-4">
+              <div className="flex flex-row gap-4 w-full items-center">
                 <a
-                  className="flex flex-col w-full sm:w-fit px-8 xl:ml-20 py-3 items-center text-primary text-center text-2xl rounded-full bg-surface-000 hover:bg-surface-150 transition-all"
+                  className="align-middle flex flex-col w-full sm:w-fit px-8 py-3 items-center text-primary text-center text-2xl rounded-full bg-surface-000 hover:bg-surface-150 transition-all"
                   href="https://go.acm.illinois.edu/donate"
                   title="Donate"
                   target="_blank"
@@ -159,14 +158,14 @@ export default function Hero({ upcomingEvents, eventsLoading }: HeroProps) {
             style={{ gap: '1vw' }}
           >
             <a
-              className="inline-flex flex-row grow-0 items-center gap-2 px-4 py-2 text-white rounded-2xl bg-primary hover:bg-secondary transition-all"
+              className="inline-flex flex-row grow-0 items-center gap-2 px-4 py-2 text-white rounded-2xl bg-yale_blue hover:bg-secondary transition-all"
               href="/calendar"
             >
               <FaCalendar className="shrink-0" />
               <span>View all events</span>
             </a>
             <button
-              className="inline-flex flex-row grow-0 items-center gap-2 px-4 py-2 text-white rounded-2xl bg-primary hover:bg-secondary transition-all"
+              className="inline-flex flex-row grow-0 items-center gap-2 px-4 py-2 text-white rounded-2xl bg-yale_blue hover:bg-secondary transition-all"
               onClick={onOpen}
             >
               <FaCalendarPlus className="shrink-0" />

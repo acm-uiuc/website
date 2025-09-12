@@ -8,7 +8,7 @@ import LeadershipSection from '@/sections/about/LeadershipSection';
 export default function About() {
   return (
     <>
-      <div className="h-5 bg-acmdark flex" />
+      <div className="h-5 bg-primary-300 flex" />
       <Transition bgClass="bg-surface-000" />
       <div className="flex flex-col gap-8 bg-surface-000 pt-6 pb-24">
         <section id="about" className="container flex flex-col gap-4">

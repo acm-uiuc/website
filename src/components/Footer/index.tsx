@@ -19,8 +19,8 @@ function NavLink({
 export default function Footer() {
   return (
     <>
-      <Transition bgClass="bg-acmdark" />
-      <div className="bg-acmdark text-white text-center p-6">
+      <Transition bgClass="bg-primary-300" />
+      <div className="bg-primary-300 text-white text-center p-6">
         <div className="flex flex-col gap-4 items-center">
           <p className="text-2xl font-bold">Connect with ACM @ UIUC</p>
           <div className="flex flex-col sm:flex-row gap-x-8 gap-y-4 items-center">

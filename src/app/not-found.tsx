@@ -112,7 +112,7 @@ const component = function NotFound() {
   }, [displayedText]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-acmdark text-white p-6 w-full">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-primary-300 text-white p-6 w-full">
       <header className="flex flex-col items-center mb-6">
         <Link href="https://acm.illinois.edu/">
           <Image

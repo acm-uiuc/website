@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import ExtLink from '@/components/Link';
 import Transition from '@/components/Transition';
+import config from '@/config.json'
 
 const Resources = () => {
   return (
     <>
-      <div className="h-5 bg-acmdark flex" />
+      <div className="h-5 bg-primary-300 flex" />
       <Transition bgClass="bg-surface-000" />
       <div className="flex flex-col md:flex-row bg-surface-000 pt-6 pb-24">
         {/*table of contents*/}
@@ -15,19 +16,19 @@ const Resources = () => {
             <div className="space-y-4">
               <Link
                 href="#acm-paid-member-guide"
-                className="block p-4 bg-acmdark hover:bg-secondary text-white rounded-lg shadow-md"
+                className="block p-4 bg-primary-300 hover:bg-secondary text-white rounded-lg shadow-md"
               >
                 ACM Paid Member Guide
               </Link>
               <Link
                 href="#cs-cares"
-                className="block p-4 bg-acmdark hover:bg-secondary text-white rounded-lg shadow-md"
+                className="block p-4 bg-primary-300 hover:bg-secondary text-white rounded-lg shadow-md"
               >
                 CS Cares
               </Link>
               <Link
                 href="#feedback"
-                className="block p-4 bg-acmdark hover:bg-secondary text-white rounded-lg shadow-md"
+                className="block p-4 bg-primary-300 hover:bg-secondary text-white rounded-lg shadow-md"
               >
                 Feedback
               </Link>
@@ -60,7 +61,7 @@ const Resources = () => {
               <ExtLink href="https://www.acm.illinois.edu/membership">
                 here
               </ExtLink>{' '}
-              to pay for your membership online. Only $20 for a lifetime ACM
+              to pay for your membership online. Only {config.membershipPrice.replaceAll('.00', '')} for a lifetime ACM
               membership &rarr; $0 per day! You’ll need to pay with a credit or
               debit card.
             </p>

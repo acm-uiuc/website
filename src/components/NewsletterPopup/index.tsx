@@ -42,7 +42,7 @@ export default function NewsletterPopup() {
           our newsletter!
         </p>
         <a
-          className="flex flex-col w-full p-2 items-center text-white text-center rounded-full bg-primary hover:bg-secondary transition-all"
+          className="flex flex-col w-full p-2 items-center text-white text-center rounded-full bg-yale_blue hover:bg-secondary transition-all"
           href="https://listmonk.acm.illinois.edu/subscription/form"
           target="_blank"
           rel="noopener noreferrer"

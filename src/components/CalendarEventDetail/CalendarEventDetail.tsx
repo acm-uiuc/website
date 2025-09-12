@@ -58,7 +58,7 @@ function CalendarEventDetail({
         : start && `${moment(start).format('h:mm A z')} ${timezoneAbbr}`;
     return (
       <div className="flex flex-col flex-grow bg-surface-000 break-words border-2 border-acmdark border-opacity-10 mt-2 border-t-transparent border rounded-2xl">
-        <div className="text-xl w-full text-surface-000 text-center bg-acmdark rounded-t-2xl pb-2 pt-2 font-semibold">
+        <div className="text-xl w-full text-surface-000 text-center bg-primary-300 rounded-t-2xl pb-2 pt-2 font-semibold">
           Event Information
         </div>
         <div className="p-5">
@@ -95,7 +95,7 @@ function CalendarEventDetail({
           <p>{description}</p>
           {paidEventId && (
             <a
-              className="inline-flex flex-row grow-0 items-center gap-2 px-4 py-2 text-white rounded-md bg-primary hover:bg-secondary transition-all"
+              className="inline-flex flex-row grow-0 items-center gap-2 px-4 py-2 text-white rounded-md bg-yale_blue hover:bg-secondary transition-all"
               href={paidEventHref}
               target="_blank"
               rel="noopener noreferrer"

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import ExtLink from '@/components/Link';
 import Transition from '@/components/Transition';
+import config from "@/config.json"
 
 const Resources = () => {
   return (
@@ -60,7 +61,7 @@ const Resources = () => {
               <ExtLink href="https://www.acm.illinois.edu/membership">
                 here
               </ExtLink>{' '}
-              to pay for your membership online. Only $20 for a lifetime ACM
+              to pay for your membership online. Only ${config.membershipPrice} for a lifetime ACM
               membership &rarr; $0 per day! You’ll need to pay with a credit or
               debit card.
             </p>

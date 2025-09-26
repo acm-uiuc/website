@@ -336,7 +336,7 @@ const Payment = () => {
                     }
                     }
                   >
-                    Purchase for {config.membershipPrice}
+                    Purchase for ${config.membershipPrice}
                   </Button >
                 </>
               )}

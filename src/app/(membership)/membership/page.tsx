@@ -173,7 +173,7 @@ const Payment = () => {
                   <a>Loading...</a>
                 </>
               ) : (
-                `Purchase for ${config.membershipPrice}`
+                `Purchase for $${config.membershipPrice}`
               )}
             </Button>
             <p className="text-sm ml-2">

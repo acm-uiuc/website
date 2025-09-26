@@ -21,8 +21,8 @@ const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 import axios from 'axios';
 import Layout from '../MembershipLayout';
 import successAnimation from '../success.json';
-import config from '@/config.json';
 import { getUserAccessToken, initMsalClient } from '@/utils/msal';
+import { MembershipPriceString } from "@acm-uiuc/js-shared"
 import { IPublicClientApplication } from '@azure/msal-browser';
 
 interface ErrorCode {
@@ -336,7 +336,7 @@ const Payment = () => {
                     }
                     }
                   >
-                    Purchase for {config.membershipPrice}
+                    Purchase for {MembershipPriceString}
                   </Button >
                 </>
               )}

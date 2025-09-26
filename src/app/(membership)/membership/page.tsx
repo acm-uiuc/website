@@ -24,6 +24,7 @@ import { useSearchParams } from 'next/navigation';
 import config from '@/config.json';
 import { type IPublicClientApplication } from "@azure/msal-browser";
 import { getUserAccessToken, initMsalClient } from '@/utils/msal';
+import { MembershipPriceString } from '@acm-uiuc/js-shared';
 
 
 interface ErrorCode {
@@ -173,7 +174,7 @@ const Payment = () => {
                   <a>Loading...</a>
                 </>
               ) : (
-                `Purchase for ${config.membershipPrice}`
+                `Purchase for ${MembershipPriceString}`
               )}
             </Button>
             <p className="text-sm ml-2">

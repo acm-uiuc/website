@@ -24,6 +24,7 @@ import axios from 'axios';
 import Layout from '../MembershipLayout';
 import { IPublicClientApplication, AccountInfo } from '@azure/msal-browser';
 import { getUserAccessToken, initMsalClient } from '@/utils/msal';
+import { syncIdentity } from '@/utils/api';
 
 const decimalHelper = (num: number) => {
   if (Number.isInteger(num)) {
@@ -203,6 +204,8 @@ const MerchItem = () => {
         setIsLoading(false);
         return;
       }
+      // fire-and-forget a sync job
+      syncIdentity(accessToken)
       const url = `${baseUrl}/api/v1/checkout/session?itemid=${itemid}&size=${size}&quantity=${quantity}`;
       axios.get(url, { headers: { 'x-uiuc-token': accessToken } })
         .then(response => window.location.replace(response.data))

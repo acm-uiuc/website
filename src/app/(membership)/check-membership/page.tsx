@@ -24,6 +24,7 @@ import successAnimation from '../success.json';
 import { getUserAccessToken, initMsalClient } from '@/utils/msal';
 import { MembershipPriceString } from "@acm-uiuc/js-shared"
 import { IPublicClientApplication } from '@azure/msal-browser';
+import { syncIdentity } from '@/utils/api';
 
 interface ErrorCode {
   code?: number | string;
@@ -112,6 +113,8 @@ const Payment = () => {
     const netId = username.replace("@illinois.edu", "")
     setNetId(netId);
     setIsLoading(true);
+    // fire-and-forget a sync job
+    syncIdentity(accessToken)
     const url = `${baseUrl}/api/v1/membership`;
     axios
       .get(url, { headers: { "x-uiuc-token": accessToken } })

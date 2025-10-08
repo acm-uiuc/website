@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@acm-uiuc/js-shared@^2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@acm-uiuc/js-shared/-/js-shared-2.3.0.tgz#5cc865e60218749ec71afaa220647e2bf6869dc0"
-  integrity sha512-9t3033IegfdPo2DmQfMQT0nk2GfwJfFdUA8U/uS3+uy9q1tvTF2OcVjaUJt97ZjJYMV/6Iic2qP5Rcs40o18Uw==
+"@acm-uiuc/js-shared@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@acm-uiuc/js-shared/-/js-shared-3.2.0.tgz#e4c33cb21e2fe50efa8ec1b0b0a642556b4b037e"
+  integrity sha512-svvwSQgdakUJ5GPIAQG+QFZ47RsjTj5Di+UsM4uD/P94WMkqHpsuQhOal/Z0lxkvpmmSUMDrgAIbzO7TygLtJw==
 
 "@adobe/css-tools@^4.4.0":
   version "4.4.3"

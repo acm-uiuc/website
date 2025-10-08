@@ -1,48 +1,10 @@
-import { AllOrganizationList, SIGList } from "@acm-uiuc/js-shared";
+import {
+  type OrganizationName,
+  getOrgsByType,
+  OrgType,
+} from "@acm-uiuc/js-shared";
 
-export const getOrganizationColor = (org: Organization) => {
-  switch (org) {
-    case 'SIGPwny':
-      return '#33cc55';
-    case 'SIGCHI':
-      return '#EEAE48';
-    case 'GameBuilders':
-      return '#29386D';
-    case 'SIGma':
-      return '#4B65F2';
-    case 'SIGQuantum':
-      return '#233643';
-    case 'GLUG':
-      return '#E94A27';
-    case 'ACM':
-      return '#4577f8';
-    case 'SIGAIDA':
-      return '#BFDDFC';
-    case 'SIGMobile':
-      return '#0C7BBD';
-    case 'SIGMusic':
-      return '#F4DCA3';
-    case 'SIGNLL':
-      return '#F59A23';
-    case 'SIGPolicy':
-      return '#292929';
-    case 'SIGARCH':
-      return '#155CD0';
-    case 'SIGecom':
-      return '#00759A';
-    case 'SIGRobotics':
-      return '#B0B0B0';
-    case 'ICPC':
-      return '#AF2A23';
-    case 'SIGGraph':
-      return '#7896A7';
-    default:
-      return '#4577f8';
-  }
-};
-
-export type SIG = (typeof SIGList)[number];
-export type Organization = (typeof AllOrganizationList)[number];
+export type Organization = OrganizationName;
 
 export interface Link {
   link: string;
@@ -55,7 +17,7 @@ export interface IOrgData {
   links: Link[];
 }
 
-export const OrganizationDataMapping: Record<Organization, IOrgData> = {
+export const OrganizationDataMapping: Record<OrganizationName, IOrgData> = {
   SIGPwny: {
     title: 'SIGPwny',
     description:
@@ -330,6 +292,7 @@ export const OrganizationDataMapping: Record<Organization, IOrgData> = {
 export const getOrganizationInfo = (organization: Organization) =>
   OrganizationDataMapping[organization];
 
-export const AllSigData: IOrgData[] = SIGList.filter(
-  (item) => item in OrganizationDataMapping,
-).map((sig) => OrganizationDataMapping[sig]);
+export const AllSigData: IOrgData[] = getOrgsByType(OrgType.SIG)
+  .map(sig => sig.name)
+  .filter((name) => name in OrganizationDataMapping)
+  .map((name) => OrganizationDataMapping[name]);

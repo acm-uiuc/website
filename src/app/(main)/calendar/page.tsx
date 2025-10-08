@@ -8,12 +8,13 @@ import { Suspense, useEffect, useState } from 'react';
 import CalendarControls from '@/components/CalendarControls';
 import { View, Views } from 'react-big-calendar';
 import { transformApiDates } from '@/utils/dateutils';
-import { AllOrganizationList as OrganizationList } from '@acm-uiuc/js-shared';
+import { OrganizationName, Organizations } from '@acm-uiuc/js-shared';
 import { useSearchParams } from 'next/navigation';
 
 const defaultEvent: CalendarEventDetailProps = {
   description: 'N/A',
 };
+const OrganizationList = Object.values(Organizations).map(x => x.name) as OrganizationName[];
 
 const Calendar = () => {
   const searchParams = useSearchParams();
@@ -26,7 +27,7 @@ const Calendar = () => {
   const [view, setView] = useState<View>(Views.MONTH); // Default view is month
   const [filter, setFilter] = useState(''); // Added filter state
   const [hostFilter, setHostFilter] = useState(
-    OrganizationList.includes(host) ? host : '',
+    OrganizationList.includes(host as OrganizationName) ? host : '',
   );
   const [allEvents, setAllEvents] = useState<IEvent[] | null>(null);
   const [validOrganizations, setValidOrganizations] =

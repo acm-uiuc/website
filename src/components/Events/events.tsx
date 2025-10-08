@@ -10,8 +10,8 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './CalendarStylesOverride.css';
 import { CalendarEventDetailProps } from '@/components/CalendarEventDetail/CalendarEventDetail';
 import { View, NavigateAction } from 'react-big-calendar';
-import { Organization, SIG } from '@/utils/organizations';
-import { SIGList } from '@acm-uiuc/js-shared';
+import { Organization } from '@/utils/organizations';
+import { OrgType, getOrgsByType, type OrganizationName } from '@acm-uiuc/js-shared';
 import { Skeleton } from '@heroui/react';
 import {
   repeatMapping,
@@ -56,9 +56,7 @@ export interface CalendarEvent extends BigCalendarEvent {
 
 export interface EventsProps {
   events: IEvent[] | null;
-  updateEventDetails: React.Dispatch<
-    React.SetStateAction<CalendarEventDetailProps>
-  >;
+  updateEventDetails: React.Dispatch<React.SetStateAction<CalendarEventDetailProps>>
   displayDate: Date;
   updateDisplayDate: React.Dispatch<React.SetStateAction<Date>>;
   filter: string;
@@ -67,15 +65,16 @@ export interface EventsProps {
   setView: React.Dispatch<React.SetStateAction<View>>;
 }
 
+const sigNames = getOrgsByType(OrgType.SIG).map(sig => sig.name);
+
 const getEventColor = (event: CalendarEvent) => {
-  if (SIGList.includes(event.host as SIG)) {
+  if (sigNames.includes(event.host as OrganizationName)) {
     if (event.repeats) {
       return '#3e486f'; // repeating SIG events
     }
-    return '#4B006E';
+    return '#4B006E'; // non-repeating SIG events
   } else {
-    return '#F23F43'; // non-repeating SIG events
-    // return '#4577f8'; // ACM events
+    return '#F23F43'; // ACM events
   }
 };
 

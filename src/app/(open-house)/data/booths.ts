@@ -3,7 +3,7 @@ import {
   Link,
   Organization,
 } from '@/utils/organizations';
-import { SIGList, CommitteeCoreList as CommitteeList, CommitteePartnerList as PartnerList } from '@acm-uiuc/js-shared';
+import { OrgType, getOrgsByType } from '@acm-uiuc/js-shared';
 import { partners } from '../data/partners';
 import { boothDetails } from './details';
 
@@ -21,37 +21,41 @@ export interface Booth {
 
 export type { Booth as BoothType };
 
-const committeeBooths = CommitteeList.map((committee, index) => ({
-  id: index + 1,
-  type: 'Committee',
-  name: committee,
-  logo: `/assets/logos/${committee.toLowerCase().replace(' ', '-')}.png`,
-  description: `${committee} organizes and manages ACM activities.`,
-  tableId: index + 1,
-  keywords: ['committee', committee.toLowerCase()],
-}));
+const committees = getOrgsByType(OrgType.COMMITTEE);
 
-const eventBooths = PartnerList.map((committee, index) => ({
-  id: committeeBooths.length + index + 1,
-  type: 'Committee',
-  name: committee,
-  logo: `/assets/logos/${committee.toLowerCase().replace(' ', '-')}.png`,
-  description: `${committee} is a partner organization.`,
-  tableId: committeeBooths.length + index + 1,
-  keywords: ['committee', committee.toLowerCase()],
-}));
+const committeeBooths = committees
+  .map((committee, index) => ({
+    id: index + 1,
+    type: 'Committee',
+    name: committee.name,
+    logo: `/assets/logos/${committee.shortcode}.png`,
+    description: `${committee.name} organizes and manages ACM activities.`,
+    tableId: index + 1,
+    keywords: ['committee', committee.shortcode],
+  }));
 
-const filteredSIGList = SIGList.filter(
-  (sig) => sig !== 'SIGMobile' && sig !== 'SIGARCH',
-); // Exclude SIGPLAN and SIGMobile
+const eventBooths = committees
+  .map((committee, index) => ({
+    id: committeeBooths.length + index + 1,
+    type: 'Committee',
+    name: committee.name,
+    logo: `/assets/logos/${committee.shortcode}.png`,
+    description: `${committee.name} is a partner organization.`,
+    tableId: committeeBooths.length + index + 1,
+    keywords: ['committee', committee.shortcode],
+  }));
 
-const sigBooths = filteredSIGList.map((sig, index) => {
-  const orgInfo = getOrganizationInfo(sig as Organization);
+const sigs = getOrgsByType(OrgType.SIG).filter(
+  (sig) => sig.name !== 'SIGMobile' && sig.name !== 'SIGARCH'
+);
+
+const sigBooths = sigs.map((sig, index) => {
+  const orgInfo = getOrganizationInfo(sig.name as Organization);
   return {
     id: eventBooths.length + committeeBooths.length + index + 1,
     type: 'SIG',
     name: orgInfo.title,
-    logo: `/assets/logos/${sig.toLowerCase()}.png`,
+    logo: `/assets/logos/${sig.shortcode}.png`,
     description: orgInfo.description,
     tableId: eventBooths.length + committeeBooths.length + index + 1,
     keywords: orgInfo.description.split(' '), // Generate Keywords from description

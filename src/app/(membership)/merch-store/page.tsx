@@ -88,7 +88,7 @@ const MerchStore = () => {
                     color="primary"
                     size="lg"
                     as={Link}
-                    href={'../merch/' + val['item_id']}
+                    href={'../merch?id=' + val['item_id']}
                   >
                     Purchase
                   </Button>

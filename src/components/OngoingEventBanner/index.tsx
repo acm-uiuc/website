@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 
 const config = {
   enabled: true,
-  visibleStartUtc: Date.parse('2025-01-01T17:00:00Z'), // UTC time
-  visibleEndUtc: Date.parse('2025-12-31T02:00:00Z'), // UTC time
-  title: "ACM is experiencing issues due to an ongoing AWS incident.",
-  link: 'https://status.acm.illinois.edu/', // relative path to the page
-  linkTitle: 'View service status.',
+  visibleStartUtc: Date.parse('2025-09-02T17:00:00Z'), // UTC time
+  visibleEndUtc: Date.parse('2025-09-03T02:00:00Z'), // UTC time
+  title: "ACM Open House is happening from 6PM to 9PM today!",
+  link: '/open-house', // relative path to the page
+  linkTitle: 'View booth information.',
   bgColor: '#000000',
 };
 

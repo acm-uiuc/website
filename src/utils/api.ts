@@ -16,7 +16,7 @@ export async function fetchUpcomingEvents() {
 
 export const syncIdentity = async (accessToken: string) => {
   // If this fails we don't care its just best effort.
-  const syncRequired = checkIfSyncNeeded(accessToken)
+  const syncRequired = await checkIfSyncNeeded(accessToken)
   if (!syncRequired) {
     return;
   }

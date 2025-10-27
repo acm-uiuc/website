@@ -23,6 +23,7 @@ import successAnimation from '../../success.json';
 import { useSearchParams } from 'next/navigation';
 import { type IPublicClientApplication } from "@azure/msal-browser";
 import { getUserAccessToken, initMsalClient } from '@/utils/msal';
+import { syncIdentity } from '@/utils/api';
 
 
 interface ErrorCode {
@@ -72,11 +73,8 @@ const Sync = () => {
       modalErrorMessage.onOpen();
       return;
     }
-    const url = `${baseUrl}/api/v1/syncIdentity`;
-    axios
-      .post(url, {}, {
-        headers: { 'x-uiuc-token': accessToken }
-      })
+
+    syncIdentity(accessToken)
       .then(() => {
         modalSynced.onOpen();
         setIsLoading(false);

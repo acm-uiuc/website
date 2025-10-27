@@ -113,8 +113,7 @@ const Payment = () => {
     const netId = username.replace("@illinois.edu", "")
     setNetId(netId);
     setIsLoading(true);
-    // fire-and-forget a sync job
-    syncIdentity(accessToken)
+    await syncIdentity(accessToken)
     const url = `${baseUrl}/api/v1/membership`;
     axios
       .get(url, { headers: { "x-uiuc-token": accessToken } })

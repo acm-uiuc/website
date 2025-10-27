@@ -204,8 +204,7 @@ const MerchItem = () => {
         setIsLoading(false);
         return;
       }
-      // fire-and-forget a sync job
-      syncIdentity(accessToken)
+      await syncIdentity(accessToken)
       const url = `${baseUrl}/api/v1/checkout/session?itemid=${itemid}&size=${size}&quantity=${quantity}`;
       axios.get(url, { headers: { 'x-uiuc-token': accessToken } })
         .then(response => window.location.replace(response.data))

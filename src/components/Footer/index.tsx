@@ -24,7 +24,7 @@ export default function Footer() {
         <div className="flex flex-col gap-4 items-center">
           <p className="text-2xl font-bold">Connect with ACM @ UIUC</p>
           <div className="flex flex-col sm:flex-row gap-x-8 gap-y-4 items-center">
-            <NavLink href="https://go.acm.illinois.edu/discord">
+            <NavLink href="https://acm.gg/discord">
               Discord
             </NavLink>
             <NavLink href="https://www.linkedin.com/company/acm-uiuc">LinkedIn</NavLink>

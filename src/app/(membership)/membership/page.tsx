@@ -156,7 +156,7 @@ const Payment = () => {
             </p>
             <a
               className="text-primary"
-              href="https://go.acm.illinois.edu/paid-member-guide"
+              href="https://acm.gg/paid-member-guide"
               target="_blank"
               rel="noopener noreferrer"
             >

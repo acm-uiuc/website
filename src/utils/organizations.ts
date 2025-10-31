@@ -39,7 +39,7 @@ export const OrganizationDataMapping: Record<OrganizationName, IOrgData> = {
       'We are the premier data science organization at UIUC, inspiring students to reshape their perspective on data.',
     links: [
       {
-        link: 'https://go.acm.illinois.edu/aida_discord',
+        link: 'https://acm.gg/aida_discord',
         text: 'Discord',
       },
     ],
@@ -99,7 +99,7 @@ export const OrganizationDataMapping: Record<OrganizationName, IOrgData> = {
         text: 'Website',
       },
       {
-        link: 'http://go.acm.illinois.edu/icpc_discord',
+        link: 'http://acm.gg/icpc_discord',
         text: 'Discord',
       },
     ],
@@ -148,7 +148,7 @@ export const OrganizationDataMapping: Record<OrganizationName, IOrgData> = {
         text: 'Website',
       },
       {
-        link: 'http://go.acm.illinois.edu/sigmusic_discord',
+        link: 'http://acm.gg/sigmusic_discord',
         text: 'Discord',
       },
     ],
@@ -196,7 +196,7 @@ export const OrganizationDataMapping: Record<OrganizationName, IOrgData> = {
       'Learn about the intersection of economics and computation. Open to all, regardless of background.',
     links: [
       {
-        link: 'https://go.acm.illinois.edu/ecom_discord',
+        link: 'https://acm.gg/ecom_discord',
         text: 'Discord',
       },
     ],
@@ -207,7 +207,7 @@ export const OrganizationDataMapping: Record<OrganizationName, IOrgData> = {
       'Learn about the theory behind programming languages and type systems, and then make projects!',
     links: [
       {
-        link: 'https://go.acm.illinois.edu/sigplan_discord',
+        link: 'https://acm.gg/sigplan_discord',
         text: 'Discord',
       },
     ],
@@ -282,7 +282,7 @@ export const OrganizationDataMapping: Record<OrganizationName, IOrgData> = {
         text: 'Website',
       },
       {
-        link: 'https://go.acm.illinois.edu/discord',
+        link: 'https://acm.gg/discord',
         text: 'Discord',
       },
     ],

@@ -147,7 +147,7 @@ const Resources = () => {
             <p>
               We value your experience and want to create the most supportive
               and inclusive community possible. This anonymous{' '}
-              <ExtLink href="https://go.acm.illinois.edu/feedback">
+              <ExtLink href="https://acm.gg/feedback">
                 feedback form
               </ExtLink>{' '}
               is your opportunity to share your thoughts, concerns, or

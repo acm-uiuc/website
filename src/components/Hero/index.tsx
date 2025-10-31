@@ -113,7 +113,7 @@ export default function Hero({ upcomingEvents, eventsLoading }: HeroProps) {
               <div className="flex flex-row gap-4">
                 <a
                   className="flex flex-col w-full sm:w-fit px-8 xl:ml-20 py-3 items-center text-primary text-center text-2xl rounded-full bg-surface-000 hover:bg-surface-150 transition-all"
-                  href="https://go.acm.illinois.edu/donate"
+                  href="https://acm.gg/donate"
                   title="Donate"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -131,7 +131,7 @@ export default function Hero({ upcomingEvents, eventsLoading }: HeroProps) {
                 </a>
                 <a
                   className="flex flex-col p-3 items-center text-primary text-center rounded-full bg-surface-000 hover:bg-surface-150 transition-all"
-                  href="https://go.acm.illinois.edu/discord"
+                  href="https://acm.gg/discord"
                   title="Discord"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -224,7 +224,7 @@ export default function Hero({ upcomingEvents, eventsLoading }: HeroProps) {
                     }
                     const url =
                       config['addCalendarLinks']['majorEvents'][
-                        selectedCalPlatform
+                      selectedCalPlatform
                       ];
                     window.open(url, '_blank')?.focus();
                   }}

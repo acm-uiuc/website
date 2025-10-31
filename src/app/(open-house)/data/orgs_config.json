@@ -5,7 +5,12 @@
     "logo": "./img/open-house/logos/sigaidalogo.png",
     "demo_time": null,
     "type": "sig",
-    "links": [{ "text": "Discord", "link": "https://discord.gg/FUF3drS4Fd" }]
+    "links": [
+      {
+        "text": "Discord",
+        "link": "https://discord.gg/FUF3drS4Fd"
+      }
+    ]
   },
   "sigarch": {
     "name": "SIGARCH",
@@ -14,8 +19,14 @@
     "demo_time": "8:05 - 8:10 PM",
     "type": "sig",
     "links": [
-      { "text": "Website", "link": "https://sigarch.net/" },
-      { "text": "Discord", "link": "https://discord.gg/Mx8R389hWz" }
+      {
+        "text": "Website",
+        "link": "https://sigarch.net/"
+      },
+      {
+        "text": "Discord",
+        "link": "https://discord.gg/Mx8R389hWz"
+      }
     ]
   },
   "sigchi": {
@@ -25,8 +36,14 @@
     "demo_time": null,
     "type": "sig",
     "links": [
-      { "text": "Website", "link": "https://sigarch.net/" },
-      { "text": "Discord", "link": "https://discord.gg/Mx8R389hWz" }
+      {
+        "text": "Website",
+        "link": "https://sigarch.net/"
+      },
+      {
+        "text": "Discord",
+        "link": "https://discord.gg/Mx8R389hWz"
+      }
     ]
   },
   "sigecom": {
@@ -36,7 +53,10 @@
     "demo_time": null,
     "type": "sig",
     "links": [
-      { "text": "Website", "link": "https://go.acm.illinois.edu/ecom_discord" }
+      {
+        "text": "Website",
+        "link": "https://acm.gg/ecom_discord"
+      }
     ]
   },
   "gamebuilders": {
@@ -107,7 +127,7 @@
       },
       {
         "text": "Discord",
-        "link": "http://go.acm.illinois.edu/icpc_discord"
+        "link": "http://acm.gg/icpc_discord"
       }
     ]
   },
@@ -124,7 +144,7 @@
       },
       {
         "text": "Discord",
-        "link": "http://go.acm.illinois.edu/sigmusic_discord"
+        "link": "http://acm.gg/sigmusic_discord"
       }
     ]
   },
@@ -167,7 +187,7 @@
     "links": [
       {
         "text": "Discord",
-        "link": "https://go.acm.illinois.edu/sigplan_discord"
+        "link": "https://acm.gg/sigplan_discord"
       }
     ]
   },
@@ -239,7 +259,6 @@
       }
     ]
   },
-
   "hack": {
     "name": "HackIllinois",
     "description": "HackIllinois is the premier student-run hackathon at the University of Illinois at Urbana-Champaign. Each spring, HackIllinois hosts nearly a thousand students who work together for a weekend to learn new skills and technologies to create innovative hacks such as websites, mobile apps, and many more!",
@@ -247,8 +266,14 @@
     "demo_time": "7:35 - 7:40 PM",
     "type": "committee",
     "links": [
-      { "text": "Website", "link": "https://www.hackillinois.org/" },
-      { "text": "Linktree", "link": "https://linktr.ee/hackillinois" }
+      {
+        "text": "Website",
+        "link": "https://www.hackillinois.org/"
+      },
+      {
+        "text": "Linktree",
+        "link": "https://linktr.ee/hackillinois"
+      }
     ]
   },
   "rp": {
@@ -258,7 +283,10 @@
     "demo_time": null,
     "type": "committee",
     "links": [
-      { "text": "Website", "link": "https://reflectionsprojections.org/" },
+      {
+        "text": "Website",
+        "link": "https://reflectionsprojections.org/"
+      },
       {
         "text": "Registration",
         "link": "https://reflectionsprojections.org/register"
@@ -272,8 +300,14 @@
     "demo_time": null,
     "type": "committee",
     "links": [
-      { "text": "Website", "link": "https://infra.acm.illinois.edu/" },
-      { "text": "Discord", "link": "https://discord.gg/f29bq5Byd5" }
+      {
+        "text": "Website",
+        "link": "https://infra.acm.illinois.edu/"
+      },
+      {
+        "text": "Discord",
+        "link": "https://discord.gg/f29bq5Byd5"
+      }
     ]
   },
   "marketing": {
@@ -283,7 +317,10 @@
     "demo_time": null,
     "type": "committee",
     "links": [
-      { "text": "Instagram", "link": "https://www.instagram.com/acm.uiuc/" },
+      {
+        "text": "Instagram",
+        "link": "https://www.instagram.com/acm.uiuc/"
+      },
       {
         "text": "Application Form",
         "link": "https://docs.google.com/forms/d/e/1FAIpQLScFNpxaLqDttORoCirmNHPukUqoZiYxMzNBTkaE-vX7hOIPJQ/viewform"
@@ -296,7 +333,12 @@
     "logo": "./img/open-house/logos/social-logo.png",
     "demo_time": null,
     "type": "committee",
-    "links": [{ "text": "Discord", "link": "https://discord.gg/hZ8WwvFy6B" }]
+    "links": [
+      {
+        "text": "Discord",
+        "link": "https://discord.gg/hZ8WwvFy6B"
+      }
+    ]
   },
   "corporate": {
     "name": "Corporate",
@@ -357,7 +399,10 @@
     "demo_time": null,
     "type": "partner",
     "links": [
-      { "text": "Website", "link": "https://wcs.illinois.edu/" },
+      {
+        "text": "Website",
+        "link": "https://wcs.illinois.edu/"
+      },
       {
         "text": "Instagram",
         "link": "https://www.instagram.com/illinoiswcs/"
@@ -371,7 +416,10 @@
     "demo_time": null,
     "type": "partner",
     "links": [
-      { "text": "Website", "link": "https://built-illinois.org/#/Home" },
+      {
+        "text": "Website",
+        "link": "https://built-illinois.org/#/Home"
+      },
       {
         "text": "Instagram",
         "link": "https://www.instagram.com/built_uiuc/"
@@ -385,7 +433,10 @@
     "demo_time": null,
     "type": "partner",
     "links": [
-      { "text": "Linktree", "link": "https://linktr.ee/wicys_illinois" }
+      {
+        "text": "Linktree",
+        "link": "https://linktr.ee/wicys_illinois"
+      }
     ]
   },
   "queercoded": {
@@ -394,7 +445,12 @@
     "logo": "./img/open-house/logos/qc_bitmap.png",
     "demo_time": null,
     "type": "partner",
-    "links": [{"text": "Discord", "link": "https://discord.gg/47eqFA8Jcp"}]
+    "links": [
+      {
+        "text": "Discord",
+        "link": "https://discord.gg/47eqFA8Jcp"
+      }
+    ]
   },
   "wyse": {
     "name": "WYSE",
@@ -403,7 +459,10 @@
     "type": "partner",
     "logo": "./img/open-house/logos/wyse.png",
     "links": [
-      { "text": "Website", "link": "https://wyse.grainger.illinois.edu/" }
+      {
+        "text": "Website",
+        "link": "https://wyse.grainger.illinois.edu/"
+      }
     ]
   },
   "sail": {
@@ -413,7 +472,10 @@
     "type": "partner",
     "logo": "./img/open-house/logos/sail.png",
     "links": [
-      { "text": "Application Form", "link": "https://tinyurl.com/apply-sail-26" }
+      {
+        "text": "Application Form",
+        "link": "https://tinyurl.com/apply-sail-26"
+      }
     ]
   },
   "gwc": {
@@ -423,7 +485,10 @@
     "type": "partner",
     "logo": "./img/open-house/logos/gwc.png",
     "links": [
-      { "text": "Instagram", "link": "https://www.instagram.com/illinoisgwc/" }
+      {
+        "text": "Instagram",
+        "link": "https://www.instagram.com/illinoisgwc/"
+      }
     ]
   },
   "124h": {
@@ -433,7 +498,10 @@
     "type": "partner",
     "logo": "./img/open-house/logos/cs124h.png",
     "links": [
-      { "text": "Website", "link": "https://honors.cs124.org" }
+      {
+        "text": "Website",
+        "link": "https://honors.cs124.org"
+      }
     ]
   },
   "osai": {
@@ -443,7 +511,10 @@
     "type": "partner",
     "logo": "./img/open-house/logos/osai.png",
     "links": [
-      { "text": "Website", "link": "https://www.opensourceatillinois.com/" }
+      {
+        "text": "Website",
+        "link": "https://www.opensourceatillinois.com/"
+      }
     ]
   }
 }

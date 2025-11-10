@@ -47,6 +47,7 @@ enum InputStatus {
 }
 
 const baseUrl = process.env.NEXT_PUBLIC_MERCH_API_BASE_URL;
+const coreBaseUrl = process.env.NEXT_PUBLIC_EVENTS_API_BASE_URL;
 
 const WrappedMerchItem = () => {
   return (
@@ -69,8 +70,12 @@ const MerchItem = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   // New states for tabs and user authentication
-  const [selectedTab, setSelectedTab] = useState('member');
+  const [selectedTab, setSelectedTab] = useState('illinois');
   const [user, setUser] = useState<AccountInfo | null>(null);
+  const [isPaidMember, setIsPaidMember] = useState<boolean | null>(null);
+
+  // State for Illinois email detection
+  const [pendingPurchase, setPendingPurchase] = useState(false);
 
   const modalErrorMessage = useDisclosure();
   const [errorMessage, setErrorMessage] = useState<ErrorCode | null>(null);
@@ -82,8 +87,31 @@ const MerchItem = () => {
       setPca(pcaInstance);
       const account = pcaInstance.getActiveAccount();
       setUser(account);
+
+      // Check membership status if user is already logged in
+      if (account) {
+        try {
+          const accessToken = await getUserAccessToken(pcaInstance);
+          if (accessToken) {
+            const url = `${coreBaseUrl}/api/v1/membership`;
+            const response = await axios.get(url, { headers: { 'x-uiuc-token': accessToken } });
+            setIsPaidMember(response.data.isPaidMember || false);
+          }
+        } catch (error) {
+          console.error('Failed to check membership status:', error);
+          setIsPaidMember(false);
+        }
+      }
     })();
   }, []);
+
+  // Auto-trigger purchase when user logs in with pending purchase
+  useEffect(() => {
+    if (user && pendingPurchase && !isLoading) {
+      setPendingPurchase(false);
+      purchaseHandler();
+    }
+  }, [user, pendingPurchase, isLoading]);
 
   const errorMessageCloseHandler = () => {
     modalErrorMessage.onClose();
@@ -160,6 +188,23 @@ const MerchItem = () => {
     modalErrorMessage.onOpen();
   };
 
+  const checkMembershipStatus = async () => {
+    if (!pca) return;
+
+    try {
+      const accessToken = await getUserAccessToken(pca);
+      if (!accessToken) return;
+
+      const url = `${coreBaseUrl}/api/v1/membership`;
+      const response = await axios.get(url, { headers: { 'x-uiuc-token': accessToken } });
+      setIsPaidMember(response.data.isPaidMember || false);
+    } catch (error) {
+      // Silently fail - if we can't check membership, we'll use non-member pricing
+      console.error('Failed to check membership status:', error);
+      setIsPaidMember(false);
+    }
+  };
+
   const loginHandler = async () => {
     setIsLoading(true);
     if (!pca) {
@@ -172,9 +217,15 @@ const MerchItem = () => {
       await getUserAccessToken(pca);
       const account = pca.getActiveAccount();
       setUser(account);
+
+      // Check membership status after login
+      await checkMembershipStatus();
+
+      // Note: If pendingPurchase is true, the useEffect will automatically trigger the purchase
     } catch (err) {
       setErrorMessage({ code: 403, message: 'Failed to authenticate NetID.' });
       modalErrorMessage.onOpen();
+      setPendingPurchase(false);
     } finally {
       setIsLoading(false);
     }
@@ -183,34 +234,46 @@ const MerchItem = () => {
   const logoutHandler = async () => {
     if (!pca) return;
     setUser(null);
+    setIsPaidMember(null);
     await pca.clearCache();
     await pca.setActiveAccount(null);
+  };
+
+  const completePurchase = async () => {
+    if (!pca) {
+      setErrorMessage({ code: 403, message: 'Authentication service is not initialized.' });
+      modalErrorMessage.onOpen();
+      return;
+    }
+
+    const accessToken = await getUserAccessToken(pca);
+    if (!accessToken) {
+      setErrorMessage({ code: 403, message: 'Failed to retrieve authentication token.' });
+      modalErrorMessage.onOpen();
+      return;
+    }
+
+    await syncIdentity(accessToken);
+
+    const url = `${baseUrl}/api/v1/checkout/session?itemid=${itemid}&size=${size}&quantity=${quantity}`;
+    axios.get(url, { headers: { 'x-uiuc-token': accessToken } })
+      .then(response => window.location.replace(response.data))
+      .catch(handleApiError);
   };
 
   const purchaseHandler = async () => {
     setIsLoading(true);
 
-    if (selectedTab === 'member') {
+    if (selectedTab === 'illinois') {
       if (!pca || !user) {
-        setErrorMessage({ code: 403, message: 'You must be logged in to purchase as a member.' });
+        setErrorMessage({ code: 403, message: 'You must be logged in to purchase with Illinois Checkout.' });
         modalErrorMessage.onOpen();
         setIsLoading(false);
         return;
       }
-      const accessToken = await getUserAccessToken(pca);
-      if (!accessToken) {
-        setErrorMessage({ code: 403, message: 'Failed to retrieve authentication token.' });
-        modalErrorMessage.onOpen();
-        setIsLoading(false);
-        return;
-      }
-      await syncIdentity(accessToken)
-      const url = `${baseUrl}/api/v1/checkout/session?itemid=${itemid}&size=${size}&quantity=${quantity}`;
-      axios.get(url, { headers: { 'x-uiuc-token': accessToken } })
-        .then(response => window.location.replace(response.data))
-        .catch(handleApiError);
-
+      await completePurchase();
     } else { // Guest flow
+      // Non-Illinois email, use guest checkout
       const url = `${baseUrl}/api/v1/checkout/session?itemid=${itemid}&size=${size}&quantity=${quantity}&email=${email}`;
       axios.get(url) // No auth token needed
         .then(response => window.location.replace(response.data))
@@ -244,11 +307,22 @@ const MerchItem = () => {
     return email === emailConfirm ? InputStatus.VALID : InputStatus.INVALID;
   }, [email, emailConfirm]);
 
+  const isIllinoisEmail = useMemo(() => {
+    return email.toLowerCase().endsWith('@illinois.edu');
+  }, [email]);
+
+  // Auto-switch to Illinois Checkout when Illinois email is confirmed
+  useEffect(() => {
+    if (selectedTab === 'guest' && isIllinoisEmail && inputEmailStatus === InputStatus.VALID && inputEmailConfirmStatus === InputStatus.VALID) {
+      setSelectedTab('illinois');
+    }
+  }, [selectedTab, isIllinoisEmail, inputEmailStatus, inputEmailConfirmStatus]);
+
   const isFormValidated = useMemo(() => {
     const commonFieldsValid = size !== '' && inputQuantityStatus === InputStatus.VALID;
     if (!commonFieldsValid) return false;
 
-    if (selectedTab === 'member') {
+    if (selectedTab === 'illinois') {
       return !!user;
     }
     return inputEmailStatus === InputStatus.VALID && inputEmailConfirmStatus === InputStatus.VALID;
@@ -259,11 +333,12 @@ const MerchItem = () => {
     if (!merchList.item_price || isNaN(q) || q <= 0) {
       return '...';
     }
-    const pricePerItem = selectedTab === 'member'
+    // Use member pricing if in Illinois checkout AND user is a paid member
+    const pricePerItem = (selectedTab === 'illinois' && isPaidMember)
       ? merchList.item_price.paid
       : merchList.item_price.others;
     return decimalHelper(pricePerItem * q);
-  }, [quantity, selectedTab, merchList.item_price]);
+  }, [quantity, selectedTab, merchList.item_price, isPaidMember]);
 
   if (Object.keys(merchList).length === 0) {
     if (itemid === '') {
@@ -295,18 +370,28 @@ const MerchItem = () => {
                 selectedKey={selectedTab}
                 onSelectionChange={(key) => setSelectedTab(key as string)}
               >
-                <Tab key="member" title="Member Checkout">
+                <Tab key="illinois" title="Illinois Checkout">
                   <div className="flex flex-col gap-4 pb-4">
                     {!user ? (
                       <>
-                        <p style={{ fontSize: '0.9rem' }}>Log in with your Illinois NetID to apply your member discount.</p>
+                        <p style={{ fontSize: '0.9rem' }}>Log in with your Illinois NetID. Your membership status will be validated at checkout.</p>
                         <Button color="primary" onPress={loginHandler} isLoading={isLoading && !user}>
                           Login with Illinois NetID
                         </Button>
                       </>
                     ) : (
                       <>
-                        <p style={{ fontSize: '0.9rem' }}>Your membership status will be validated at checkout.</p>
+                        {isPaidMember === null ? (
+                          <p style={{ fontSize: '0.9rem' }}>Checking membership status...</p>
+                        ) : isPaidMember ? (
+                          <p style={{ fontSize: '0.9rem', color: '#00a86b' }}>
+                            <b>Paid Member</b> - You qualify for member pricing!
+                          </p>
+                        ) : (
+                          <p style={{ fontSize: '0.9rem', color: '#ff9500' }}>
+                            <b>Not a Paid Member</b> - Non-member pricing will apply.
+                          </p>
+                        )}
                         <div className="flex flex-col">
                           <Input
                             isReadOnly
@@ -398,6 +483,7 @@ const MerchItem = () => {
                       color="primary" size="lg"
                       isDisabled={!isFormValidated || isLoading || totalCapacity() === 0}
                       onPress={purchaseHandler}
+                      isLoading={isLoading}
                     >
                       {isLoading ? 'Processing...' : `Purchase for $${totalPrice}`}
                     </Button>

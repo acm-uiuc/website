@@ -341,7 +341,7 @@ const MerchItem = () => {
   }, [quantity, selectedTab, merchList.item_price, isPaidMember]);
 
   if (Object.keys(merchList).length === 0) {
-    if (itemid === '') {
+    if (itemid === '' && typeof window !== "undefined") {
       window.location.replace('../merch-store');
       return <Layout name="Merch Store"></Layout>;
     }

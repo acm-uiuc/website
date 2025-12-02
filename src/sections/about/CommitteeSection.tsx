@@ -25,12 +25,12 @@ export default function CommitteeSection() {
           href="https://reflectionsprojections.org/"
           chairs={[
             {
-              name: 'Cole Jordan',
-              email: 'coleej2@illinois.edu',
+              name: 'Hazel Lu',
+              email: 'hazellu2@illinois.edu',
             },
             {
-              name: 'Shreenija Daggavolu',
-              email: 'srd8@illinois.edu',
+              name: 'Rini Khandelwal',
+              email: 'rinik2@illinois.edu',
             },
           ]}
         />

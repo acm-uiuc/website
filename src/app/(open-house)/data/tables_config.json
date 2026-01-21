@@ -1,58 +1,23 @@
 {
   "image_details": {
-    "im_height": 1080,
-    "im_width": 1920,
+    "im_height": 2149,
+    "im_width": 541,
     "table_height": 73,
     "table_width": 135.65
   },
   "rows": {
-    "top_outer": {
+    "left": {
       "orientation": "horizontal",
-      "num_tables": 7,
-      "start_x": 483,
-      "start_y": 85.5
+      "num_tables": 14,
+      "start_x": 0,
+      "start_y": 135
     },
-    "left_outer": {
-      "orientation": "vertical",
-      "num_tables": 5,
-      "start_x": 410,
-      "start_y": 211.5
-    },
-    "right_outer": {
-      "orientation": "vertical",
-      "num_tables": 5,
-      "start_x": 1430,
-      "start_y": 211.5
-    },
-    "bottom_outer": {
+    "right": {
       "orientation": "horizontal",
-      "num_tables": 7,
-      "start_x": 483,
-      "start_y": 931.5
-    },
-    "left_inner": {
-      "orientation": "vertical",
-      "num_tables": 3,
-      "start_x": 618.5,
-      "start_y": 347
-    },
-    "top_inner": {
-      "orientation": "horizontal",
-      "num_tables": 5,
-      "start_x": 618.5,
-      "start_y": 275
-    },
-    "right_inner": {
-      "orientation": "vertical",
-      "num_tables": 3,
-      "start_x": 1224,
-      "start_y": 347
-    },
-    "bottom_inner": {
-      "orientation": "horizontal",
-      "num_tables": 5,
-      "start_x": 618.5,
-      "start_y": 754
+      "num_tables": 15,
+      "start_x": 427,
+      "start_y": 1
     }
+    
   }
 }

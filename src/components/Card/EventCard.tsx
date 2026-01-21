@@ -43,7 +43,7 @@ export default function EventCard({ event }: EventProps) {
     repeats,
     paidEventId,
     host,
-    mapLinkId,
+    moreInfoURL,
     location,
   } = event || {};
   const link = event ? getEventURL(event) : '';
@@ -92,10 +92,10 @@ export default function EventCard({ event }: EventProps) {
           </a>
         ) : null}
 
-        {mapLinkId ? (
+        {moreInfoURL ? (
           <a
             className="inline-flex flex-row grow-0 items-center gap-2 px-4 py-2 text-white rounded-2xl bg-primary hover:bg-secondary transition-all"
-            href={mapLinkId}
+            href={moreInfoURL}
             target="_blank"
             rel="noopener noreferrer"
           >

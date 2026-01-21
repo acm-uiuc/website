@@ -149,7 +149,7 @@ const Payment = () => {
           <Divider />
           <CardBody className="gap-4">
             <p>
-              Becoming a Lifetime <b>Paid Member</b> not only sustains the
+              Becoming a <b>Lifetime Paid Member</b> not only sustains the
               continued growth of our communities but also comes with perks such
               as swipe access, free printing, priority access to our computing
               resources, etc.
@@ -178,7 +178,11 @@ const Payment = () => {
               )}
             </Button>
             <p className="text-sm ml-2">
-              Log in with your NetID to purchase a membership.
+              Membership is open to all students, staff,
+              and faculty at UIUC. By becoming a member,
+              you agree to receive email communications
+              from us. You may unsubscribe at any time
+              by clicking the unsubscribe link in any email.
             </p>
           </CardBody>
         </Card>

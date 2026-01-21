@@ -9,15 +9,15 @@ import booths, { Booth } from '../data/booths';
 import tables, { Table } from '../data/tables';
 import React from 'react';
 import CanvasMap from './CanvasMap';
-import * as svgLayoutData from '../data/tables_config.json';
+import * as tablesConfigData from '../data/tables_config.json';
 import * as orgsConfigData from '../data/orgs_config.json';
 import * as assignmentsConfigData from '../data/assignments_config.json';
 
-/* 
-* This has been hacked together twice. This hacking together is at least a bit more modular, 
-* but it needs to be partially redone. Most importantly, there's a lot of typing hacks that assume 
-* a guarantee that the json is properly configured. -JL
-*/
+/*
+ * This has been hacked together twice. This hacking together is at least a bit more modular,
+ * but it needs to be partially redone. Most importantly, there's a lot of typing hacks that assume
+ * a guarantee that the json is properly configured. -JL
+ */
 
 interface BoothSectionProps {
   title: string;
@@ -47,7 +47,8 @@ const BoothSection: React.FC<BoothSectionProps> = ({
     </h3>
     {!collapsed && (
       <div className={styles.boothLogosContainer}>
-        {Object.keys(orgsConfigData).filter((orgId => (orgsConfigData as any)[orgId].type === type))
+        {Object.keys(orgsConfigData)
+          .filter((orgId) => (orgsConfigData as any)[orgId].type === type)
           .map((orgId) => (
             <div
               key={orgId}
@@ -59,13 +60,15 @@ const BoothSection: React.FC<BoothSectionProps> = ({
                   src={(orgsConfigData as any)[orgId].logo}
                   alt={(orgsConfigData as any)[orgId].name}
                   className={`${styles.boothLogo} ${
-                    selectedBooth === orgId
-                      ? styles.selectedBoothLogo
-                      : ''
+                    selectedBooth === orgId ? styles.selectedBoothLogo : ''
                   }`}
                 />
-              ) : ""}
-              <span className={styles.boothLogoName}>{(orgsConfigData as any)[orgId].name}</span>
+              ) : (
+                ''
+              )}
+              <span className={styles.boothLogoName}>
+                {(orgsConfigData as any)[orgId].name}
+              </span>
             </div>
           ))}
       </div>
@@ -79,6 +82,22 @@ export default function VenuePage() {
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isVertical, setIsVertical] = useState(false);
+
+  // Select config based on viewport orientation
+  const svgLayoutData = isVertical
+    ? tablesConfigData.vertical
+    : tablesConfigData.horizontal;
+
+  useEffect(() => {
+    const checkOrientation = () => {
+      setIsVertical(window.innerHeight > window.innerWidth);
+    };
+
+    checkOrientation();
+    window.addEventListener('resize', checkOrientation);
+    return () => window.removeEventListener('resize', checkOrientation);
+  }, []);
 
   const boothOrder = [1, 23];
   const boothTimes: Record<number, string> = {
@@ -120,7 +139,6 @@ export default function VenuePage() {
     return bKeywordMatches - aKeywordMatches;
   });
 
-
   const handleBoothSelect = (booth: string) => {
     if (selectedBooth === booth) {
       setSelectedBooth(null);
@@ -152,37 +170,65 @@ export default function VenuePage() {
   });
 
   const handleClick = (event: React.MouseEvent) => {
-    
     const box = event.currentTarget.getBoundingClientRect();
-    const xnorm = (event.clientX - box.left) / box.width * svgLayoutData.image_details.im_width;
-    const ynorm = (event.clientY - box.top) / box.height * svgLayoutData.image_details.im_height;
-    let row_selected = null;
+    const xnorm =
+      ((event.clientX - box.left) / box.width) *
+      svgLayoutData.image_details.im_width;
+    const ynorm =
+      ((event.clientY - box.top) / box.height) *
+      svgLayoutData.image_details.im_height;
+    let row_selected: string | null = null;
     let idx_selected = -1;
 
     for (const row in svgLayoutData.rows) {
       const row_info = (svgLayoutData as any).rows[row];
-      if (row_info.orientation == "vertical"){
-        if (xnorm >= row_info.start_x && xnorm <= row_info.start_x + svgLayoutData.image_details.table_height && ynorm >= row_info.start_y && ynorm <= row_info.start_y + row_info.num_tables * svgLayoutData.image_details.table_width){
+      if (row_info.orientation == 'vertical') {
+        if (
+          xnorm >= row_info.start_x &&
+          xnorm <=
+            row_info.start_x + svgLayoutData.image_details.table_height &&
+          ynorm >= row_info.start_y &&
+          ynorm <=
+            row_info.start_y +
+              row_info.num_tables * svgLayoutData.image_details.table_width
+        ) {
           row_selected = row;
-          idx_selected = Math.floor((ynorm - row_info.start_y) / svgLayoutData.image_details.table_width);
+          idx_selected = Math.floor(
+            (ynorm - row_info.start_y) /
+              svgLayoutData.image_details.table_width,
+          );
           break;
         }
       }
-      if (row_info.orientation == "horizontal"){
-        if (xnorm >= row_info.start_x && xnorm <= row_info.start_x + row_info.num_tables * svgLayoutData.image_details.table_width && ynorm >= row_info.start_y && ynorm <= row_info.start_y + svgLayoutData.image_details.table_height){
+      if (row_info.orientation == 'horizontal') {
+        if (
+          xnorm >= row_info.start_x &&
+          xnorm <=
+            row_info.start_x +
+              row_info.num_tables * svgLayoutData.image_details.table_width &&
+          ynorm >= row_info.start_y &&
+          ynorm <= row_info.start_y + svgLayoutData.image_details.table_height
+        ) {
           row_selected = row;
-          idx_selected = Math.floor((xnorm - row_info.start_x) / svgLayoutData.image_details.table_width);
+          idx_selected = Math.floor(
+            (xnorm - row_info.start_x) /
+              svgLayoutData.image_details.table_width,
+          );
           break;
         }
       }
     }
 
-    if (row_selected && (assignmentsConfigData as any)[row_selected][idx_selected]){
-      setSelectedBooth((assignmentsConfigData as any)[row_selected][idx_selected]);
+    if (
+      row_selected &&
+      (assignmentsConfigData as any)[row_selected][idx_selected]
+    ) {
+      setSelectedBooth(
+        (assignmentsConfigData as any)[row_selected][idx_selected],
+      );
     } else {
       setSelectedBooth(null);
     }
-    
   };
 
   return (
@@ -218,29 +264,37 @@ export default function VenuePage() {
           >
             <h3>Demo Room Schedule – SCCS 2405</h3>
             <div className={styles.tableList}>
-              {Object.keys(orgsConfigData).map((orgId) => {
-               return [orgId, (orgsConfigData as any)[orgId].name,  (orgsConfigData as any)[orgId].demo_time]
-              }).filter(x => x[2] != null).sort((a, b) => a[2] > b[2] ? 1 : -1).map((data) => {
-                return (
-                  <div
-                    key={data[0]}
-                    className={styles.tableItem}
-                    onClick={() => {
-                      if (selectedBooth != data[0]) {
-                        handleBoothSelect(data[0]);
-                      }
-                      setIsCalendarModalOpen(false);
-                    }}
-                  >
-                    <div className={styles.tableIcon}>
-                      <span>{data[1]}</span>
+              {Object.keys(orgsConfigData)
+                .map((orgId) => {
+                  return [
+                    orgId,
+                    (orgsConfigData as any)[orgId].name,
+                    (orgsConfigData as any)[orgId].demo_time,
+                  ];
+                })
+                .filter((x) => x[2] != null)
+                .sort((a, b) => (a[2] > b[2] ? 1 : -1))
+                .map((data) => {
+                  return (
+                    <div
+                      key={data[0]}
+                      className={styles.tableItem}
+                      onClick={() => {
+                        if (selectedBooth != data[0]) {
+                          handleBoothSelect(data[0]);
+                        }
+                        setIsCalendarModalOpen(false);
+                      }}
+                    >
+                      <div className={styles.tableIcon}>
+                        <span>{data[1]}</span>
+                      </div>
+                      <div className={styles.tableTiming}>
+                        <p>{data[2]}</p>
+                      </div>
                     </div>
-                    <div className={styles.tableTiming}>
-                      <p>{data[2]}</p>
-                    </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
             </div>
             <button
               className={styles.closeCalendarModal}
@@ -253,7 +307,15 @@ export default function VenuePage() {
       )}
 
       <div className={styles.mapAndDetailsContainer}>
-        <div ><img src='/oh_map.svg' id="svg" alt="map of event" style={{ cursor: "pointer", width: "100%" }} onClick={handleClick}/></div>
+        <div>
+          <img
+            src={isVertical ? '/oh_map_vertical.svg' : '/oh_map.svg'}
+            id="svg"
+            alt="map of event"
+            style={{ cursor: 'pointer', width: '100%' }}
+            onClick={handleClick}
+          />
+        </div>
 
         {selectedBooth && (
           <div
@@ -267,17 +329,19 @@ export default function VenuePage() {
 
             {(orgsConfigData as any)[selectedBooth].links && (
               <div className={styles.boothLinks}>
-                {(orgsConfigData as any)[selectedBooth].links.map((link:any, index:any) => (
-                  <a
-                    key={index}
-                    href={link.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ marginRight: '10px' }}
-                  >
-                    {link.text}
-                  </a>
-                ))}
+                {(orgsConfigData as any)[selectedBooth].links.map(
+                  (link: any, index: any) => (
+                    <a
+                      key={index}
+                      href={link.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ marginRight: '10px' }}
+                    >
+                      {link.text}
+                    </a>
+                  ),
+                )}
               </div>
             )}
           </div>

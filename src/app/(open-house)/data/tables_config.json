@@ -1,22 +1,22 @@
 {
   "image_details": {
-    "im_height": 541,
-    "im_width": 2149,
+    "im_height": 524,
+    "im_width": 2283,
     "table_height": 73,
     "table_width": 135.65
   },
   "rows": {
     "left": {
       "orientation": "horizontal",
-      "num_tables": 14,
+      "num_tables": 16,
       "start_x": 135,
-      "start_y": 443
+      "start_y": 427
     },
     "right": {
       "orientation": "horizontal",
       "num_tables": 15,
       "start_x": 135,
-      "start_y": 16
+      "start_y": 0
     }
     
   }

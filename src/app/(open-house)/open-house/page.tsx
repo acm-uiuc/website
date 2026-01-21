@@ -312,7 +312,12 @@ export default function VenuePage() {
             src={isVertical ? '/oh_map_vertical.svg' : '/oh_map.svg'}
             id="svg"
             alt="map of event"
-            style={{ cursor: 'pointer', width: '100%' }}
+            style={{
+              cursor: 'pointer',
+              width: '100%',
+              display: 'block',
+              margin: isVertical ? '0 auto' : undefined,
+            }}
             onClick={handleClick}
           />
         </div>

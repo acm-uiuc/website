@@ -29,13 +29,13 @@
       "table_width": 135.65
     },
     "rows": {
-      "left": {
+      "right": {
         "orientation": "vertical",
         "num_tables": 16,
         "start_x": 427,
         "start_y": 135
       },
-      "right": {
+      "left": {
         "orientation": "vertical",
         "num_tables": 15,
         "start_x": 0,

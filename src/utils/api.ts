@@ -6,7 +6,7 @@ const baseUrl = process.env.NEXT_PUBLIC_EVENTS_API_BASE_URL || '';
 
 export async function fetchUpcomingEvents() {
   try {
-    const response = await fetch(`${baseUrl}/api/v1/events?upcomingOnly=true&featuredOnly=true`);
+    const response = await fetch(`${baseUrl}/api/v1/events?upcomingOnly=true&featuredOnly=true&includeMetadata=true`);
     const rawDates = (await response.json()) as IEvent[];
     return transformApiDates(rawDates);
   } catch (err: any) {

@@ -11,7 +11,7 @@
     "name": "SIGARCH",
     "description": "University of Illinois Urbana-Champaign's student-run computer architecture interest group. We try and make comparch accessible to beginners through workshops and also have paper discussions on bleeding edge comparch topics.",
     "logo": "./img/open-house/logos/sigarchlogo.png",
-    "demo_time": "8:05 - 8:10 PM",
+    "demo_time": null,
     "type": "sig",
     "links": [
       { "text": "Website", "link": "https://sigarch.net/" },
@@ -33,7 +33,7 @@
     "name": "SIGecom",
     "description": "SIGecom, the Special Interest Group in Economics and Computation, focuses on various topics at the intersection of economics and computer science, including algorithmic game theory simulations, applications of AI and Machine Learning in the social sciences and finance, cryptocurrency, and more. ",
     "logo": "./img/open-house/logos/sigecomlogo.png",
-    "demo_time": null,
+    "demo_time": "8:10 - 8:15 PM",
     "type": "sig",
     "links": [
       { "text": "Website", "link": "https://go.acm.illinois.edu/ecom_discord" }
@@ -81,7 +81,7 @@
     "name": "SIGGRAPH",
     "description": "Siggraph@UIUC is Illinois' primary organization for everything Computer Graphics. We cover topics from real-time rendering to extended reality and provide interactive, hands-on workshops where members can gain experience with graphics programming. All backgrounds are welcome and no experience is required! We are passionate about this vast, ever-changing field and can't wait to explore it with you.",
     "logo": "./img/open-house/logos/siggraphlogo.png",
-    "demo_time": "7:50 - 8:00 PM",
+    "demo_time": null,
     "type": "sig",
     "links": [
       {
@@ -191,7 +191,7 @@
   "sigpwny": {
     "name": "SIGPwny",
     "description": "Learn cybersecurity from the ground up, play in competitions, and do research. Beginners welcome!",
-    "demo_time": "7:25 - 7:35 PM",
+    "demo_time": "8:00 - 8:10 PM",
     "logo": "./img/open-house/logos/sigpwnylogo.png",
     "type": "sig",
     "links": [
@@ -240,11 +240,29 @@
     ]
   },
 
+  "sigtricity": {
+    "name": "SIGtricity",
+    "description": "SIGtricity focuses on electrical and computer engineering learning through hands on workshops, interactive topic reviews, and collaborative projects that are open to all majors and experience levels, with a strong emphasis on being beginner friendly.",
+    "demo_time": null,
+    "logo": "./img/open-house/logos/sigtricitylogo.png",
+    "type": "sig",
+    "links": [
+      {
+        "text": "Website",
+        "link": "https://sigtricity.acm.illinois.edu/"
+      },
+      {
+        "text": "Discord",
+        "link": "https://discord.gg/4yRWQuzhEV"
+      }
+    ]
+  },
+
   "hack": {
     "name": "HackIllinois",
     "description": "HackIllinois is the premier student-run hackathon at the University of Illinois at Urbana-Champaign. Each spring, HackIllinois hosts nearly a thousand students who work together for a weekend to learn new skills and technologies to create innovative hacks such as websites, mobile apps, and many more!",
     "logo": "./img/open-house/logos/hackillinoislogo.png",
-    "demo_time": "7:35 - 7:40 PM",
+    "demo_time": null,
     "type": "committee",
     "links": [
       { "text": "Website", "link": "https://www.hackillinois.org/" },
@@ -255,7 +273,7 @@
     "name": "Reflections | Projections",
     "description": "Start your engines and step into the driver’s seat at the Midwest’s largest student-run technology conference! 🏎️ \n\n Hosted at the Siebel Center for Computer Science at UIUC from September 16–20, we’ll race towards the future with guest speakers, tech talks, a career fair, free food/merch, and more. At Reflections | Projections, you’ll reflect on your growth through inspiring talks and project your future by applying new skills and forming connections. Register now for free at reflectionsprojections.org and gear up for the road ahead. 🏁",
     "logo": "./img/open-house/logos/reflections.jpg",
-    "demo_time": null,
+    "demo_time": "8:15 - 8:20 PM",
     "type": "committee",
     "links": [
       { "text": "Website", "link": "https://reflectionsprojections.org/" },
@@ -341,7 +359,7 @@
     "name": "UIUC RetroTech",
     "description": "We discuss, repair, and modify retro and vintage technology! We also have events like CRT watch parties, collaborating with other RSOs, and tabling at VCFMW (Vintage Computer Fest Midwest.) Our meetings are typically in the ECEB OpenLab Thursdays at 7 PM. We are beginner-friendly - you don't need to own or have any experience with repairing retro technology to join.",
     "logo": "./img/open-house/logos/retrotech.png",
-    "demo_time": "8:15 - 8:20 PM",
+    "demo_time": "8:25 - 8:30 PM",
     "type": "partner",
     "links": [
       {
@@ -396,16 +414,6 @@
     "type": "partner",
     "links": [{"text": "Discord", "link": "https://discord.gg/47eqFA8Jcp"}]
   },
-  "wyse": {
-    "name": "WYSE",
-    "description": "WYSE organizes pre-college opportunities for students to explore engineering and the sciences through hands-on, minds-on activities. FACES provides a centralized resource for locating rich and diverse STEAMM content, research support, professional development, and outreach activities for pre-college students & families, K-12 educators, and youth-serving community organizations. James Scholar students can recieve HCLA credit by participating in WYSE/FACES events and RSOs can collaborate on events for STEM community engagement.",
-    "demo_time": "8:10 - 8:15 PM",
-    "type": "partner",
-    "logo": "./img/open-house/logos/wyse.png",
-    "links": [
-      { "text": "Website", "link": "https://wyse.grainger.illinois.edu/" }
-    ]
-  },
   "sail": {
     "name": "CS Sail",
     "description": "CS Sail hosts the largest CS outreach event at Illinois! \n\n Applications open NOW to join our Sail 2026 core staff.\n\nSail is a great way to get involved in Illinois CS, even as a freshman! Build your resume with hands-on experience in technical event management and operations, from planning to execution. You’ll be part of a tight-knit team and make a real difference inspiring the next generation of CS students. (Plus free merch!)\n\nSpots available on software development, logistics, marketing, and design teams.\n\nApplication due Sept 12 @ 11:59pm CT.",
@@ -416,34 +424,14 @@
       { "text": "Application Form", "link": "https://tinyurl.com/apply-sail-26" }
     ]
   },
-  "gwc": {
-    "name": "Girls Who Code UIUC",
-    "description": "Girls Who Code College Loop at UIUC is a student-led organization dedicated to empowering students in technology. We create spaces for members to build skills and confidence through a mix of professional development and community events. This year, we'll host guest speakers from the SWE industry, company talks focused on recruiting and career pathways, and hands-on learn to code workshops where students can explore new technologies. Beyond tech skills, our chapter provides mentorship, networking, and a supportive community to help members succeed in school and prepare for careers in technology.",
-    "demo_time": null,
+  "projectcode": {
+    "name": "Project: Code",
+    "description": "Project: Code is an RSO that connects students with interesting project ideas to students who want to work on interesting projects! A member can either be a Project Manager or a Developer. The PMs present their ideas to the Developers at the start of the semester, Developers are matched with their top project choices, and they go on to build and showcase their project throughout the semester.",
+    "demo_time": "8:20 - 8:25 PM",
     "type": "partner",
-    "logo": "./img/open-house/logos/gwc.png",
+    "logo": "./img/open-house/logos/project-code.png",
     "links": [
-      { "text": "Instagram", "link": "https://www.instagram.com/illinoisgwc/" }
-    ]
-  },
-  "124h": {
-    "name": "CS 124 Honors",
-    "description": "If you are a CS 124 student this semester, then CS124 Honors may be a great add-on for you! This honors section lets you blend creativity and learning through a hands-on, project-based experience. You will work under the support of Project Managers and collaborate closely with other students. You will be a part of a welcoming community and expand your network and expertise through workshops, events, and other enriching opportunities. At the end of this journey, you will have brought a project to life from start to finish! Please check out honors.cs124.org for more info.",
-    "demo_time": null,
-    "type": "partner",
-    "logo": "./img/open-house/logos/cs124h.png",
-    "links": [
-      { "text": "Website", "link": "https://honors.cs124.org" }
-    ]
-  },
-  "osai": {
-    "name": "Open Source at Illinois",
-    "description": "At Open-Source @ Illinois, our primary focus is empowering developers and engineers, enabling them to actively contribute to the tools they rely on. By embracing open-source principles, we aim to cultivate a culture where members freely share ideas, expertise, maintain shared resources, and drive the development of impactful projects that benefit the wider community.",
-    "demo_time": null,
-    "type": "partner",
-    "logo": "./img/open-house/logos/osai.png",
-    "links": [
-      { "text": "Website", "link": "https://www.opensourceatillinois.com/" }
+      { "text": "Website", "link": "https://projectcodeuiuc.org/" }
     ]
   }
 }

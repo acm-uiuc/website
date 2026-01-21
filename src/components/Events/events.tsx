@@ -40,6 +40,7 @@ export interface IEvent {
   paidEventId?: string;
   host?: Organization;
   featured?: boolean;
+  mapLinkId?:string;
   id: string;
 }
 

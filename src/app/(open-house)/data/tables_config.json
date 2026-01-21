@@ -31,13 +31,13 @@
     "rows": {
       "right": {
         "orientation": "vertical",
-        "num_tables": 16,
+        "num_tables": 15,
         "start_x": 427,
         "start_y": 135
       },
       "left": {
         "orientation": "vertical",
-        "num_tables": 15,
+        "num_tables": 16,
         "start_x": 0,
         "start_y": 135
       }

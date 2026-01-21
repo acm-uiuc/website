@@ -40,7 +40,7 @@ export interface IEvent {
   paidEventId?: string;
   host?: Organization;
   featured?: boolean;
-  moreInfoURL?:string;
+  metadata?:Record<string, string>;
   id: string;
 }
 

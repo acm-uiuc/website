@@ -240,6 +240,24 @@
     ]
   },
 
+  "sigtricity": {
+    "name": "SIGtricity",
+    "description": "SIGtricity focuses on electrical and computer engineering learning through hands on workshops, interactive topic reviews, and collaborative projects that are open to all majors and experience levels, with a strong emphasis on being beginner friendly.",
+    "demo_time": null,
+    "logo": "./img/open-house/logos/sigtricitylogo.png",
+    "type": "sig",
+    "links": [
+      {
+        "text": "Website",
+        "link": "https://sigtricity.acm.illinois.edu/"
+      },
+      {
+        "text": "Discord",
+        "link": "https://discord.gg/4yRWQuzhEV"
+      }
+    ]
+  },
+
   "hack": {
     "name": "HackIllinois",
     "description": "HackIllinois is the premier student-run hackathon at the University of Illinois at Urbana-Champaign. Each spring, HackIllinois hosts nearly a thousand students who work together for a weekend to learn new skills and technologies to create innovative hacks such as websites, mobile apps, and many more!",
@@ -396,16 +414,6 @@
     "type": "partner",
     "links": [{"text": "Discord", "link": "https://discord.gg/47eqFA8Jcp"}]
   },
-  "wyse": {
-    "name": "WYSE",
-    "description": "WYSE organizes pre-college opportunities for students to explore engineering and the sciences through hands-on, minds-on activities. FACES provides a centralized resource for locating rich and diverse STEAMM content, research support, professional development, and outreach activities for pre-college students & families, K-12 educators, and youth-serving community organizations. James Scholar students can recieve HCLA credit by participating in WYSE/FACES events and RSOs can collaborate on events for STEM community engagement.",
-    "demo_time": null,
-    "type": "partner",
-    "logo": "./img/open-house/logos/wyse.png",
-    "links": [
-      { "text": "Website", "link": "https://wyse.grainger.illinois.edu/" }
-    ]
-  },
   "sail": {
     "name": "CS Sail",
     "description": "CS Sail hosts the largest CS outreach event at Illinois! \n\n Applications open NOW to join our Sail 2026 core staff.\n\nSail is a great way to get involved in Illinois CS, even as a freshman! Build your resume with hands-on experience in technical event management and operations, from planning to execution. You’ll be part of a tight-knit team and make a real difference inspiring the next generation of CS students. (Plus free merch!)\n\nSpots available on software development, logistics, marketing, and design teams.\n\nApplication due Sept 12 @ 11:59pm CT.",
@@ -414,36 +422,6 @@
     "logo": "./img/open-house/logos/sail.png",
     "links": [
       { "text": "Application Form", "link": "https://tinyurl.com/apply-sail-26" }
-    ]
-  },
-  "gwc": {
-    "name": "Girls Who Code UIUC",
-    "description": "Girls Who Code College Loop at UIUC is a student-led organization dedicated to empowering students in technology. We create spaces for members to build skills and confidence through a mix of professional development and community events. This year, we'll host guest speakers from the SWE industry, company talks focused on recruiting and career pathways, and hands-on learn to code workshops where students can explore new technologies. Beyond tech skills, our chapter provides mentorship, networking, and a supportive community to help members succeed in school and prepare for careers in technology.",
-    "demo_time": null,
-    "type": "partner",
-    "logo": "./img/open-house/logos/gwc.png",
-    "links": [
-      { "text": "Instagram", "link": "https://www.instagram.com/illinoisgwc/" }
-    ]
-  },
-  "124h": {
-    "name": "CS 124 Honors",
-    "description": "If you are a CS 124 student this semester, then CS124 Honors may be a great add-on for you! This honors section lets you blend creativity and learning through a hands-on, project-based experience. You will work under the support of Project Managers and collaborate closely with other students. You will be a part of a welcoming community and expand your network and expertise through workshops, events, and other enriching opportunities. At the end of this journey, you will have brought a project to life from start to finish! Please check out honors.cs124.org for more info.",
-    "demo_time": null,
-    "type": "partner",
-    "logo": "./img/open-house/logos/cs124h.png",
-    "links": [
-      { "text": "Website", "link": "https://honors.cs124.org" }
-    ]
-  },
-  "osai": {
-    "name": "Open Source at Illinois",
-    "description": "At Open-Source @ Illinois, our primary focus is empowering developers and engineers, enabling them to actively contribute to the tools they rely on. By embracing open-source principles, we aim to cultivate a culture where members freely share ideas, expertise, maintain shared resources, and drive the development of impactful projects that benefit the wider community.",
-    "demo_time": null,
-    "type": "partner",
-    "logo": "./img/open-house/logos/osai.png",
-    "links": [
-      { "text": "Website", "link": "https://www.opensourceatillinois.com/" }
     ]
   },
   "projectcode": {

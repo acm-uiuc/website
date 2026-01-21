@@ -43,6 +43,7 @@ export default function EventCard({ event }: EventProps) {
     repeats,
     paidEventId,
     host,
+    mapLinkId,
     location,
   } = event || {};
   const link = event ? getEventURL(event) : '';
@@ -88,6 +89,18 @@ export default function EventCard({ event }: EventProps) {
           >
             <FaSignInAlt className="shrink-0" />
             <span>Register</span>
+          </a>
+        ) : null}
+
+        {mapLinkId ? (
+          <a
+            className="inline-flex flex-row grow-0 items-center gap-2 px-4 py-2 text-white rounded-2xl bg-primary hover:bg-secondary transition-all"
+            href={mapLinkId}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaSignInAlt className="shrink-0" />
+            <span>Details</span>
           </a>
         ) : null}
       </div>

@@ -216,7 +216,7 @@ export default function VenuePage() {
             className={styles.calendarModalContent}
             onClick={(e) => e.stopPropagation()}
           >
-            <h3>Demo Room Schedule – CIF 0018</h3>
+            <h3>Demo Room Schedule – SCCS 2405</h3>
             <div className={styles.tableList}>
               {Object.keys(orgsConfigData).map((orgId) => {
                return [orgId, (orgsConfigData as any)[orgId].name,  (orgsConfigData as any)[orgId].demo_time]

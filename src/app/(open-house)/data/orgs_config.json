@@ -451,7 +451,7 @@
     "description": "Project: Code is an RSO that connects students with interesting project ideas to students who want to work on interesting projects! A member can either be a Project Manager or a Developer. The PMs present their ideas to the Developers at the start of the semester, Developers are matched with their top project choices, and they go on to build and showcase their project throughout the semester.",
     "demo_time": "8:20 - 8:25 PM",
     "type": "partner",
-    "logo": "./img/open-house/logos/osai.png",
+    "logo": "./img/open-house/logos/project-code.png",
     "links": [
       { "text": "Website", "link": "https://projectcodeuiuc.org/" }
     ]

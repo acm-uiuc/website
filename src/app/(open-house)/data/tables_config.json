@@ -1,7 +1,7 @@
 {
   "image_details": {
-    "im_height": 2149,
-    "im_width": 541,
+    "im_height": 541,
+    "im_width": 2149,
     "table_height": 73,
     "table_width": 135.65
   },
@@ -9,14 +9,14 @@
     "left": {
       "orientation": "horizontal",
       "num_tables": 14,
-      "start_x": 0,
-      "start_y": 135
+      "start_x": 135,
+      "start_y": 443
     },
     "right": {
       "orientation": "horizontal",
       "num_tables": 15,
-      "start_x": 427,
-      "start_y": 1
+      "start_x": 135,
+      "start_y": 16
     }
     
   }

@@ -33,7 +33,7 @@
     "name": "SIGecom",
     "description": "SIGecom, the Special Interest Group in Economics and Computation, focuses on various topics at the intersection of economics and computer science, including algorithmic game theory simulations, applications of AI and Machine Learning in the social sciences and finance, cryptocurrency, and more. ",
     "logo": "./img/open-house/logos/sigecomlogo.png",
-    "demo_time": "8:15 - 8:20 PM",
+    "demo_time": "8:10 - 8:15 PM",
     "type": "sig",
     "links": [
       { "text": "Website", "link": "https://go.acm.illinois.edu/ecom_discord" }

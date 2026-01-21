@@ -239,6 +239,22 @@
       }
     ]
   },
+  "sigtricity": {
+    "name": "SIGtricity",
+    "description": "SIGtricity focuses on electrical and computer engineering learning through hands on workshops, interactive topic reviews, and collaborative projects that are open to all majors and experience levels, with a strong emphasis on being beginner friendly.",
+    "demo_time": null,
+    "type": "sig",
+    "links": [
+      {
+        "text": "Website",
+        "link": "https://sigtricity.acm.illinois.edu/"
+      },
+      {
+        "text": "Discord",
+        "link": "https://discord.gg/4yRWQuzhEV"
+      }
+    ]
+  },
 
   "hack": {
     "name": "HackIllinois",

@@ -191,7 +191,7 @@
   "sigpwny": {
     "name": "SIGPwny",
     "description": "Learn cybersecurity from the ground up, play in competitions, and do research. Beginners welcome!",
-    "demo_time": "8:00 - 8:10 PM",
+    "demo_time": null,
     "logo": "./img/open-house/logos/sigpwnylogo.png",
     "type": "sig",
     "links": [

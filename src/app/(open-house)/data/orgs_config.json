@@ -433,5 +433,15 @@
     "links": [
       { "text": "Website", "link": "https://projectcodeuiuc.org/" }
     ]
-  }
+  },
+  "124h": {
+    "name": "CS 124 Honors",
+    "description": "If you are a CS 124 student this semester, then CS124 Honors may be a great add-on for you! This honors section lets you blend creativity and learning through a hands-on, project-based experience. You will work under the support of Project Managers and collaborate closely with other students. You will be a part of a welcoming community and expand your network and expertise through workshops, events, and other enriching opportunities. At the end of this journey, you will have brought a project to life from start to finish! Please check out honors.cs124.org for more info.",
+    "demo_time": null,
+    "type": "partner",
+    "logo": "./img/open-house/logos/cs124h.png",
+    "links": [
+      { "text": "Website", "link": "https://honors.cs124.org" }
+    ]
+  },
 }

@@ -397,30 +397,30 @@ export default function VenuePage() {
 
       <div className={styles.mapAndDetailsContainer}>
         <div>
-          <button
-            type="button"
-            onClick={handleClick}
-            aria-label="Interactive venue map. Click to select a booth."
-            style={{
-              background: 'none',
-              border: 'none',
-              padding: 0,
-              cursor: 'pointer',
-              width: '100%',
-              display: 'block',
-            }}
-          >
-            <img
-              src={isVertical ? '/oh_map_vertical.svg' : '/oh_map.svg'}
-              id="svg"
-              alt="Map of event venue showing booth locations"
-              style={{
-                width: '100%',
-                display: 'block',
-                margin: isVertical ? '0 auto' : undefined,
-              }}
-            />
-          </button>
+          <button  
+            type="button"  
+            onClick={handleClick}  
+            aria-label="Interactive venue map. Click to select a booth."  
+            style={{  
+              background: 'none',  
+              border: 'none',  
+              padding: 0,  
+              cursor: 'pointer',  
+              width: '100%',  
+              display: 'block',  
+            }}  
+          >  
+            <img  
+              src="/oh_map.svg"  
+              className={styles.horizontalMap}  
+              alt="Map of event venue showing booth locations"  
+            />  
+            <img  
+              src="/oh_map_vertical.svg"  
+              className={styles.verticalMap}  
+              alt="Map of event venue showing booth locations"  
+            />  
+          </button>  
         </div>
 
         {selectedBooth && orgsConfigData[selectedBooth] && (

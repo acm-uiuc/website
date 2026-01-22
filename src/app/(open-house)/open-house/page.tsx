@@ -410,17 +410,15 @@ export default function VenuePage() {
               display: 'block',  
             }}  
           >  
-            <img  
-              src="/oh_map.svg"  
-              className={styles.horizontalMap}  
-              alt="Map of event venue showing booth locations"  
-            />  
-            <img  
-              src="/oh_map_vertical.svg"  
-              className={styles.verticalMap}  
-              alt="Map of event venue showing booth locations"  
-            />  
-          </button>  
+            <picture>
+              <source srcSet="/oh_map_vertical.svg" media="(orientation: portrait)" />
+              <img
+                src="/oh_map.svg"
+                className={styles.mapImage}
+                alt="Map of event venue showing booth locations"
+              />
+            </picture>
+          </button>
         </div>
 
         {selectedBooth && orgsConfigData[selectedBooth] && (

@@ -110,21 +110,14 @@
   z-index: 10;
 }
 
-.horizontalMap {  
+.mapImage {  
   width: 100%;  
   display: block;  
 }  
   
-.verticalMap {  
-  display: none;  
-}  
   
-@media (orientation: portrait) {  
-  .horizontalMap {  
-    display: none;  
-  }  
-    
-  .verticalMap {  
+@media (orientation: portrait) {   
+  .mapImage {  
     width: 100%;  
     display: block;  
     margin: 0 auto;  

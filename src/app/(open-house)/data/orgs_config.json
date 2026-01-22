@@ -191,7 +191,7 @@
   "sigpwny": {
     "name": "SIGPwny",
     "description": "Learn cybersecurity from the ground up, play in competitions, and do research. Beginners welcome!",
-    "demo_time": "8:00 - 8:10 PM",
+    "demo_time": null,
     "logo": "./img/open-house/logos/sigpwnylogo.png",
     "type": "sig",
     "links": [
@@ -273,7 +273,7 @@
     "name": "Reflections | Projections",
     "description": "Start your engines and step into the driver’s seat at the Midwest’s largest student-run technology conference! 🏎️ \n\n Hosted at the Siebel Center for Computer Science at UIUC from September 16–20, we’ll race towards the future with guest speakers, tech talks, a career fair, free food/merch, and more. At Reflections | Projections, you’ll reflect on your growth through inspiring talks and project your future by applying new skills and forming connections. Register now for free at reflectionsprojections.org and gear up for the road ahead. 🏁",
     "logo": "./img/open-house/logos/reflections.jpg",
-    "demo_time": "8:15 - 8:20 PM",
+    "demo_time": null,
     "type": "committee",
     "links": [
       { "text": "Website", "link": "https://reflectionsprojections.org/" },

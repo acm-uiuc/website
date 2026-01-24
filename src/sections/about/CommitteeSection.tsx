@@ -84,11 +84,7 @@ export default function CommitteeSection() {
             {
               name: 'Dev Singh',
               email: 'dsingh14@illinois.edu',
-            },
-            {
-              name: 'Kay Rivera',
-              email: 'krive5@illinois.edu',
-            },
+            }
           ]}
         />
       </span>

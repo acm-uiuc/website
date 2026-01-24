@@ -6,7 +6,9 @@ const baseUrl = process.env.NEXT_PUBLIC_EVENTS_API_BASE_URL || '';
 
 export async function fetchUpcomingEvents() {
   try {
-    const response = await fetch(`${baseUrl}/api/v1/events?upcomingOnly=true&featuredOnly=true&includeMetadata=true`);
+    const response = await fetch(
+      `${baseUrl}/api/v1/events?upcomingOnly=true&featuredOnly=true&includeMetadata=true`,
+    );
     const rawDates = (await response.json()) as IEvent[];
     return transformApiDates(rawDates);
   } catch (err: any) {
@@ -14,28 +16,34 @@ export async function fetchUpcomingEvents() {
   }
 }
 
-export const syncIdentity = async (accessToken: string) => {
+export const syncIdentity = async (
+  accessToken: string,
+  force: boolean = false,
+) => {
   // If this fails we don't care its just best effort.
-  const syncRequired = await checkIfSyncNeeded(accessToken)
-  if (!syncRequired) {
-    return;
+  if (!force) {
+    const syncRequired = await checkIfSyncNeeded(accessToken);
+    if (!syncRequired) {
+      return;
+    }
   }
   const url = `${baseUrl}/api/v1/syncIdentity`;
   return await axios
-    .post(url, {}, { headers: { "x-uiuc-token": accessToken } })
+    .post(url, {}, { headers: { 'x-uiuc-token': accessToken } })
     .then(() => {
-      console.log("Synced user identity")
+      console.log('Synced user identity');
     })
     .catch((error) => {
-      console.error(`Failed to sync user identity: ${error}`)
-    })
+      console.error(`Failed to sync user identity: ${error}`);
+    });
 };
 
-
-export const checkIfSyncNeeded = async (accessToken: string): Promise<boolean> => {
+export const checkIfSyncNeeded = async (
+  accessToken: string,
+): Promise<boolean> => {
   const url = `${baseUrl}/api/v1/syncIdentity/isRequired`;
   const response = await axios.get(url, {
-    headers: { "x-uiuc-token": accessToken }
+    headers: { 'x-uiuc-token': accessToken },
   });
   return response.data.syncRequired ?? false;
 };

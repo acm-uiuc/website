@@ -31,12 +31,6 @@ interface ErrorCode {
   message: string;
 }
 
-enum InputStatus {
-  EMPTY,
-  INVALID,
-  VALID,
-}
-
 const baseUrl = process.env.NEXT_PUBLIC_CORE_API_BASE_URL;
 const walletApiBaseUrl = process.env.NEXT_PUBLIC_CORE_API_BASE_URL;
 

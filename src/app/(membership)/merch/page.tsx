@@ -85,7 +85,14 @@ const MerchItem = () => {
 
   const modalErrorMessage = useDisclosure();
   const [errorMessage, setErrorMessage] = useState<ErrorCode | null>(null);
-  const turnstileWidget = (id: string) => <Turnstile id={id} siteKey={turnstileSiteKey} onSuccess={setToken} />;
+  const clearTurnstileToken = () => setToken(undefined);
+  const turnstileWidget = (id: string) => <Turnstile
+    id={id}
+    siteKey={turnstileSiteKey}
+    onSuccess={setToken}
+    onExpire={clearTurnstileToken}
+    onError={clearTurnstileToken}
+  />;
 
   useEffect(() => {
     (async () => {

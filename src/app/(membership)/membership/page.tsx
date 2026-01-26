@@ -38,7 +38,7 @@ enum InputStatus {
   VALID,
 }
 
-const baseUrl = process.env.NEXT_PUBLIC_EVENTS_API_BASE_URL;
+const baseUrl = process.env.NEXT_PUBLIC_CORE_API_BASE_URL;
 const WrappedPayment = () => {
   return (
     <Suspense>

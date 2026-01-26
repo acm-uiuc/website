@@ -25,6 +25,7 @@ import Layout from '../MembershipLayout';
 import { IPublicClientApplication, AccountInfo } from '@azure/msal-browser';
 import { getUserAccessToken, initMsalClient } from '@/utils/msal';
 import { syncIdentity } from '@/utils/api';
+import { Turnstile } from '@marsidev/react-turnstile';
 
 const decimalHelper = (num: number) => {
   if (Number.isInteger(num)) {
@@ -47,7 +48,11 @@ enum InputStatus {
 }
 
 const baseUrl = process.env.NEXT_PUBLIC_MERCH_API_BASE_URL;
-const coreBaseUrl = process.env.NEXT_PUBLIC_EVENTS_API_BASE_URL;
+const coreBaseUrl = process.env.NEXT_PUBLIC_CORE_API_BASE_URL;
+const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+if (!turnstileSiteKey) {
+  throw new Error("Turnstile site key missing.")
+}
 
 const WrappedMerchItem = () => {
   return (
@@ -61,6 +66,7 @@ const MerchItem = () => {
   const itemid = useSearchParams().get('id') || '';
   const [merchList, setMerchList] = useState<Record<string, any>>({});
   const [pca, setPca] = useState<IPublicClientApplication | null>(null);
+  const [token, setToken] = React.useState<string>()
 
   // Form State
   const [email, setEmail] = useState('');
@@ -79,6 +85,14 @@ const MerchItem = () => {
 
   const modalErrorMessage = useDisclosure();
   const [errorMessage, setErrorMessage] = useState<ErrorCode | null>(null);
+  const clearTurnstileToken = () => setToken(undefined);
+  const turnstileWidget = (id: string) => <Turnstile
+    id={id}
+    siteKey={turnstileSiteKey}
+    onSuccess={setToken}
+    onExpire={clearTurnstileToken}
+    onError={clearTurnstileToken}
+  />;
 
   useEffect(() => {
     (async () => {
@@ -243,6 +257,14 @@ const MerchItem = () => {
     if (!pca) {
       setErrorMessage({ code: 403, message: 'Authentication service is not initialized.' });
       modalErrorMessage.onOpen();
+      setIsLoading(false);
+      return;
+    }
+
+    if (!token) {
+      setErrorMessage({ code: 400, message: 'Please complete the security verification.' });
+      modalErrorMessage.onOpen();
+      setIsLoading(false);
       return;
     }
 
@@ -250,19 +272,32 @@ const MerchItem = () => {
     if (!accessToken) {
       setErrorMessage({ code: 403, message: 'Failed to retrieve authentication token.' });
       modalErrorMessage.onOpen();
+      setIsLoading(false);
       return;
     }
 
     await syncIdentity(accessToken);
 
     const url = `${baseUrl}/api/v1/checkout/session?itemid=${itemid}&size=${size}&quantity=${quantity}`;
-    axios.get(url, { headers: { 'x-uiuc-token': accessToken } })
+    axios.get(url, {
+      headers: {
+        'x-uiuc-token': accessToken,
+        'x-turnstile-token': token,
+      }
+    })
       .then(response => window.location.replace(response.data))
       .catch(handleApiError);
   };
 
   const purchaseHandler = async () => {
     setIsLoading(true);
+
+    if (!token) {
+      setErrorMessage({ code: 400, message: 'Please complete the security verification.' });
+      modalErrorMessage.onOpen();
+      setIsLoading(false);
+      return;
+    }
 
     if (selectedTab === 'illinois') {
       if (!pca || !user) {
@@ -275,7 +310,11 @@ const MerchItem = () => {
     } else { // Guest flow
       // Non-Illinois email, use guest checkout
       const url = `${baseUrl}/api/v1/checkout/session?itemid=${itemid}&size=${size}&quantity=${quantity}&email=${email}`;
-      axios.get(url) // No auth token needed
+      axios.get(url, {
+        headers: {
+          'x-turnstile-token': token,
+        }
+      })
         .then(response => window.location.replace(response.data))
         .catch(handleApiError);
     }
@@ -431,6 +470,7 @@ const MerchItem = () => {
                           color={inputQuantityStatus === InputStatus.INVALID ? 'danger' : 'default'}
                           errorMessage={inputQuantityStatus === InputStatus.INVALID && 'Invalid Quantity'}
                         />
+                        {turnstileWidget('wid1')}
                         <Button
                           color="primary" size="lg"
                           isDisabled={!isFormValidated || isLoading || totalCapacity() === 0}
@@ -479,6 +519,7 @@ const MerchItem = () => {
                       color={inputQuantityStatus === InputStatus.INVALID ? 'danger' : 'default'}
                       errorMessage={inputQuantityStatus === InputStatus.INVALID && 'Invalid Quantity'}
                     />
+                    {turnstileWidget('wid2')}
                     <Button
                       color="primary" size="lg"
                       isDisabled={!isFormValidated || isLoading || totalCapacity() === 0}

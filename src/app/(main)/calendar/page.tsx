@@ -33,7 +33,7 @@ const Calendar = () => {
   const [validOrganizations, setValidOrganizations] =
     useState<string[]>(OrganizationList);
   useEffect(() => {
-    const baseurl = process.env.NEXT_PUBLIC_EVENTS_API_BASE_URL;
+    const baseurl = process.env.NEXT_PUBLIC_CORE_API_BASE_URL;
     if (!baseurl) {
       return setAllEvents([]);
     }

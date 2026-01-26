@@ -30,7 +30,7 @@ interface ErrorCode {
   message: string;
 }
 
-const baseUrl = process.env.NEXT_PUBLIC_EVENTS_API_BASE_URL;
+const baseUrl = process.env.NEXT_PUBLIC_CORE_API_BASE_URL;
 const WrappedSync = () => {
   return (
     <Suspense>

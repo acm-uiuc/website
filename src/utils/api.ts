@@ -2,7 +2,7 @@ import { IEvent } from '@/components/Events/events';
 import { transformApiDates } from '@/utils/dateutils';
 import axios from 'axios';
 
-const baseUrl = process.env.NEXT_PUBLIC_EVENTS_API_BASE_URL || '';
+const baseUrl = process.env.NEXT_PUBLIC_CORE_API_BASE_URL || '';
 
 export async function fetchUpcomingEvents() {
   try {

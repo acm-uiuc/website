@@ -26,6 +26,7 @@ import { IPublicClientApplication, AccountInfo } from '@azure/msal-browser';
 import { getUserAccessToken, initMsalClient } from '@/utils/msal';
 import { syncIdentity } from '@/utils/api';
 import { Turnstile } from '@marsidev/react-turnstile';
+import { transformApiResponse } from '../merch-store/transform';
 
 const decimalHelper = (num: number) => {
   if (Number.isInteger(num)) {
@@ -47,9 +48,9 @@ enum InputStatus {
   VALID,
 }
 
-const baseUrl = process.env.NEXT_PUBLIC_MERCH_API_BASE_URL;
 const coreBaseUrl = process.env.NEXT_PUBLIC_CORE_API_BASE_URL;
 const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+
 if (!turnstileSiteKey) {
   throw new Error("Turnstile site key missing.")
 }
@@ -77,6 +78,7 @@ const MerchItem = () => {
 
   // New states for tabs and user authentication
   const [selectedTab, setSelectedTab] = useState('illinois');
+  const [forceIllinoisLogin, setForceIllinoisLogin] = useState<boolean>(false);
   const [user, setUser] = useState<AccountInfo | null>(null);
   const [isPaidMember, setIsPaidMember] = useState<boolean | null>(null);
 
@@ -133,11 +135,15 @@ const MerchItem = () => {
   };
 
   const metaLoader = async () => {
-    const url = `${baseUrl}/api/v1/merch/details?itemid=${itemid}`;
+    const url = `${coreBaseUrl}/api/v1/store/products/${itemid}`;
     axios
       .get(url)
       .then((response) => {
-        setMerchList(response.data);
+        const transformed = transformApiResponse({ products: [response.data] })[0];
+        if (response.data['verifiedIdentityRequired']) {
+          setForceIllinoisLogin(true);
+        }
+        setMerchList(transformed);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -278,14 +284,20 @@ const MerchItem = () => {
 
     await syncIdentity(accessToken);
 
-    const url = `${baseUrl}/api/v1/checkout/session?itemid=${itemid}&size=${size}&quantity=${quantity}`;
-    axios.get(url, {
+    const url = `${coreBaseUrl}/api/v1/store/checkout`;
+    axios.post(url, {
+      items: [
+        { productId: itemid, variantId: size, quantity: parseInt(quantity, 10) }
+      ],
+      successRedirPath: `/merch-paid?id=${itemid}`,
+      cancelRedirPath: `/merch?id=${itemid}`
+    }, {
       headers: {
         'x-uiuc-token': accessToken,
-        'x-turnstile-token': token,
+        'x-turnstile-response': token,
       }
     })
-      .then(response => window.location.replace(response.data))
+      .then(response => window.location.replace(response.data['checkoutUrl']))
       .catch(handleApiError);
   };
 
@@ -309,13 +321,20 @@ const MerchItem = () => {
       await completePurchase();
     } else { // Guest flow
       // Non-Illinois email, use guest checkout
-      const url = `${baseUrl}/api/v1/checkout/session?itemid=${itemid}&size=${size}&quantity=${quantity}&email=${email}`;
-      axios.get(url, {
+      const url = `${coreBaseUrl}/api/v1/store/checkout`;
+      axios.post(url, {
+        items: [
+          { productId: itemid, variantId: size, quantity: parseInt(quantity, 10) }
+        ],
+        successRedirPath: `/merch-paid?id=${itemid}`,
+        cancelRedirPath: `/merch?id=${itemid}`,
+        email
+      }, {
         headers: {
-          'x-turnstile-token': token,
+          'x-turnstile-response': token,
         }
       })
-        .then(response => window.location.replace(response.data))
+        .then(response => window.location.replace(response.data['checkoutUrl']))
         .catch(handleApiError);
     }
   };
@@ -329,7 +348,8 @@ const MerchItem = () => {
     return true;
   };
   const totalCapacity = () => Object.values(merchList.total_avail || {}).reduce((acc: any, val: any) => acc + val, 0);
-  const filterSoldOut = (value: string) => !(value in merchList.total_avail) || merchList.total_avail[value] === 0;
+  const filterSoldOut = (variantId: string) =>
+    !(variantId in merchList.total_avail) || merchList.total_avail[variantId] === 0;
 
   const inputQuantityStatus = useMemo(() => {
     if (quantity === '') return InputStatus.EMPTY;
@@ -397,7 +417,8 @@ const MerchItem = () => {
             <CardBody className="gap-4">
               {merchList['item_image'] && <img alt={merchList['item_name'] + ' image.'} src={merchList['item_image']} />}
               {merchList['description'] && <p style={{ whiteSpace: 'pre-line' }}>{merchList['description']}</p>}
-              {(totalCapacity() as number) < 10 && <p><b>We are running out, order soon!</b></p>}
+              {((totalCapacity() as number) < 10 && (totalCapacity() as number) > 0) && <p><b>We are running out, order soon!</b></p>}
+              {((totalCapacity() as number) == 0) && <p><b>All variants are sold out!</b></p>}
               <p>
                 <b>Cost:</b> ${decimalHelper(merchList['item_price']['paid'])} for members, ${decimalHelper(merchList['item_price']['others'])} for non-members.
               </p>
@@ -455,12 +476,14 @@ const MerchItem = () => {
                           label={merchList['variant_friendly_name'] || 'Size'}
                           placeholder="Select one"
                           selectedKeys={[size]}
-                          disabledKeys={merchList['sizes'].filter(filterSoldOut)}
+                          disabledKeys={merchList['variants']
+                            ?.filter((v: { id: string; name: string }) => filterSoldOut(v.id))
+                            .map((v: { id: string; name: string }) => v.id)}
                           onChange={changeSize}
                         >
-                          {merchList['sizes'].map((val: string) => (
-                            <SelectItem key={val} textValue={val}>
-                              {filterSoldOut(val) ? val + ' [SOLD OUT]' : val}
+                          {merchList['variants']?.map((v: { id: string; name: string }) => (
+                            <SelectItem key={v.id} textValue={v.name}>
+                              {filterSoldOut(v.id) ? v.name + ' [SOLD OUT]' : v.name}
                             </SelectItem>
                           ))}
                         </Select>
@@ -483,53 +506,55 @@ const MerchItem = () => {
                     )}
                   </div>
                 </Tab>
-                <Tab key="guest" title="Guest Checkout">
-                  <div className="flex flex-col gap-4 pb-4">
-                    <p style={{ fontSize: '0.9rem' }}>Continue without logging in. You will be charged the non-member price.</p>
-                    <Input
-                      value={email} onValueChange={setEmail} label="Email" variant="bordered"
-                      isInvalid={inputEmailStatus === InputStatus.INVALID}
-                      color={inputEmailStatus === InputStatus.INVALID ? 'danger' : 'default'}
-                      errorMessage={inputEmailStatus === InputStatus.INVALID && 'Invalid Email'}
-                    />
-                    <Input
-                      value={emailConfirm} onValueChange={setEmailConfirm} label="Confirm Email" variant="bordered"
-                      isInvalid={inputEmailConfirmStatus === InputStatus.INVALID}
-                      color={inputEmailConfirmStatus === InputStatus.INVALID ? 'danger' : 'default'}
-                      errorMessage={inputEmailConfirmStatus === InputStatus.INVALID && 'Emails do not match'}
-                    />
-                    <Divider />
-                    <Select
-                      isRequired
-                      label={merchList['variant_friendly_name'] || 'Size'}
-                      placeholder="Select one"
-                      selectedKeys={[size]}
-                      disabledKeys={merchList['sizes'].filter(filterSoldOut)}
-                      onChange={changeSize}
-                    >
-                      {merchList['sizes'].map((val: string) => (
-                        <SelectItem key={val} textValue={val}>
-                          {filterSoldOut(val) ? val + ' [SOLD OUT]' : val}
-                        </SelectItem>
-                      ))}
-                    </Select>
-                    <Input
-                      value={quantity} onValueChange={setQuantity} label="Quantity" variant="bordered"
-                      isInvalid={inputQuantityStatus === InputStatus.INVALID}
-                      color={inputQuantityStatus === InputStatus.INVALID ? 'danger' : 'default'}
-                      errorMessage={inputQuantityStatus === InputStatus.INVALID && 'Invalid Quantity'}
-                    />
-                    {turnstileWidget('wid2')}
-                    <Button
-                      color="primary" size="lg"
-                      isDisabled={!isFormValidated || isLoading || totalCapacity() === 0}
-                      onPress={purchaseHandler}
-                      isLoading={isLoading}
-                    >
-                      {isLoading ? 'Processing...' : `Purchase for $${totalPrice}`}
-                    </Button>
-                  </div>
-                </Tab>
+                {!forceIllinoisLogin &&
+                  <Tab key="guest" title="Guest Checkout">
+                    <div className="flex flex-col gap-4 pb-4">
+                      <p style={{ fontSize: '0.9rem' }}>Continue without logging in. You will be charged the non-member price.</p>
+                      <Input
+                        value={email} onValueChange={setEmail} label="Email" variant="bordered"
+                        isInvalid={inputEmailStatus === InputStatus.INVALID}
+                        color={inputEmailStatus === InputStatus.INVALID ? 'danger' : 'default'}
+                        errorMessage={inputEmailStatus === InputStatus.INVALID && 'Invalid Email'}
+                      />
+                      <Input
+                        value={emailConfirm} onValueChange={setEmailConfirm} label="Confirm Email" variant="bordered"
+                        isInvalid={inputEmailConfirmStatus === InputStatus.INVALID}
+                        color={inputEmailConfirmStatus === InputStatus.INVALID ? 'danger' : 'default'}
+                        errorMessage={inputEmailConfirmStatus === InputStatus.INVALID && 'Emails do not match'}
+                      />
+                      <Divider />
+                      <Select
+                        isRequired
+                        label={merchList['variant_friendly_name'] || 'Size'}
+                        placeholder="Select one"
+                        selectedKeys={[size]}
+                        disabledKeys={merchList['sizes'].filter(filterSoldOut)}
+                        onChange={changeSize}
+                      >
+                        {merchList['sizes'].map((val: string) => (
+                          <SelectItem key={val} textValue={val}>
+                            {filterSoldOut(val) ? val + ' [SOLD OUT]' : val}
+                          </SelectItem>
+                        ))}
+                      </Select>
+                      <Input
+                        value={quantity} onValueChange={setQuantity} label="Quantity" variant="bordered"
+                        isInvalid={inputQuantityStatus === InputStatus.INVALID}
+                        color={inputQuantityStatus === InputStatus.INVALID ? 'danger' : 'default'}
+                        errorMessage={inputQuantityStatus === InputStatus.INVALID && 'Invalid Quantity'}
+                      />
+                      {turnstileWidget('wid2')}
+                      <Button
+                        color="primary" size="lg"
+                        isDisabled={!isFormValidated || isLoading || totalCapacity() === 0}
+                        onPress={purchaseHandler}
+                        isLoading={isLoading}
+                      >
+                        {isLoading ? 'Processing...' : `Purchase for $${totalPrice}`}
+                      </Button>
+                    </div>
+                  </Tab>
+                }
               </Tabs>
             </CardBody>
           </Card>

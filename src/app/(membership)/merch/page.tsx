@@ -115,6 +115,9 @@ const MerchItem = () => {
   // Cache for membership status checks: Map<cacheKey, isPaidMember>
   const membershipCache = useRef<Map<string, boolean>>(new Map());
 
+  // Track the active membership check to guard against stale async responses
+  const activeMembershipKeyRef = useRef<string | null>(null);
+
   // State for Illinois email detection
   const [pendingPurchase, setPendingPurchase] = useState(false);
 
@@ -150,11 +153,16 @@ const MerchItem = () => {
 
     // If no lists to check, user doesn't qualify for member pricing
     if (!lists || lists.length === 0) {
+      activeMembershipKeyRef.current = null;
       setIsPaidMember(false);
       return;
     }
 
     const cacheKey = createCacheKey(lists);
+
+    // Set active key and reset state for new check
+    activeMembershipKeyRef.current = cacheKey;
+    setIsPaidMember(null);
 
     // Check cache first
     if (membershipCache.current.has(cacheKey)) {
@@ -166,7 +174,12 @@ const MerchItem = () => {
     try {
       const accessToken = await getUserAccessToken(pca);
       if (!accessToken) {
-        setIsPaidMember(false);
+        // Only apply if this is still the active check
+        if (activeMembershipKeyRef.current === cacheKey) {
+          setIsPaidMember(false);
+          activeMembershipKeyRef.current = null;
+          setIsCheckingMembership(false);
+        }
         return;
       }
 
@@ -175,14 +188,21 @@ const MerchItem = () => {
       const response = await axios.get(url, { headers: { 'x-uiuc-token': accessToken } });
       const result = response.data.isPaidMember || false;
 
-      // Cache the result
-      membershipCache.current.set(cacheKey, result);
-      setIsPaidMember(result);
+      // Only apply result if this is still the active check (ignore stale responses)
+      if (activeMembershipKeyRef.current === cacheKey) {
+        membershipCache.current.set(cacheKey, result);
+        setIsPaidMember(result);
+        activeMembershipKeyRef.current = null;
+        setIsCheckingMembership(false);
+      }
     } catch (error) {
       console.error('Failed to check membership status:', error);
-      setIsPaidMember(false);
-    } finally {
-      setIsCheckingMembership(false);
+      // Only apply if this is still the active check
+      if (activeMembershipKeyRef.current === cacheKey) {
+        setIsPaidMember(false);
+        activeMembershipKeyRef.current = null;
+        setIsCheckingMembership(false);
+      }
     }
   }, [pca, user]);
 
@@ -192,6 +212,7 @@ const MerchItem = () => {
       checkMembershipStatus(activeMemberLists);
     } else if (user && activeMemberLists === null) {
       // No variant selected and variants have different memberLists - reset membership status
+      activeMembershipKeyRef.current = null;
       setIsPaidMember(null);
     }
   }, [user, activeMemberLists, checkMembershipStatus]);
@@ -292,8 +313,9 @@ const MerchItem = () => {
       await getUserAccessToken(pca);
       const account = pca.getActiveAccount();
       setUser(account);
-      // Clear cache on new login since it's a potentially different user
+      // Clear cache and active membership key on new login since it's a potentially different user
       membershipCache.current.clear();
+      activeMembershipKeyRef.current = null;
       // Note: membership check will be triggered by the activeMemberLists useEffect
     } catch (err) {
       setErrorMessage({ code: 403, message: 'Failed to authenticate NetID.' });
@@ -308,8 +330,9 @@ const MerchItem = () => {
     if (!pca) return;
     setUser(null);
     setIsPaidMember(null);
-    // Clear cache on logout
+    // Clear cache and active membership key on logout
     membershipCache.current.clear();
+    activeMembershipKeyRef.current = null;
     await pca.clearCache();
     await pca.setActiveAccount(null);
   };
@@ -400,7 +423,8 @@ const MerchItem = () => {
     const num = parseInt(value);
     if (Number.isNaN(num) || num <= 0) return false;
     const maxQty = getMaxQuantity(size);
-    if (maxQty > 0 && num > maxQty) return false;
+    if (maxQty === 0) return false;
+    if (num > maxQty) return false;
     return true;
   };
   const totalCapacity = () => Object.values(merchList.total_avail || {}).reduce((acc: any, val: any) => acc + val, 0);
@@ -611,11 +635,11 @@ const MerchItem = () => {
                           {turnstileWidget('wid1')}
                           <Button
                             color="primary" size="lg"
-                            isDisabled={!isFormValidated || isLoading || totalCapacity() === 0}
+                            isDisabled={!isFormValidated || isLoading || totalCapacity() === 0 || isPaidMember === null}
                             onPress={purchaseHandler}
                             isLoading={isLoading}
                           >
-                            {isLoading ? 'Processing...' : `Purchase for $${totalPrice}`}
+                            {isPaidMember === null ? 'Checking membership...' : isLoading ? 'Processing...' : `Purchase for $${totalPrice}`}
                           </Button>
                         </>
                       )}
@@ -643,12 +667,14 @@ const MerchItem = () => {
                           label={merchList['variant_friendly_name'] || 'Size'}
                           placeholder="Select one"
                           selectedKeys={[size]}
-                          disabledKeys={merchList['sizes'].filter(filterSoldOut)}
+                          disabledKeys={merchList['variants']
+                            ?.filter((v: Variant) => filterSoldOut(v.id))
+                            .map((v: Variant) => v.id)}
                           onChange={changeSize}
                         >
-                          {merchList['sizes'].map((val: string) => (
-                            <SelectItem key={val} textValue={val}>
-                              {filterSoldOut(val) ? val + ' [SOLD OUT]' : val}
+                          {merchList['variants']?.map((v: Variant) => (
+                            <SelectItem key={v.id} textValue={v.name}>
+                              {filterSoldOut(v.id) ? v.name + ' [SOLD OUT]' : v.name}
                             </SelectItem>
                           ))}
                         </Select>

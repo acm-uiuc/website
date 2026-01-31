@@ -1,6 +1,5 @@
 'use client';
-import { Suspense, useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 import {
   Modal,
   ModalContent,
@@ -9,10 +8,8 @@ import {
   ModalFooter,
 } from '@heroui/react';
 import Lottie from 'lottie-react';
-import axios from 'axios';
 import Layout from '../../MembershipLayout';
 import successAnimation from '../../success.json';
-import { transformApiResponse } from '../transform';
 
 const WrappedMerchPaid = () => {
   return (

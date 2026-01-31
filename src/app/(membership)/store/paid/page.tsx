@@ -22,7 +22,7 @@ const WrappedMerchPaid = () => {
 const MerchPaid = () => {
 
   return (
-    <Layout>
+    <Layout name="Store">
       <Modal isOpen={true} onClose={() => window.location.replace('/')}>
         <ModalContent>
           <ModalHeader />

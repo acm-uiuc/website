@@ -14,7 +14,7 @@ import Layout from '../MembershipLayout';
 import successAnimation from '../success.json';
 import { transformApiResponse } from '../merch-store/transform';
 
-const WrapepdMerchPaid = () => {
+const WrappedMerchPaid = () => {
   return (
     <Suspense>
       <MerchPaid />
@@ -39,6 +39,7 @@ const MerchPaid = () => {
     metaLoader();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   if (Object.keys(merchList).length === 0) {
     return <Layout name="Merch Store"></Layout>;
   } else {
@@ -49,14 +50,22 @@ const MerchPaid = () => {
             <ModalHeader />
             <ModalBody className="flex flex-col items-center">
               <p className="text-center text-2xl font-bold">
-                You&apos;ve successfully purchased a {merchList['item_name']}!
+                Thanks for your order!
               </p>
               <Lottie
                 animationData={successAnimation}
                 loop={false}
                 style={{ width: '10em' }}
               />
-              <p>You will be notified when your items are ready for pickup.</p>
+              <p className="text-center">
+                We&apos;ve received your order for a {merchList['item_name']}.
+                You&apos;ll receive an email shortly with your order status and
+                next steps.
+              </p>
+              <p className="mt-4 text-center text-xs text-gray-500">
+                Don&apos;t see our email? Check your spam folder and make sure
+                mail from <span className="font-medium">sales@acm.illinois.edu</span> isn&apos;t blocked.
+              </p>
             </ModalBody>
             <ModalFooter />
           </ModalContent>
@@ -66,4 +75,4 @@ const MerchPaid = () => {
   }
 };
 
-export default WrapepdMerchPaid;
+export default WrappedMerchPaid;

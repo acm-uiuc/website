@@ -21,17 +21,15 @@ import axios from 'axios';
 import Layout from '../../MembershipLayout';
 import successAnimation from '../../success.json';
 import { useSearchParams } from 'next/navigation';
-import { type IPublicClientApplication } from "@azure/msal-browser";
+import { type IPublicClientApplication } from '@azure/msal-browser';
 import { getUserAccessToken, initMsalClient } from '@/utils/msal';
 import { syncIdentity } from '@/utils/api';
-
 
 interface ErrorCode {
   code?: number | string;
   message: string;
 }
 
-const baseUrl = process.env.NEXT_PUBLIC_EVENTS_API_BASE_URL;
 const WrappedSync = () => {
   return (
     <Suspense>
@@ -52,14 +50,14 @@ const Sync = () => {
     (async () => {
       setPca(await initMsalClient());
     })();
-  }, [])
+  }, []);
 
   const syncHandler = useCallback(async () => {
     setIsLoading(true);
     if (!pca) {
       setErrorMessage({
         code: -1,
-        message: "Failed to authenticate NetID."
+        message: 'Failed to authenticate NetID.',
       });
       modalErrorMessage.onOpen();
       return;
@@ -68,13 +66,13 @@ const Sync = () => {
     if (!accessToken) {
       setErrorMessage({
         code: -1,
-        message: "Failed to authenticate NetID."
+        message: 'Failed to authenticate NetID.',
       });
       modalErrorMessage.onOpen();
       return;
     }
 
-    syncIdentity(accessToken)
+    syncIdentity(accessToken, true)
       .then(() => {
         modalSynced.onOpen();
         setIsLoading(false);
@@ -84,7 +82,7 @@ const Sync = () => {
         if (error.response) {
           setErrorMessage({
             code: error.response.status,
-            message: "Failed to sync identity.",
+            message: 'Failed to sync identity.',
           });
         }
       });
@@ -106,7 +104,8 @@ const Sync = () => {
           <Divider />
           <CardBody className="gap-4">
             <p>
-              Only use this tool if prompted to by the ACM @ UIUC Infrastructure Team.
+              Only use this tool if prompted to by the ACM @ UIUC Infrastructure
+              Team.
             </p>
             <Button
               color="primary"
@@ -160,9 +159,7 @@ const Sync = () => {
           <ModalContent>
             <ModalHeader />
             <ModalBody className="flex flex-col items-center">
-              <p className="text-center text-2xl font-bold">
-                Identity synced!
-              </p>
+              <p className="text-center text-2xl font-bold">Identity synced!</p>
               <Lottie
                 animationData={successAnimation}
                 loop={false}

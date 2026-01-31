@@ -37,7 +37,12 @@ jobs:
         run: yarn -D
 
       - name: Build website
-        run: yarn build
+        run: |
+          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            yarn build:prod
+          else
+            yarn build:staging
+          fi
 
       - name: Deploy to Cloudflare
         id: deploy

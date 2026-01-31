@@ -10,6 +10,7 @@ export const initMsalClient = async () => {
     auth: {
       clientId: CLIENT_ID,
       authority: `https://login.microsoftonline.com/${UIUC_ENTRA_ID_TENANT}`,
+      navigateToLoginRequestUrl: false
     },
   });
   await iPca.initialize();

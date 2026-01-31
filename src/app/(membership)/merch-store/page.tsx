@@ -4,10 +4,11 @@ import { useState } from 'react';
 import { Button, Card, CardBody, CardHeader, Link } from '@heroui/react';
 import axios from 'axios';
 import Layout from '../MembershipLayout';
+import { transformApiResponse } from './transform';
 
 const MerchStore = () => {
   const [itemsList, setItemsList] = useState<Array<Record<string, any>>>([]);
-  const baseUrl = process.env.NEXT_PUBLIC_MERCH_API_BASE_URL;
+  const baseUrl = process.env.NEXT_PUBLIC_CORE_API_BASE_URL;
   const decimalHelper = (num: number) => {
     if (Number.isInteger(num)) {
       return num;
@@ -16,13 +17,14 @@ const MerchStore = () => {
     }
   };
   const metaLoader = async () => {
-    const url = `${baseUrl}/api/v1/merch/all_item_details`;
+    const url = `${baseUrl}/api/v1/store/products`;
     axios
       .get(url)
       .then((response) => {
-        setItemsList(response.data);
+        setItemsList(transformApiResponse(response.data));
       })
       .catch((error) => {
+        console.error(error)
         setItemsList([
           {
             member_price: '',
@@ -74,7 +76,7 @@ const MerchStore = () => {
                   <p>
                     <b>Cost:</b> ${decimalHelper(val['item_price']['paid'])} for{' '}
                     {val['valid_member_lists'] &&
-                    val['valid_member_lists'].length > 0
+                      val['valid_member_lists'].length > 0
                       ? 'paid ACM@UIUC and eligible partner organization'
                       : 'paid ACM@UIUC'}{' '}
                     members, ${decimalHelper(val['item_price']['others'])} for

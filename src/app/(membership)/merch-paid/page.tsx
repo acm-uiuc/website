@@ -12,6 +12,7 @@ import Lottie from 'lottie-react';
 import axios from 'axios';
 import Layout from '../MembershipLayout';
 import successAnimation from '../success.json';
+import { transformApiResponse } from '../merch-store/transform';
 
 const WrapepdMerchPaid = () => {
   return (
@@ -25,12 +26,12 @@ const MerchPaid = () => {
   const itemid = useSearchParams().get('id') || '';
   const [merchList, setMerchList] = useState<Record<string, any>>({});
 
-  const baseUrl = process.env.NEXT_PUBLIC_MERCH_API_BASE_URL;
+  const coreBaseUrl = process.env.NEXT_PUBLIC_CORE_API_BASE_URL;
 
   const metaLoader = async () => {
-    const url = `${baseUrl}/api/v1/merch/details?itemid=${itemid}`;
+    const url = `${coreBaseUrl}/api/v1/store/products/${itemid}`;
     axios.get(url).then((response) => {
-      setMerchList(response.data);
+      setMerchList(transformApiResponse({ products: [response.data] })[0]);
     });
   };
 

@@ -25,12 +25,12 @@ export default function CommitteeSection() {
           href="https://reflectionsprojections.org/"
           chairs={[
             {
-              name: 'Cole Jordan',
-              email: 'coleej2@illinois.edu',
+              name: 'Hazel Lu',
+              email: 'hazellu2@illinois.edu',
             },
             {
-              name: 'Shreenija Daggavolu',
-              email: 'srd8@illinois.edu',
+              name: 'Rini Khandelwal',
+              email: 'rinik2@illinois.edu',
             },
           ]}
         />
@@ -38,10 +38,10 @@ export default function CommitteeSection() {
       <span id="hackillinois">
         <Committee
           title="HackIllinois"
-          description="HackIllinois is UIUC's premier collegiate hackathon. 
-          With over 1000 attendees and 50 mentors in 2019, the hackathon 
-          has become one of the largest and most well-regarded in the 
-          nation."
+          description="HackIllinois is UIUC's premier student-run hackathon. 
+          Each spring, nearly 1000 students come together for one weekend 
+          to learn and create innovative hacks such as websites, mobile 
+          apps, and many more!"
           image={hackillinoislogo}
           href="https://hackillinois.org/"
           chairs={[
@@ -84,11 +84,7 @@ export default function CommitteeSection() {
             {
               name: 'Dev Singh',
               email: 'dsingh14@illinois.edu',
-            },
-            {
-              name: 'Kay Rivera',
-              email: 'krive5@illinois.edu',
-            },
+            }
           ]}
         />
       </span>

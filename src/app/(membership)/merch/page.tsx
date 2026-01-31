@@ -1,6 +1,6 @@
 'use client';
 import React, { Suspense } from 'react';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useCallback, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import {
   Button,
@@ -42,6 +42,12 @@ interface ErrorCode {
   title?: string;
 }
 
+interface Variant {
+  id: string;
+  name: string;
+  memberLists?: string[];
+}
+
 enum InputStatus {
   EMPTY,
   INVALID,
@@ -63,6 +69,29 @@ const WrappedMerchItem = () => {
   );
 };
 
+// Helper to check if all variants have the same memberLists
+const getAllVariantsMemberLists = (variants: Variant[] | undefined): string[] | null => {
+  if (!variants || variants.length === 0) return null;
+
+  const firstLists = variants[0].memberLists || [];
+  const firstListsSorted = [...firstLists].sort().join(',');
+
+  const allSame = variants.every(v => {
+    const lists = v.memberLists || [];
+    return [...lists].sort().join(',') === firstListsSorted;
+  });
+
+  if (allSame && firstLists.length > 0) {
+    return firstLists;
+  }
+  return null;
+};
+
+// Helper to create a cache key from lists
+const createCacheKey = (lists: string[]): string => {
+  return [...lists].sort().join(',');
+};
+
 const MerchItem = () => {
   const itemid = useSearchParams().get('id') || '';
   const [merchList, setMerchList] = useState<Record<string, any>>({});
@@ -81,6 +110,10 @@ const MerchItem = () => {
   const [forceIllinoisLogin, setForceIllinoisLogin] = useState<boolean>(false);
   const [user, setUser] = useState<AccountInfo | null>(null);
   const [isPaidMember, setIsPaidMember] = useState<boolean | null>(null);
+  const [isCheckingMembership, setIsCheckingMembership] = useState(false);
+
+  // Cache for membership status checks: Map<cacheKey, isPaidMember>
+  const membershipCache = useRef<Map<string, boolean>>(new Map());
 
   // State for Illinois email detection
   const [pendingPurchase, setPendingPurchase] = useState(false);
@@ -96,6 +129,73 @@ const MerchItem = () => {
     onError={clearTurnstileToken}
   />;
 
+  // Get the selected variant object
+  const selectedVariant = useMemo(() => {
+    if (!size || !merchList.variants) return null;
+    return merchList.variants.find((v: Variant) => v.id === size) || null;
+  }, [size, merchList.variants]);
+
+  // Get memberLists for the selected variant, or common lists if all variants share the same lists
+  const activeMemberLists = useMemo(() => {
+    if (selectedVariant?.memberLists && selectedVariant.memberLists.length > 0) {
+      return selectedVariant.memberLists;
+    }
+    // If no variant selected, check if all variants have the same memberLists
+    return getAllVariantsMemberLists(merchList.variants);
+  }, [selectedVariant, merchList.variants]);
+
+  // Check membership status with specific lists (with caching)
+  const checkMembershipStatus = useCallback(async (lists: string[] | null) => {
+    if (!pca || !user) return;
+
+    // If no lists to check, user doesn't qualify for member pricing
+    if (!lists || lists.length === 0) {
+      setIsPaidMember(false);
+      return;
+    }
+
+    const cacheKey = createCacheKey(lists);
+
+    // Check cache first
+    if (membershipCache.current.has(cacheKey)) {
+      setIsPaidMember(membershipCache.current.get(cacheKey)!);
+      return;
+    }
+
+    setIsCheckingMembership(true);
+    try {
+      const accessToken = await getUserAccessToken(pca);
+      if (!accessToken) {
+        setIsPaidMember(false);
+        return;
+      }
+
+      const listsParam = lists.join(',');
+      const url = `${coreBaseUrl}/api/v1/membership?lists=${encodeURIComponent(listsParam)}`;
+      const response = await axios.get(url, { headers: { 'x-uiuc-token': accessToken } });
+      const result = response.data.isPaidMember || false;
+
+      // Cache the result
+      membershipCache.current.set(cacheKey, result);
+      setIsPaidMember(result);
+    } catch (error) {
+      console.error('Failed to check membership status:', error);
+      setIsPaidMember(false);
+    } finally {
+      setIsCheckingMembership(false);
+    }
+  }, [pca, user]);
+
+  // Re-check membership when activeMemberLists changes (variant selection or initial load)
+  useEffect(() => {
+    if (user && activeMemberLists !== null) {
+      checkMembershipStatus(activeMemberLists);
+    } else if (user && activeMemberLists === null) {
+      // No variant selected and variants have different memberLists - reset membership status
+      setIsPaidMember(null);
+    }
+  }, [user, activeMemberLists, checkMembershipStatus]);
+
   useEffect(() => {
     (async () => {
       metaLoader();
@@ -103,21 +203,7 @@ const MerchItem = () => {
       setPca(pcaInstance);
       const account = pcaInstance.getActiveAccount();
       setUser(account);
-
-      // Check membership status if user is already logged in
-      if (account) {
-        try {
-          const accessToken = await getUserAccessToken(pcaInstance);
-          if (accessToken) {
-            const url = `${coreBaseUrl}/api/v1/membership`;
-            const response = await axios.get(url, { headers: { 'x-uiuc-token': accessToken } });
-            setIsPaidMember(response.data.isPaidMember || false);
-          }
-        } catch (error) {
-          console.error('Failed to check membership status:', error);
-          setIsPaidMember(false);
-        }
-      }
+      // Note: membership check will be triggered by the activeMemberLists useEffect
     })();
   }, []);
 
@@ -136,6 +222,7 @@ const MerchItem = () => {
       window.location.replace("/merch-store")
     }
   };
+
   const getMaxQuantity = (variantId: string) => {
     if (!variantId || !merchList.total_avail) return 0;
     const available = Math.min(merchList.total_avail[variantId] || 0, 10);
@@ -144,6 +231,7 @@ const MerchItem = () => {
     }
     return available;
   };
+
   const metaLoader = async () => {
     const url = `${coreBaseUrl}/api/v1/store/products/${itemid}`;
     axios
@@ -188,23 +276,6 @@ const MerchItem = () => {
     modalErrorMessage.onOpen();
   };
 
-  const checkMembershipStatus = async () => {
-    if (!pca) return;
-
-    try {
-      const accessToken = await getUserAccessToken(pca);
-      if (!accessToken) return;
-
-      const url = `${coreBaseUrl}/api/v1/membership`;
-      const response = await axios.get(url, { headers: { 'x-uiuc-token': accessToken } });
-      setIsPaidMember(response.data.isPaidMember || false);
-    } catch (error) {
-      // Silently fail - if we can't check membership, we'll use non-member pricing
-      console.error('Failed to check membership status:', error);
-      setIsPaidMember(false);
-    }
-  };
-
   const loginHandler = async () => {
     setIsLoading(true);
     if (!pca) {
@@ -217,11 +288,9 @@ const MerchItem = () => {
       await getUserAccessToken(pca);
       const account = pca.getActiveAccount();
       setUser(account);
-
-      // Check membership status after login
-      await checkMembershipStatus();
-
-      // Note: If pendingPurchase is true, the useEffect will automatically trigger the purchase
+      // Clear cache on new login since it's a potentially different user
+      membershipCache.current.clear();
+      // Note: membership check will be triggered by the activeMemberLists useEffect
     } catch (err) {
       setErrorMessage({ code: 403, message: 'Failed to authenticate NetID.' });
       modalErrorMessage.onOpen();
@@ -235,6 +304,8 @@ const MerchItem = () => {
     if (!pca) return;
     setUser(null);
     setIsPaidMember(null);
+    // Clear cache on logout
+    membershipCache.current.clear();
     await pca.clearCache();
     await pca.setActiveAccount(null);
   };
@@ -367,6 +438,12 @@ const MerchItem = () => {
     }
     return inputEmailStatus === InputStatus.VALID && inputEmailConfirmStatus === InputStatus.VALID;
   }, [size, inputQuantityStatus, selectedTab, user, inputEmailStatus, inputEmailConfirmStatus]);
+
+  // Determine if we should show membership status (only when we can check it)
+  const shouldShowMembershipStatus = useMemo(() => {
+    return activeMemberLists !== null;
+  }, [activeMemberLists]);
+
   const modal = <Modal
     isOpen={modalErrorMessage.isOpen}
     onClose={errorMessageCloseHandler}
@@ -395,17 +472,48 @@ const MerchItem = () => {
       <ModalFooter />
     </ModalContent>
   </Modal>
+
   const totalPrice = useMemo(() => {
     const q = parseInt(quantity);
     if (!merchList.item_price || isNaN(q) || q <= 0) {
       return '...';
     }
-    // Use member pricing if in Illinois checkout AND user is a paid member
-    const pricePerItem = (selectedTab === 'illinois' && isPaidMember)
+    // Use member pricing if in Illinois checkout AND user is a paid member AND we have membership lists to check
+    const pricePerItem = (selectedTab === 'illinois' && isPaidMember && shouldShowMembershipStatus)
       ? merchList.item_price.paid
       : merchList.item_price.others;
     return decimalHelper(pricePerItem * q);
-  }, [quantity, selectedTab, merchList.item_price, isPaidMember]);
+  }, [quantity, selectedTab, merchList.item_price, isPaidMember, shouldShowMembershipStatus]);
+
+  // Render membership status message
+  const renderMembershipStatus = () => {
+    if (!shouldShowMembershipStatus) {
+      return (
+        <p style={{ fontSize: '0.9rem', color: '#666' }}>
+          Select a variant to check member pricing eligibility.
+        </p>
+      );
+    }
+
+    if (isCheckingMembership || isPaidMember === null) {
+      return <p style={{ fontSize: '0.9rem' }}>Checking membership status...</p>;
+    }
+
+    if (isPaidMember) {
+      return (
+        <p style={{ fontSize: '0.9rem', color: '#00a86b' }}>
+          <b>Paid Member</b> - You qualify for member pricing!
+        </p>
+      );
+    }
+
+    return (
+      <p style={{ fontSize: '0.9rem', color: '#ff9500' }}>
+        <b>Not a Paid Member</b> - Non-member pricing will apply.
+      </p>
+    );
+  };
+
   if (Object.keys(merchList).length === 0) {
     if (itemid === '' && typeof window !== "undefined") {
       window.location.replace('../merch-store');
@@ -454,17 +562,7 @@ const MerchItem = () => {
                         </>
                       ) : (
                         <>
-                          {isPaidMember === null ? (
-                            <p style={{ fontSize: '0.9rem' }}>Checking membership status...</p>
-                          ) : isPaidMember ? (
-                            <p style={{ fontSize: '0.9rem', color: '#00a86b' }}>
-                              <b>Paid Member</b> - You qualify for member pricing!
-                            </p>
-                          ) : (
-                            <p style={{ fontSize: '0.9rem', color: '#ff9500' }}>
-                              <b>Not a Paid Member</b> - Non-member pricing will apply.
-                            </p>
-                          )}
+                          {renderMembershipStatus()}
                           <div className="flex flex-col">
                             <Input
                               isReadOnly
@@ -490,11 +588,11 @@ const MerchItem = () => {
                             placeholder="Select one"
                             selectedKeys={[size]}
                             disabledKeys={merchList['variants']
-                              ?.filter((v: { id: string; name: string }) => filterSoldOut(v.id))
-                              .map((v: { id: string; name: string }) => v.id)}
+                              ?.filter((v: Variant) => filterSoldOut(v.id))
+                              .map((v: Variant) => v.id)}
                             onChange={changeSize}
                           >
-                            {merchList['variants']?.map((v: { id: string; name: string }) => (
+                            {merchList['variants']?.map((v: Variant) => (
                               <SelectItem key={v.id} textValue={v.name}>
                                 {filterSoldOut(v.id) ? v.name + ' [SOLD OUT]' : v.name}
                               </SelectItem>

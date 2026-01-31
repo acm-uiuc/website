@@ -3,7 +3,7 @@ interface ApiVariant {
   name: string;
   description?: string;
   imageUrl?: string;
-  memberLists: string[];
+  memberLists?: string[];
   inventoryCount?: number | null;
   exchangesAllowed: boolean;
   memberPriceCents: number;
@@ -95,7 +95,8 @@ export function transformApiResponse(apiResponse: ApiResponse): LegacyItem[] {
       sizes: product.variants.map((v) => v.name),
       variants: product.variants.map(v => ({
         id: v.variantId,
-        name: v.name
+        name: v.name,
+        memberLists: v.memberLists ?? []
       })),
       eventDetails: product.description ?? "",
       total_sold: {}, // API doesn't provide this; initialize empty

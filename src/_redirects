@@ -1,4 +1,1 @@
-/event/:id /event?id=:id 301
-/event-paid/:id /event-paid?id=:id 301
-/merch/:id /merch?id=:id 301
-/merch-paid/:id /merch-paid?id=:id 301
+/merch /store 301

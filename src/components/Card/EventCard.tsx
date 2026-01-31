@@ -79,11 +79,7 @@ export default function EventCard({ event }: EventProps) {
         {paidEventId ? (
           <a
             className="inline-flex flex-row grow-0 items-center gap-2 px-4 py-2 text-white rounded-2xl bg-primary hover:bg-secondary transition-all"
-            href={
-              paidEventId.startsWith('merch:')
-                ? '/merch?id=' + paidEventId.slice(6)
-                : '/event?id=' + paidEventId
-            }
+            href={'/store/item?id=' + paidEventId}
             target="_blank"
             rel="noopener noreferrer"
           >

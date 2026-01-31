@@ -21,12 +21,12 @@ import {
   Tab,
 } from '@heroui/react';
 import axios from 'axios';
-import Layout from '../MembershipLayout';
+import Layout from '../../MembershipLayout';
 import { IPublicClientApplication, AccountInfo } from '@azure/msal-browser';
 import { getUserAccessToken, initMsalClient } from '@/utils/msal';
 import { syncIdentity } from '@/utils/api';
 import { Turnstile } from '@marsidev/react-turnstile';
-import { transformApiResponse } from '../merch-store/transform';
+import { transformApiResponse } from '../transform';
 
 const decimalHelper = (num: number) => {
   if (Number.isInteger(num)) {
@@ -240,7 +240,7 @@ const MerchItem = () => {
     modalErrorMessage.onClose();
     setErrorMessage(null);
     if (Object.keys(merchList).length === 1) {
-      window.location.replace("/merch-store")
+      window.location.replace("/store")
     }
   };
 
@@ -367,8 +367,8 @@ const MerchItem = () => {
       items: [
         { productId: itemid, variantId: size, quantity: parseInt(quantity, 10) }
       ],
-      successRedirPath: `/merch-paid?id=${itemid}`,
-      cancelRedirPath: `/merch?id=${itemid}`
+      successRedirPath: `/store/paid`,
+      cancelRedirPath: `/store/item?id=${itemid}`
     }, {
       headers: {
         'x-uiuc-token': accessToken,
@@ -404,8 +404,8 @@ const MerchItem = () => {
         items: [
           { productId: itemid, variantId: size, quantity: parseInt(quantity, 10) }
         ],
-        successRedirPath: `/merch-paid?id=${itemid}`,
-        cancelRedirPath: `/merch?id=${itemid}`,
+        successRedirPath: `/store/paid`,
+        cancelRedirPath: `/store/item?id=${itemid}`,
         email
       }, {
         headers: {
@@ -544,12 +544,14 @@ const MerchItem = () => {
 
   if (Object.keys(merchList).length === 0) {
     if (itemid === '' && typeof window !== "undefined") {
-      window.location.replace('../merch-store');
-      return <Layout name="Merch Store"></Layout>;
+      if (itemid === '' && typeof window !== "undefined") {
+        window.location.replace('/store');
+        return <Layout name="Store"></Layout>;
+      }
     }
-    return <Layout name="Merch Store"></Layout>;
+    return <Layout name="Store"></Layout>;
   } else if (Object.keys(merchList).length === 1) {
-    return <Layout name="Merch Store">
+    return <Layout name="Store">
       <>{modal}</>
     </Layout>;
 

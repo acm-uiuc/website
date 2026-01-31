@@ -49,13 +49,13 @@ const MerchStore = () => {
   }, []);
 
   if (itemsList.length === 0) {
-    return <Layout name="Merch Store"></Layout>;
+    return <Layout name="Store"></Layout>;
   } else {
     return (
-      <Layout name="Merch Store">
+      <Layout name="Store">
         <div>
           <div className="container">
-            <h1 className="text-center">ACM @ UIUC Merch Store</h1>
+            <h1 className="text-center">ACM @ UIUC Store</h1>
             <div className="grid md:grid-cols-2 gap-2 items-stretch pt-5 auto-rows-max">
               {itemsList.map((val: Record<string, any>) => (
                 <Card
@@ -90,7 +90,7 @@ const MerchStore = () => {
                     color="primary"
                     size="lg"
                     as={Link}
-                    href={'../merch?id=' + val['item_id']}
+                    href={'../store/item?id=' + val['item_id']}
                   >
                     Purchase
                   </Button>

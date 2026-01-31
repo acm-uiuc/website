@@ -225,7 +225,11 @@ const MerchItem = () => {
 
   const getMaxQuantity = (variantId: string) => {
     if (!variantId || !merchList.total_avail) return 0;
-    const available = Math.min(merchList.total_avail[variantId] || 0, 10);
+    const baseAvailable =
+      merchList.total_avail[variantId] ??
+      merchList.total_avail.total ??
+      0;
+    const available = Math.min(baseAvailable, 10);
     if (merchList.limit_per_person > 0) {
       return Math.min(available, merchList.limit_per_person);
     }

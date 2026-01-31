@@ -46,9 +46,7 @@ function CalendarEventDetail({
   } else {
     moment.tz.guess();
     const paidEventHref = paidEventId
-      ? paidEventId.startsWith('merch:')
-        ? '/merch?id=' + paidEventId.slice(6)
-        : '/event?id=' + paidEventId
+      ? '/store/item?id=' + paidEventId
       : undefined;
     const timezoneAbbr = moment().tz(moment.tz.guess()).format('z');
 

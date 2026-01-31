@@ -28,7 +28,7 @@ const Paid = () => {
             <p>
               To get swipe access to the ACM room, please complete{' '}
               <a
-                href="https://go.acm.illinois.edu/swipeaccess"
+                href="https://acm.gg/swipeaccess"
                 className="text-blue-500 hover:underline"
               >
                 this form

@@ -544,8 +544,10 @@ const MerchItem = () => {
 
   if (Object.keys(merchList).length === 0) {
     if (itemid === '' && typeof window !== "undefined") {
-      window.location.replace('../store');
-      return <Layout name="Store"></Layout>;
+      if (itemid === '' && typeof window !== "undefined") {
+        window.location.replace('/store');
+        return <Layout name="Store"></Layout>;
+      }
     }
     return <Layout name="Store"></Layout>;
   } else if (Object.keys(merchList).length === 1) {

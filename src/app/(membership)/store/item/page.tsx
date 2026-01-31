@@ -404,8 +404,8 @@ const MerchItem = () => {
         items: [
           { productId: itemid, variantId: size, quantity: parseInt(quantity, 10) }
         ],
-        successRedirPath: `/store-paid`,
-        cancelRedirPath: `/store?id=${itemid}`,
+        successRedirPath: `/store/paid`,
+        cancelRedirPath: `/store/item?id=${itemid}`,
         email
       }, {
         headers: {

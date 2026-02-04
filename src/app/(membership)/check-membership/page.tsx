@@ -23,9 +23,8 @@ import successAnimation from '../success.json';
 import { getUserAccessToken, initMsalClient } from '@/utils/msal';
 import { MembershipPriceString } from "@acm-uiuc/js-shared"
 import { IPublicClientApplication } from '@azure/msal-browser';
-import { membershipApiClient, syncIdentity } from '@/utils/api';
+import { membershipApiClient, mobileWalletApiClient, syncIdentity } from '@/utils/api';
 import { Configuration, MembershipApi, MobileWalletApi, ResponseError } from '@acm-uiuc/core-client';
-import { coreApiBaseUrl } from '@/constants';
 
 interface ErrorCode {
   code?: number | string;
@@ -153,10 +152,8 @@ const Payment = () => {
       return;
     }
     let response: Blob | undefined;
-    const apiConfig = new Configuration({ basePath: coreApiBaseUrl })
-    const walletApi = new MobileWalletApi(apiConfig)
     try {
-      response = await walletApi.apiV2MobileWalletMembershipGet({ xUiucToken: accessToken })
+      response = await mobileWalletApiClient.apiV2MobileWalletMembershipGet({ xUiucToken: accessToken })
       setIsWalletLoading(false);
     } catch (error: any) {
       setIsWalletLoading(false);

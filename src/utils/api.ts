@@ -1,6 +1,6 @@
 import { IEvent } from '@/components/Events/events';
 import { transformApiDates } from '@/utils/dateutils';
-import { Configuration, EventsApi, GenericApi, MembershipApi, StoreApi } from '@acm-uiuc/core-client';
+import { Configuration, EventsApi, GenericApi, MembershipApi, MobileWalletApi, StoreApi } from '@acm-uiuc/core-client';
 
 export const coreApiBaseUrl = process.env.NEXT_PUBLIC_CORE_API_BASE_URL ?? "https://core.acm.illinois.edu"
 const baseConfig = { basePath: coreApiBaseUrl }
@@ -8,6 +8,7 @@ export const eventsApiClient = new EventsApi(new Configuration(baseConfig));
 export const membershipApiClient = new MembershipApi(new Configuration(baseConfig));
 export const storeApiClient = new StoreApi(new Configuration(baseConfig));
 export const genericApiClient = new GenericApi(new Configuration(baseConfig));
+export const mobileWalletApiClient = new MobileWalletApi(new Configuration(baseConfig))
 
 export async function fetchUpcomingEvents() {
   try {

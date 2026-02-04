@@ -19,7 +19,7 @@
     "prettier:write": "prettier --write ."
   },
   "dependencies": {
-    "@acm-uiuc/core-client": "^4.1.9",
+    "@acm-uiuc/core-client": "^4.1.10",
     "@acm-uiuc/js-shared": "^3.2.0",
     "@azure/msal-browser": "^4.15.0",
     "@azure/msal-react": "^3.0.15",

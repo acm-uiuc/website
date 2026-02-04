@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@acm-uiuc/core-client@^4.1.9":
-  version "4.1.9"
-  resolved "https://registry.yarnpkg.com/@acm-uiuc/core-client/-/core-client-4.1.9.tgz#16858703ca1f35e550ddae7df616ef573829f8ed"
-  integrity sha512-Zc1WU0d5skEiomSWb+j1QtiIKhpYVBSEVHTURUY/QCUD9Mg01muJPYrnfkB1r0OlszTF2OqXH838mlia+Hh8Lg==
+"@acm-uiuc/core-client@^4.1.10":
+  version "4.1.10"
+  resolved "https://registry.yarnpkg.com/@acm-uiuc/core-client/-/core-client-4.1.10.tgz#7c4c035c6fd9fced63690f2001b1cf109a307669"
+  integrity sha512-pSAhfS9C7cuy12Q67D4I+ADv3cy2kq9czE2oe5vEZW//TYB6zwFQU+toZqrbScniG38NLeq/4Z1CLcDovGXNyw==
 
 "@acm-uiuc/js-shared@^3.2.0":
   version "3.2.0"

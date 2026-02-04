@@ -18,21 +18,18 @@ import { Spinner } from '@heroui/spinner';
 // import Lottie from 'lottie-react';
 import dynamic from 'next/dynamic';
 const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
-import axios from 'axios';
 import Layout from '../MembershipLayout';
 import successAnimation from '../success.json';
 import { getUserAccessToken, initMsalClient } from '@/utils/msal';
 import { MembershipPriceString } from "@acm-uiuc/js-shared"
 import { IPublicClientApplication } from '@azure/msal-browser';
-import { syncIdentity } from '@/utils/api';
+import { membershipApiClient, mobileWalletApiClient, syncIdentity } from '@/utils/api';
+import { Configuration, MembershipApi, MobileWalletApi, ResponseError } from '@acm-uiuc/core-client';
 
 interface ErrorCode {
   code?: number | string;
   message: string;
 }
-
-const baseUrl = process.env.NEXT_PUBLIC_CORE_API_BASE_URL;
-const walletApiBaseUrl = process.env.NEXT_PUBLIC_CORE_API_BASE_URL;
 
 const Payment = () => {
   const [netId, setNetId] = useState('');
@@ -108,26 +105,31 @@ const Payment = () => {
     setNetId(netId);
     setIsLoading(true);
     await syncIdentity(accessToken)
-    const url = `${baseUrl}/api/v1/membership`;
-    axios
-      .get(url, { headers: { "x-uiuc-token": accessToken } })
-      .then((response) => {
-        if (response.data.givenName && response.data.surname) {
-          setFullName(`${response.data.givenName} ${response.data.surname}`)
-        }
-        setIsPaidMember(response.data.isPaidMember || false);
-        setIsLoading(false);
-        modalMembershipStatus.onOpen();
-      })
-      .catch((error) => {
-        setIsLoading(false);
+    try {
+      const membershipResponse = await membershipApiClient.apiV1MembershipGet({ xUiucToken: accessToken });
+      if (membershipResponse.givenName && membershipResponse.surname) {
+        setFullName(`${membershipResponse.givenName} ${membershipResponse.surname}`)
+      }
+      setIsPaidMember(membershipResponse.isPaidMember);
+      setIsLoading(false);
+      modalMembershipStatus.onOpen();
+    } catch (e) {
+      console.error(e)
+      if (e instanceof ResponseError) {
         setErrorMessage({
-          code: error?.response?.status || 500,
-          message: error?.message || 'An unknown error occurred',
+          code: e?.response?.status || 500,
+          message: (await e.response.json()).message || 'An unknown error occurred',
         });
-        modalErrorMessage.onOpen();
-      });
-  };
+      } else {
+        setErrorMessage({
+          code: 400,
+          message: 'An unknown error occurred',
+        });
+      }
+      modalErrorMessage.onOpen();
+
+    }
+  }
 
   const handleAddToWallet = async () => {
     setIsWalletLoading(true);
@@ -149,15 +151,9 @@ const Payment = () => {
       modalErrorMessage.onOpen();
       return;
     }
-    let response;
+    let response: Blob | undefined;
     try {
-      response = await axios.get(
-        `${walletApiBaseUrl}/api/v2/mobileWallet/membership`,
-        {
-          headers: { 'Content-Type': 'application/json', 'x-uiuc-token': accessToken },
-          responseType: 'blob',
-        },
-      );
+      response = await mobileWalletApiClient.apiV2MobileWalletMembershipGet({ xUiucToken: accessToken })
       setIsWalletLoading(false);
     } catch (error: any) {
       setIsWalletLoading(false);
@@ -173,8 +169,7 @@ const Payment = () => {
     if (!response) {
       return;
     }
-    const pkpassBlob = response.data;
-    const url = window.URL.createObjectURL(pkpassBlob);
+    const url = window.URL.createObjectURL(response);
     const link = document.createElement('a');
     link.href = url;
     link.setAttribute('download', 'acm_uiuc_membership.pkpass');

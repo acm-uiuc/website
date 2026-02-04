@@ -2,10 +2,12 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { Button, Card, CardBody, CardHeader, Link } from '@heroui/react';
-import axios from 'axios';
 import Layout from '../MembershipLayout';
 import { transformApiResponse } from './transform';
+import { storeApiClient } from '@/utils/api';
+import { ApiV1StoreProductsGet200Response } from '@acm-uiuc/core-client';
 
+type Product = ApiV1StoreProductsGet200Response['products'][number];
 const MerchStore = () => {
   const [itemsList, setItemsList] = useState<Array<Record<string, any>>>([]);
   const baseUrl = process.env.NEXT_PUBLIC_CORE_API_BASE_URL;
@@ -17,32 +19,36 @@ const MerchStore = () => {
     }
   };
   const metaLoader = async () => {
-    const url = `${baseUrl}/api/v1/store/products`;
-    axios
-      .get(url)
-      .then((response) => {
-        setItemsList(transformApiResponse(response.data));
-      })
-      .catch((error) => {
-        console.error(error)
-        setItemsList([
-          {
-            member_price: '',
-            nonmember_price: '',
-            item_image: '',
-            sizes: [],
-            item_price: { paid: 999999, others: 999999 },
-            eventDetails: '',
-            item_id: '404_item',
-            total_sold: {},
-            total_avail: {},
-            limit_per_person: -1,
-            item_sales_active_utc: -1,
-            item_name: '',
-          },
-        ]);
-      });
-  };
+    try {
+      const data = await storeApiClient.apiV1StoreProductsGet();
+      const filteredData = {
+        products: data.products.filter(
+          (x): x is Product & { productId: NonNullable<Product['productId']> } =>
+            x.productId !== null
+        )
+      }
+      setItemsList(transformApiResponse(filteredData))
+    } catch (e) {
+      console.error("failed to get products", e);
+      setItemsList([
+        {
+          member_price: '',
+          nonmember_price: '',
+          item_image: '',
+          sizes: [],
+          item_price: { paid: 999999, others: 999999 },
+          eventDetails: '',
+          item_id: '404_item',
+          total_sold: {},
+          total_avail: {},
+          limit_per_person: -1,
+          item_sales_active_utc: -1,
+          item_name: '',
+        },
+      ]);
+    }
+  }
+
   useEffect(() => {
     metaLoader();
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -1,17 +1,21 @@
 import { IEvent } from '@/components/Events/events';
 import { transformApiDates } from '@/utils/dateutils';
-import axios from 'axios';
+import { Configuration, EventsApi, GenericApi, MembershipApi, MobileWalletApi, StoreApi } from '@acm-uiuc/core-client';
 
-const baseUrl = process.env.NEXT_PUBLIC_CORE_API_BASE_URL || '';
+export const coreApiBaseUrl = process.env.NEXT_PUBLIC_CORE_API_BASE_URL ?? "https://core.acm.illinois.edu"
+const baseConfig = { basePath: coreApiBaseUrl }
+export const eventsApiClient = new EventsApi(new Configuration(baseConfig));
+export const membershipApiClient = new MembershipApi(new Configuration(baseConfig));
+export const storeApiClient = new StoreApi(new Configuration(baseConfig));
+export const genericApiClient = new GenericApi(new Configuration(baseConfig));
+export const mobileWalletApiClient = new MobileWalletApi(new Configuration(baseConfig))
 
 export async function fetchUpcomingEvents() {
   try {
-    const response = await fetch(
-      `${baseUrl}/api/v1/events?upcomingOnly=true&featuredOnly=true&includeMetadata=true`,
-    );
-    const rawDates = (await response.json()) as IEvent[];
+    const rawDates = await eventsApiClient.apiV1EventsGet({ upcomingOnly: true });
     return transformApiDates(rawDates);
   } catch (err: any) {
+    console.error("Failed to fetch upcoming events", err)
     return [];
   }
 }
@@ -27,23 +31,18 @@ export const syncIdentity = async (
       return;
     }
   }
-  const url = `${baseUrl}/api/v1/syncIdentity`;
-  return await axios
-    .post(url, {}, { headers: { 'x-uiuc-token': accessToken } })
-    .then(() => {
-      console.log('Synced user identity');
-    })
-    .catch((error) => {
-      console.error(`Failed to sync user identity: ${error}`);
-    });
+  try {
+    await genericApiClient.apiV1SyncIdentityPost({ xUiucToken: accessToken });
+    console.log("Synced user identity");
+  } catch (error) {
+    console.error(`Failed to sync user identity: ${error}`);
+
+  }
 };
 
 export const checkIfSyncNeeded = async (
   accessToken: string,
 ): Promise<boolean> => {
-  const url = `${baseUrl}/api/v1/syncIdentity/isRequired`;
-  const response = await axios.get(url, {
-    headers: { 'x-uiuc-token': accessToken },
-  });
-  return response.data.syncRequired ?? false;
+  const response = await genericApiClient.apiV1SyncIdentityIsRequiredGet({ xUiucToken: accessToken });
+  return response.syncRequired ?? true;
 };

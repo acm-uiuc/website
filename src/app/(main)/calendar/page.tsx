@@ -8,8 +8,9 @@ import { Suspense, useEffect, useState } from 'react';
 import CalendarControls from '@/components/CalendarControls';
 import { View, Views } from 'react-big-calendar';
 import { transformApiDates } from '@/utils/dateutils';
-import { OrganizationName, Organizations } from '@acm-uiuc/js-shared';
+import { AllOrganizationNameList, OrganizationName, Organizations } from '@acm-uiuc/js-shared';
 import { useSearchParams } from 'next/navigation';
+import { eventsApiClient } from '@/utils/api';
 
 const defaultEvent: CalendarEventDetailProps = {
   description: 'N/A',
@@ -30,35 +31,11 @@ const Calendar = () => {
     OrganizationList.includes(host as OrganizationName) ? host : '',
   );
   const [allEvents, setAllEvents] = useState<IEvent[] | null>(null);
-  const [validOrganizations, setValidOrganizations] =
-    useState<string[]>(OrganizationList);
   useEffect(() => {
-    const baseurl = process.env.NEXT_PUBLIC_CORE_API_BASE_URL;
-    if (!baseurl) {
-      return setAllEvents([]);
-    }
-    async function fetcher() {
-      const urls = [
-        `${baseurl}/api/v1/events`,
-      ];
-
-      try {
-        const [eventsResponse] =
-          await Promise.allSettled(urls.map((url) => fetch(url)));
-        if (eventsResponse.status === 'fulfilled') {
-          const eventsData = await eventsResponse.value.json();
-          setAllEvents(transformApiDates(eventsData as IEvent[]));
-        } else {
-          setAllEvents([]); // Handle error for events fetch
-        }
-        setValidOrganizations(OrganizationList);
-      } catch (err) {
-        console.error('Error in processing fetch results:', err);
-        setAllEvents([]); // Fallback error handling for critical failure
-        setValidOrganizations(OrganizationList);
-      }
-    }
-    fetcher();
+    (async () => {
+      const allEvents = await eventsApiClient.apiV1EventsGet()
+      setAllEvents(transformApiDates(allEvents));
+    })();
   }, []);
 
   // Function to handle filter changes, moved from Events.tsx
@@ -112,7 +89,7 @@ const Calendar = () => {
                 className="px-2 border-2 border-gray-300 rounded-md w-full h-full" // Styling for the dropdown
               >
                 <option value="">{filterLabel}</option>
-                {validOrganizations.map((org) => (
+                {AllOrganizationNameList.map((org) => (
                   <option key={org} value={org}>
                     {org}
                   </option>

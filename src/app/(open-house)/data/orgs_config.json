@@ -490,9 +490,7 @@
     "demo_time": "8:20 - 8:25 PM",
     "type": "partner",
     "logo": "./img/open-house/logos/project-code.png",
-    "links": [
-      { "text": "Website", "link": "https://projectcodeuiuc.org/" }
-    ]
+    "links": [{ "text": "Website", "link": "https://projectcodeuiuc.org/" }]
   },
   "124h": {
     "name": "CS 124 Honors",

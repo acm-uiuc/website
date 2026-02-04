@@ -2,7 +2,7 @@ import {
   type OrganizationName,
   getOrgsByType,
   OrgType,
-} from "@acm-uiuc/js-shared";
+} from '@acm-uiuc/js-shared';
 
 export type Organization = OrganizationName;
 
@@ -40,7 +40,7 @@ export const OrganizationDataMapping: Record<OrganizationName, IOrgData> = {
     links: [
       {
         link: 'https://aida.acm.illinois.edu/',
-        text: 'Website'
+        text: 'Website',
       },
       {
         link: 'https://acm.gg/aida_discord',
@@ -297,6 +297,6 @@ export const getOrganizationInfo = (organization: Organization) =>
   OrganizationDataMapping[organization];
 
 export const AllSigData: IOrgData[] = getOrgsByType(OrgType.SIG)
-  .map(sig => sig.name)
+  .map((sig) => sig.name)
   .filter((name) => name in OrganizationDataMapping)
   .map((name) => OrganizationDataMapping[name]);

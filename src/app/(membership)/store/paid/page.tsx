@@ -20,7 +20,6 @@ const WrappedMerchPaid = () => {
 };
 
 const MerchPaid = () => {
-
   return (
     <Layout name="Store">
       <Modal isOpen={true} onClose={() => window.location.replace('/')}>
@@ -41,7 +40,9 @@ const MerchPaid = () => {
             </p>
             <p className="mt-4 text-center text-xs text-gray-500">
               Don&apos;t see our email? Check your spam folder and make sure
-              mail from <span className="font-medium">sales@acm.illinois.edu</span> isn&apos;t blocked.
+              mail from{' '}
+              <span className="font-medium">sales@acm.illinois.edu</span>{' '}
+              isn&apos;t blocked.
             </p>
           </ModalBody>
           <ModalFooter />

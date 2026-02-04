@@ -224,7 +224,7 @@ export default function Hero({ upcomingEvents, eventsLoading }: HeroProps) {
                     }
                     const url =
                       config['addCalendarLinks']['majorEvents'][
-                      selectedCalPlatform
+                        selectedCalPlatform
                       ];
                     window.open(url, '_blank')?.focus();
                   }}

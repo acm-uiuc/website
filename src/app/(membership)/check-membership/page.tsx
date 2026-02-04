@@ -21,10 +21,19 @@ const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 import Layout from '../MembershipLayout';
 import successAnimation from '../success.json';
 import { getUserAccessToken, initMsalClient } from '@/utils/msal';
-import { MembershipPriceString } from "@acm-uiuc/js-shared"
+import { MembershipPriceString } from '@acm-uiuc/js-shared';
 import { IPublicClientApplication } from '@azure/msal-browser';
-import { membershipApiClient, mobileWalletApiClient, syncIdentity } from '@/utils/api';
-import { Configuration, MembershipApi, MobileWalletApi, ResponseError } from '@acm-uiuc/core-client';
+import {
+  membershipApiClient,
+  mobileWalletApiClient,
+  syncIdentity,
+} from '@/utils/api';
+import {
+  Configuration,
+  MembershipApi,
+  MobileWalletApi,
+  ResponseError,
+} from '@acm-uiuc/core-client';
 
 interface ErrorCode {
   code?: number | string;
@@ -50,27 +59,25 @@ const Payment = () => {
     (async () => {
       setPca(await initMsalClient());
     })();
-  }, [])
-
+  }, []);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
     return () => clearInterval(intervalId);
-
   }, []);
 
   const checkHandler = async () => {
     if (!pca) {
       setErrorMessage({
         code: -1,
-        message: "Failed to authenticate NetID."
+        message: 'Failed to authenticate NetID.',
       });
       modalErrorMessage.onOpen();
       return;
     }
-    let account = pca.getActiveAccount()
+    let account = pca.getActiveAccount();
     if (!account) {
       await getUserAccessToken(pca);
       account = pca.getActiveAccount();
@@ -78,7 +85,7 @@ const Payment = () => {
     if (!account) {
       setErrorMessage({
         code: 403,
-        message: "Failed to authenticate NetID."
+        message: 'Failed to authenticate NetID.',
       });
       modalErrorMessage.onOpen();
       return;
@@ -87,38 +94,43 @@ const Payment = () => {
     if (!accessToken) {
       setErrorMessage({
         code: 403,
-        message: "Failed to authenticate NetID."
+        message: 'Failed to authenticate NetID.',
       });
       modalErrorMessage.onOpen();
       return;
     }
     const username = account.username;
-    if (!username.endsWith("@illinois.edu")) {
+    if (!username.endsWith('@illinois.edu')) {
       setErrorMessage({
         code: 403,
-        message: "Account is not for the Illinois campus."
+        message: 'Account is not for the Illinois campus.',
       });
       modalErrorMessage.onOpen();
       return;
     }
-    const netId = username.replace("@illinois.edu", "")
+    const netId = username.replace('@illinois.edu', '');
     setNetId(netId);
     setIsLoading(true);
-    await syncIdentity(accessToken)
+    await syncIdentity(accessToken);
     try {
-      const membershipResponse = await membershipApiClient.apiV1MembershipGet({ xUiucToken: accessToken });
+      const membershipResponse = await membershipApiClient.apiV1MembershipGet({
+        xUiucToken: accessToken,
+      });
       if (membershipResponse.givenName && membershipResponse.surname) {
-        setFullName(`${membershipResponse.givenName} ${membershipResponse.surname}`)
+        setFullName(
+          `${membershipResponse.givenName} ${membershipResponse.surname}`,
+        );
       }
       setIsPaidMember(membershipResponse.isPaidMember);
       setIsLoading(false);
       modalMembershipStatus.onOpen();
     } catch (e) {
-      console.error(e)
+      console.error(e);
       if (e instanceof ResponseError) {
         setErrorMessage({
           code: e?.response?.status || 500,
-          message: (await e.response.json()).message || 'An unknown error occurred',
+          message:
+            (await e.response.json()).message || 'An unknown error occurred',
         });
       } else {
         setErrorMessage({
@@ -127,9 +139,8 @@ const Payment = () => {
         });
       }
       modalErrorMessage.onOpen();
-
     }
-  }
+  };
 
   const handleAddToWallet = async () => {
     setIsWalletLoading(true);
@@ -137,7 +148,7 @@ const Payment = () => {
     if (!pca) {
       setErrorMessage({
         code: -1,
-        message: "Failed to authenticate NetID."
+        message: 'Failed to authenticate NetID.',
       });
       modalErrorMessage.onOpen();
       return;
@@ -146,23 +157,24 @@ const Payment = () => {
     if (!accessToken) {
       setErrorMessage({
         code: -1,
-        message: "Failed to authenticate NetID."
+        message: 'Failed to authenticate NetID.',
       });
       modalErrorMessage.onOpen();
       return;
     }
     let response: Blob | undefined;
     try {
-      response = await mobileWalletApiClient.apiV2MobileWalletMembershipGet({ xUiucToken: accessToken })
+      response = await mobileWalletApiClient.apiV2MobileWalletMembershipGet({
+        xUiucToken: accessToken,
+      });
       setIsWalletLoading(false);
     } catch (error: any) {
       setIsWalletLoading(false);
       setWalletError({
         code: error?.response?.status || 500,
-        message:
-          error?.message
-            ? error?.message
-            : 'Failed to generate Apple Wallet pass. Please try again later.',
+        message: error?.message
+          ? error?.message
+          : 'Failed to generate Apple Wallet pass. Please try again later.',
       });
       modalWalletError.onOpen();
     }
@@ -189,7 +201,8 @@ const Payment = () => {
           <Divider />
           <CardBody className="gap-4">
             <p>
-              Log in with your Illinois NetID to check your paid membership status.
+              Log in with your Illinois NetID to check your paid membership
+              status.
             </p>
             <Button
               color="primary"
@@ -297,20 +310,24 @@ const Payment = () => {
                     onPress={handleAddToWallet}
                     className="mt-4"
                   >
-                    {!pca && <>
-                      <Spinner color="white" size="sm" />
-                      <a>Loading...</a>
-                    </>}
-                    {pca && <>
-                      {isWalletLoading ? (
-                        <>
-                          <Spinner color="white" size="sm" />
-                          <a>Generating pass...</a>
-                        </>
-                      ) : (
-                        'Add to mobile wallet'
-                      )}
-                    </>}
+                    {!pca && (
+                      <>
+                        <Spinner color="white" size="sm" />
+                        <a>Loading...</a>
+                      </>
+                    )}
+                    {pca && (
+                      <>
+                        {isWalletLoading ? (
+                          <>
+                            <Spinner color="white" size="sm" />
+                            <a>Generating pass...</a>
+                          </>
+                        ) : (
+                          'Add to mobile wallet'
+                        )}
+                      </>
+                    )}
                   </Button>
                 </>
               )}
@@ -324,19 +341,18 @@ const Payment = () => {
                     size="lg"
                     onPress={() => {
                       window.location.href = `/membership?initOnCall=true`;
-                    }
-                    }
+                    }}
                   >
                     Purchase for {MembershipPriceString}
-                  </Button >
+                  </Button>
                 </>
               )}
-            </ModalBody >
+            </ModalBody>
             <ModalFooter />
-          </ModalContent >
-        </Modal >
-      </div >
-    </Layout >
+          </ModalContent>
+        </Modal>
+      </div>
+    </Layout>
   );
 };
 

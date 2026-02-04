@@ -1,8 +1,4 @@
-import {
-  getOrganizationInfo,
-  Link,
-  Organization,
-} from '@/utils/organizations';
+import { getOrganizationInfo, Link, Organization } from '@/utils/organizations';
 import { OrgType, getOrgsByType } from '@acm-uiuc/js-shared';
 import { partners } from '../data/partners';
 import { boothDetails } from './details';
@@ -23,30 +19,28 @@ export type { Booth as BoothType };
 
 const committees = getOrgsByType(OrgType.COMMITTEE);
 
-const committeeBooths = committees
-  .map((committee, index) => ({
-    id: index + 1,
-    type: 'Committee',
-    name: committee.name,
-    logo: `/assets/logos/${committee.shortcode}.png`,
-    description: `${committee.name} organizes and manages ACM activities.`,
-    tableId: index + 1,
-    keywords: ['committee', committee.shortcode],
-  }));
+const committeeBooths = committees.map((committee, index) => ({
+  id: index + 1,
+  type: 'Committee',
+  name: committee.name,
+  logo: `/assets/logos/${committee.shortcode}.png`,
+  description: `${committee.name} organizes and manages ACM activities.`,
+  tableId: index + 1,
+  keywords: ['committee', committee.shortcode],
+}));
 
-const eventBooths = committees
-  .map((committee, index) => ({
-    id: committeeBooths.length + index + 1,
-    type: 'Committee',
-    name: committee.name,
-    logo: `/assets/logos/${committee.shortcode}.png`,
-    description: `${committee.name} is a partner organization.`,
-    tableId: committeeBooths.length + index + 1,
-    keywords: ['committee', committee.shortcode],
-  }));
+const eventBooths = committees.map((committee, index) => ({
+  id: committeeBooths.length + index + 1,
+  type: 'Committee',
+  name: committee.name,
+  logo: `/assets/logos/${committee.shortcode}.png`,
+  description: `${committee.name} is a partner organization.`,
+  tableId: committeeBooths.length + index + 1,
+  keywords: ['committee', committee.shortcode],
+}));
 
 const sigs = getOrgsByType(OrgType.SIG).filter(
-  (sig) => sig.name !== 'SIGMobile' && sig.name !== 'SIGARCH'
+  (sig) => sig.name !== 'SIGMobile' && sig.name !== 'SIGARCH',
 );
 
 const sigBooths = sigs.map((sig, index) => {

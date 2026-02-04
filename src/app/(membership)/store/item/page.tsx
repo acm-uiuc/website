@@ -26,8 +26,11 @@ import { getUserAccessToken, initMsalClient } from '@/utils/msal';
 import { membershipApiClient, storeApiClient, syncIdentity } from '@/utils/api';
 import { Turnstile } from '@marsidev/react-turnstile';
 import { transformApiProduct, transformApiResponse } from '../transform';
-import { ApiV1StoreProductsGet200Response, ResponseError } from '@acm-uiuc/core-client';
-import pluralize from "pluralize";
+import {
+  ApiV1StoreProductsGet200Response,
+  ResponseError,
+} from '@acm-uiuc/core-client';
+import pluralize from 'pluralize';
 
 const decimalHelper = (num: number) => {
   if (Number.isInteger(num)) {
@@ -59,7 +62,7 @@ const coreBaseUrl = process.env.NEXT_PUBLIC_CORE_API_BASE_URL;
 const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
 if (!turnstileSiteKey) {
-  throw new Error("Turnstile site key missing.")
+  throw new Error('Turnstile site key missing.');
 }
 
 const WrappedMerchItem = () => {
@@ -71,13 +74,15 @@ const WrappedMerchItem = () => {
 };
 
 // Helper to check if all variants have the same memberLists
-const getAllVariantsMemberLists = (variants: Variant[] | undefined): string[] | null => {
+const getAllVariantsMemberLists = (
+  variants: Variant[] | undefined,
+): string[] | null => {
   if (!variants || variants.length === 0) return null;
 
   const firstLists = variants[0].memberLists || [];
   const firstListsSorted = [...firstLists].sort().join(',');
 
-  const allSame = variants.every(v => {
+  const allSame = variants.every((v) => {
     const lists = v.memberLists || [];
     return [...lists].sort().join(',') === firstListsSorted;
   });
@@ -97,7 +102,7 @@ const MerchItem = () => {
   const itemid = useSearchParams().get('id') || '';
   const [merchList, setMerchList] = useState<Record<string, any>>({});
   const [pca, setPca] = useState<IPublicClientApplication | null>(null);
-  const [token, setToken] = React.useState<string>()
+  const [token, setToken] = React.useState<string>();
 
   // Form State
   const [email, setEmail] = useState('');
@@ -125,13 +130,15 @@ const MerchItem = () => {
   const modalErrorMessage = useDisclosure();
   const [errorMessage, setErrorMessage] = useState<ErrorCode | null>(null);
   const clearTurnstileToken = () => setToken(undefined);
-  const turnstileWidget = (id: string) => <Turnstile
-    id={id}
-    siteKey={turnstileSiteKey}
-    onSuccess={setToken}
-    onExpire={clearTurnstileToken}
-    onError={clearTurnstileToken}
-  />;
+  const turnstileWidget = (id: string) => (
+    <Turnstile
+      id={id}
+      siteKey={turnstileSiteKey}
+      onSuccess={setToken}
+      onExpire={clearTurnstileToken}
+      onError={clearTurnstileToken}
+    />
+  );
 
   // Get the selected variant object
   const selectedVariant = useMemo(() => {
@@ -141,7 +148,10 @@ const MerchItem = () => {
 
   // Get memberLists for the selected variant, or common lists if all variants share the same lists
   const activeMemberLists = useMemo(() => {
-    if (selectedVariant?.memberLists && selectedVariant.memberLists.length > 0) {
+    if (
+      selectedVariant?.memberLists &&
+      selectedVariant.memberLists.length > 0
+    ) {
       return selectedVariant.memberLists;
     }
     // If no variant selected, check if all variants have the same memberLists
@@ -149,61 +159,67 @@ const MerchItem = () => {
   }, [selectedVariant, merchList.variants]);
 
   // Check membership status with specific lists (with caching)
-  const checkMembershipStatus = useCallback(async (lists: string[] | null) => {
-    if (!pca || !user) return;
+  const checkMembershipStatus = useCallback(
+    async (lists: string[] | null) => {
+      if (!pca || !user) return;
 
-    // If no lists to check, user doesn't qualify for member pricing
-    if (!lists || lists.length === 0) {
-      activeMembershipKeyRef.current = null;
-      setIsPaidMember(false);
-      return;
-    }
+      // If no lists to check, user doesn't qualify for member pricing
+      if (!lists || lists.length === 0) {
+        activeMembershipKeyRef.current = null;
+        setIsPaidMember(false);
+        return;
+      }
 
-    const cacheKey = createCacheKey(lists);
+      const cacheKey = createCacheKey(lists);
 
-    // Set active key and reset state for new check
-    activeMembershipKeyRef.current = cacheKey;
-    setIsPaidMember(null);
+      // Set active key and reset state for new check
+      activeMembershipKeyRef.current = cacheKey;
+      setIsPaidMember(null);
 
-    // Check cache first
-    if (membershipCache.current.has(cacheKey)) {
-      setIsPaidMember(membershipCache.current.get(cacheKey)!);
-      return;
-    }
+      // Check cache first
+      if (membershipCache.current.has(cacheKey)) {
+        setIsPaidMember(membershipCache.current.get(cacheKey)!);
+        return;
+      }
 
-    setIsCheckingMembership(true);
-    try {
-      const accessToken = await getUserAccessToken(pca);
-      if (!accessToken) {
+      setIsCheckingMembership(true);
+      try {
+        const accessToken = await getUserAccessToken(pca);
+        if (!accessToken) {
+          // Only apply if this is still the active check
+          if (activeMembershipKeyRef.current === cacheKey) {
+            setIsPaidMember(false);
+            activeMembershipKeyRef.current = null;
+            setIsCheckingMembership(false);
+          }
+          return;
+        }
+
+        const response = await membershipApiClient.apiV1MembershipGet({
+          lists,
+          xUiucToken: accessToken,
+        });
+        const result = response.isPaidMember || false;
+
+        // Only apply result if this is still the active check (ignore stale responses)
+        if (activeMembershipKeyRef.current === cacheKey) {
+          membershipCache.current.set(cacheKey, result);
+          setIsPaidMember(result);
+          activeMembershipKeyRef.current = null;
+          setIsCheckingMembership(false);
+        }
+      } catch (error) {
+        console.error('Failed to check membership status:', error);
         // Only apply if this is still the active check
         if (activeMembershipKeyRef.current === cacheKey) {
           setIsPaidMember(false);
           activeMembershipKeyRef.current = null;
           setIsCheckingMembership(false);
         }
-        return;
       }
-
-      const response = await membershipApiClient.apiV1MembershipGet({ lists, xUiucToken: accessToken })
-      const result = response.isPaidMember || false;
-
-      // Only apply result if this is still the active check (ignore stale responses)
-      if (activeMembershipKeyRef.current === cacheKey) {
-        membershipCache.current.set(cacheKey, result);
-        setIsPaidMember(result);
-        activeMembershipKeyRef.current = null;
-        setIsCheckingMembership(false);
-      }
-    } catch (error) {
-      console.error('Failed to check membership status:', error);
-      // Only apply if this is still the active check
-      if (activeMembershipKeyRef.current === cacheKey) {
-        setIsPaidMember(false);
-        activeMembershipKeyRef.current = null;
-        setIsCheckingMembership(false);
-      }
-    }
-  }, [pca, user]);
+    },
+    [pca, user],
+  );
 
   // Re-check membership when activeMemberLists changes (variant selection or initial load)
   useEffect(() => {
@@ -239,16 +255,14 @@ const MerchItem = () => {
     modalErrorMessage.onClose();
     setErrorMessage(null);
     if (Object.keys(merchList).length === 1) {
-      window.location.replace("/store")
+      window.location.replace('/store');
     }
   };
 
   const getMaxQuantity = (variantId: string) => {
     if (!variantId || !merchList.total_avail) return 0;
     const baseAvailable =
-      merchList.total_avail[variantId] ??
-      merchList.total_avail.total ??
-      0;
+      merchList.total_avail[variantId] ?? merchList.total_avail.total ?? 0;
     const available = Math.min(baseAvailable, 10);
     if (merchList.limit_per_person > 0) {
       return Math.min(available, merchList.limit_per_person);
@@ -259,7 +273,9 @@ const MerchItem = () => {
 
   const metaLoader = async () => {
     try {
-      const itemData = await storeApiClient.apiV1StoreProductsProductIdGet({ productId: itemid })
+      const itemData = await storeApiClient.apiV1StoreProductsProductIdGet({
+        productId: itemid,
+      });
       const transformed = transformApiProduct(itemData);
       if (itemData['verifiedIdentityRequired']) {
         setForceIllinoisLogin(true);
@@ -273,16 +289,21 @@ const MerchItem = () => {
 
   const handleApiError = async (error: any) => {
     if (!error.response) {
-      setErrorMessage({ code: 500, message: 'Network error. Please try again.' });
+      setErrorMessage({
+        code: 500,
+        message: 'Network error. Please try again.',
+      });
       modalErrorMessage.onOpen();
       setIsLoading(false);
       return;
     }
     if (error instanceof ResponseError) {
-      const response = await error.response.json()
+      const response = await error.response.json();
       setErrorMessage({
         code: response.id || error.response.status,
-        message: response.message || 'An error occurred and your request could not be processed.',
+        message:
+          response.message ||
+          'An error occurred and your request could not be processed.',
       });
     } else {
       setErrorMessage({
@@ -298,7 +319,10 @@ const MerchItem = () => {
   const loginHandler = async () => {
     setIsLoading(true);
     if (!pca) {
-      setErrorMessage({ code: 403, message: 'Authentication service is not initialized.' });
+      setErrorMessage({
+        code: 403,
+        message: 'Authentication service is not initialized.',
+      });
       modalErrorMessage.onOpen();
       setIsLoading(false);
       return;
@@ -333,14 +357,20 @@ const MerchItem = () => {
 
   const completePurchase = async () => {
     if (!pca) {
-      setErrorMessage({ code: 403, message: 'Authentication service is not initialized.' });
+      setErrorMessage({
+        code: 403,
+        message: 'Authentication service is not initialized.',
+      });
       modalErrorMessage.onOpen();
       setIsLoading(false);
       return;
     }
 
     if (!token) {
-      setErrorMessage({ code: 400, message: 'Please complete the security verification.' });
+      setErrorMessage({
+        code: 400,
+        message: 'Please complete the security verification.',
+      });
       modalErrorMessage.onOpen();
       setIsLoading(false);
       return;
@@ -348,7 +378,10 @@ const MerchItem = () => {
 
     const accessToken = await getUserAccessToken(pca);
     if (!accessToken) {
-      setErrorMessage({ code: 403, message: 'Failed to retrieve authentication token.' });
+      setErrorMessage({
+        code: 403,
+        message: 'Failed to retrieve authentication token.',
+      });
       modalErrorMessage.onOpen();
       setIsLoading(false);
       return;
@@ -357,15 +390,21 @@ const MerchItem = () => {
     await syncIdentity(accessToken);
     try {
       const checkoutResponse = await storeApiClient.apiV1StoreCheckoutPost({
-        xTurnstileResponse: token, xUiucToken: accessToken, apiV1StoreCheckoutPostRequest: {
+        xTurnstileResponse: token,
+        xUiucToken: accessToken,
+        apiV1StoreCheckoutPostRequest: {
           items: [
-            { productId: itemid, variantId: size, quantity: parseInt(quantity, 10) }
+            {
+              productId: itemid,
+              variantId: size,
+              quantity: parseInt(quantity, 10),
+            },
           ],
           successRedirPath: `/store/paid`,
-          cancelRedirPath: `/store/item?id=${itemid}`
-        }
+          cancelRedirPath: `/store/item?id=${itemid}`,
+        },
       });
-      window.location.replace(checkoutResponse['checkoutUrl'])
+      window.location.replace(checkoutResponse['checkoutUrl']);
     } catch (e) {
       handleApiError(e);
     }
@@ -375,7 +414,10 @@ const MerchItem = () => {
     setIsLoading(true);
 
     if (!token) {
-      setErrorMessage({ code: 400, message: 'Please complete the security verification.' });
+      setErrorMessage({
+        code: 400,
+        message: 'Please complete the security verification.',
+      });
       modalErrorMessage.onOpen();
       setIsLoading(false);
       return;
@@ -383,33 +425,44 @@ const MerchItem = () => {
 
     if (selectedTab === 'illinois') {
       if (!pca || !user) {
-        setErrorMessage({ code: 403, message: 'You must be logged in to purchase with Illinois Checkout.' });
+        setErrorMessage({
+          code: 403,
+          message: 'You must be logged in to purchase with Illinois Checkout.',
+        });
         modalErrorMessage.onOpen();
         setIsLoading(false);
         return;
       }
       await completePurchase();
-    } else { // Guest flow
+    } else {
+      // Guest flow
       try {
         const checkoutResponse = await storeApiClient.apiV1StoreCheckoutPost({
-          xTurnstileResponse: token, apiV1StoreCheckoutPostRequest: {
+          xTurnstileResponse: token,
+          apiV1StoreCheckoutPostRequest: {
             items: [
-              { productId: itemid, variantId: size, quantity: parseInt(quantity, 10) }
+              {
+                productId: itemid,
+                variantId: size,
+                quantity: parseInt(quantity, 10),
+              },
             ],
             successRedirPath: `/store/paid`,
             cancelRedirPath: `/store/item?id=${itemid}`,
             email,
-          }
+          },
         });
-        window.location.replace(checkoutResponse['checkoutUrl'])
+        window.location.replace(checkoutResponse['checkoutUrl']);
       } catch (e) {
         handleApiError(e);
       }
     }
   };
 
-  const validateEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-  const changeSize = (e: { target: { value: React.SetStateAction<string> } }) => setSize(e.target.value);
+  const validateEmail = (value: string) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  const changeSize = (e: { target: { value: React.SetStateAction<string> } }) =>
+    setSize(e.target.value);
   const validateQuantity = (value: string) => {
     const num = parseInt(value);
     if (Number.isNaN(num) || num <= 0) return false;
@@ -418,9 +471,14 @@ const MerchItem = () => {
     if (num > maxQty) return false;
     return true;
   };
-  const totalCapacity = () => Object.values(merchList.total_avail || {}).reduce((acc: any, val: any) => acc + val, 0);
+  const totalCapacity = () =>
+    Object.values(merchList.total_avail || {}).reduce(
+      (acc: any, val: any) => acc + val,
+      0,
+    );
   const filterSoldOut = (variantId: string) =>
-    !(variantId in merchList.total_avail) || merchList.total_avail[variantId] === 0;
+    !(variantId in merchList.total_avail) ||
+    merchList.total_avail[variantId] === 0;
 
   const inputQuantityStatus = useMemo(() => {
     if (quantity === '') return InputStatus.EMPTY;
@@ -443,54 +501,73 @@ const MerchItem = () => {
 
   // Auto-switch to Illinois Checkout when Illinois email is confirmed
   useEffect(() => {
-    if (selectedTab === 'guest' && isIllinoisEmail && inputEmailStatus === InputStatus.VALID && inputEmailConfirmStatus === InputStatus.VALID) {
+    if (
+      selectedTab === 'guest' &&
+      isIllinoisEmail &&
+      inputEmailStatus === InputStatus.VALID &&
+      inputEmailConfirmStatus === InputStatus.VALID
+    ) {
       setSelectedTab('illinois');
     }
   }, [selectedTab, isIllinoisEmail, inputEmailStatus, inputEmailConfirmStatus]);
 
   const isFormValidated = useMemo(() => {
-    const commonFieldsValid = size !== '' && inputQuantityStatus === InputStatus.VALID;
+    const commonFieldsValid =
+      size !== '' && inputQuantityStatus === InputStatus.VALID;
     if (!commonFieldsValid) return false;
 
     if (selectedTab === 'illinois') {
       return !!user;
     }
-    return inputEmailStatus === InputStatus.VALID && inputEmailConfirmStatus === InputStatus.VALID;
-  }, [size, inputQuantityStatus, selectedTab, user, inputEmailStatus, inputEmailConfirmStatus]);
+    return (
+      inputEmailStatus === InputStatus.VALID &&
+      inputEmailConfirmStatus === InputStatus.VALID
+    );
+  }, [
+    size,
+    inputQuantityStatus,
+    selectedTab,
+    user,
+    inputEmailStatus,
+    inputEmailConfirmStatus,
+  ]);
 
   // Determine if we should show membership status (only when we can check it)
   const shouldShowMembershipStatus = useMemo(() => {
     return activeMemberLists !== null;
   }, [activeMemberLists]);
 
-  const modal = <Modal
-    isOpen={modalErrorMessage.isOpen}
-    onClose={errorMessageCloseHandler}
-    onOpenChange={modalErrorMessage.onOpenChange}
-  >
-    <ModalContent>
-      <ModalHeader />
-      <ModalBody className="flex flex-col items-center">
-        <p className="text-center text-2xl font-bold">
-          {(errorMessage && errorMessage.title) || 'Verification Failed'}
-        </p>
-        <p className="text-center">
-          Error Code: {errorMessage && errorMessage.code}
-        </p>
-        <p className="text-center">
-          {errorMessage && errorMessage.message}
-        </p>
-        {errorMessage && errorMessage.code && (
-          <p>
-            If you believe you are receiving this message in error, contact the{' '}
-            <a href="mailto:infra@acm.illinois.edu">ACM Infrastructure Team</a>{' '}
-            with the error code.
+  const modal = (
+    <Modal
+      isOpen={modalErrorMessage.isOpen}
+      onClose={errorMessageCloseHandler}
+      onOpenChange={modalErrorMessage.onOpenChange}
+    >
+      <ModalContent>
+        <ModalHeader />
+        <ModalBody className="flex flex-col items-center">
+          <p className="text-center text-2xl font-bold">
+            {(errorMessage && errorMessage.title) || 'Verification Failed'}
           </p>
-        )}
-      </ModalBody>
-      <ModalFooter />
-    </ModalContent>
-  </Modal>
+          <p className="text-center">
+            Error Code: {errorMessage && errorMessage.code}
+          </p>
+          <p className="text-center">{errorMessage && errorMessage.message}</p>
+          {errorMessage && errorMessage.code && (
+            <p>
+              If you believe you are receiving this message in error, contact
+              the{' '}
+              <a href="mailto:infra@acm.illinois.edu">
+                ACM Infrastructure Team
+              </a>{' '}
+              with the error code.
+            </p>
+          )}
+        </ModalBody>
+        <ModalFooter />
+      </ModalContent>
+    </Modal>
+  );
 
   const totalPrice = useMemo(() => {
     const q = parseInt(quantity);
@@ -498,11 +575,18 @@ const MerchItem = () => {
       return '...';
     }
     // Use member pricing if in Illinois checkout AND user is a paid member AND we have membership lists to check
-    const pricePerItem = (selectedTab === 'illinois' && isPaidMember && shouldShowMembershipStatus)
-      ? merchList.item_price.paid
-      : merchList.item_price.others;
+    const pricePerItem =
+      selectedTab === 'illinois' && isPaidMember && shouldShowMembershipStatus
+        ? merchList.item_price.paid
+        : merchList.item_price.others;
     return decimalHelper(pricePerItem * q);
-  }, [quantity, selectedTab, merchList.item_price, isPaidMember, shouldShowMembershipStatus]);
+  }, [
+    quantity,
+    selectedTab,
+    merchList.item_price,
+    isPaidMember,
+    shouldShowMembershipStatus,
+  ]);
 
   // Render membership status message
   const renderMembershipStatus = () => {
@@ -515,7 +599,9 @@ const MerchItem = () => {
     }
 
     if (isCheckingMembership || isPaidMember === null) {
-      return <p style={{ fontSize: '0.9rem' }}>Checking membership status...</p>;
+      return (
+        <p style={{ fontSize: '0.9rem' }}>Checking membership status...</p>
+      );
     }
 
     if (isPaidMember) {
@@ -534,18 +620,19 @@ const MerchItem = () => {
   };
 
   if (Object.keys(merchList).length === 0) {
-    if (itemid === '' && typeof window !== "undefined") {
-      if (itemid === '' && typeof window !== "undefined") {
+    if (itemid === '' && typeof window !== 'undefined') {
+      if (itemid === '' && typeof window !== 'undefined') {
         window.location.replace('/store');
         return <Layout name="Store"></Layout>;
       }
     }
     return <Layout name="Store"></Layout>;
   } else if (Object.keys(merchList).length === 1) {
-    return <Layout name="Store">
-      <>{modal}</>
-    </Layout>;
-
+    return (
+      <Layout name="Store">
+        <>{modal}</>
+      </Layout>
+    );
   } else {
     return (
       <>
@@ -557,14 +644,43 @@ const MerchItem = () => {
               </CardHeader>
               <Divider />
               <CardBody className="gap-4">
-                {merchList['item_image'] && <img alt={merchList['item_name'] + ' image.'} src={merchList['item_image']} />}
-                {merchList['description'] && <p style={{ whiteSpace: 'pre-line' }}>{merchList['description']}</p>}
-                {((totalCapacity() as number) < 10 && (totalCapacity() as number) > 0) && <p><b>We are running out, order soon!</b></p>}
-                {((totalCapacity() as number) == 0) && <p><b>All {pluralize(merchList['variant_friendly_name'] || 'Size').toLowerCase()} are sold out!</b></p>}
+                {merchList['item_image'] && (
+                  <img
+                    alt={merchList['item_name'] + ' image.'}
+                    src={merchList['item_image']}
+                  />
+                )}
+                {merchList['description'] && (
+                  <p style={{ whiteSpace: 'pre-line' }}>
+                    {merchList['description']}
+                  </p>
+                )}
+                {(totalCapacity() as number) < 10 &&
+                  (totalCapacity() as number) > 0 && (
+                    <p>
+                      <b>We are running out, order soon!</b>
+                    </p>
+                  )}
+                {(totalCapacity() as number) == 0 && (
+                  <p>
+                    <b>
+                      All{' '}
+                      {pluralize(
+                        merchList['variant_friendly_name'] || 'Size',
+                      ).toLowerCase()}{' '}
+                      are sold out!
+                    </b>
+                  </p>
+                )}
                 <p>
-                  <b>Cost:</b> ${decimalHelper(merchList['item_price']['paid'])} for members, ${decimalHelper(merchList['item_price']['others'])} for non-members.
+                  <b>Cost:</b> ${decimalHelper(merchList['item_price']['paid'])}{' '}
+                  for members, $
+                  {decimalHelper(merchList['item_price']['others'])} for
+                  non-members.
                 </p>
-                {merchList['limit_per_person'] > 0 && <i>Limit {merchList['limit_per_person']} per person.</i>}
+                {merchList['limit_per_person'] > 0 && (
+                  <i>Limit {merchList['limit_per_person']} per person.</i>
+                )}
 
                 <Tabs
                   fullWidth
@@ -576,8 +692,15 @@ const MerchItem = () => {
                     <div className="flex flex-col gap-4 pb-4">
                       {!user ? (
                         <>
-                          <p style={{ fontSize: '0.9rem' }}>Log in with your Illinois NetID. Your membership status will be validated at checkout.</p>
-                          <Button color="primary" onPress={loginHandler} isLoading={isLoading && !user}>
+                          <p style={{ fontSize: '0.9rem' }}>
+                            Log in with your Illinois NetID. Your membership
+                            status will be validated at checkout.
+                          </p>
+                          <Button
+                            color="primary"
+                            onPress={loginHandler}
+                            isLoading={isLoading && !user}
+                          >
                             Login with Illinois NetID
                           </Button>
                         </>
@@ -615,44 +738,93 @@ const MerchItem = () => {
                           >
                             {merchList['variants']?.map((v: Variant) => (
                               <SelectItem key={v.id} textValue={v.name}>
-                                {filterSoldOut(v.id) ? v.name + ' [SOLD OUT]' : v.name}
+                                {filterSoldOut(v.id)
+                                  ? v.name + ' [SOLD OUT]'
+                                  : v.name}
                               </SelectItem>
                             ))}
                           </Select>
                           <Input
-                            value={quantity} onValueChange={setQuantity} label="Quantity" variant="bordered"
-                            isInvalid={inputQuantityStatus === InputStatus.INVALID}
-                            color={inputQuantityStatus === InputStatus.INVALID ? 'danger' : 'default'}
-                            errorMessage={inputQuantityStatus === InputStatus.INVALID && `Invalid Quantity (max ${getMaxQuantity(size)})`}
+                            value={quantity}
+                            onValueChange={setQuantity}
+                            label="Quantity"
+                            variant="bordered"
+                            isInvalid={
+                              inputQuantityStatus === InputStatus.INVALID
+                            }
+                            color={
+                              inputQuantityStatus === InputStatus.INVALID
+                                ? 'danger'
+                                : 'default'
+                            }
+                            errorMessage={
+                              inputQuantityStatus === InputStatus.INVALID &&
+                              `Invalid Quantity (max ${getMaxQuantity(size)})`
+                            }
                           />
                           {turnstileWidget('wid1')}
                           <Button
-                            color="primary" size="lg"
-                            isDisabled={!isFormValidated || isLoading || totalCapacity() === 0 || isPaidMember === null}
+                            color="primary"
+                            size="lg"
+                            isDisabled={
+                              !isFormValidated ||
+                              isLoading ||
+                              totalCapacity() === 0 ||
+                              isPaidMember === null
+                            }
                             onPress={purchaseHandler}
                             isLoading={isLoading}
                           >
-                            {isPaidMember === null ? 'Checking membership...' : isLoading ? 'Processing...' : `Purchase for $${totalPrice}`}
+                            {isPaidMember === null
+                              ? 'Checking membership...'
+                              : isLoading
+                                ? 'Processing...'
+                                : `Purchase for $${totalPrice}`}
                           </Button>
                         </>
                       )}
                     </div>
                   </Tab>
-                  {!forceIllinoisLogin &&
+                  {!forceIllinoisLogin && (
                     <Tab key="guest" title="Guest Checkout">
                       <div className="flex flex-col gap-4 pb-4">
-                        <p style={{ fontSize: '0.9rem' }}>Continue without logging in. You will be charged the non-member price.</p>
+                        <p style={{ fontSize: '0.9rem' }}>
+                          Continue without logging in. You will be charged the
+                          non-member price.
+                        </p>
                         <Input
-                          value={email} onValueChange={setEmail} label="Email" variant="bordered"
+                          value={email}
+                          onValueChange={setEmail}
+                          label="Email"
+                          variant="bordered"
                           isInvalid={inputEmailStatus === InputStatus.INVALID}
-                          color={inputEmailStatus === InputStatus.INVALID ? 'danger' : 'default'}
-                          errorMessage={inputEmailStatus === InputStatus.INVALID && 'Invalid Email'}
+                          color={
+                            inputEmailStatus === InputStatus.INVALID
+                              ? 'danger'
+                              : 'default'
+                          }
+                          errorMessage={
+                            inputEmailStatus === InputStatus.INVALID &&
+                            'Invalid Email'
+                          }
                         />
                         <Input
-                          value={emailConfirm} onValueChange={setEmailConfirm} label="Confirm Email" variant="bordered"
-                          isInvalid={inputEmailConfirmStatus === InputStatus.INVALID}
-                          color={inputEmailConfirmStatus === InputStatus.INVALID ? 'danger' : 'default'}
-                          errorMessage={inputEmailConfirmStatus === InputStatus.INVALID && 'Emails do not match'}
+                          value={emailConfirm}
+                          onValueChange={setEmailConfirm}
+                          label="Confirm Email"
+                          variant="bordered"
+                          isInvalid={
+                            inputEmailConfirmStatus === InputStatus.INVALID
+                          }
+                          color={
+                            inputEmailConfirmStatus === InputStatus.INVALID
+                              ? 'danger'
+                              : 'default'
+                          }
+                          errorMessage={
+                            inputEmailConfirmStatus === InputStatus.INVALID &&
+                            'Emails do not match'
+                          }
                         />
                         <Divider />
                         <Select
@@ -667,34 +839,57 @@ const MerchItem = () => {
                         >
                           {merchList['variants']?.map((v: Variant) => (
                             <SelectItem key={v.id} textValue={v.name}>
-                              {filterSoldOut(v.id) ? v.name + ' [SOLD OUT]' : v.name}
+                              {filterSoldOut(v.id)
+                                ? v.name + ' [SOLD OUT]'
+                                : v.name}
                             </SelectItem>
                           ))}
                         </Select>
                         <Input
-                          value={quantity} onValueChange={setQuantity} label="Quantity" variant="bordered"
-                          isInvalid={inputQuantityStatus === InputStatus.INVALID}
-                          color={inputQuantityStatus === InputStatus.INVALID ? 'danger' : 'default'}
-                          errorMessage={inputQuantityStatus === InputStatus.INVALID && `Invalid Quantity (max ${getMaxQuantity(size)})`}
-                          description={size ? `Max: ${getMaxQuantity(size)}` : undefined}
+                          value={quantity}
+                          onValueChange={setQuantity}
+                          label="Quantity"
+                          variant="bordered"
+                          isInvalid={
+                            inputQuantityStatus === InputStatus.INVALID
+                          }
+                          color={
+                            inputQuantityStatus === InputStatus.INVALID
+                              ? 'danger'
+                              : 'default'
+                          }
+                          errorMessage={
+                            inputQuantityStatus === InputStatus.INVALID &&
+                            `Invalid Quantity (max ${getMaxQuantity(size)})`
+                          }
+                          description={
+                            size ? `Max: ${getMaxQuantity(size)}` : undefined
+                          }
                         />
                         {turnstileWidget('wid2')}
                         <Button
-                          color="primary" size="lg"
-                          isDisabled={!isFormValidated || isLoading || totalCapacity() === 0}
+                          color="primary"
+                          size="lg"
+                          isDisabled={
+                            !isFormValidated ||
+                            isLoading ||
+                            totalCapacity() === 0
+                          }
                           onPress={purchaseHandler}
                           isLoading={isLoading}
                         >
-                          {isLoading ? 'Processing...' : `Purchase for $${totalPrice}`}
+                          {isLoading
+                            ? 'Processing...'
+                            : `Purchase for $${totalPrice}`}
                         </Button>
                       </div>
                     </Tab>
-                  }
+                  )}
                 </Tabs>
               </CardBody>
             </Card>
           </div>
-        </Layout >
+        </Layout>
         {modal}
       </>
     );

@@ -11,7 +11,11 @@ import './CalendarStylesOverride.css';
 import { CalendarEventDetailProps } from '@/components/CalendarEventDetail/CalendarEventDetail';
 import { View, NavigateAction } from 'react-big-calendar';
 import { Organization } from '@/utils/organizations';
-import { OrgType, getOrgsByType, type OrganizationName } from '@acm-uiuc/js-shared';
+import {
+  OrgType,
+  getOrgsByType,
+  type OrganizationName,
+} from '@acm-uiuc/js-shared';
 import { Skeleton } from '@heroui/react';
 import {
   repeatMapping,
@@ -40,7 +44,7 @@ export interface IEvent {
   paidEventId?: string;
   host?: Organization;
   featured?: boolean;
-  metadata?:Record<string, string>;
+  metadata?: Record<string, string>;
   id: string;
 }
 
@@ -57,7 +61,9 @@ export interface CalendarEvent extends BigCalendarEvent {
 
 export interface EventsProps {
   events: IEvent[] | null;
-  updateEventDetails: React.Dispatch<React.SetStateAction<CalendarEventDetailProps>>
+  updateEventDetails: React.Dispatch<
+    React.SetStateAction<CalendarEventDetailProps>
+  >;
   displayDate: Date;
   updateDisplayDate: React.Dispatch<React.SetStateAction<Date>>;
   filter: string;
@@ -66,7 +72,7 @@ export interface EventsProps {
   setView: React.Dispatch<React.SetStateAction<View>>;
 }
 
-const sigNames = getOrgsByType(OrgType.SIG).map(sig => sig.name);
+const sigNames = getOrgsByType(OrgType.SIG).map((sig) => sig.name);
 
 const getEventColor = (event: CalendarEvent) => {
   if (sigNames.includes(event.host as OrganizationName)) {

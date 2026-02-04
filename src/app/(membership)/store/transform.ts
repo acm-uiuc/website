@@ -1,4 +1,7 @@
-import { ApiV1StoreProductsGet200Response, ApiV1StoreProductsProductIdGet200Response } from "@acm-uiuc/core-client";
+import {
+  ApiV1StoreProductsGet200Response,
+  ApiV1StoreProductsProductIdGet200Response,
+} from '@acm-uiuc/core-client';
 
 type ApiProduct = ApiV1StoreProductsProductIdGet200Response;
 
@@ -18,11 +21,15 @@ interface LegacyItem {
   item_sales_active_utc: number;
   item_name: string;
   description?: string | null;
-  variants?: { id: string | null, name?: string | null, memberLists?: string[] | null }[]
+  variants?: {
+    id: string | null;
+    name?: string | null;
+    memberLists?: string[] | null;
+  }[];
 }
 
 function formatPriceRange(prices: number[]): string {
-  if (prices.length === 0) return "";
+  if (prices.length === 0) return '';
 
   const uniquePrices = Array.from(new Set(prices)).sort((a, b) => a - b);
   const formatPrice = (cents: number) => `$${(cents / 100).toFixed(2)}`;
@@ -44,7 +51,7 @@ export function transformApiProduct(product: ApiProduct): LegacyItem {
 
   // Build total_avail from variant inventory
   const total_avail: Record<string, number> = {};
-  if (product.inventoryMode === "PER_VARIANT") {
+  if (product.inventoryMode === 'PER_VARIANT') {
     product.variants.forEach((variant) => {
       if (variant.inventoryCount != null && variant.variantId != null) {
         total_avail[variant.variantId] = variant.inventoryCount;
@@ -52,13 +59,13 @@ export function transformApiProduct(product: ApiProduct): LegacyItem {
     });
   } else if (product.totalInventoryCount != null) {
     // For PER_PRODUCT mode, could assign total to a generic key or distribute
-    total_avail["total"] = product.totalInventoryCount;
+    total_avail['total'] = product.totalInventoryCount;
   }
 
   return {
-    item_id: product.productId ?? "",
-    item_name: product.name ?? "",
-    item_image: product.imageUrl ?? "",
+    item_id: product.productId ?? '',
+    item_name: product.name ?? '',
+    item_image: product.imageUrl ?? '',
     description: product.description,
     member_price: formatPriceRange(memberPrices),
     nonmember_price: formatPriceRange(nonmemberPrices),
@@ -66,13 +73,13 @@ export function transformApiProduct(product: ApiProduct): LegacyItem {
       paid: minMemberPrice / 100,
       others: minNonmemberPrice / 100,
     },
-    sizes: product.variants.map((v) => v.name).filter(x => x !== null),
-    variants: product.variants.map(v => ({
+    sizes: product.variants.map((v) => v.name).filter((x) => x !== null),
+    variants: product.variants.map((v) => ({
       id: v.variantId,
       name: v.name,
-      memberLists: v.memberLists ?? []
+      memberLists: v.memberLists ?? [],
     })),
-    eventDetails: product.description ?? "",
+    eventDetails: product.description ?? '',
     total_sold: {}, // API doesn't provide this; initialize empty
     total_avail,
     limit_per_person: product.limitConfiguration?.maxQuantity ?? -1,
@@ -80,5 +87,7 @@ export function transformApiProduct(product: ApiProduct): LegacyItem {
   };
 }
 export function transformApiResponse(apiResponse: ApiResponse): LegacyItem[] {
-  return apiResponse.products.map(transformApiProduct).filter(x => x !== null);
+  return apiResponse.products
+    .map(transformApiProduct)
+    .filter((x) => x !== null);
 }

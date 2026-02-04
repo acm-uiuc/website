@@ -22,7 +22,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22.x
-          cache: "yarn"
+          cache: 'yarn'
 
       - name: Restore Yarn Cache
         uses: actions/cache@v4
@@ -31,7 +31,6 @@ jobs:
           key: yarn-modules-${{ runner.arch }}-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-dev
           restore-keys: |
             yarn-modules-${{ runner.arch }}-${{ runner.os }}-
-
 
       - name: Install dependencies
         run: yarn -D
@@ -76,7 +75,7 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           token: ${{ secrets.GITHUB_TOKEN }}
           body: ${{ steps.job-summary.outputs.job-summary }}
-          edit-mode: "replace"
+          edit-mode: 'replace'
 
       - name: Update PR with Failure
         if: failure() && github.event_name == 'pull_request'
@@ -88,4 +87,4 @@ jobs:
           body: |
             😢 **Cloudflare Pages - Deployment failed**
             Please check the workflow logs for details.
-          edit-mode: "replace"
+          edit-mode: 'replace'

@@ -17,14 +17,14 @@ import {
 import { Spinner } from '@heroui/spinner';
 
 import Lottie from 'lottie-react';
-import axios from 'axios';
 import Layout from '../MembershipLayout';
 import successAnimation from '../success.json';
 import { useSearchParams } from 'next/navigation';
-import config from '@/config.json';
 import { type IPublicClientApplication } from "@azure/msal-browser";
 import { getUserAccessToken, initMsalClient } from '@/utils/msal';
 import { MembershipPriceString } from '@acm-uiuc/js-shared';
+import { membershipApiClient } from '@/utils/api';
+import { ResponseError, ValidationError } from '@acm-uiuc/core-client';
 
 
 interface ErrorCode {
@@ -80,57 +80,37 @@ const Payment = () => {
       modalErrorMessage.onOpen();
       return;
     }
-    const url = `${baseUrl}/api/v2/membership/checkout`;
-    axios
-      .get(url, {
-        headers: { "Content-Type": "text/plain", 'x-uiuc-token': accessToken }
-      })
-      .then((response) => {
-        window.location.replace(response.data);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        if (error.response) {
-          if (error.response.status === 422) {
-            const errorObj = error.response.data;
-            setErrorMessage({
-              code: errorObj.details[0].issue,
-              message: errorObj.details[0].description,
-            });
-            modalErrorMessage.onOpen();
-          }
-          else if (error.response.status === 403) {
-            setErrorMessage({
-              code: 409,
-              message: 'Could not verify NetID.',
-            });
-            modalAlreadyMember.onOpen();
-          } else if (error.response.status === 400) {
-            const errorObj = error.response.data;
-            if ((errorObj.message as string).includes("is already a paid member")) {
-              setErrorMessage({
-                code: 409,
-                message: 'The specified user is already a paid member.',
-              });
-              modalAlreadyMember.onOpen();
-            } else {
-              setErrorMessage({
-                code: errorObj.id,
-                message: errorObj.message,
-              });
-              modalErrorMessage.onOpen();
-            }
-          } else if (error.response.status === 409) {
-            setErrorMessage({
-              code: 500,
-              message:
-                'Internal server error: ' +
-                (error.response.data.message || 'could not process request'),
-            });
-            modalErrorMessage.onOpen();
-          }
-        }
+    try {
+      const response = await membershipApiClient.apiV2MembershipCheckoutGet({
+        xUiucToken: accessToken,
       });
+      window.location.replace(response)
+    } catch (e) {
+      console.error("Error purchasing membership", e)
+      if (e instanceof ResponseError) {
+        setIsLoading(false);
+        const responseJson = await e.response.json() as ValidationError;
+        if (responseJson.message.includes("is already a paid member")) {
+          modalErrorMessage.onClose();
+          modalAlreadyMember.onOpen();
+          return;
+        }
+        setErrorMessage({
+          code: responseJson.id ?? 400,
+          message: responseJson.message ?? "An error occurred creating your checkout session."
+        })
+      } else {
+        setErrorMessage({
+          code: 400,
+          message: "An error occurred creating your checkout session."
+        })
+      }
+      modalErrorMessage.onOpen();
+    }
+
+
+
+
   }, [modalAlreadyMember, modalErrorMessage]);
 
   useEffect(() => {

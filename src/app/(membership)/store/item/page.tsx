@@ -20,13 +20,14 @@ import {
   Tabs,
   Tab,
 } from '@heroui/react';
-import axios from 'axios';
 import Layout from '../../MembershipLayout';
 import { IPublicClientApplication, AccountInfo } from '@azure/msal-browser';
 import { getUserAccessToken, initMsalClient } from '@/utils/msal';
-import { syncIdentity } from '@/utils/api';
+import { membershipApiClient, storeApiClient, syncIdentity } from '@/utils/api';
 import { Turnstile } from '@marsidev/react-turnstile';
-import { transformApiResponse } from '../transform';
+import { transformApiProduct, transformApiResponse } from '../transform';
+import { ApiV1StoreProductsGet200Response, ResponseError } from '@acm-uiuc/core-client';
+import pluralize from "pluralize";
 
 const decimalHelper = (num: number) => {
   if (Number.isInteger(num)) {
@@ -183,10 +184,8 @@ const MerchItem = () => {
         return;
       }
 
-      const listsParam = lists.join(',');
-      const url = `${coreBaseUrl}/api/v1/membership?lists=${encodeURIComponent(listsParam)}`;
-      const response = await axios.get(url, { headers: { 'x-uiuc-token': accessToken } });
-      const result = response.data.isPaidMember || false;
+      const response = await membershipApiClient.apiV1MembershipGet({ lists, xUiucToken: accessToken })
+      const result = response.isPaidMember || false;
 
       // Only apply result if this is still the active check (ignore stale responses)
       if (activeMembershipKeyRef.current === cacheKey) {
@@ -256,47 +255,42 @@ const MerchItem = () => {
     }
     return available;
   };
+  type Product = ApiV1StoreProductsGet200Response['products'][number];
 
   const metaLoader = async () => {
-    const url = `${coreBaseUrl}/api/v1/store/products/${itemid}`;
-    axios
-      .get(url)
-      .then((response) => {
-        const transformed = transformApiResponse({ products: [response.data] })[0];
-        if (response.data['verifiedIdentityRequired']) {
-          setForceIllinoisLogin(true);
-        }
-        setMerchList(transformed);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        if (error.response && error.response.status === 404) {
-          setTimeout(() => {
-            setErrorMessage({
-              title: "Error retrieving product",
-              code: 404,
-              message: error.response.data.message,
-            });
-            setMerchList({ failed: true });
-            setIsLoading(false);
-            modalErrorMessage.onOpen();
-          }, 1000);
-        }
-      });
+    try {
+      const itemData = await storeApiClient.apiV1StoreProductsProductIdGet({ productId: itemid })
+      const transformed = transformApiProduct(itemData);
+      if (itemData['verifiedIdentityRequired']) {
+        setForceIllinoisLogin(true);
+      }
+      setMerchList(transformed);
+      setIsLoading(false);
+    } catch (e) {
+      window.location.href = '/store';
+    }
   };
 
-  const handleApiError = (error: any) => {
+  const handleApiError = async (error: any) => {
     if (!error.response) {
       setErrorMessage({ code: 500, message: 'Network error. Please try again.' });
       modalErrorMessage.onOpen();
       setIsLoading(false);
       return;
     }
-    const { status, data } = error.response;
-    setErrorMessage({
-      code: data.id || status,
-      message: data.message || 'An error occurred and your request could not be processed.',
-    });
+    if (error instanceof ResponseError) {
+      const response = await error.response.json()
+      setErrorMessage({
+        code: response.id || error.response.status,
+        message: response.message || 'An error occurred and your request could not be processed.',
+      });
+    } else {
+      setErrorMessage({
+        code: 400,
+        message: 'An error occurred and your request could not be processed.',
+      });
+    }
+
     setIsLoading(false);
     modalErrorMessage.onOpen();
   };
@@ -361,22 +355,20 @@ const MerchItem = () => {
     }
 
     await syncIdentity(accessToken);
-
-    const url = `${coreBaseUrl}/api/v1/store/checkout`;
-    axios.post(url, {
-      items: [
-        { productId: itemid, variantId: size, quantity: parseInt(quantity, 10) }
-      ],
-      successRedirPath: `/store/paid`,
-      cancelRedirPath: `/store/item?id=${itemid}`
-    }, {
-      headers: {
-        'x-uiuc-token': accessToken,
-        'x-turnstile-response': token,
-      }
-    })
-      .then(response => window.location.replace(response.data['checkoutUrl']))
-      .catch(handleApiError);
+    try {
+      const checkoutResponse = await storeApiClient.apiV1StoreCheckoutPost({
+        xTurnstileResponse: token, xUiucToken: accessToken, apiV1StoreCheckoutPostRequest: {
+          items: [
+            { productId: itemid, variantId: size, quantity: parseInt(quantity, 10) }
+          ],
+          successRedirPath: `/store/paid`,
+          cancelRedirPath: `/store/item?id=${itemid}`
+        }
+      });
+      window.location.replace(checkoutResponse['checkoutUrl'])
+    } catch (e) {
+      handleApiError(e);
+    }
   };
 
   const purchaseHandler = async () => {
@@ -398,22 +390,21 @@ const MerchItem = () => {
       }
       await completePurchase();
     } else { // Guest flow
-      // Non-Illinois email, use guest checkout
-      const url = `${coreBaseUrl}/api/v1/store/checkout`;
-      axios.post(url, {
-        items: [
-          { productId: itemid, variantId: size, quantity: parseInt(quantity, 10) }
-        ],
-        successRedirPath: `/store/paid`,
-        cancelRedirPath: `/store/item?id=${itemid}`,
-        email
-      }, {
-        headers: {
-          'x-turnstile-response': token,
-        }
-      })
-        .then(response => window.location.replace(response.data['checkoutUrl']))
-        .catch(handleApiError);
+      try {
+        const checkoutResponse = await storeApiClient.apiV1StoreCheckoutPost({
+          xTurnstileResponse: token, apiV1StoreCheckoutPostRequest: {
+            items: [
+              { productId: itemid, variantId: size, quantity: parseInt(quantity, 10) }
+            ],
+            successRedirPath: `/store/paid`,
+            cancelRedirPath: `/store/item?id=${itemid}`,
+            email,
+          }
+        });
+        window.location.replace(checkoutResponse['checkoutUrl'])
+      } catch (e) {
+        handleApiError(e);
+      }
     }
   };
 
@@ -569,7 +560,7 @@ const MerchItem = () => {
                 {merchList['item_image'] && <img alt={merchList['item_name'] + ' image.'} src={merchList['item_image']} />}
                 {merchList['description'] && <p style={{ whiteSpace: 'pre-line' }}>{merchList['description']}</p>}
                 {((totalCapacity() as number) < 10 && (totalCapacity() as number) > 0) && <p><b>We are running out, order soon!</b></p>}
-                {((totalCapacity() as number) == 0) && <p><b>All variants are sold out!</b></p>}
+                {((totalCapacity() as number) == 0) && <p><b>All {pluralize(merchList['variant_friendly_name'] || 'Size').toLowerCase()} are sold out!</b></p>}
                 <p>
                   <b>Cost:</b> ${decimalHelper(merchList['item_price']['paid'])} for members, ${decimalHelper(merchList['item_price']['others'])} for non-members.
                 </p>

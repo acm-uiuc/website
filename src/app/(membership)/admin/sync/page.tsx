@@ -17,7 +17,6 @@ import {
 import { Spinner } from '@heroui/spinner';
 
 import Lottie from 'lottie-react';
-import axios from 'axios';
 import Layout from '../../MembershipLayout';
 import successAnimation from '../../success.json';
 import { useSearchParams } from 'next/navigation';

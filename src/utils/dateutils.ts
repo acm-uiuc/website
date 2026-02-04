@@ -12,18 +12,18 @@ export const transformApiDates = (events: IEvent[]): IEvent[] => {
         .format('YYYY-MM-DDTHH:mm:ss'),
       end: event.end
         ? moment
-          .tz(event.end, 'America/Chicago')
-          .tz(moment.tz.guess())
-          .format('YYYY-MM-DDTHH:mm:ss')
+            .tz(event.end, 'America/Chicago')
+            .tz(moment.tz.guess())
+            .format('YYYY-MM-DDTHH:mm:ss')
         : moment
-          .tz(event.start, 'America/Chicago')
-          .tz(moment.tz.guess())
-          .format('YYYY-MM-DDTHH:mm:ss'),
+            .tz(event.start, 'America/Chicago')
+            .tz(moment.tz.guess())
+            .format('YYYY-MM-DDTHH:mm:ss'),
       repeatEnds: event.repeatEnds
         ? moment
-          .tz(event.repeatEnds, 'America/Chicago')
-          .tz(moment.tz.guess())
-          .format('YYYY-MM-DDTHH:mm:ss')
+            .tz(event.repeatEnds, 'America/Chicago')
+            .tz(moment.tz.guess())
+            .format('YYYY-MM-DDTHH:mm:ss')
         : undefined,
     };
   });
@@ -90,10 +90,15 @@ export const getEventsAfter = (
 
       const { increment, unit } = repeatMapping[event.repeats];
       const excludedDates = new Set(
-        event.repeatExcludes?.map((date) => moment(date).format('YYYY-MM-DD')) ?? [],
+        event.repeatExcludes?.map((date) =>
+          moment(date).format('YYYY-MM-DD'),
+        ) ?? [],
       );
 
-      while (start.isBefore(now) || excludedDates.has(start.format('YYYY-MM-DD'))) {
+      while (
+        start.isBefore(now) ||
+        excludedDates.has(start.format('YYYY-MM-DD'))
+      ) {
         start.add(increment, unit);
         if (end) {
           end.add(increment, unit);
@@ -121,7 +126,9 @@ export const getEventsAfter = (
   // and events whose end time is in the past.
   const definedEvents = eventsAfterNow.filter((event): event is IEvent => {
     if (event === null) return false;
-    const eventEnd = event.end ? moment(event.end) : moment(event.start).add(1, 'hour');
+    const eventEnd = event.end
+      ? moment(event.end)
+      : moment(event.start).add(1, 'hour');
     return eventEnd.isAfter(now);
   });
 

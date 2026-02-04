@@ -23,13 +23,15 @@ const MerchStore = () => {
       const data = await storeApiClient.apiV1StoreProductsGet();
       const filteredData = {
         products: data.products.filter(
-          (x): x is Product & { productId: NonNullable<Product['productId']> } =>
-            x.productId !== null
-        )
-      }
-      setItemsList(transformApiResponse(filteredData))
+          (
+            x,
+          ): x is Product & { productId: NonNullable<Product['productId']> } =>
+            x.productId !== null,
+        ),
+      };
+      setItemsList(transformApiResponse(filteredData));
     } catch (e) {
-      console.error("failed to get products", e);
+      console.error('failed to get products', e);
       setItemsList([
         {
           member_price: '',
@@ -47,7 +49,7 @@ const MerchStore = () => {
         },
       ]);
     }
-  }
+  };
 
   useEffect(() => {
     metaLoader();
@@ -82,7 +84,7 @@ const MerchStore = () => {
                   <p>
                     <b>Cost:</b> ${decimalHelper(val['item_price']['paid'])} for{' '}
                     {val['valid_member_lists'] &&
-                      val['valid_member_lists'].length > 0
+                    val['valid_member_lists'].length > 0
                       ? 'paid ACM@UIUC and eligible partner organization'
                       : 'paid ACM@UIUC'}{' '}
                     members, ${decimalHelper(val['item_price']['others'])} for

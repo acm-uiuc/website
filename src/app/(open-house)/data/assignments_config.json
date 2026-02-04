@@ -1,4 +1,37 @@
 {
-  "left":["infra", "corporate", "accom", "hack", "sigchi", "built", "wcs", "retrotech", "sigrobotics", "sigquantum", "sigma", "queercoded", "sigmusic", "projectcode", "sigarch", "glug"],
-  "right": ["social", "marketing", "rp", "124h", "siggraph", "icpc", "sigaida", "signll", "sigpolicy", "sigplan", "sigpwny", "wicys", "gamebuilders", "sigecom", "sigtricity"]
+  "left": [
+    "infra",
+    "corporate",
+    "accom",
+    "hack",
+    "sigchi",
+    "built",
+    "wcs",
+    "retrotech",
+    "sigrobotics",
+    "sigquantum",
+    "sigma",
+    "queercoded",
+    "sigmusic",
+    "projectcode",
+    "sigarch",
+    "glug"
+  ],
+  "right": [
+    "social",
+    "marketing",
+    "rp",
+    "124h",
+    "siggraph",
+    "icpc",
+    "sigaida",
+    "signll",
+    "sigpolicy",
+    "sigplan",
+    "sigpwny",
+    "wicys",
+    "gamebuilders",
+    "sigecom",
+    "sigtricity"
+  ]
 }

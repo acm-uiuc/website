@@ -61,7 +61,8 @@ const Resources = () => {
               <ExtLink href="https://www.acm.illinois.edu/membership">
                 here
               </ExtLink>{' '}
-              to pay for your membership online. Only {MembershipPriceString.replace(".00", "")} for a lifetime ACM
+              to pay for your membership online. Only{' '}
+              {MembershipPriceString.replace('.00', '')} for a lifetime ACM
               membership &rarr; $0 per day! You’ll need to pay with a credit or
               debit card.
             </p>
@@ -147,13 +148,10 @@ const Resources = () => {
             <p>
               We value your experience and want to create the most supportive
               and inclusive community possible. This anonymous{' '}
-              <ExtLink href="https://acm.gg/feedback">
-                feedback form
-              </ExtLink>{' '}
-              is your opportunity to share your thoughts, concerns, or
-              suggestions about ACM. We take every submission seriously and will
-              ensure confidentiality. Help us create positive changes in our
-              community!
+              <ExtLink href="https://acm.gg/feedback">feedback form</ExtLink> is
+              your opportunity to share your thoughts, concerns, or suggestions
+              about ACM. We take every submission seriously and will ensure
+              confidentiality. Help us create positive changes in our community!
             </p>
           </section>
         </div>

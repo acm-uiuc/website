@@ -110,19 +110,18 @@
   z-index: 10;
 }
 
-.mapImage {  
-  width: 100%;  
-  display: block;  
-}  
-  
-  
-@media (orientation: portrait) {   
-  .mapImage {  
-    width: 100%;  
-    display: block;  
-    margin: 0 auto;  
-  }  
-} 
+.mapImage {
+  width: 100%;
+  display: block;
+}
+
+@media (orientation: portrait) {
+  .mapImage {
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+  }
+}
 
 .boothMarker {
   position: absolute;

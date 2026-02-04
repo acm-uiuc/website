@@ -20,12 +20,11 @@ import Lottie from 'lottie-react';
 import Layout from '../MembershipLayout';
 import successAnimation from '../success.json';
 import { useSearchParams } from 'next/navigation';
-import { type IPublicClientApplication } from "@azure/msal-browser";
+import { type IPublicClientApplication } from '@azure/msal-browser';
 import { getUserAccessToken, initMsalClient } from '@/utils/msal';
 import { MembershipPriceString } from '@acm-uiuc/js-shared';
 import { membershipApiClient } from '@/utils/api';
 import { ResponseError, ValidationError } from '@acm-uiuc/core-client';
-
 
 interface ErrorCode {
   code?: number | string;
@@ -59,14 +58,14 @@ const Payment = () => {
     (async () => {
       setPca(await initMsalClient());
     })();
-  }, [])
+  }, []);
 
   const purchaseHandler = useCallback(async () => {
     setIsLoading(true);
     if (!pca) {
       setErrorMessage({
         code: -1,
-        message: "Failed to authenticate NetID."
+        message: 'Failed to authenticate NetID.',
       });
       modalErrorMessage.onOpen();
       return;
@@ -75,7 +74,7 @@ const Payment = () => {
     if (!accessToken) {
       setErrorMessage({
         code: -1,
-        message: "Failed to authenticate NetID."
+        message: 'Failed to authenticate NetID.',
       });
       modalErrorMessage.onOpen();
       return;
@@ -84,33 +83,31 @@ const Payment = () => {
       const response = await membershipApiClient.apiV2MembershipCheckoutGet({
         xUiucToken: accessToken,
       });
-      window.location.replace(response)
+      window.location.replace(response);
     } catch (e) {
-      console.error("Error purchasing membership", e)
+      console.error('Error purchasing membership', e);
       if (e instanceof ResponseError) {
         setIsLoading(false);
-        const responseJson = await e.response.json() as ValidationError;
-        if (responseJson.message.includes("is already a paid member")) {
+        const responseJson = (await e.response.json()) as ValidationError;
+        if (responseJson.message.includes('is already a paid member')) {
           modalErrorMessage.onClose();
           modalAlreadyMember.onOpen();
           return;
         }
         setErrorMessage({
           code: responseJson.id ?? 400,
-          message: responseJson.message ?? "An error occurred creating your checkout session."
-        })
+          message:
+            responseJson.message ??
+            'An error occurred creating your checkout session.',
+        });
       } else {
         setErrorMessage({
           code: 400,
-          message: "An error occurred creating your checkout session."
-        })
+          message: 'An error occurred creating your checkout session.',
+        });
       }
       modalErrorMessage.onOpen();
     }
-
-
-
-
   }, [modalAlreadyMember, modalErrorMessage]);
 
   useEffect(() => {
@@ -158,11 +155,10 @@ const Payment = () => {
               )}
             </Button>
             <p className="text-sm ml-2">
-              Membership is open to all students, staff,
-              and faculty at UIUC. By becoming a member,
-              you agree to receive email communications
-              from us. You may unsubscribe at any time
-              by clicking the unsubscribe link in any email.
+              Membership is open to all students, staff, and faculty at UIUC. By
+              becoming a member, you agree to receive email communications from
+              us. You may unsubscribe at any time by clicking the unsubscribe
+              link in any email.
             </p>
           </CardBody>
         </Card>

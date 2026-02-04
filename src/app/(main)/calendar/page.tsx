@@ -8,14 +8,20 @@ import { Suspense, useEffect, useState } from 'react';
 import CalendarControls from '@/components/CalendarControls';
 import { View, Views } from 'react-big-calendar';
 import { transformApiDates } from '@/utils/dateutils';
-import { AllOrganizationNameList, OrganizationName, Organizations } from '@acm-uiuc/js-shared';
+import {
+  AllOrganizationNameList,
+  OrganizationName,
+  Organizations,
+} from '@acm-uiuc/js-shared';
 import { useSearchParams } from 'next/navigation';
 import { eventsApiClient } from '@/utils/api';
 
 const defaultEvent: CalendarEventDetailProps = {
   description: 'N/A',
 };
-const OrganizationList = Object.values(Organizations).map(x => x.name) as OrganizationName[];
+const OrganizationList = Object.values(Organizations).map(
+  (x) => x.name,
+) as OrganizationName[];
 
 const Calendar = () => {
   const searchParams = useSearchParams();
@@ -33,7 +39,7 @@ const Calendar = () => {
   const [allEvents, setAllEvents] = useState<IEvent[] | null>(null);
   useEffect(() => {
     (async () => {
-      const allEvents = await eventsApiClient.apiV1EventsGet()
+      const allEvents = await eventsApiClient.apiV1EventsGet();
       setAllEvents(transformApiDates(allEvents));
     })();
   }, []);
@@ -82,7 +88,7 @@ const Calendar = () => {
                       null,
                       '',
                       baseURL +
-                      `/calendar?host=${e.target.value.replaceAll(' ', '+')}`,
+                        `/calendar?host=${e.target.value.replaceAll(' ', '+')}`,
                     );
                   }
                 }}

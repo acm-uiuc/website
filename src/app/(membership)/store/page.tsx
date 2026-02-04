@@ -7,7 +7,6 @@ import { transformApiResponse } from './transform';
 import { storeApiClient } from '@/utils/api';
 import { ApiV1StoreProductsGet200Response } from '@acm-uiuc/core-client';
 
-type Product = ApiV1StoreProductsGet200Response['products'][number];
 const MerchStore = () => {
   const [itemsList, setItemsList] = useState<Array<Record<string, any>>>([]);
   const baseUrl = process.env.NEXT_PUBLIC_CORE_API_BASE_URL;
@@ -21,15 +20,7 @@ const MerchStore = () => {
   const metaLoader = async () => {
     try {
       const data = await storeApiClient.apiV1StoreProductsGet();
-      const filteredData = {
-        products: data.products.filter(
-          (
-            x,
-          ): x is Product & { productId: NonNullable<Product['productId']> } =>
-            x.productId !== null,
-        ),
-      };
-      setItemsList(transformApiResponse(filteredData));
+      setItemsList(transformApiResponse(data));
     } catch (e) {
       console.error('failed to get products', e);
       setItemsList([
@@ -84,7 +75,7 @@ const MerchStore = () => {
                   <p>
                     <b>Cost:</b> ${decimalHelper(val['item_price']['paid'])} for{' '}
                     {val['valid_member_lists'] &&
-                    val['valid_member_lists'].length > 0
+                      val['valid_member_lists'].length > 0
                       ? 'paid ACM@UIUC and eligible partner organization'
                       : 'paid ACM@UIUC'}{' '}
                     members, ${decimalHelper(val['item_price']['others'])} for

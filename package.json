@@ -4,6 +4,8 @@
   "homepage": "https://acm.illinois.edu/",
   "private": true,
   "scripts": {
+    "postinstall": "npm run setup",
+    "setup": "git config blame.ignoreRevsFile .git-blame-ignore-revs",
     "dev": "next dev",
     "start": "yarn dev",
     "build:dev": "env-cmd -f .env.development next build && yarn postbuild",

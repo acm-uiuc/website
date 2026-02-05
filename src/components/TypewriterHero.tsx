@@ -19,7 +19,7 @@ function shuffleExceptLast<T>(arr: T[]): T[] {
     [result[i], result[j]] = [result[j], result[i]];
   }
 
-  return [...result.slice(0, 3), result[result.length - 1]];
+  return [...result.slice(0, 2), result[result.length - 1]];
 }
 export default function TypewriterHero({
   messages,
@@ -37,7 +37,9 @@ export default function TypewriterHero({
 
   useEffect(() => {
     // Check for reduced motion preference
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches;
     if (prefersReducedMotion) {
       // Show final message immediately
       setCurrentText(messages[messages.length - 1]);
@@ -85,15 +87,23 @@ export default function TypewriterHero({
         setIsPaused(true);
       }
     }
-  }, [currentText, currentMessageIndex, isTyping, isPaused, isComplete, messages, typingSpeed, deletingSpeed, pauseAfterTyping, pauseAfterDeleting]);
+  }, [
+    currentText,
+    currentMessageIndex,
+    isTyping,
+    isPaused,
+    isComplete,
+    messages,
+    typingSpeed,
+    deletingSpeed,
+    pauseAfterTyping,
+    pauseAfterDeleting,
+  ]);
 
   return (
     <span class="text-tangerine-400 inline-flex">
       {currentText}
-      <span
-        class="animate-blink ml-1"
-        aria-hidden="true"
-      >
+      <span class="animate-blink ml-1" aria-hidden="true">
         |
       </span>
     </span>

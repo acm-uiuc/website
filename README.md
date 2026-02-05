@@ -22,7 +22,6 @@ Builds the app for production to the `build` folder.
 
 It correctly bundles Astro in production mode and optimizes the build for the best performance.
 
-
 ### `yarn prettier:write`
 
 Runs `prettier` to format the code in the project.\

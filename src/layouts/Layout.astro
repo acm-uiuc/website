@@ -1,0 +1,37 @@
+---
+import "../styles/global.css";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+  title?: string;
+  transparentNav?: boolean;
+}
+
+const { title = "ACM@UIUC", transparentNav = false } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title} | ACM @ UIUC</title>
+  </head>
+  <body class="m-0 flex min-h-screen flex-col bg-white p-0">
+    <Navbar transparent={transparentNav} />
+    <main class="relative flex-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<script>
+  import { initOrganizations } from "../stores/organization";
+
+  // Initialize organization data on page load
+  initOrganizations();
+</script>

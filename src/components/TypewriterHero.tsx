@@ -19,14 +19,14 @@ function shuffleExceptLast<T>(arr: T[]): T[] {
     [result[i], result[j]] = [result[j], result[i]];
   }
 
-  return [...result.slice(0, 2), result[result.length - 1]];
+  return [...result.slice(0, 3), result[result.length - 1]];
 }
 export default function TypewriterHero({
   messages,
-  typingSpeed = 100,
-  deletingSpeed = 60,
-  pauseAfterTyping = 1000,
-  pauseAfterDeleting = 300,
+  typingSpeed = 55,
+  deletingSpeed = 40,
+  pauseAfterTyping = 800,
+  pauseAfterDeleting = 150,
 }: TypewriterHeroProps) {
   const [shuffledMessages] = useState(() => shuffleExceptLast(messages));
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);

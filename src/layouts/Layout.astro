@@ -28,3 +28,10 @@ const { title = 'ACM@UIUC', transparentNav = false } = Astro.props;
     <Footer />
   </body>
 </html>
+
+<script>
+  import { initOrganizations } from '../stores/organization';
+
+  // Fetch fresh organization data from API on page load
+  initOrganizations();
+</script>

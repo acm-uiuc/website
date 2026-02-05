@@ -38,9 +38,9 @@ jobs:
       - name: Build website
         run: |
           if [ "${{ github.ref }}" == "refs/heads/main" ]; then
-            yarn build:prod
+            yarn build --mode production
           else
-            yarn build:staging
+            yarn build --mode development
           fi
 
       - name: Deploy to Cloudflare

@@ -19,7 +19,7 @@ type Listener = (store: OrganizationStore) => void;
 const listeners: Set<Listener> = new Set();
 
 function notify() {
-  listeners.forEach((fn) => fn(store));
+  listeners.forEach((fn) => fn({ ...store }));
 }
 
 /**

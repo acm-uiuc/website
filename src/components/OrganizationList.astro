@@ -1,0 +1,65 @@
+---
+import type { ApiV1OrganizationsGet200ResponseInner } from '@acm-uiuc/core-client';
+import SearchFilter from './SearchFilter.tsx';
+import OrganizationGrid from './OrganizationGrid.tsx';
+import { getImage } from 'astro:assets';
+
+interface Props {
+  initialOrgsList: ApiV1OrganizationsGet200ResponseInner[];
+}
+
+const { initialOrgsList } = Astro.props;
+
+// Filter and sort organizations at build time
+const organizations = initialOrgsList
+  .filter((org) => org.type === 'sig' || org.type === 'committee')
+  .sort((a, b) => a.name.localeCompare(b.name));
+
+// Import all logo images from src/images/logos/
+const imageModules = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/images/logos/*.{png,jpg,jpeg,webp,svg}',
+  { eager: true }
+);
+
+// Create a map of org ID to optimized image data
+const optimizedImages: Record<string, { src: string; width: number; height: number }> = {};
+
+for (const [path, module] of Object.entries(imageModules)) {
+  // Extract filename without extension (e.g., "acm" from "/src/images/logos/acm.png")
+  const filename = path.split('/').pop()?.replace(/\.(png|jpg|jpeg|webp|svg)$/, '') || '';
+
+  try {
+    const optimized = await getImage({
+      src: module.default,
+      width: 96, // h-24 = 96px
+      height: 96,
+      format: 'webp',
+    });
+
+    optimizedImages[filename] = {
+      src: optimized.src,
+      width: optimized.attributes.width || 96,
+      height: optimized.attributes.height || 96,
+    };
+  } catch (e) {
+    console.warn(`Failed to optimize image for ${filename}:`, e);
+  }
+}
+---
+
+<section class="bg-gray-50 py-16 lg:py-20">
+  <div class="container mx-auto px-6 lg:px-8">
+    <div class="text-center mb-2">
+      <h2 class="text-navy-900 text-3xl font-bold sm:text-4xl">
+        Our SIGs & Committees
+      </h2>
+      <p class="text-navy-600 mt-2 text-lg">
+        Explore the groups that make our community vibrant and active.
+      </p>
+    </div>
+
+    <SearchFilter client:load />
+
+    <OrganizationGrid client:visible initialOrgs={organizations} images={optimizedImages} />
+  </div>
+</section>

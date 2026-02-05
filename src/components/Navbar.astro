@@ -12,17 +12,18 @@ interface NavLink {
 const { transparent = false } = Astro.props;
 
 const navLinks: NavLink[] = [
-  { href: "/about", label: "About" },
-  { href: "/calendar", label: "Calendar" },
-  { href: "/store", label: "Store" },
-  { href: "/resources", label: "Resources" },
+  { href: '/about', label: 'About' },
+  { href: '/calendar', label: 'Calendar' },
+  { href: '/store', label: 'Store' },
+  { href: '/resources', label: 'Resources' },
+  { href: 'https://illinoiscs.wiki', label: 'Wiki', external: true },
 ];
 ---
 
 <header
   class:list={[
-    "fixed top-0 right-0 left-0 z-50 transition-all duration-300",
-    transparent ? "bg-transparent" : "nav-solid",
+    'fixed top-0 right-0 left-0 z-50 transition-all duration-300',
+    transparent ? 'bg-transparent' : 'nav-solid',
   ]}
   id="navbar"
 >
@@ -50,8 +51,8 @@ const navLinks: NavLink[] = [
           navLinks.map((link) => (
             <a
               href={link.href}
-              target={link.external ? "_blank" : undefined}
-              rel={link.external ? "noopener noreferrer" : undefined}
+              target={link.external ? '_blank' : undefined}
+              rel={link.external ? 'noopener noreferrer' : undefined}
               class="nav-link rounded-lg px-4 py-2 text-lg font-medium transition-colors"
             >
               {link.label}
@@ -125,8 +126,8 @@ const navLinks: NavLink[] = [
           navLinks.map((link) => (
             <a
               href={link.href}
-              target={link.external ? "_blank" : undefined}
-              rel={link.external ? "noopener noreferrer" : undefined}
+              target={link.external ? '_blank' : undefined}
+              rel={link.external ? 'noopener noreferrer' : undefined}
               class="nav-link-mobile rounded-lg px-4 py-3 text-base font-medium transition-colors"
             >
               {link.label}
@@ -224,28 +225,28 @@ const navLinks: NavLink[] = [
 </style>
 
 <script>
-  const navbar = document.getElementById("navbar");
-  const mobileMenuBtn = document.getElementById("mobile-menu-btn");
-  const mobileMenu = document.getElementById("mobile-menu");
-  const menuIcon = mobileMenuBtn?.querySelector(".menu-icon");
-  const closeIcon = mobileMenuBtn?.querySelector(".close-icon");
+  const navbar = document.getElementById('navbar');
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuIcon = mobileMenuBtn?.querySelector('.menu-icon');
+  const closeIcon = mobileMenuBtn?.querySelector('.close-icon');
 
   function handleScroll() {
     if (window.scrollY > 50) {
-      navbar?.classList.remove("bg-transparent");
-      navbar?.classList.add("nav-solid");
+      navbar?.classList.remove('bg-transparent');
+      navbar?.classList.add('nav-solid');
     } else {
-      navbar?.classList.add("bg-transparent");
-      navbar?.classList.remove("nav-solid");
+      navbar?.classList.add('bg-transparent');
+      navbar?.classList.remove('nav-solid');
     }
   }
 
   handleScroll();
-  window.addEventListener("scroll", handleScroll);
+  window.addEventListener('scroll', handleScroll);
 
-  mobileMenuBtn?.addEventListener("click", () => {
-    mobileMenu?.classList.toggle("hidden");
-    menuIcon?.classList.toggle("hidden");
-    closeIcon?.classList.toggle("hidden");
+  mobileMenuBtn?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+    menuIcon?.classList.toggle('hidden');
+    closeIcon?.classList.toggle('hidden');
   });
 </script>

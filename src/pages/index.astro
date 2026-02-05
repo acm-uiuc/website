@@ -1,10 +1,14 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Hero from "../components/Hero.astro";
-import OrganizationList from "../components/OrganizationList.tsx";
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import OrganizationList from '../components/OrganizationList.astro';
+import { organizationApiClient } from '../api';
+
+const initialOrganizationState =
+  await organizationApiClient.apiV1OrganizationsGet();
 ---
 
 <Layout title="Home" transparentNav={true}>
   <Hero />
-  <OrganizationList client:only="preact" />
+  <OrganizationList initialOrgsList={initialOrganizationState} />
 </Layout>

@@ -1,0 +1,8 @@
+---
+import ContentLayout from '../layouts/ContentLayout.astro';
+import StoreRouter from '../components/StoreRouter';
+---
+
+<ContentLayout title="Store" hideTitleOnPage={true}>
+  <StoreRouter client:only="preact" />
+</ContentLayout>

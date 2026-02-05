@@ -1,72 +1,46 @@
+import { atom, computed } from 'nanostores';
 import type { ApiV1OrganizationsGet200ResponseInner } from '@acm-uiuc/core-client';
 import { organizationApiClient } from '../api';
 
 export type Organization = ApiV1OrganizationsGet200ResponseInner;
 
-interface OrganizationStore {
-  data: Organization[];
-  error: Error | null;
-  initialized: boolean;
-}
+// Atoms
+export const $organizations = atom<Organization[]>([]);
+export const $organizationsError = atom<Error | null>(null);
+export const $organizationsInitialized = atom<boolean>(false);
 
-const store: OrganizationStore = {
-  data: [],
-  error: null,
-  initialized: false,
-};
+// Computed
+export const $sigsAndCommittees = computed($organizations, (orgs) =>
+  orgs
+    .filter((org) => org.type === 'sig' || org.type === 'committee')
+    .sort((a, b) => a.name.localeCompare(b.name))
+);
 
-type Listener = (store: OrganizationStore) => void;
-const listeners: Set<Listener> = new Set();
+export async function initOrganizations(initialData?: Organization[]): Promise<Organization[]> {
+  if ($organizationsInitialized.get()) {
+    return $organizations.get();
+  }
 
-function notify() {
-  listeners.forEach((fn) => fn({ ...store }));
-}
-
-/**
- * Subscribe to store changes
- */
-export function subscribe(fn: Listener): () => void {
-  listeners.add(fn);
-  return () => listeners.delete(fn);
-}
-
-/**
- * Get current store state
- */
-export function getStore(): OrganizationStore {
-  return store;
-}
-
-/**
- * Initialize and fetch organization data (call once on page load)
- */
-export async function initOrganizations(): Promise<Organization[]> {
-  if (store.initialized) {
-    return store.data;
+  // If we have initial data from SSR, use it immediately
+  if (initialData && initialData.length > 0) {
+    $organizations.set(initialData);
   }
 
   try {
-    store.data = await organizationApiClient.apiV1OrganizationsGet();
-    store.error = null;
+    const data = await organizationApiClient.apiV1OrganizationsGet();
+    $organizations.set(data);
+    $organizationsError.set(null);
   } catch (error) {
-    store.error = error instanceof Error ? error : new Error(String(error));
+    $organizationsError.set(error instanceof Error ? error : new Error(String(error)));
   }
 
-  store.initialized = true;
-  notify();
-  return store.data;
+  $organizationsInitialized.set(true);
+  return $organizations.get();
 }
 
 /**
- * Get organization by ID or name
+ * Get organization by ID
  */
 export function getOrganizationById(id: string): Organization | undefined {
-  return store.data.find((org) => org.id === id);
-}
-
-/**
- * Get all organizations
- */
-export function getOrganizations(): Organization[] {
-  return store.data;
+  return $organizations.get().find((org) => org.id === id);
 }

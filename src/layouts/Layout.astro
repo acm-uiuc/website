@@ -1,14 +1,14 @@
 ---
-import "../styles/global.css";
-import Navbar from "../components/Navbar.astro";
-import Footer from "../components/Footer.astro";
+import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
 
 interface Props {
   title?: string;
   transparentNav?: boolean;
 }
 
-const { title = "ACM@UIUC", transparentNav = false } = Astro.props;
+const { title = 'ACM@UIUC', transparentNav = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -28,10 +28,3 @@ const { title = "ACM@UIUC", transparentNav = false } = Astro.props;
     <Footer />
   </body>
 </html>
-
-<script>
-  import { initOrganizations } from "../stores/organization";
-
-  // Initialize organization data on page load
-  initOrganizations();
-</script>

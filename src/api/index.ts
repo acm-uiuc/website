@@ -4,6 +4,7 @@ import {
   MembershipApi,
   MobileWalletApi,
   OrganizationsApi,
+  StoreApi,
 } from '@acm-uiuc/core-client';
 
 const coreProdUrl = 'https://core.acm.illinois.edu';
@@ -35,5 +36,13 @@ export const membershipApiClient = new MembershipApi(
 export const mobileWalletApiClient = new MobileWalletApi(
   new Configuration({
     basePath: import.meta.env.PUBLIC_CORE_API_BASE_URL || coreProdUrl,
+  }),
+);
+
+export const storeApiClient = new StoreApi(
+  new Configuration({
+    basePath:
+      import.meta.env.PUBLIC_CORE_API_BASE_URL ||
+      coreProdUrl,
   }),
 );

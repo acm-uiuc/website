@@ -129,15 +129,7 @@ const EventCard = ({ event }: { event: Event }) => {
 };
 
 const SkeletonCard = () => (
-  <div class="animate-pulse rounded-xl border border-gray-200 bg-white p-5">
-    <div class="mb-4 h-5 w-20 rounded bg-gray-200" />
-    <div class="mb-3 h-6 w-4/5 rounded bg-gray-200" />
-    <div class="mb-4 h-4 w-3/5 rounded bg-gray-200" />
-    <div class="flex gap-3">
-      <div class="h-4 w-24 rounded bg-gray-200" />
-      <div class="h-4 w-20 rounded bg-gray-200" />
-    </div>
-  </div>
+  <div class="animate-pulse rounded-xl border border-gray-200 bg-gray-200 p-5 h-full min-h-[200px]" />
 );
 
 const UpcomingEvents = () => {
@@ -165,9 +157,7 @@ const UpcomingEvents = () => {
 
   if (loading) {
     return (
-      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <SkeletonCard />
-        <SkeletonCard />
+      <div class="grid grid-cols-1 gap-6">
         <SkeletonCard />
       </div>
     );

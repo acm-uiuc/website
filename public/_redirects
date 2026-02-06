@@ -1,1 +1,1 @@
-/store/*  /store  200
+/store/*  /store/:splat  200

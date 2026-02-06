@@ -34,7 +34,7 @@ const OrganizationGrid = ({ initialOrgs, images }: Props) => {
     return sourceData.filter(
       (org) =>
         org.name.toLowerCase().includes(query) ||
-        org.description?.toLowerCase().includes(query)
+        org.description?.toLowerCase().includes(query),
     );
   }, [sourceData, searchQuery]);
 

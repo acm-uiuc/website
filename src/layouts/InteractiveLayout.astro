@@ -1,0 +1,50 @@
+---
+import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+interface Breadcrumb {
+  href: string;
+  label: string;
+}
+
+interface Props {
+  title?: string;
+  description?: string;
+  breadcrumbs?: Breadcrumb[];
+}
+
+const { title = 'ACM @ UIUC', description, breadcrumbs } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title} | ACM @ UIUC</title>
+  </head>
+  <body class="m-0 flex min-h-screen flex-col bg-gray-50 p-0">
+    <Navbar transparent={false} mode="light" breadcrumbs={breadcrumbs} />
+
+    <main
+      class="relative flex flex-1 items-center justify-center px-4 py-16 lg:py-24"
+    >
+      <!-- Background decoration -->
+      <div class="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+          class="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-tangerine-100 opacity-50 blur-3xl"
+        >
+        </div>
+        <div
+          class="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-navy-100 opacity-50 blur-3xl"
+        >
+        </div>
+      </div>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -2,6 +2,7 @@ import {
   Configuration,
   EventsApi,
   MembershipApi,
+  MobileWalletApi,
   OrganizationsApi,
 } from '@acm-uiuc/core-client';
 
@@ -26,6 +27,12 @@ export const organizationApiClient = new OrganizationsApi(
 );
 
 export const membershipApiClient = new MembershipApi(
+  new Configuration({
+    basePath: import.meta.env.PUBLIC_CORE_API_BASE_URL || coreProdUrl,
+  }),
+);
+
+export const mobileWalletApiClient = new MobileWalletApi(
   new Configuration({
     basePath: import.meta.env.PUBLIC_CORE_API_BASE_URL || coreProdUrl,
   }),

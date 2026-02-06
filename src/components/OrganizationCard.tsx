@@ -1,8 +1,13 @@
 import type { Organization } from '../stores/organization';
 import { Globe, Link, Mail } from 'lucide-react';
 import type { JSX } from 'preact/jsx-runtime';
-import { SiDiscord, SiGithub, SiInstagram, SiSlack } from '@icons-pack/react-simple-icons';
-import { acronyms, toTitleCase } from "../util"
+import {
+  SiDiscord,
+  SiGithub,
+  SiInstagram,
+  SiSlack,
+} from '@icons-pack/react-simple-icons';
+import { acronyms, toTitleCase } from '../util';
 
 interface ImageData {
   src: string;
@@ -12,14 +17,14 @@ interface ImageData {
 
 const OrganizationCard = ({
   organization,
-  imageData
+  imageData,
 }: {
   organization: Organization;
   imageData?: ImageData;
 }) => {
   // Use optimized image if available, fallback to public folder
   const logoUrl = imageData?.src || `/images/logos/${organization.id}.png`;
-  const commonIconProps = { size: 16 }
+  const commonIconProps = { size: 16 };
   const linkIconPaths: Record<string, JSX.Element> = {
     WEBSITE: <Globe {...commonIconProps} />,
     DISCORD: <SiDiscord {...commonIconProps} />,
@@ -27,7 +32,7 @@ const OrganizationCard = ({
     INSTAGRAM: <SiInstagram {...commonIconProps} />,
     GITHUB: <SiGithub {...commonIconProps} />,
     EMAIL: <Mail {...commonIconProps} />,
-    OTHER: <Link {...commonIconProps} />
+    OTHER: <Link {...commonIconProps} />,
   };
 
   const badgeColors: Record<string, string> = {
@@ -44,7 +49,9 @@ const OrganizationCard = ({
       <div
         class={`absolute top-3 right-3 text-xs font-bold px-2 py-1 rounded-full ${badgeColors[organization.type] || 'bg-gray-100 text-gray-800'}`}
       >
-        {acronyms.includes(organization.type.toUpperCase()) ? organization.type.toUpperCase() : toTitleCase(organization.type)}
+        {acronyms.includes(organization.type.toUpperCase())
+          ? organization.type.toUpperCase()
+          : toTitleCase(organization.type)}
       </div>
 
       <div class="mb-4">

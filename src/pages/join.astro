@@ -1,9 +1,23 @@
 ---
-import ContentLayout from '../layouts/ContentLayout.astro';
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import OrganizationList from '../components/OrganizationList.astro';
+import JoinModal from '../components/JoinModal.tsx';
+import { organizationApiClient } from '../api';
+
+const initialOrganizationState =
+  await organizationApiClient.apiV1OrganizationsGet();
+
+const discordUrl = 'https://acm.gg/discord';
+const membershipUrl = '/membership';
 ---
 
-<ContentLayout
-  title="Join"
-  description="Join ACM @ UIUC"
-  hideTitleOnPage={true}
-/>
+<Layout title="Join" transparentNav={true}>
+  <Hero />
+  <OrganizationList initialOrgsList={initialOrganizationState} />
+  <JoinModal
+    client:load
+    discordUrl={discordUrl}
+    membershipUrl={membershipUrl}
+  />
+</Layout>

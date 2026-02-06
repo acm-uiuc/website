@@ -13,10 +13,12 @@ export const $organizationsInitialized = atom<boolean>(false);
 export const $sigsAndCommittees = computed($organizations, (orgs) =>
   orgs
     .filter((org) => org.type === 'sig' || org.type === 'committee')
-    .sort((a, b) => a.name.localeCompare(b.name))
+    .sort((a, b) => a.name.localeCompare(b.name)),
 );
 
-export async function initOrganizations(initialData?: Organization[]): Promise<Organization[]> {
+export async function initOrganizations(
+  initialData?: Organization[],
+): Promise<Organization[]> {
   if ($organizationsInitialized.get()) {
     return $organizations.get();
   }
@@ -31,7 +33,9 @@ export async function initOrganizations(initialData?: Organization[]): Promise<O
     $organizations.set(data);
     $organizationsError.set(null);
   } catch (error) {
-    $organizationsError.set(error instanceof Error ? error : new Error(String(error)));
+    $organizationsError.set(
+      error instanceof Error ? error : new Error(String(error)),
+    );
   }
 
   $organizationsInitialized.set(true);

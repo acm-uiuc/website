@@ -8,7 +8,7 @@ interface Props {
   transparentNav?: boolean;
 }
 
-const { title = 'ACM@UIUC', transparentNav = false } = Astro.props;
+const { title = 'ACM @ UIUC', transparentNav = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -32,6 +32,6 @@ const { title = 'ACM@UIUC', transparentNav = false } = Astro.props;
 <script>
   import { initOrganizations } from '../stores/organization';
 
-  // Fetch fresh organization data from API on page load
+  // Fetch org data
   initOrganizations();
 </script>

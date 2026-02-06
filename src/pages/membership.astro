@@ -1,6 +1,7 @@
 ---
 import InteractiveLayout from '../layouts/InteractiveLayout.astro';
 import MembershipPurchaseButton from '../components/MembershipPurchaseButton.tsx';
+import { MembershipPriceCents } from '@acm-uiuc/js-shared';
 
 const breadcrumbs = [
   { href: '/join', label: 'Join' },
@@ -99,8 +100,10 @@ const breadcrumbs = [
 
         <!-- Price -->
         <div class="text-center">
-          <p class="text-sm text-gray-500">Lifetime membership</p>
-          <p class="text-4xl font-bold text-navy-900">$30</p>
+          <p class="text-md text-gray-500">Lifetime membership</p>
+          <p class="text-4xl font-bold text-navy-900">
+            ${(MembershipPriceCents / 100).toString()}
+          </p>
         </div>
 
         <!-- Purchase button -->
@@ -108,10 +111,10 @@ const breadcrumbs = [
 
         <!-- Fine print -->
         <p class="text-xs text-gray-500 mt-2">
-          Membership is open to all students, staff, and faculty at UIUC. By
-          becoming a member, you agree to receive email communications from us.
-          You may unsubscribe at any time by clicking the unsubscribe link in
-          any email.
+          Membership is open to all students, staff, and faculty at the
+          University of Illinois Urbana-Champaign. By becoming a member, you
+          agree to receive email communications from us. You may unsubscribe at
+          any time by clicking the unsubscribe link in any email.
         </p>
       </div>
     </div>

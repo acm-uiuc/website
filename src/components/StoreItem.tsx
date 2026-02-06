@@ -1,8 +1,11 @@
-import { ResponseError, type ApiV1StoreProductsProductIdGet200Response } from "@acm-uiuc/core-client";
-import { storeApiClient } from "../api";
-import { useEffect, useState } from "react";
-import { handleResponseError } from "../util";
-import ErrorPopup, { useErrorPopup } from "./ErrorPopup";
+import {
+  ResponseError,
+  type ApiV1StoreProductsProductIdGet200Response,
+} from '@acm-uiuc/core-client';
+import { storeApiClient } from '../api';
+import { useEffect, useState } from 'react';
+import { handleResponseError } from '../util';
+import ErrorPopup, { useErrorPopup } from './ErrorPopup';
 
 type Product = ApiV1StoreProductsProductIdGet200Response;
 
@@ -13,18 +16,29 @@ const StoreItem = ({ id }: { id: string }) => {
   useEffect(() => {
     (async () => {
       try {
-        const productData = await storeApiClient.apiV1StoreProductsProductIdGet({ productId: id });
-        setProductInfo(productData)
+        const productData = await storeApiClient.apiV1StoreProductsProductIdGet(
+          { productId: id },
+        );
+        setProductInfo(productData);
       } catch (e) {
-        await handleResponseError(e, showError, 404, "Failed to retrieve product.");
+        await handleResponseError(
+          e,
+          showError,
+          404,
+          'Failed to retrieve product.',
+        );
       }
-
-    })()
-  }, [])
-  const baseReturn = <ErrorPopup error={error} onClose={() => {
-    clearError();
-    window.location.href = '/store'
-  }} />
+    })();
+  }, []);
+  const baseReturn = (
+    <ErrorPopup
+      error={error}
+      onClose={() => {
+        clearError();
+        window.location.href = '/store';
+      }}
+    />
+  );
   if (!productInfo) {
     return baseReturn;
   }
@@ -39,13 +53,14 @@ const StoreItem = ({ id }: { id: string }) => {
             </h1>
             <p
               className="mt-2 text-gray-600 whitespace-pre-line"
-              dangerouslySetInnerHTML={{ __html: productInfo.description ?? "" }}
+              dangerouslySetInnerHTML={{
+                __html: productInfo.description ?? '',
+              }}
             />
           </div>
         </div>
       </div>
     </>
-
   );
 };
 

@@ -81,10 +81,11 @@ const JoinModal = ({ discordUrl, membershipUrl }: Props) => {
         {/* Progress indicator */}
         <div class="mb-8 flex items-center justify-center gap-3">
           <div
-            class={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold ${step >= 1
+            class={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold ${
+              step >= 1
                 ? 'bg-tangerine-500 text-white'
                 : 'bg-gray-200 text-gray-500'
-              }`}
+            }`}
           >
             {step > 1 ? (
               <svg
@@ -108,10 +109,11 @@ const JoinModal = ({ discordUrl, membershipUrl }: Props) => {
             class={`h-1 w-12 rounded-full ${step >= 2 ? 'bg-tangerine-500' : 'bg-gray-200'}`}
           />
           <div
-            class={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold ${step >= 2
+            class={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold ${
+              step >= 2
                 ? 'bg-tangerine-500 text-white'
                 : 'bg-gray-200 text-gray-500'
-              }`}
+            }`}
           >
             2
           </div>
@@ -121,17 +123,19 @@ const JoinModal = ({ discordUrl, membershipUrl }: Props) => {
         <div class="space-y-4">
           {/* Step 1: Discord */}
           <div
-            class={`rounded-xl border-2 p-5 transition-all ${step === 1
+            class={`rounded-xl border-2 p-5 transition-all ${
+              step === 1
                 ? 'border-tangerine-500 bg-tangerine-50'
                 : step > 1
                   ? 'border-green-500 bg-green-50'
                   : 'border-gray-200'
-              }`}
+            }`}
           >
             <div class="flex items-start gap-4">
               <div
-                class={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg ${step > 1 ? 'bg-green-500' : 'bg-indigo-600'
-                  }`}
+                class={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg ${
+                  step > 1 ? 'bg-green-500' : 'bg-indigo-600'
+                }`}
               >
                 {step > 1 ? (
                   <svg
@@ -210,15 +214,17 @@ const JoinModal = ({ discordUrl, membershipUrl }: Props) => {
 
           {/* Step 2: Membership */}
           <div
-            class={`rounded-xl border-2 p-5 transition-all ${step === 2
+            class={`rounded-xl border-2 p-5 transition-all ${
+              step === 2
                 ? 'border-tangerine-500 bg-tangerine-50'
                 : 'border-gray-200'
-              }`}
+            }`}
           >
             <div class="flex items-start gap-4">
               <div
-                class={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg ${step >= 2 ? 'bg-tangerine-500' : 'bg-gray-300'
-                  }`}
+                class={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg ${
+                  step >= 2 ? 'bg-tangerine-500' : 'bg-gray-300'
+                }`}
               >
                 <svg
                   class="h-5 w-5 text-white"

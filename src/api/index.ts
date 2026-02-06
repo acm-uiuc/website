@@ -1,6 +1,7 @@
 import {
   Configuration,
   EventsApi,
+  GenericApi,
   MembershipApi,
   MobileWalletApi,
   OrganizationsApi,
@@ -41,8 +42,12 @@ export const mobileWalletApiClient = new MobileWalletApi(
 
 export const storeApiClient = new StoreApi(
   new Configuration({
-    basePath:
-      import.meta.env.PUBLIC_CORE_API_BASE_URL ||
-      coreProdUrl,
+    basePath: import.meta.env.PUBLIC_CORE_API_BASE_URL || coreProdUrl,
+  }),
+);
+
+export const genericApiClient = new GenericApi(
+  new Configuration({
+    basePath: import.meta.env.PUBLIC_CORE_API_BASE_URL || coreProdUrl,
   }),
 );

@@ -1,4 +1,4 @@
-import { ResponseError } from "@acm-uiuc/core-client";
+import { ResponseError } from '@acm-uiuc/core-client';
 
 export function toTitleCase(str: string) {
   return str
@@ -14,14 +14,21 @@ export function toTitleCase(str: string) {
 
 export const acronyms = ['SIG', 'ACM'];
 
-type ShowErrorFunction = (code: string | number, message: string) => void
-export const handleResponseError = async (e: unknown, showError: ShowErrorFunction, defaultCode: number, defaultMessage: string) => {
+type ShowErrorFunction = (code: string | number, message: string) => void;
+export const handleResponseError = async (
+  e: unknown,
+  showError: ShowErrorFunction,
+  defaultCode: number,
+  defaultMessage: string,
+) => {
   console.error(e);
   if (e instanceof ResponseError && e.response) {
-    const response = await e.response.json() as { message?: string, id?: number };
-    showError(response.id || defaultCode, response.message || defaultMessage)
+    const response = (await e.response.json()) as {
+      message?: string;
+      id?: number;
+    };
+    showError(response.id || defaultCode, response.message || defaultMessage);
   } else {
-    showError(defaultCode, defaultMessage)
+    showError(defaultCode, defaultMessage);
   }
-
-}
+};

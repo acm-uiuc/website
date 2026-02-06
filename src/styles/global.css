@@ -108,8 +108,22 @@ body {
   animation: blink 1s step-end infinite;
 }
 
+@keyframes gradient-shift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -600px 0;
+  }
+}
+
+.animate-gradient {
+  animation: gradient-shift 6s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .animate-blink {
+  .animate-blink,
+  .animate-gradient {
     animation: none;
   }
 }

@@ -1,17 +1,19 @@
-import { useState, useEffect, useMemo } from 'preact/hooks';
+import { getOrgsByType, OrgType } from '@acm-uiuc/js-shared';
+import { format, getDay, parse, startOfWeek } from 'date-fns';
+import { enUS } from 'date-fns/locale/en-US';
+import { useEffect, useMemo, useState } from 'preact/hooks';
 import {
   Calendar,
   dateFnsLocalizer,
-  type View,
   type NavigateAction,
+  type View,
 } from 'react-big-calendar';
-import { format, parse, startOfWeek, getDay } from 'date-fns';
-import { enUS } from 'date-fns/locale/en-US';
+
+import { createRecurringEvents } from '../../api/dateutils';
+import type { Event } from '../../types/events';
+
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import '../../styles/calendar-overrides.css';
-import type { Event } from '../../types/events';
-import { createRecurringEvents } from '../../api/dateutils';
-import { OrgType, getOrgsByType } from '@acm-uiuc/js-shared';
 
 const localizer = dateFnsLocalizer({
   format,
@@ -21,9 +23,7 @@ const localizer = dateFnsLocalizer({
   locales: { 'en-US': enUS },
 });
 
-const sigNames = new Set<string>(
-  getOrgsByType(OrgType.SIG).map((s) => s.name),
-);
+const sigNames = new Set<string>(getOrgsByType(OrgType.SIG).map((s) => s.name));
 
 interface ExpandedEvent {
   _start: Date;
@@ -42,7 +42,9 @@ interface ExpandedEvent {
 
 function getEventColor(event: ExpandedEvent) {
   if (event.host && sigNames.has(event.host)) {
-    return event.repeats ? 'var(--color-tangerine-500)' : 'var(--color-rose-500)';
+    return event.repeats
+      ? 'var(--color-tangerine-500)'
+      : 'var(--color-rose-500)';
   }
   // ACM events use navy
   return 'var(--color-navy-700)';
@@ -50,12 +52,13 @@ function getEventColor(event: ExpandedEvent) {
 
 function getEventSelectedColor(event: ExpandedEvent) {
   if (event.host && sigNames.has(event.host)) {
-    return event.repeats ? 'var(--color-tangerine-600)' : 'var(--color-rose-600)';
+    return event.repeats
+      ? 'var(--color-tangerine-600)'
+      : 'var(--color-rose-600)';
   }
   // ACM events use navy
   return 'var(--color-navy-800)';
 }
-
 
 interface CalendarGridProps {
   events: Event[];
@@ -88,8 +91,9 @@ export default function CalendarGrid({
   const filteredEvents = useMemo(() => {
     const filtered = events.filter(
       (e) =>
-        e.title && e.title.toLowerCase().includes(filter.toLowerCase()) &&
-        (hostFilter ? e.host?.toLowerCase() === hostFilter.toLowerCase() : true),
+        e.title &&
+        e.title.toLowerCase().includes(filter.toLowerCase()) &&
+        (hostFilter ? e.host?.toLowerCase() === hostFilter.toLowerCase() : true)
     );
 
     return filtered.flatMap((event) => createRecurringEvents(event));
@@ -97,18 +101,19 @@ export default function CalendarGrid({
 
   // Auto-select event from URL on mount
   useEffect(() => {
-    if (filteredEvents.length === 0) return;
+    if (filteredEvents.length === 0) {
+      return;
+    }
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
     const date = params.get('date');
-    if (!id) return;
+    if (!id) {
+      return;
+    }
 
     const match = filteredEvents.find((e) => {
       if (date) {
-        return (
-          e.id === id &&
-          e._start.toISOString().slice(0, 10) === date
-        );
+        return e.id === id && e._start.toISOString().slice(0, 10) === date;
       }
       return e.id === id;
     });
@@ -128,11 +133,11 @@ export default function CalendarGrid({
     window.history.replaceState(
       null,
       '',
-      `${window.location.pathname}?${params.toString()}`,
+      `${window.location.pathname}?${params.toString()}`
     );
   };
 
-  const dummyNav = (_newDate: Date, _view: View, _action: NavigateAction) => { };
+  const dummyNav = (_newDate: Date, _view: View, _action: NavigateAction) => {};
 
   if (!calendarHeight) {
     return <div class="min-h-[70vh] animate-pulse rounded-lg bg-gray-200" />;
@@ -153,11 +158,12 @@ export default function CalendarGrid({
       onView={setView}
       popup
       showAllEvents
-      style={{ height: calendarHeight, width: "100%" }}
+      style={{ height: calendarHeight, width: '100%' }}
       eventPropGetter={(event: ExpandedEvent) => {
-        const isSelected =
-          selectedId === event.id + event._start.toISOString();
-        const color = isSelected ? getEventSelectedColor(event) : getEventColor(event);
+        const isSelected = selectedId === event.id + event._start.toISOString();
+        const color = isSelected
+          ? getEventSelectedColor(event)
+          : getEventColor(event);
         return {
           style: {
             backgroundColor: color,

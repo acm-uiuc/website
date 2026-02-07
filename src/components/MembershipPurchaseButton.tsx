@@ -1,7 +1,8 @@
-import { useState } from 'react';
-import { ShoppingCart } from 'lucide-react';
-import { membershipApiClient } from '../api/index.js';
 import { ResponseError } from '@acm-uiuc/core-client';
+import { ShoppingCart } from 'lucide-react';
+import { useState } from 'react';
+
+import { membershipApiClient } from '../api/index.js';
 import AuthActionButton from './AuthActionButton.tsx';
 import MembershipStatusPopup, {
   type MembershipStatus,
@@ -37,20 +38,20 @@ export default function MembershipPurchaseButton({ class: className }: Props) {
               };
               if (body.message?.includes('is already a paid member')) {
                 const memberInfo = await membershipApiClient.apiV1MembershipGet(
-                  { xUiucToken: accessToken },
+                  { xUiucToken: accessToken }
                 );
                 setStatus({ ...memberInfo, accessToken });
               } else {
                 showError(
                   body.id || 500,
                   body.message ||
-                    'An error occurred creating your checkout session.',
+                    'An error occurred creating your checkout session.'
                 );
               }
             } else {
               showError(
                 500,
-                'An error occurred creating your checkout session.',
+                'An error occurred creating your checkout session.'
               );
             }
           }

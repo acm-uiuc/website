@@ -19,10 +19,10 @@ export const handleResponseError = async (
   e: unknown,
   showError: ShowErrorFunction,
   defaultCode: number,
-  defaultMessage: string,
+  defaultMessage: string
 ) => {
   console.error(e);
-  if (e instanceof ResponseError && e.response) {
+  if (e instanceof ResponseError) {
     const response = (await e.response.json()) as {
       message?: string;
       id?: number;

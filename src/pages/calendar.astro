@@ -1,8 +1,8 @@
 ---
-import InteractiveLayout from '../layouts/Layout.astro';
-import CalendarPage from '../components/calendar/CalendarPage';
 import { eventsApiClient } from '../api';
 import { transformEventsApiDates } from '../api/events';
+import CalendarPage from '../components/calendar/CalendarPage';
+import InteractiveLayout from '../layouts/Layout.astro';
 
 const rawEvents = await eventsApiClient.apiV1EventsGet();
 const initialEvents = transformEventsApiDates(rawEvents);

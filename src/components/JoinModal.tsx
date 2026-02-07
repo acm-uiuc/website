@@ -1,6 +1,6 @@
 import { SiDiscord } from '@icons-pack/react-simple-icons';
 import { LucideArrowRight } from 'lucide-react';
-import { useState, useEffect } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 
 interface Props {
   discordUrl: string;
@@ -37,7 +37,9 @@ const JoinModal = ({ discordUrl, membershipUrl }: Props) => {
     handleClose();
   };
 
-  if (!isOpen) return null;
+  if (!isOpen) {
+    return null;
+  }
 
   return (
     <div class="fixed inset-0 z-50 flex items-center justify-center">

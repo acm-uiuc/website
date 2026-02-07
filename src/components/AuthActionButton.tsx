@@ -1,13 +1,14 @@
-import { useEffect, useState } from 'react';
-import { Loader2 } from 'lucide-react';
-import { getUserAccessToken, initMsalClient } from '../authConfig.ts';
 import type { IPublicClientApplication } from '@azure/msal-browser';
 import type { LucideIcon } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
+import { useEffect, useState } from 'react';
+
+import { getUserAccessToken, initMsalClient } from '../authConfig.ts';
 import ErrorPopup, { useErrorPopup } from './ErrorPopup.tsx';
 
 export type ShowErrorFunction = (
   code: string | number,
-  message: string,
+  message: string
 ) => void;
 
 interface AuthActionButtonProps {
@@ -16,7 +17,7 @@ interface AuthActionButtonProps {
   workingText: string;
   onAction: (
     accessToken: string,
-    showError: ShowErrorFunction,
+    showError: ShowErrorFunction
   ) => Promise<void>;
   buttonClassName?: string;
   bgColorClass?: string;
@@ -43,7 +44,9 @@ export default function AuthActionButton({
   }, []);
 
   const handleClick = async () => {
-    if (!pca) return;
+    if (!pca) {
+      return;
+    }
     setIsWorking(true);
     try {
       const accessToken = await getUserAccessToken(pca);

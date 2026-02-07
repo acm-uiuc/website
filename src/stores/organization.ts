@@ -1,5 +1,6 @@
-import { atom, computed } from 'nanostores';
 import type { ApiV1OrganizationsGet200ResponseInner } from '@acm-uiuc/core-client';
+import { atom, computed } from 'nanostores';
+
 import { organizationApiClient } from '../api';
 
 export type Organization = ApiV1OrganizationsGet200ResponseInner;
@@ -13,11 +14,11 @@ export const $organizationsInitialized = atom<boolean>(false);
 export const $sigsAndCommittees = computed($organizations, (orgs) =>
   orgs
     .filter((org) => org.type === 'sig' || org.type === 'committee')
-    .sort((a, b) => a.name.localeCompare(b.name)),
+    .sort((a, b) => a.name.localeCompare(b.name))
 );
 
 export async function initOrganizations(
-  initialData?: Organization[],
+  initialData?: Organization[]
 ): Promise<Organization[]> {
   if ($organizationsInitialized.get()) {
     return $organizations.get();
@@ -34,7 +35,7 @@ export async function initOrganizations(
     $organizationsError.set(null);
   } catch (error) {
     $organizationsError.set(
-      error instanceof Error ? error : new Error(String(error)),
+      error instanceof Error ? error : new Error(String(error))
     );
   }
 

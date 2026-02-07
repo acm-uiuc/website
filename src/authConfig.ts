@@ -27,7 +27,7 @@ export const initMsalClient = async () => {
 };
 
 export const getUserAccessToken = async (
-  pca: IPublicClientApplication,
+  pca: IPublicClientApplication
 ): Promise<string> => {
   const account = pca.getActiveAccount() || pca.getAllAccounts()[0];
   const request: PopupRequest = {
@@ -47,7 +47,7 @@ export const getUserAccessToken = async (
         error.errorCode === 'popup_window_error'
       ) {
         alert(
-          'Your browser is blocking popups. Please allow popups for this site and then try logging in again.',
+          'Your browser is blocking popups. Please allow popups for this site and then try logging in again.'
         );
       }
       console.error('MSAL login failed:', error);
@@ -69,7 +69,7 @@ export const getUserAccessToken = async (
           popupError.errorCode === 'popup_window_error'
         ) {
           alert(
-            'Your browser is blocking popups, which are required for this action. Please allow popups for this site and try again.',
+            'Your browser is blocking popups, which are required for this action. Please allow popups for this site and try again.'
           );
         }
         console.error('MSAL popup token acquisition failed:', popupError);

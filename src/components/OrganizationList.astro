@@ -1,8 +1,9 @@
 ---
 import type { ApiV1OrganizationsGet200ResponseInner } from '@acm-uiuc/core-client';
-import SearchFilter from './SearchFilter.tsx';
-import OrganizationGrid from './OrganizationGrid.tsx';
 import { getImage } from 'astro:assets';
+
+import OrganizationGrid from './OrganizationGrid.tsx';
+import SearchFilter from './SearchFilter.tsx';
 
 interface Props {
   initialOrgsList: ApiV1OrganizationsGet200ResponseInner[];
@@ -22,11 +23,18 @@ const imageModules = import.meta.glob<{ default: ImageMetadata }>(
 );
 
 // Create a map of org ID to optimized image data
-const optimizedImages: Record<string, { src: string; width: number; height: number }> = {};
+const optimizedImages: Record<
+  string,
+  { src: string; width: number; height: number }
+> = {};
 
 for (const [path, module] of Object.entries(imageModules)) {
   // Extract filename without extension (e.g., "acm" from "/src/images/logos/acm.png")
-  const filename = path.split('/').pop()?.replace(/\.(png|jpg|jpeg|webp|svg)$/, '') || '';
+  const filename =
+    path
+      .split('/')
+      .pop()
+      ?.replace(/\.(png|jpg|jpeg|webp|svg)$/, '') || '';
 
   try {
     const optimized = await getImage({
@@ -60,6 +68,10 @@ for (const [path, module] of Object.entries(imageModules)) {
 
     <SearchFilter client:load />
 
-    <OrganizationGrid client:visible initialOrgs={organizations} images={optimizedImages} />
+    <OrganizationGrid
+      client:visible
+      initialOrgs={organizations}
+      images={optimizedImages}
+    />
   </div>
 </section>

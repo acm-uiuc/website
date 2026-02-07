@@ -1,10 +1,11 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { mailingListSubscriptionUrl, typewriterMessages } from '../constants';
-import UpcomingEvents from './UpcomingEvents.tsx';
-import TypewriterHero from './TypewriterHero.tsx';
-import CalendarModal from './CalendarModal.tsx';
+
 import { organizationApiClient } from '../api';
+import { mailingListSubscriptionUrl, typewriterMessages } from '../constants';
+import CalendarModal from './CalendarModal.tsx';
+import TypewriterHero from './TypewriterHero.tsx';
+import UpcomingEvents from './UpcomingEvents.tsx';
 
 const calendarLinks = {
   google:

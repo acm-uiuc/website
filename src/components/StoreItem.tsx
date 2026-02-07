@@ -1,9 +1,10 @@
 import {
-  ResponseError,
   type ApiV1StoreProductsProductIdGet200Response,
+  ResponseError,
 } from '@acm-uiuc/core-client';
-import { storeApiClient } from '../api';
 import { useEffect, useState } from 'react';
+
+import { storeApiClient } from '../api';
 import { handleResponseError } from '../util';
 import ErrorPopup, { useErrorPopup } from './ErrorPopup';
 
@@ -17,7 +18,7 @@ const StoreItem = ({ id }: { id: string }) => {
     (async () => {
       try {
         const productData = await storeApiClient.apiV1StoreProductsProductIdGet(
-          { productId: id },
+          { productId: id }
         );
         setProductInfo(productData);
       } catch (e) {
@@ -25,7 +26,7 @@ const StoreItem = ({ id }: { id: string }) => {
           e,
           showError,
           404,
-          'Failed to retrieve product.',
+          'Failed to retrieve product.'
         );
       }
     })();

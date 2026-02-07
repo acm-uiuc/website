@@ -16,7 +16,7 @@ export const eventsApiClient = new EventsApi(
       import.meta.env.PUBLIC_CORE_API_EVENTS_BASE_URL ||
       import.meta.env.PUBLIC_CORE_API_BASE_URL ||
       coreProdUrl,
-  }),
+  })
 );
 
 export const organizationApiClient = new OrganizationsApi(
@@ -25,29 +25,29 @@ export const organizationApiClient = new OrganizationsApi(
       import.meta.env.PUBLIC_CORE_API_ORG_BASE_URL ||
       import.meta.env.PUBLIC_CORE_API_BASE_URL ||
       coreProdUrl,
-  }),
+  })
 );
 
 export const membershipApiClient = new MembershipApi(
   new Configuration({
     basePath: import.meta.env.PUBLIC_CORE_API_BASE_URL || coreProdUrl,
-  }),
+  })
 );
 
 export const mobileWalletApiClient = new MobileWalletApi(
   new Configuration({
     basePath: import.meta.env.PUBLIC_CORE_API_BASE_URL || coreProdUrl,
-  }),
+  })
 );
 
 export const storeApiClient = new StoreApi(
   new Configuration({
     basePath: import.meta.env.PUBLIC_CORE_API_BASE_URL || coreProdUrl,
-  }),
+  })
 );
 
 export const genericApiClient = new GenericApi(
   new Configuration({
     basePath: import.meta.env.PUBLIC_CORE_API_BASE_URL || coreProdUrl,
-  }),
+  })
 );

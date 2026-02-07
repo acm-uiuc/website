@@ -1,8 +1,8 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import { organizationApiClient } from '../api';
 import Hero from '../components/Hero.astro';
 import OrganizationList from '../components/OrganizationList.astro';
-import { organizationApiClient } from '../api';
+import Layout from '../layouts/Layout.astro';
 
 const initialOrganizationState =
   await organizationApiClient.apiV1OrganizationsGet();

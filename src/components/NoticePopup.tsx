@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from 'preact/hooks';
-import type { ComponentChildren } from 'preact';
 import { X } from 'lucide-react';
+import type { ComponentChildren } from 'preact';
+import { useEffect, useRef, useState } from 'preact/hooks';
 
 interface NoticePopupProps {
   open: boolean;
@@ -30,7 +30,9 @@ export default function NoticePopup({
     return () => clearTimeout(timeoutRef.current);
   }, [open]);
 
-  if (!mounted) return null;
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">

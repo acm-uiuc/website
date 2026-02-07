@@ -1,4 +1,5 @@
-import { MapPin, Calendar, LogIn, User } from 'lucide-react';
+import { Calendar, LogIn, MapPin, User } from 'lucide-react';
+
 import type { Event } from '../../types/events';
 
 interface CalendarEventDetailProps {

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 
 interface TypewriterHeroProps {
   messages: string[];
@@ -8,7 +8,9 @@ interface TypewriterHeroProps {
   pauseAfterDeleting?: number;
 }
 function shuffleExceptLast<T>(arr: T[]): T[] {
-  if (arr.length <= 1) return arr;
+  if (arr.length <= 1) {
+    return arr;
+  }
 
   const result = [...arr];
   const lastIndex = result.length - 1;
@@ -38,7 +40,7 @@ export default function TypewriterHero({
   useEffect(() => {
     // Check for reduced motion preference
     const prefersReducedMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)',
+      '(prefers-reduced-motion: reduce)'
     ).matches;
     if (prefersReducedMotion) {
       // Show final message immediately
@@ -47,7 +49,9 @@ export default function TypewriterHero({
       return;
     }
 
-    if (isComplete) return;
+    if (isComplete) {
+      return;
+    }
 
     const currentMessage = shuffledMessages[currentMessageIndex];
     const isLastMessage = currentMessageIndex === shuffledMessages.length - 1;
@@ -74,18 +78,16 @@ export default function TypewriterHero({
           setCurrentText(currentMessage.slice(0, currentText.length + 1));
         }, typingSpeed);
         return () => clearTimeout(timer);
-      } else {
-        setIsPaused(true);
       }
+      setIsPaused(true);
     } else {
       if (currentText.length > 0) {
         const timer = setTimeout(() => {
           setCurrentText(currentText.slice(0, -1));
         }, deletingSpeed);
         return () => clearTimeout(timer);
-      } else {
-        setIsPaused(true);
       }
+      setIsPaused(true);
     }
   }, [
     currentText,

@@ -1,9 +1,8 @@
+import { add, format, getDay, parse, startOfWeek } from 'date-fns';
+import { enUS } from 'date-fns/locale/en-US';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import type { View } from 'react-big-calendar';
-import { Views } from 'react-big-calendar';
-import { dateFnsLocalizer } from 'react-big-calendar';
-import { format, parse, startOfWeek, getDay, add } from 'date-fns';
-import { enUS } from 'date-fns/locale/en-US';
+import { dateFnsLocalizer, Views } from 'react-big-calendar';
 
 const localizer = dateFnsLocalizer({
   format,
@@ -81,7 +80,9 @@ export default function CalendarControls({
         </div>
         <select
           value={view}
-          onChange={(e) => setView((e.target as HTMLSelectElement).value as View)}
+          onChange={(e) =>
+            setView((e.target as HTMLSelectElement).value as View)
+          }
           class="rounded-md border border-gray-300 px-2 py-1.5 text-sm"
         >
           <option value={Views.DAY}>Day View</option>

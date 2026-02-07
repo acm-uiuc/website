@@ -1,4 +1,5 @@
 import { Temporal } from 'temporal-polyfill';
+
 import type { Event } from '../types/events';
 
 export const validRepeats = ['weekly', 'biweekly'] as const;
@@ -17,7 +18,7 @@ export const maxRenderDistance = Temporal.Now.plainDateISO().add({ years: 1 });
  * Returns Date-based objects for react-big-calendar compatibility.
  */
 export function createRecurringEvents(
-  event: Event,
+  event: Event
 ): Array<Event & { _start: Date; _end: Date }> {
   const repeat = event.repeats as ValidRepeat | undefined;
   if (!repeat || !validRepeats.includes(repeat)) {
@@ -36,21 +37,21 @@ export function createRecurringEvents(
 
   const repeatEnd = event.repeatEnds
     ? Temporal.PlainDateTime.from(event.repeatEnds)
-    : Temporal.PlainDateTime.from(
-        maxRenderDistance.toString() + 'T23:59:59',
-      );
+    : Temporal.PlainDateTime.from(`${maxRenderDistance.toString()}T23:59:59`);
 
   const excludedDates = new Set(
     event.repeatExcludes?.map((d) => {
       const s = typeof d === 'string' ? d : (d as Date).toISOString();
       return s.slice(0, 10);
-    }) ?? [],
+    }) ?? []
   );
 
   while (
     Temporal.PlainDate.compare(startDt.toPlainDate(), maxRenderDistance) <= 0
   ) {
-    if (Temporal.PlainDateTime.compare(startDt, repeatEnd) > 0) break;
+    if (Temporal.PlainDateTime.compare(startDt, repeatEnd) > 0) {
+      break;
+    }
 
     if (!excludedDates.has(startDt.toPlainDate().toString())) {
       const endDt = startDt.add(duration);

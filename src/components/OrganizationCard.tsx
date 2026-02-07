@@ -1,12 +1,13 @@
-import type { Organization } from '../stores/organization';
-import { Globe, Link, Mail } from 'lucide-react';
-import type { JSX } from 'preact/jsx-runtime';
 import {
   SiDiscord,
   SiGithub,
   SiInstagram,
   SiSlack,
 } from '@icons-pack/react-simple-icons';
+import { Globe, Link, Mail } from 'lucide-react';
+import type { JSX } from 'preact/jsx-runtime';
+
+import type { Organization } from '../stores/organization';
 import { acronyms, toTitleCase } from '../util';
 
 interface ImageData {
@@ -43,7 +44,7 @@ const OrganizationCard = ({
   const allLinks = [
     { type: 'WEBSITE', url: organization.website },
     ...(organization.links || []),
-  ].filter((x) => !!x && x.type && x.url);
+  ].filter((x) => Boolean(x) && x.type && x.url);
   return (
     <div class="group relative flex h-full flex-col rounded-xl border border-gray-200 bg-white p-6 text-center transition-all duration-200 hover:border-navy-300 hover:shadow-lg">
       <div

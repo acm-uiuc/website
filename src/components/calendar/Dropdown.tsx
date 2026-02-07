@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect } from 'preact/hooks';
 import { ChevronDown } from 'lucide-react';
+import { useEffect, useRef, useState } from 'preact/hooks';
 
 interface DropdownOption {
   value: string;

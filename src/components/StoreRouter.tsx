@@ -1,10 +1,13 @@
 import { Route, Router, Switch, useRoute } from 'wouter-preact';
+
 import StoreItem from './StoreItem';
 
 const StoreDetail = () => {
   const [match, params] = useRoute('/:id');
 
-  if (!match) return <div>Store not found</div>;
+  if (!match) {
+    return <div>Store not found</div>;
+  }
 
   return <StoreItem id={params.id} />;
 };

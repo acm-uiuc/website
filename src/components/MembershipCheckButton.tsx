@@ -1,11 +1,12 @@
-import { useState } from 'react';
 import { IdCard } from 'lucide-react';
+import { useState } from 'react';
+
 import { membershipApiClient } from '../api/index.js';
+import { handleResponseError } from '../util.ts';
 import AuthActionButton from './AuthActionButton.tsx';
 import MembershipStatusPopup, {
   type MembershipStatus,
 } from './MembershipStatusPopup.tsx';
-import { handleResponseError } from '../util.ts';
 
 interface Props {
   class?: string;
@@ -33,7 +34,7 @@ export default function MembershipCheckButton({ class: className }: Props) {
               e,
               showError,
               500,
-              'An error occurred checking your membership.',
+              'An error occurred checking your membership.'
             );
           }
         }}

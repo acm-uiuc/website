@@ -1,9 +1,9 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Hero from '../components/Hero.astro';
-import OrganizationList from '../components/OrganizationList.astro';
-import JoinModal from '../components/JoinModal.tsx';
 import { organizationApiClient } from '../api';
+import Hero from '../components/Hero.astro';
+import JoinModal from '../components/JoinModal.tsx';
+import OrganizationList from '../components/OrganizationList.astro';
+import Layout from '../layouts/Layout.astro';
 
 const initialOrganizationState =
   await organizationApiClient.apiV1OrganizationsGet();

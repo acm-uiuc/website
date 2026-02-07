@@ -1,9 +1,10 @@
+import { CircleCheck, RefreshCcw } from 'lucide-react';
 import { useState } from 'react';
-import { RefreshCcw, CircleCheck } from 'lucide-react';
+
 import { genericApiClient } from '../api/index.js';
+import { handleResponseError } from '../util.ts';
 import AuthActionButton from './AuthActionButton.tsx';
 import NoticePopup from './NoticePopup.tsx';
-import { handleResponseError } from '../util.ts';
 
 export default function NetIdSyncButton() {
   const [showSuccess, setShowSuccess] = useState(false);
@@ -44,7 +45,7 @@ export default function NetIdSyncButton() {
               e,
               showError,
               500,
-              'An error occurred syncing your identity.',
+              'An error occurred syncing your identity.'
             );
           }
         }}

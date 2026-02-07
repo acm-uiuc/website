@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'preact/hooks';
 import { Search, X } from 'lucide-react';
+import { useEffect, useState } from 'preact/hooks';
+
 import { setSearchQuery as updateSearchQuery } from '../stores/search';
 
 const SearchFilter = () => {

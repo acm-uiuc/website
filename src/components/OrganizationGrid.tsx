@@ -1,8 +1,9 @@
 import { useStore } from '@nanostores/preact';
+import { useMemo } from 'preact/hooks';
+
+import type { Organization } from '../stores/organization';
 import { $sigsAndCommittees } from '../stores/organization';
 import { $searchQuery } from '../stores/search';
-import type { Organization } from '../stores/organization';
-import { useMemo } from 'preact/hooks';
 import OrganizationCard from './OrganizationCard';
 
 interface ImageData {
@@ -34,7 +35,7 @@ const OrganizationGrid = ({ initialOrgs, images }: Props) => {
     return sourceData.filter(
       (org) =>
         org.name.toLowerCase().includes(query) ||
-        org.description?.toLowerCase().includes(query),
+        org.description?.toLowerCase().includes(query)
     );
   }, [sourceData, searchQuery]);
 

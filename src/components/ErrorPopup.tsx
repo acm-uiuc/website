@@ -1,5 +1,6 @@
-import { useState, useCallback } from 'preact/hooks';
 import { CircleAlert } from 'lucide-react';
+import { useCallback, useState } from 'preact/hooks';
+
 import NoticePopup from './NoticePopup.tsx';
 
 export interface ErrorInfo {
@@ -26,7 +27,7 @@ interface ErrorPopupProps {
 
 export default function ErrorPopup({ error, onClose }: ErrorPopupProps) {
   return (
-    <NoticePopup open={!!error} onClose={onClose}>
+    <NoticePopup open={Boolean(error)} onClose={onClose}>
       <div className="flex flex-col items-center p-6 text-center">
         <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
           <CircleAlert className="h-6 w-6 text-red-600" />

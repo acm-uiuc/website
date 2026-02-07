@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'preact/hooks';
+import { AllOrganizationNameList } from '@acm-uiuc/js-shared';
+import { useEffect, useState } from 'preact/hooks';
 import type { View } from 'react-big-calendar';
 import { Views } from 'react-big-calendar';
-import type { Event } from '../../types/events';
+
 import { eventsApiClient } from '../../api';
 import { transformEventsApiDates } from '../../api/events';
-import { AllOrganizationNameList } from '@acm-uiuc/js-shared';
+import type { Event } from '../../types/events';
 import CalendarControls from './CalendarControls';
 import CalendarEventDetail from './CalendarEventDetail';
 import CalendarGrid, { type ExpandedEvent } from './CalendarGrid';
@@ -30,7 +31,7 @@ export default function CalendarPage({ initialEvents }: CalendarPageProps) {
         const data = await eventsApiClient.apiV1EventsGet();
         setEvents(transformEventsApiDates(data));
       } catch (e) {
-        console.error("Failed to fetch calendar, falling back to SSR.")
+        console.error('Failed to fetch calendar, falling back to SSR.');
       }
     })();
   }, []);
@@ -39,7 +40,9 @@ export default function CalendarPage({ initialEvents }: CalendarPageProps) {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const host = params.get('host');
-    if (host) setHostFilter(host);
+    if (host) {
+      setHostFilter(host);
+    }
   }, []);
 
   const handleSelectEvent = (expanded: ExpandedEvent) => {
@@ -63,7 +66,9 @@ export default function CalendarPage({ initialEvents }: CalendarPageProps) {
         <div class="flex gap-4">
           <select
             value={hostFilter}
-            onChange={(e) => setHostFilter((e.target as HTMLSelectElement).value)}
+            onChange={(e) =>
+              setHostFilter((e.target as HTMLSelectElement).value)
+            }
             class="rounded-md border border-gray-300 px-2 py-1.5 text-sm"
           >
             <option value="">Filter by host</option>
@@ -102,7 +107,6 @@ export default function CalendarPage({ initialEvents }: CalendarPageProps) {
             onSelectEvent={handleSelectEvent}
           />
         </div>
-
       </div>
     </section>
   );

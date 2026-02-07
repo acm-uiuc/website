@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'preact/hooks';
-import { eventsApiClient } from '../api';
-import type { Event } from '../types/events';
-import { transformEventsApiDates } from '../api/events';
 import { Calendar } from 'lucide-react';
+import { useEffect, useState } from 'preact/hooks';
+
+import { eventsApiClient } from '../api';
+import { transformEventsApiDates } from '../api/events';
+import type { Event } from '../types/events';
 
 function formatDate(dateStr: string): string {
   const date = new Date(dateStr);

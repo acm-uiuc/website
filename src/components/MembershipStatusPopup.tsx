@@ -1,10 +1,11 @@
-import { useState, useEffect, useRef } from 'preact/hooks';
 import { CircleCheck, CircleX, Wallet } from 'lucide-react';
-import { mobileWalletApiClient } from '../api/index.js';
-import NoticePopup from './NoticePopup.tsx';
-import AuthActionButton from './AuthActionButton.tsx';
-import { handleResponseError } from '../util.ts';
+import { useEffect, useRef, useState } from 'preact/hooks';
 import QRCode_ from 'react-qrcode-logo';
+
+import { mobileWalletApiClient } from '../api/index.js';
+import { handleResponseError } from '../util.ts';
+import AuthActionButton from './AuthActionButton.tsx';
+import NoticePopup from './NoticePopup.tsx';
 
 const QRCode = QRCode_ as any;
 
@@ -39,7 +40,9 @@ export default function MembershipStatusPopup({
   }, [status]);
 
   useEffect(() => {
-    if (!status) return;
+    if (!status) {
+      return;
+    }
     const intervalId = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(intervalId);
   }, [status]);
@@ -48,7 +51,7 @@ export default function MembershipStatusPopup({
   const isPaid = displayStatus?.isPaidMember;
 
   return (
-    <NoticePopup open={!!status} onClose={onClose} maxWidth="max-w-md">
+    <NoticePopup open={Boolean(status)} onClose={onClose} maxWidth="max-w-md">
       {/* Header */}
       <div
         className={`px-8 pt-8 pb-6 ${isPaid ? 'bg-gradient-to-br from-teal-200 to-green-700' : 'bg-gradient-to-br from-gray-400 to-gray-500'}`}
@@ -92,7 +95,7 @@ export default function MembershipStatusPopup({
                   try {
                     const response =
                       await mobileWalletApiClient.apiV2MobileWalletMembershipGet(
-                        { xUiucToken: accessToken },
+                        { xUiucToken: accessToken }
                       );
                     const url = window.URL.createObjectURL(response);
                     const link = document.createElement('a');
@@ -107,7 +110,7 @@ export default function MembershipStatusPopup({
                       e,
                       showError,
                       500,
-                      'An error occurred generating your wallet pass.',
+                      'An error occurred generating your wallet pass.'
                     );
                   }
                 }}

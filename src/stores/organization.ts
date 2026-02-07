@@ -22,7 +22,7 @@ export function setActiveOrgType(type: OrgType) {
 export const $sigsAndCommittees = computed($organizations, (orgs) =>
   orgs
     .filter((org) => org.type === 'sig' || org.type === 'committee')
-    .sort((a, b) => a.name.localeCompare(b.name))
+    .sort((a, b) => a.id.localeCompare(b.id))
 );
 
 export const $sigs = computed($sigsAndCommittees, (orgs) =>

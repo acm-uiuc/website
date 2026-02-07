@@ -1,8 +1,9 @@
 ---
-import StoreWrapper from '../../components/StoreWrapper';
-import InteractiveLayout from '../../layouts/InteractiveLayout.astro';
+import StoreWrapper from '../../components/store/StoreWrapper';
+import MinimalLayout from '../../layouts/MinimalLayout.astro';
+const currentPath = Astro.url.pathname;
 ---
 
-<InteractiveLayout title="Store">
-  <StoreWrapper client:only="preact" />
-</InteractiveLayout>
+<MinimalLayout title="Store">
+  <StoreWrapper client:load currentPath={currentPath} />
+</MinimalLayout>

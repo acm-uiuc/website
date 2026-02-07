@@ -15,7 +15,7 @@ const { initialOrgsList } = Astro.props;
 // Filter and sort organizations at build time
 const organizations = initialOrgsList
   .filter((org) => org.type === 'sig' || org.type === 'committee')
-  .sort((a, b) => a.name.localeCompare(b.name));
+  .sort((a, b) => a.id.localeCompare(b.id));
 
 // Import all logo images from src/images/logos/
 const imageModules = import.meta.glob<{ default: ImageMetadata }>(

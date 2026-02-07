@@ -30,7 +30,7 @@ const OrganizationGrid = ({ initialOrgs, images }: Props) => {
   const searchQuery = useStore($searchQuery);
   const activeOrgType = useStore($activeOrgType);
 
-  // Use store data if available, otherwise fall back to initial SSR data
+  // Use store data if available, otherwise fall back to build-time data
   const sourceData = storeOrgs.length > 0 ? storeOrgs : initialOrgs;
 
   // Filter each tab's orgs by search query

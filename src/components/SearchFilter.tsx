@@ -22,7 +22,7 @@ const SearchFilter = () => {
   }, [debouncedQuery]);
 
   return (
-    <div class="max-w-2xl mx-auto mb-8">
+    <div class="max-w-2xl mx-auto mb-4">
       <div class="relative">
         <Search
           className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"

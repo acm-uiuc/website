@@ -1,10 +1,8 @@
 ---
 import { Icon } from 'astro-icon/components';
 
-import { organizationApiClient } from '../api';
-import { mailingListSubscriptionUrl, typewriterMessages } from '../constants';
+import { mailingListSubscriptionUrl } from '../constants';
 import CalendarModal from './CalendarModal.tsx';
-import TypewriterHero from './TypewriterHero.tsx';
 import UpcomingEvents from './UpcomingEvents.tsx';
 
 const calendarLinks = {
@@ -31,7 +29,7 @@ const calendarLinks = {
   </div>
 
   <section
-    class="relative z-10 container mx-auto px-6 pt-28 pb-16 lg:px-8 lg:pt-32 lg:pb-20"
+    class="relative z-10 container mx-auto px-6 pt-24 pb-12 lg:px-8 lg:pt-28 lg:pb-16"
   >
     <div class="flex flex-col gap-10 lg:flex-row lg:items-center">
       <!-- Text Content -->
@@ -41,7 +39,9 @@ const calendarLinks = {
         >
           UIUC's Hub for
           <br />
-          <TypewriterHero client:load messages={typewriterMessages} />
+          <span class="text-rose-300 inline-block animate-drop-bounce"
+            >Everything CS.</span
+          >
         </h1>
 
         <p class="max-w-lg text-lg leading-relaxed text-white/80">

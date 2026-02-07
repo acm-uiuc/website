@@ -19,9 +19,11 @@ interface ImageData {
 const OrganizationCard = ({
   organization,
   imageData,
+  index = 0,
 }: {
   organization: Organization;
   imageData?: ImageData;
+  index?: number;
 }) => {
   // Use optimized image if available, fallback to public folder
   const logoUrl = imageData?.src || `/images/logos/${organization.id}.png`;
@@ -41,12 +43,20 @@ const OrganizationCard = ({
     committee: 'bg-orange-100 text-orange-800',
   };
 
+  const topBorderColors: Record<string, string> = {
+    sig: 'group-hover:border-t-blue-400',
+    committee: 'group-hover:border-t-orange-400',
+  };
+
   const allLinks = [
     { type: 'WEBSITE', url: organization.website },
     ...(organization.links || []),
   ].filter((x) => Boolean(x) && x.type && x.url);
   return (
-    <div class="group relative flex h-full flex-col rounded-xl border border-gray-200 bg-white p-6 text-center transition-all duration-200 hover:border-navy-300 hover:shadow-lg">
+    <div
+      class={`group relative flex h-full flex-col rounded-xl border border-gray-200 border-t-2 border-t-transparent bg-white p-6 text-center shadow-md transition-all duration-200 hover:border-navy-300 hover:shadow-xl hover:-translate-y-0.5 ${topBorderColors[organization.type] || ''} animate-fade-up`}
+      style={{ animationDelay: `${index * 50}ms` }}
+    >
       <div
         class={`absolute top-3 right-3 text-xs font-bold px-2 py-1 rounded-full ${badgeColors[organization.type] || 'bg-gray-100 text-gray-800'}`}
       >

@@ -28,7 +28,7 @@ const EventCard = ({ event }: { event: Event }) => {
   const cardUrl = `/calendar?id=${event.id}&date=${dateParam}`;
 
   return (
-    <article class="group hover:border-navy-300 relative cursor-pointer rounded-xl border border-gray-200 bg-white p-5 transition-all duration-200 hover:shadow-md flex flex-col h-full">
+    <article class="group hover:border-navy-300 relative cursor-pointer rounded-xl border border-gray-200 bg-white p-5 shadow-md transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5 flex flex-col h-full">
       {/* STRETCHED LINK:
         This invisible link covers the entire card relative to the <article>.
         It effectively makes the whole card clickable without nesting <a> tags.
@@ -39,20 +39,18 @@ const EventCard = ({ event }: { event: Event }) => {
         aria-label={`View details for ${event.title}`}
       ></a>
 
-      {event.host && event.host !== 'ACM' && (
-        <span
-          class={`bg-navy-100 text-navy-700 mb-3 inline-flex items-center rounded-md px-2.5 py-1 text-xs font-medium self-start relative z-10`}
-        >
-          {event.host}
-        </span>
-      )}
-
-      <h3 class="text-navy-900 group-hover:text-navy-700 mb-2 line-clamp-2 text-lg font-semibold transition-colors">
+      <h3 class="text-navy-900 group-hover:text-navy-700 line-clamp-2 text-lg font-semibold transition-colors">
         {event.title}
       </h3>
 
+      {event.host && event.host !== 'ACM' && (
+        <span class={`text-wisteria-300 text-sm mb-1`}>
+          Hosted by {event.host}
+        </span>
+      )}
+
       {event.description && (
-        <p class="mb-4 line-clamp-2 text-sm text-gray-600">
+        <p class="mb-4 line-clamp-3 text-md text-gray-600">
           {event.description}
         </p>
       )}

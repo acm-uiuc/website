@@ -3,6 +3,7 @@ import type { ApiV1OrganizationsGet200ResponseInner } from '@acm-uiuc/core-clien
 import { getImage } from 'astro:assets';
 
 import OrganizationGrid from './OrganizationGrid.tsx';
+import OrgTypeTabBar from './OrgTypeTabBar.tsx';
 import SearchFilter from './SearchFilter.tsx';
 
 interface Props {
@@ -55,16 +56,22 @@ for (const [path, module] of Object.entries(imageModules)) {
 }
 ---
 
-<section class="bg-gray-50 py-16 lg:py-20">
-  <div class="container mx-auto px-6 lg:px-8">
+<section class="relative bg-gray-50 py-10 lg:py-14 overflow-hidden">
+  <!-- Subtle background accents for depth -->
+  <div
+    class="absolute top-0 right-0 w-96 h-96 bg-navy-100/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"
+  >
+  </div>
+  <div
+    class="absolute bottom-0 left-0 w-80 h-80 bg-tangerine-100/40 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4"
+  >
+  </div>
+
+  <div class="relative container mx-auto px-6 lg:px-8">
     <div class="text-center mb-2">
-      <h2 class="text-navy-900 text-3xl font-bold sm:text-4xl">
-        Our SIGs & Committees
-      </h2>
-      <p class="text-navy-600 mt-2 text-lg">
-        Explore the groups that make our community vibrant and active.
-      </p>
+      <h2 class="text-navy-900 text-3xl font-bold sm:text-4xl">Our Groups</h2>
     </div>
+    <OrgTypeTabBar client:load />
 
     <SearchFilter client:load />
 

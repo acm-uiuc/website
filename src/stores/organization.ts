@@ -10,11 +10,27 @@ export const $organizations = atom<Organization[]>([]);
 export const $organizationsError = atom<Error | null>(null);
 export const $organizationsInitialized = atom<boolean>(false);
 
+// Tab state
+export type OrgType = 'sig' | 'committee';
+export const $activeOrgType = atom<OrgType>('sig');
+
+export function setActiveOrgType(type: OrgType) {
+  $activeOrgType.set(type);
+}
+
 // Computed
 export const $sigsAndCommittees = computed($organizations, (orgs) =>
   orgs
     .filter((org) => org.type === 'sig' || org.type === 'committee')
     .sort((a, b) => a.name.localeCompare(b.name))
+);
+
+export const $sigs = computed($sigsAndCommittees, (orgs) =>
+  orgs.filter((org) => org.type === 'sig')
+);
+
+export const $committees = computed($sigsAndCommittees, (orgs) =>
+  orgs.filter((org) => org.type === 'committee')
 );
 
 export async function initOrganizations(

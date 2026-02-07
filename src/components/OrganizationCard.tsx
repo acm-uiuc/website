@@ -38,11 +38,6 @@ const OrganizationCard = ({
     OTHER: <Link {...commonIconProps} />,
   };
 
-  const badgeColors: Record<string, string> = {
-    sig: 'bg-blue-100 text-blue-800',
-    committee: 'bg-orange-100 text-orange-800',
-  };
-
   const topBorderColors: Record<string, string> = {
     sig: 'group-hover:border-t-blue-400',
     committee: 'group-hover:border-t-orange-400',
@@ -57,14 +52,6 @@ const OrganizationCard = ({
       class={`group relative flex h-full flex-col rounded-xl border border-gray-200 border-t-2 border-t-transparent bg-white p-6 text-center shadow-md transition-all duration-200 hover:border-navy-300 hover:shadow-xl hover:-translate-y-0.5 ${topBorderColors[organization.type] || ''} animate-fade-up`}
       style={{ animationDelay: `${index * 50}ms` }}
     >
-      <div
-        class={`absolute top-3 right-3 text-xs font-bold px-2 py-1 rounded-full ${badgeColors[organization.type] || 'bg-gray-100 text-gray-800'}`}
-      >
-        {acronyms.includes(organization.type.toUpperCase())
-          ? organization.type.toUpperCase()
-          : toTitleCase(organization.type)}
-      </div>
-
       <div class="mb-4">
         <img
           src={logoUrl}

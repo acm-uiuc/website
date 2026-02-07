@@ -1,7 +1,7 @@
 import { useStore } from '@nanostores/preact';
 import { useEffect, useMemo } from 'preact/hooks';
 
-import type { Organization } from '../stores/organization';
+import type { Organization, OrgType } from '../stores/organization';
 import {
   $activeOrgType,
   $sigsAndCommittees,
@@ -22,6 +22,8 @@ interface Props {
   images: Record<string, ImageData>;
 }
 
+const orgTypes: OrgType[] = ['sig', 'committee'];
+
 const OrganizationGrid = ({ initialOrgs, images }: Props) => {
   // Subscribe to the nanostores
   const storeOrgs = useStore($sigsAndCommittees);
@@ -31,66 +33,71 @@ const OrganizationGrid = ({ initialOrgs, images }: Props) => {
   // Use store data if available, otherwise fall back to initial SSR data
   const sourceData = storeOrgs.length > 0 ? storeOrgs : initialOrgs;
 
-  // Filter by active tab type, then by search query
-  const filteredOrgs = useMemo(() => {
-    const byType = sourceData.filter((org) => org.type === activeOrgType);
-
-    if (!searchQuery.trim()) {
-      return byType;
+  // Filter each tab's orgs by search query
+  const orgsByType = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
+    const result: Record<OrgType, Organization[]> = { sig: [], committee: [] };
+    for (const type of orgTypes) {
+      const byType = sourceData.filter((org) => org.type === type);
+      result[type] = query
+        ? byType.filter(
+            (org) =>
+              org.name.toLowerCase().includes(query) ||
+              org.description?.toLowerCase().includes(query)
+          )
+        : byType;
     }
+    return result;
+  }, [sourceData, searchQuery]);
 
-    const query = searchQuery.toLowerCase();
-    return byType.filter(
-      (org) =>
-        org.name.toLowerCase().includes(query) ||
-        org.description?.toLowerCase().includes(query)
-    );
-  }, [sourceData, searchQuery, activeOrgType]);
-
-  // Auto-switch tab when search has no results here but does in the other tab
+  // Auto-switch tab when search query changes and current tab has no results
   useEffect(() => {
-    if (filteredOrgs.length > 0 || !searchQuery.trim()) return;
+    const currentType = $activeOrgType.get();
+    if (orgsByType[currentType].length > 0 || !searchQuery.trim()) return;
 
-    const otherType = activeOrgType === 'sig' ? 'committee' : 'sig';
-    const query = searchQuery.toLowerCase();
-    const otherHasResults = sourceData.some(
-      (org) =>
-        org.type === otherType &&
-        (org.name.toLowerCase().includes(query) ||
-          org.description?.toLowerCase().includes(query))
-    );
-
-    if (otherHasResults) {
+    const otherType = currentType === 'sig' ? 'committee' : 'sig';
+    if (orgsByType[otherType].length > 0) {
       setActiveOrgType(otherType);
     }
-  }, [filteredOrgs, searchQuery, activeOrgType, sourceData]);
+  }, [orgsByType, searchQuery]);
 
   return (
-    <>
-      {filteredOrgs.length > 0 ? (
-        <div
-          key={activeOrgType}
-          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-        >
-          {filteredOrgs.map((org, i) => (
-            <OrganizationCard
-              key={org.id}
-              organization={org}
-              imageData={images[org.id]}
-              index={i}
-            />
-          ))}
-        </div>
-      ) : (
-        <div class="text-center py-16">
-          <Search className="mx-auto mb-4 text-gray-300" size={48} />
-          <p class="text-lg font-medium text-gray-700">No results found</p>
-          <p class="text-sm text-gray-500 mt-1">
-            Try a different search term or check the other tab.
-          </p>
-        </div>
-      )}
-    </>
+    <div class="grid" style={{ gridTemplate: '1fr / 1fr' }}>
+      {orgTypes.map((type) => {
+        const orgs = orgsByType[type];
+        const isActive = activeOrgType === type;
+        return (
+          <div
+            key={type}
+            class={isActive ? '' : 'invisible'}
+            style={{ gridArea: '1 / 1' }}
+          >
+            {orgs.length > 0 ? (
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {orgs.map((org, i) => (
+                  <OrganizationCard
+                    key={org.id}
+                    organization={org}
+                    imageData={images[org.id]}
+                    index={i}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div class="text-center py-16">
+                <Search className="mx-auto mb-4 text-gray-300" size={48} />
+                <p class="text-lg font-medium text-gray-700">
+                  No results found
+                </p>
+                <p class="text-sm text-gray-500 mt-1">
+                  Try a different search term or check the other tab.
+                </p>
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
   );
 };
 

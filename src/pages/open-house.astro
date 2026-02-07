@@ -1,0 +1,101 @@
+---
+import { getImage } from 'astro:assets';
+import { organizationApiClient } from '../api';
+import Layout from '../layouts/Layout.astro';
+import VenuePage from '../components/openHouse/page';
+import {
+  ohOverrides,
+  partnerOrgs,
+  type OHOrgData,
+} from '../components/openHouse/data/oh_config';
+import mapHorizontal from '../images/openHouse/oh_map.svg';
+import mapVertical from '../images/openHouse/oh_map_vertical.svg';
+
+// Fetch org data at build time (same pattern as home page)
+const apiOrgs = await organizationApiClient.apiV1OrganizationsGet();
+
+// Optimize logos at build time (same pattern as OrganizationList.astro)
+const imageModules = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/images/logos/*.{png,jpg,jpeg,webp,svg}',
+  { eager: true }
+);
+
+const optimizedLogos: Record<string, string> = {};
+for (const [path, module] of Object.entries(imageModules)) {
+  const filename =
+    path
+      .split('/')
+      .pop()
+      ?.replace(/\.(png|jpg|jpeg|webp|svg)$/, '') || '';
+  try {
+    const optimized = await getImage({
+      src: module.default,
+      width: 256,
+      height: 256,
+      format: 'webp',
+    });
+    optimizedLogos[filename] = optimized.src;
+  } catch (e) {
+    console.warn(`Failed to optimize logo for ${filename}:`, e);
+  }
+}
+
+const linkTypeLabels: Record<string, string> = {
+  DISCORD: 'Discord',
+  SLACK: 'Slack',
+  CAMPUSWIRE: 'Campuswire',
+  NOTION: 'Notion',
+  MATRIX: 'Matrix',
+  INSTAGRAM: 'Instagram',
+  OTHER: 'Link',
+};
+
+// Build org record keyed by ID from API data + overrides
+const orgsById: Record<string, OHOrgData> = {};
+
+for (const org of apiOrgs) {
+  if (org.type !== 'sig' && org.type !== 'committee') continue;
+
+  const override = ohOverrides[org.id];
+  const apiLinks = (org.links ?? []).map((l) => ({
+    text: linkTypeLabels[l.type] ?? l.type,
+    url: l.url,
+  }));
+  if (org.website) {
+    apiLinks.unshift({ text: 'Website', url: org.website });
+  }
+
+  orgsById[org.id] = {
+    name: org.name,
+    description: org.description ?? '',
+    type: org.type as 'sig' | 'committee',
+    logo: optimizedLogos[org.id],
+    demo_time: override?.demo_time ?? null,
+    links: apiLinks,
+  };
+}
+
+// Add partner organizations
+for (const [id, partner] of Object.entries(partnerOrgs)) {
+  orgsById[id] = {
+    ...partner,
+    logo: optimizedLogos[id],
+  };
+}
+
+// Optimize map images at build time
+const optimizedMapH = await getImage({ src: mapHorizontal });
+const optimizedMapV = await getImage({ src: mapVertical });
+---
+
+<Layout
+  title="Open House"
+  description="Map and event information for ACM Open House."
+>
+  <VenuePage
+    client:load
+    orgsData={orgsById}
+    mapSrc={optimizedMapH.src}
+    mapVerticalSrc={optimizedMapV.src}
+  />
+</Layout>

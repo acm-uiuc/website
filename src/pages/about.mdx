@@ -4,6 +4,12 @@ title: About
 description: The largest student-run CS organization at the University of Illinois at Urbana-Champaign.
 ---
 
+import LeadershipGrid from '../components/LeadershipGrid.astro';
+import chair from '../images/leadership/chair.jpg';
+import viceChair from '../images/leadership/viceChair.jpg';
+import treasurer from '../images/leadership/treasurer.jpg';
+import secretary from '../images/leadership/secretary.jpg';
+
 ## Who We Are
 
 ACM @ UIUC is the Association for Computing Machinery student chapter, the world's largest scientific computer society. We are a group of dedicated people interested in exploring the possibilities of computers and discovering new ways to use them!
@@ -11,6 +17,35 @@ ACM @ UIUC is the Association for Computing Machinery student chapter, the world
 We're part of the international [Association for Computing Machinery](https://acm.org), the world's largest computing society, but we operate independently as a student-led organization focused on building community at UIUC.
 
 ACM @ UIUC is a registered 501(c)(3) nonprofit organization through the Association for Computing Machinery.
+
+## Leadership
+
+Email the leadership team at officers@acm.illinois.edu.
+
+<LeadershipGrid
+    members={[
+      {
+        name: "Jacob Levine",
+        title: "Chair",
+        image: chair
+      },
+      {
+        name: "Sherry Long",
+        title: "Vice President",
+        image: viceChair
+      },
+      {
+        name: "Adhi Thirumala",
+        title: "Treasurer",
+        image: treasurer
+      },
+      {
+        name: "Krish Gangal",
+        title: "Secretary",
+        image: secretary
+      }
+    ]}
+  />
 
 ## What We Do
 

@@ -48,31 +48,17 @@ const { title, description, hideTitleOnPage } = props;
           !hideTitleOnPage && (
             <>
               <div class="grid-pattern absolute inset-0" />
-              <div class="relative z-10 container mx-auto px-6 lg:px-8">
+              <div class="relative z-10 container mx-auto px-3 sm:px-6 lg:px-8">
                 <div class="max-w-4xl">
                   <h1 class="text-3xl font-bold tracking-tight text-white lg:text-5xl">
                     {title}
                   </h1>
                   {description && (
-                    <p class="header-description mt-4 mb-2 max-w-5xl text-lg lg:text-xl">
+                    <p class="header-description mt-4 max-w-5xl text-lg lg:text-xl">
                       {description}
                     </p>
                   )}
                 </div>
-              </div>
-              <div class="absolute right-0 bottom-0 left-0">
-                <svg
-                  class="h-auto w-full"
-                  viewBox="0 0 1440 60"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  preserveAspectRatio="none"
-                >
-                  <path
-                    d="M0 60V30C240 10 480 0 720 10C960 20 1200 40 1440 30V60H0Z"
-                    fill="white"
-                  />
-                </svg>
               </div>
             </>
           )
@@ -80,7 +66,7 @@ const { title, description, hideTitleOnPage } = props;
       </header>
 
       <!-- Main Content with Sidebar -->
-      <main class="container mx-auto px-3 py-6 lg:px-8 lg:py-12">
+      <main class="container mx-auto px-2 md:px-3 py-6 lg:px-8 lg:py-12">
         <div class="content-layout">
           <!-- Sidebar / Table of Contents -->
           <aside class="sidebar">
@@ -152,14 +138,14 @@ const { title, description, hideTitleOnPage } = props;
     margin: 0 auto;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1280px) {
     .content-layout {
       grid-template-columns: 18rem 1fr;
       gap: 3rem;
     }
   }
 
-  @media (min-width: 1280px) {
+  @media (min-width: 1536px) {
     .content-layout {
       grid-template-columns: 20rem 1fr;
       gap: 4rem;
@@ -171,7 +157,7 @@ const { title, description, hideTitleOnPage } = props;
     display: none;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1280px) {
     .sidebar {
       display: block;
     }
@@ -265,7 +251,7 @@ const { title, description, hideTitleOnPage } = props;
 
   /* Content Wrapper */
   .content-wrapper {
-    max-width: 48rem;
+    max-width: 60rem;
   }
 
   /* Prose styles for content pages */

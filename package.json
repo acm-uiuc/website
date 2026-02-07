@@ -45,8 +45,7 @@
     "react-big-calendar": "^1.19.4",
     "react-qrcode-logo": "^4.0.0",
     "tailwindcss": "^4.1.18",
-    "temporal-polyfill": "^0.3.0",
-    "wouter-preact": "^3.9.0"
+    "temporal-polyfill": "^0.3.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.6",

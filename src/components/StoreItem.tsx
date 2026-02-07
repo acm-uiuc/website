@@ -30,7 +30,7 @@ const StoreItem = ({ id }: { id: string }) => {
         );
       }
     })();
-  }, []);
+  }, [id]);
   const baseReturn = (
     <ErrorPopup
       error={error}
@@ -53,7 +53,7 @@ const StoreItem = ({ id }: { id: string }) => {
               {productInfo.name}
             </h1>
             <p
-              className="mt-2 text-gray-600 whitespace-pre-line"
+              className="mt-2 text-gray-800 font-medium whitespace-pre-line"
               dangerouslySetInnerHTML={{
                 __html: productInfo.description ?? '',
               }}

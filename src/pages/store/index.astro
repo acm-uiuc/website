@@ -1,0 +1,8 @@
+---
+import StoreWrapper from '../../components/StoreWrapper';
+import InteractiveLayout from '../../layouts/InteractiveLayout.astro';
+---
+
+<InteractiveLayout title="Store">
+  <StoreWrapper client:only="preact" />
+</InteractiveLayout>

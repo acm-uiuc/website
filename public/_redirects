@@ -1,1 +1,1 @@
-/store/*  /store/:splat  200
+/store/*  /store?id=:splat  200

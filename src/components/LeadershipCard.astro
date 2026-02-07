@@ -11,7 +11,7 @@ const { name, title, image } = Astro.props;
 ---
 
 <div
-  class="group relative flex h-full flex-col rounded-xl border border-gray-200 bg-white overflow-hidden shadow-md transition-all duration-200 hover:shadow-xl hover:border-navy-300"
+  class="leadership-card group relative flex h-full flex-col rounded-xl border border-gray-200 bg-white overflow-hidden shadow-md transition-all duration-200 hover:shadow-xl hover:border-navy-300"
 >
   <div
     class="flex items-center justify-center mx-auto mt-6 h-32 w-32 sm:h-40 sm:w-40 aspect-square overflow-hidden rounded-full bg-gray-100 shadow-sm"
@@ -20,16 +20,16 @@ const { name, title, image } = Astro.props;
       src={image}
       alt={title}
       class="aspect-square object-cover object-center transition-transform duration-300 group-hover:scale-110"
-      widths={[128, 160, 320]}
+      widths={[256, 320, 480, 760]}
       sizes="(max-width: 640px) 128px, 160px"
     />
   </div>
 
-  <div class="flex flex-col flex-1 p-6 text-center">
-    <p class="text-xl font-bold text-navy-900 mb-1 group-hover:text-navy-700">
+  <div class="flex flex-col flex-1 p-3 text-center">
+    <p class="text-xl font-bold" style="color: var(--color-navy-900)">
       {name}
     </p>
-    <p class="text-sm font-medium text-tangerine-600 tracking-wide">
+    <p class="text-sm tracking-wide" style="color: var(--color-tangerine-600)">
       {title}
     </p>
   </div>

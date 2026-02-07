@@ -24,7 +24,7 @@ const JoinModal = ({ discordUrl, membershipUrl }: Props) => {
 
   const handleClose = () => {
     setIsOpen(false);
-    window.history.back();
+    window.location.href = '/';
   };
 
   const handleDiscordClick = () => {

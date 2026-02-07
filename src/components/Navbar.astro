@@ -18,6 +18,8 @@ interface NavLink {
 
 const { transparent = false, mode = 'dark', breadcrumbs } = Astro.props;
 
+const currentPath = Astro.url.pathname;
+
 const navLinks: NavLink[] = [
   { href: '/about', label: 'About' },
   { href: '/calendar', label: 'Calendar' },
@@ -62,7 +64,12 @@ const navLinks: NavLink[] = [
               href={link.href}
               target={link.external ? '_blank' : undefined}
               rel={link.external ? 'noopener noreferrer' : undefined}
-              class="nav-link rounded-lg px-4 py-2 text-lg font-medium transition-colors"
+              class:list={[
+                'nav-link rounded-lg px-4 py-2 text-lg font-medium transition-colors',
+                currentPath.startsWith(link.href) &&
+                  !link.external &&
+                  'nav-link-active',
+              ]}
             >
               {link.label}
               {link.external && (
@@ -175,7 +182,12 @@ const navLinks: NavLink[] = [
               href={link.href}
               target={link.external ? '_blank' : undefined}
               rel={link.external ? 'noopener noreferrer' : undefined}
-              class="nav-link-mobile rounded-lg px-4 py-3 text-base font-medium transition-colors"
+              class:list={[
+                'nav-link-mobile rounded-lg px-4 py-3 text-base font-medium transition-colors',
+                currentPath.startsWith(link.href) &&
+                  !link.external &&
+                  'nav-link-mobile-active',
+              ]}
             >
               {link.label}
               {link.external && (
@@ -218,7 +230,8 @@ const navLinks: NavLink[] = [
   header[data-mode='dark'].bg-transparent .nav-link {
     color: rgba(255, 255, 255, 0.9);
   }
-  header[data-mode='dark'].bg-transparent .nav-link:hover {
+  header[data-mode='dark'].bg-transparent .nav-link:hover,
+  header[data-mode='dark'].bg-transparent .nav-link-active {
     color: white;
     background-color: rgba(255, 255, 255, 0.1);
   }
@@ -231,7 +244,8 @@ const navLinks: NavLink[] = [
   header[data-mode='dark'].bg-transparent .nav-link-mobile {
     color: rgba(255, 255, 255, 0.9);
   }
-  header[data-mode='dark'].bg-transparent .nav-link-mobile:hover {
+  header[data-mode='dark'].bg-transparent .nav-link-mobile:hover,
+  header[data-mode='dark'].bg-transparent .nav-link-mobile-active {
     color: white;
     background-color: rgba(255, 255, 255, 0.1);
   }
@@ -246,7 +260,8 @@ const navLinks: NavLink[] = [
   header[data-mode='light'] .nav-link {
     color: var(--color-navy-700);
   }
-  header[data-mode='light'] .nav-link:hover {
+  header[data-mode='light'] .nav-link:hover,
+  header[data-mode='light'] .nav-link-active {
     color: var(--color-navy-900);
     background-color: var(--color-navy-100);
   }
@@ -259,7 +274,8 @@ const navLinks: NavLink[] = [
   header[data-mode='light'] .nav-link-mobile {
     color: var(--color-navy-700);
   }
-  header[data-mode='light'] .nav-link-mobile:hover {
+  header[data-mode='light'] .nav-link-mobile:hover,
+  header[data-mode='light'] .nav-link-mobile-active {
     color: var(--color-navy-900);
     background-color: var(--color-navy-100);
   }
@@ -300,7 +316,8 @@ const navLinks: NavLink[] = [
   header.nav-solid .nav-link {
     color: var(--color-navy-700);
   }
-  header.nav-solid .nav-link:hover {
+  header.nav-solid .nav-link:hover,
+  header.nav-solid .nav-link-active {
     color: var(--color-navy-900);
     background-color: var(--color-navy-100);
   }
@@ -313,7 +330,8 @@ const navLinks: NavLink[] = [
   header.nav-solid .nav-link-mobile {
     color: var(--color-navy-700);
   }
-  header.nav-solid .nav-link-mobile:hover {
+  header.nav-solid .nav-link-mobile:hover,
+  header.nav-solid .nav-link-mobile-active {
     color: var(--color-navy-900);
     background-color: var(--color-navy-100);
   }

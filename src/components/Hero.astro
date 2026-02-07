@@ -3,6 +3,7 @@ import { Icon } from 'astro-icon/components';
 import { mailingListSubscriptionUrl, typewriterMessages } from '../constants';
 import UpcomingEvents from './UpcomingEvents.tsx';
 import TypewriterHero from './TypewriterHero.tsx';
+import CalendarModal from './CalendarModal.tsx';
 import { organizationApiClient } from '../api';
 
 const calendarLinks = {
@@ -35,7 +36,7 @@ const calendarLinks = {
       <!-- Text Content -->
       <div class="flex flex-col gap-5 lg:basis-1/2 lg:pr-12">
         <h1
-          class="text-3xl leading-[1.1] font-bold tracking-tight text-white sm:text-4xl lg:text-[3.5rem]"
+          class="text-3xl leading-[1.1] font-bold tracking-tight text-white sm:text-5xl lg:text-[3.5rem]"
         >
           UIUC's Hub for
           <br />
@@ -79,7 +80,7 @@ const calendarLinks = {
         </div>
 
         <!-- Social Links -->
-        <div class="flex items-center gap-4 pt-3">
+        <div class="flex items-center gap-4 pt-1">
           <div class="flex gap-2">
             <a
               href="https://instagram.com/acm.uiuc"
@@ -139,13 +140,11 @@ const calendarLinks = {
           <Icon name="lucide:calendar" class="h-4 w-4" />
           All Events
         </a>
-        <a
-          href="#"
-          class="flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-white/20"
-        >
-          <Icon name="lucide:circle-plus" class="h-4 w-4" />
-          Add to Calendar
-        </a>
+        <CalendarModal
+          client:load
+          googleUrl={calendarLinks.google}
+          icalUrl={calendarLinks.ical}
+        />
       </div>
     </div>
 

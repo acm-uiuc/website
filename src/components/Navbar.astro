@@ -365,8 +365,17 @@ const navLinks: NavLink[] = [
   }
 
   mobileMenuBtn?.addEventListener('click', () => {
-    mobileMenu?.classList.toggle('hidden');
+    const isOpen = mobileMenu?.classList.toggle('hidden') === false;
     menuIcon?.classList.toggle('hidden');
     closeIcon?.classList.toggle('hidden');
+
+    if (isTransparent) {
+      if (isOpen) {
+        navbar?.classList.remove('bg-transparent');
+        navbar?.classList.add('nav-solid');
+      } else {
+        handleScroll();
+      }
+    }
   });
 </script>

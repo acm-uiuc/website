@@ -8,7 +8,7 @@ const initialOrganizationState =
   await organizationApiClient.apiV1OrganizationsGet();
 ---
 
-<Layout title="Home" transparentNav={true}>
+<Layout transparentNav={true}>
   <Hero />
   <OrganizationList initialOrgsList={initialOrganizationState} />
 </Layout>

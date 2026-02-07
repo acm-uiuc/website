@@ -165,7 +165,7 @@ const UpcomingEvents = () => {
 
   return (
     <div
-      class={`grid grid-cols-1 gap-6 sm:grid-cols-${Math.min(featuredEvents.length, 2)} lg:grid-cols-${Math.min(featuredEvents.length, 3)}`}
+      class={`grid grid-cols-1 gap-6 sm:grid-cols-${Math.min(featuredEvents.length, 2)} md:grid-cols-${Math.min(featuredEvents.length, 3)}`}
     >
       {featuredEvents.map((event) => (
         <EventCard event={event} />

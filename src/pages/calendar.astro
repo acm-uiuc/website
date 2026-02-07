@@ -1,5 +1,13 @@
 ---
-import ContentLayout from "../layouts/ContentLayout.astro";
+import InteractiveLayout from '../layouts/Layout.astro';
+import CalendarPage from '../components/calendar/CalendarPage';
+import { eventsApiClient } from '../api';
+import { transformEventsApiDates } from '../api/events';
+
+const rawEvents = await eventsApiClient.apiV1EventsGet();
+const initialEvents = transformEventsApiDates(rawEvents);
 ---
 
-<ContentLayout title="Calendar" description="View ACM @ UIUC events" />
+<InteractiveLayout title="Calendar" description="View ACM @ UIUC events">
+  <CalendarPage client:load initialEvents={initialEvents} />
+</InteractiveLayout>

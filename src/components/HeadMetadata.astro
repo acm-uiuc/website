@@ -1,0 +1,19 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  contentType?: string;
+}
+const { title = 'ACM @ UIUC', description, contentType } = Astro.props;
+---
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="generator" content={Astro.generator} />
+  <title>{title}</title>
+  <meta property="og:title" content={title} />
+  {description && <meta property="og:description" content={description} />}
+  {contentType && <meta property="og:type" content={contentType} />}
+</head>

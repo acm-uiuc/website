@@ -1,7 +1,8 @@
 ---
-import "../styles/global.css";
-import Navbar from "../components/Navbar.astro";
-import Footer from "../components/Footer.astro";
+import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import HeadMetadata from '../components/HeadMetadata.astro';
 
 interface Props {
   title?: string;
@@ -22,19 +23,13 @@ const { title, description, hideTitleOnPage } = props;
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title} | ACM @ UIUC</title>
-  </head>
+  <HeadMetadata title={`${title} | ACM @ UIUC`} description={description} />
   <body class="m-0 flex min-h-screen flex-col bg-white p-0">
     <Navbar transparent={true} />
     <div class="relative flex-1">
       <!-- Page Header -->
       <header
-        class={`page-header relative overflow-hidden pt-24 pb-${hideTitleOnPage ? "0" : "16"} lg:pt-32 lg:pb-${hideTitleOnPage ? "0" : "20"}`}
+        class={`page-header relative overflow-hidden pt-24 pb-${hideTitleOnPage ? '0' : '16'} lg:pt-32 lg:pb-${hideTitleOnPage ? '0' : '20'}`}
       >
         <!-- Background decoration -->
         <div class="absolute inset-0 overflow-hidden">
@@ -335,7 +330,7 @@ const { title, description, hideTitleOnPage } = props;
   }
 
   .content-wrapper :global(ul li::before) {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     top: 0.75rem;
@@ -381,7 +376,7 @@ const { title, description, hideTitleOnPage } = props;
     padding: 0.125rem 0.5rem;
     border-radius: 0.375rem;
     font-size: 0.875em;
-    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+    font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
     font-weight: 500;
   }
 
@@ -479,41 +474,41 @@ const { title, description, hideTitleOnPage } = props;
 </style>
 
 <script>
-  import { initOrganizations } from "../stores/organization";
+  import { initOrganizations } from '../stores/organization';
 
   // Initialize organization data on page load
   initOrganizations();
 
   // Handle navbar transparency on scroll
-  const navbar = document.getElementById("navbar");
+  const navbar = document.getElementById('navbar');
 
   function handleScroll() {
     if (window.scrollY > 50) {
-      navbar?.classList.remove("bg-transparent");
-      navbar?.classList.add("nav-solid");
+      navbar?.classList.remove('bg-transparent');
+      navbar?.classList.add('nav-solid');
     } else {
-      navbar?.classList.add("bg-transparent");
-      navbar?.classList.remove("nav-solid");
+      navbar?.classList.add('bg-transparent');
+      navbar?.classList.remove('nav-solid');
     }
   }
 
   handleScroll();
-  window.addEventListener("scroll", handleScroll);
+  window.addEventListener('scroll', handleScroll);
 
   // Table of Contents functionality
   function initTableOfContents() {
-    const content = document.getElementById("content");
-    const tocList = document.getElementById("toc-list");
+    const content = document.getElementById('content');
+    const tocList = document.getElementById('toc-list');
 
     if (!content || !tocList) return;
 
     // Find all h2 and h3 elements in the content
-    const headings = content.querySelectorAll("h2, h3");
+    const headings = content.querySelectorAll('h2, h3');
 
     if (headings.length === 0) {
       // Hide sidebar if no headings
-      const sidebar = document.querySelector(".sidebar") as HTMLElement;
-      if (sidebar) sidebar.style.display = "none";
+      const sidebar = document.querySelector('.sidebar') as HTMLElement;
+      if (sidebar) sidebar.style.display = 'none';
       return;
     }
 
@@ -524,25 +519,25 @@ const { title, description, hideTitleOnPage } = props;
         const slug =
           heading.textContent
             ?.toLowerCase()
-            .replace(/[^a-z0-9]+/g, "-")
-            .replace(/(^-|-$)/g, "") || `heading-${index}`;
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/(^-|-$)/g, '') || `heading-${index}`;
         heading.id = slug;
       }
 
       // Create TOC item
-      const li = document.createElement("li");
-      const a = document.createElement("a");
+      const li = document.createElement('li');
+      const a = document.createElement('a');
       a.href = `#${heading.id}`;
       a.textContent = heading.textContent;
 
-      if (heading.tagName === "H3") {
-        a.classList.add("toc-h3");
+      if (heading.tagName === 'H3') {
+        a.classList.add('toc-h3');
       }
 
-      a.addEventListener("click", (e) => {
+      a.addEventListener('click', (e) => {
         e.preventDefault();
-        heading.scrollIntoView({ behavior: "smooth" });
-        history.pushState(null, "", `#${heading.id}`);
+        heading.scrollIntoView({ behavior: 'smooth' });
+        history.pushState(null, '', `#${heading.id}`);
       });
 
       li.appendChild(a);
@@ -550,7 +545,7 @@ const { title, description, hideTitleOnPage } = props;
     });
 
     // Highlight active section on scroll
-    const tocLinks = tocList.querySelectorAll("a");
+    const tocLinks = tocList.querySelectorAll('a');
 
     function updateActiveLink() {
       const scrollPosition = window.scrollY + 120;
@@ -567,24 +562,24 @@ const { title, description, hideTitleOnPage } = props;
       });
 
       tocLinks.forEach((link) => {
-        link.classList.remove("active");
+        link.classList.remove('active');
         if (
           activeHeading &&
-          link.getAttribute("href") === `#${activeHeading.id}`
+          link.getAttribute('href') === `#${activeHeading.id}`
         ) {
-          link.classList.add("active");
+          link.classList.add('active');
         }
       });
     }
 
     // Initial update and listen for scroll
     updateActiveLink();
-    window.addEventListener("scroll", updateActiveLink, { passive: true });
+    window.addEventListener('scroll', updateActiveLink, { passive: true });
   }
 
   // Initialize TOC when DOM is ready
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initTableOfContents);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTableOfContents);
   } else {
     initTableOfContents();
   }

@@ -2,27 +2,36 @@
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import HeadMetadata from '../components/HeadMetadata.astro';
 
 interface Props {
   title?: string;
+  description?: string;
   transparentNav?: boolean;
 }
 
-const { title = 'ACM @ UIUC', transparentNav = false } = Astro.props;
+const { title, description, transparentNav = false } = Astro.props;
+const displayedTitle = title ? `${title} | ACM @ UIUC` : 'ACM @ UIUC';
 ---
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title} | ACM @ UIUC</title>
-  </head>
+  <HeadMetadata title={displayedTitle} description={description} />
   <body class="m-0 flex min-h-screen flex-col bg-white p-0">
     <Navbar transparent={transparentNav} />
+
     <main class="relative flex-1">
+      <!-- Background decoration -->
+      <div class="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+          class="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-tangerine-100 opacity-50 blur-3xl"
+        >
+        </div>
+        <div
+          class="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-navy-100 opacity-50 blur-3xl"
+        >
+        </div>
+      </div>
       <slot />
     </main>
     <Footer />

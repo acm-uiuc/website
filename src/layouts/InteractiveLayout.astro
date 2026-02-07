@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import HeadMetadata from '../components/HeadMetadata.astro';
 
 interface Breadcrumb {
   href: string;
@@ -19,13 +20,7 @@ const { title = 'ACM @ UIUC', description, breadcrumbs } = Astro.props;
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title} | ACM @ UIUC</title>
-  </head>
+  <HeadMetadata title={`${title} | ACM @ UIUC`} description={description} />
   <body class="m-0 flex min-h-screen flex-col bg-gray-50 p-0">
     <Navbar transparent={false} mode="light" breadcrumbs={breadcrumbs} />
 

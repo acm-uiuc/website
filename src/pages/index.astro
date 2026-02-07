@@ -8,7 +8,10 @@ const initialOrganizationState =
   await organizationApiClient.apiV1OrganizationsGet();
 ---
 
-<Layout description="The largest student-run CS organization at the University of Illinois Urbana-Champaign." transparentNav={true}>
+<Layout
+  description="The largest student-run CS organization at the University of Illinois Urbana-Champaign."
+  transparentNav={true}
+>
   <Hero />
   <OrganizationList initialOrgsList={initialOrganizationState} />
 </Layout>

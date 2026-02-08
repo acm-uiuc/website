@@ -186,7 +186,7 @@ const StoreProductsInner = () => {
   return (
     <>
       {baseReturn}
-      <div className="w-full max-w-7xl">
+      <div className="w-full max-w-7xl mt-4 md:mt-0">
         <h1 className="mb-8 text-4xl font-bold text-navy-900">All Products</h1>
 
         {products.length === 0 ? (

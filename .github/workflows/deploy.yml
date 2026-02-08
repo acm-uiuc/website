@@ -105,6 +105,13 @@ jobs:
           node-version: 24.x
           cache: 'yarn'
       - run: yarn -D
+      - name: Restore Yarn Cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: yarn-modules-${{ runner.arch }}-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-dev
+          restore-keys: |
+            yarn-modules-${{ runner.arch }}-${{ runner.os }}-
       - run: npx playwright install --with-deps
       - run: npx playwright test
         env:
@@ -128,5 +135,12 @@ jobs:
         with:
           node-version: 24.x
           cache: 'yarn'
+      - name: Restore Yarn Cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: yarn-modules-${{ runner.arch }}-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-dev
+          restore-keys: |
+            yarn-modules-${{ runner.arch }}-${{ runner.os }}-
       - run: yarn -D
       - run: yarn format:check

@@ -69,7 +69,7 @@ const OrganizationGrid = ({ initialOrgs, images }: Props) => {
         return (
           <div
             key={type}
-            class={isActive ? '' : 'hidden md:block md:invisible'}
+            class={isActive ? '' : 'hidden'}
             style={{ gridArea: '1 / 1' }}
           >
             {orgs.length > 0 ? (

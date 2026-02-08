@@ -25,12 +25,10 @@ interface Props {
 const orgTypes: OrgType[] = ['sig', 'committee'];
 
 const OrganizationGrid = ({ initialOrgs, images }: Props) => {
-  // Subscribe to the nanostores
   const storeOrgs = useStore($sigsAndCommittees);
   const searchQuery = useStore($searchQuery);
   const activeOrgType = useStore($activeOrgType);
 
-  // Use store data if available, otherwise fall back to build-time data
   const sourceData = storeOrgs.length > 0 ? storeOrgs : initialOrgs;
 
   // Filter each tab's orgs by search query
@@ -73,7 +71,10 @@ const OrganizationGrid = ({ initialOrgs, images }: Props) => {
             style={{ gridArea: '1 / 1' }}
           >
             {orgs.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              <div
+                data-testid="org-grid"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+              >
                 {orgs.map((org, i) => (
                   <OrganizationCard
                     key={org.id}

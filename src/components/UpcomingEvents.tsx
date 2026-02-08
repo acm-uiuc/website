@@ -142,7 +142,6 @@ const SkeletonCard = () => (
 const UpcomingEvents = () => {
   const [featuredEvents, setFeaturedEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     const fetchEvents = async () => {
       try {

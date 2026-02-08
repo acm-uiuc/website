@@ -62,14 +62,14 @@ const OrganizationGrid = ({ initialOrgs, images }: Props) => {
   }, [orgsByType, searchQuery]);
 
   return (
-    <div class="grid" style={{ gridTemplate: '1fr / 1fr' }}>
+    <div class="md:grid" style={{ gridTemplate: '1fr / 1fr' }}>
       {orgTypes.map((type) => {
         const orgs = orgsByType[type];
         const isActive = activeOrgType === type;
         return (
           <div
             key={type}
-            class={isActive ? '' : 'invisible'}
+            class={isActive ? '' : 'hidden md:block md:invisible'}
             style={{ gridArea: '1 / 1' }}
           >
             {orgs.length > 0 ? (

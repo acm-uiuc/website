@@ -1,4 +1,5 @@
 import { useStore } from '@nanostores/preact';
+import { useRef } from 'preact/hooks';
 
 import {
   $activeOrgType,
@@ -28,6 +29,7 @@ const tabs: { type: OrgType; label: string; description: string }[] = [
 ];
 
 const OrgTypeTabBar = ({ initialCounts }: Props) => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const activeType = useStore($activeOrgType);
   const sigs = useStore($sigs);
   const committees = useStore($committees);
@@ -40,12 +42,17 @@ const OrgTypeTabBar = ({ initialCounts }: Props) => {
   const activeTab = tabs.find((t) => t.type === activeType)!;
 
   return (
-    <div class="flex flex-col items-center mb-4">
+    <div ref={containerRef} class="flex flex-col items-center mb-4">
       <div class="inline-flex rounded-lg bg-gray-200 p-1">
         {tabs.map((tab) => (
           <button
             key={tab.type}
-            onClick={() => setActiveOrgType(tab.type)}
+            onClick={() => {
+              setActiveOrgType(tab.type);
+              containerRef.current
+                ?.closest('section')
+                ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }}
             class={`px-6 py-2 rounded-md text-sm font-semibold transition-all duration-200 flex items-center gap-2 ${
               activeType === tab.type
                 ? 'bg-navy-900 text-white shadow-sm'

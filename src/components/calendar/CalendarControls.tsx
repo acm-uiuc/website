@@ -1,6 +1,7 @@
 import { add, format, getDay, parse, startOfWeek } from 'date-fns';
 import { enUS } from 'date-fns/locale/en-US';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import type { ComponentChildren } from 'preact';
 import type { View } from 'react-big-calendar';
 import { dateFnsLocalizer, Views } from 'react-big-calendar';
 
@@ -19,6 +20,7 @@ interface CalendarControlsProps {
   setDisplayDate: (d: Date) => void;
   view: View;
   setView: (v: View) => void;
+  children?: ComponentChildren;
 }
 
 export default function CalendarControls({
@@ -26,6 +28,7 @@ export default function CalendarControls({
   setDisplayDate,
   view,
   setView,
+  children,
 }: CalendarControlsProps) {
   const maxDate = add(new Date(), { years: MAX_FORWARD_YEARS });
   const nextDisabled = displayDate >= maxDate;
@@ -54,9 +57,9 @@ export default function CalendarControls({
   }
 
   return (
-    <div class="flex w-full flex-wrap items-center justify-between gap-4">
+    <div class="flex w-full flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
       <div class="text-xl font-bold">{extractLabel()}</div>
-      <div class="flex items-center gap-2">
+      <div class="flex flex-wrap items-center gap-2">
         <button
           onClick={() => setDisplayDate(new Date())}
           class="hidden rounded-md bg-navy-800 px-3 py-1.5 text-sm font-medium text-white hover:bg-navy-700 md:block"
@@ -92,6 +95,7 @@ export default function CalendarControls({
           <option value={Views.MONTH}>Month View</option>
           <option value={Views.AGENDA}>Agenda View</option>
         </select>
+        {children}
       </div>
     </div>
   );

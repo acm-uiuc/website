@@ -54,16 +54,13 @@ export default function CalendarPage({ initialEvents }: CalendarPageProps) {
   return (
     <section class="mx-auto w-full px-2 py-8 lg:px-4 mt-20">
       <h1 class="mb-3 text-3xl font-bold">Calendar</h1>
-      <div class="mb-2 flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
-        <div class="flex-1">
-          <CalendarControls
-            displayDate={displayDate}
-            setDisplayDate={setDisplayDate}
-            view={view}
-            setView={setView}
-          />
-        </div>
-        <div class="flex gap-4">
+      <div class="mb-2">
+        <CalendarControls
+          displayDate={displayDate}
+          setDisplayDate={setDisplayDate}
+          view={view}
+          setView={setView}
+        >
           <select
             value={hostFilter}
             onChange={(e) =>
@@ -71,7 +68,7 @@ export default function CalendarPage({ initialEvents }: CalendarPageProps) {
             }
             class="rounded-md border border-gray-300 px-2 py-1.5 text-sm"
           >
-            <option value="">Filter by host</option>
+            <option value="">Select host</option>
             {AllOrganizationNameList.map((org) => (
               <option key={org} value={org}>
                 {org}
@@ -85,7 +82,7 @@ export default function CalendarPage({ initialEvents }: CalendarPageProps) {
             onInput={(e) => setFilter((e.target as HTMLInputElement).value)}
             class="hidden rounded-md border border-gray-300 px-2 py-1.5 text-sm focus:border-navy-500 focus:outline-none md:block"
           />
-        </div>
+        </CalendarControls>
       </div>
 
       <div class="grid grid-cols-1 gap-6 xl:grid-cols-10">

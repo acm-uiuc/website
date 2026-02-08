@@ -1,4 +1,4 @@
-import { Calendar } from 'lucide-react';
+import { Calendar, Repeat } from 'lucide-react';
 import { useEffect, useState } from 'preact/hooks';
 
 import { eventsApiClient } from '../api';
@@ -57,22 +57,29 @@ const EventCard = ({ event }: { event: Event }) => {
 
       <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm mt-auto">
         <div class="flex items-center gap-1.5 text-gray-500">
-          <Calendar className="text-tangerine-500" size={16} />
-          <span>{formatDate(event.start)}</span>
+          <Calendar className="text-tangerine-500 shrink-0" size={16} />
+          <span class="whitespace-nowrap">{formatDate(event.start)}</span>
           <span class="text-gray-300">·</span>
-          <span>{formatTime(event.start)}</span>
-          {event.end && (
-            <>
-              <span class="text-gray-300">-</span>
-              {formatDate(event.start) !== formatDate(event.end) && (
-                <>
-                  <span>{formatDate(event.end)}</span>
-                </>
-              )}
-              <span>{formatTime(event.end)}</span>
-            </>
-          )}
+          <span class="whitespace-nowrap">
+            {formatTime(event.start)}
+            {event.end && (
+              <>
+                {' - '}
+                {formatDate(event.start) !== formatDate(event.end) && (
+                  <>{formatDate(event.end)} </>
+                )}
+                {formatTime(event.end)}
+              </>
+            )}
+          </span>
         </div>
+
+        {event.repeats && (
+          <div class="flex items-center gap-1.5 text-gray-500">
+            <Repeat className="text-tangerine-500 shrink-0" size={16} />
+            <span class="capitalize">{event.repeats}</span>
+          </div>
+        )}
 
         {event.location && (
           /* relative z-10 ensures this container sits ON TOP of the stretched link.

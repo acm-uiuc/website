@@ -3,6 +3,7 @@ import { MembershipPriceCents } from '@acm-uiuc/js-shared';
 
 import MembershipPurchaseButton from '../../components/MembershipPurchaseButton.tsx';
 import InteractiveLayout from '../../layouts/InteractiveLayout.astro';
+import { membershipBenefits } from '../../constants';
 
 const breadcrumbs = [
   { href: '/join', label: 'Join' },
@@ -30,70 +31,31 @@ const breadcrumbs = [
       <div class="space-y-6">
         <!-- Benefits list -->
         <ul class="space-y-3 text-gray-700">
-          <li class="flex items-start gap-3">
-            <svg
-              class="mt-0.5 h-5 w-5 flex-shrink-0 text-tangerine-500"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M5 13l4 4L19 7"></path>
-            </svg>
-            <span><strong>Swipe access</strong> to the ACM room</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <svg
-              class="mt-0.5 h-5 w-5 flex-shrink-0 text-tangerine-500"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M5 13l4 4L19 7"></path>
-            </svg>
-            <span><strong>Free 2D and 3D printing</strong> in the room</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <svg
-              class="mt-0.5 h-5 w-5 flex-shrink-0 text-tangerine-500"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M5 13l4 4L19 7"></path>
-            </svg>
-            <span><strong>Priority access</strong> to corporate events</span>
-          </li>
-
-          <li class="flex items-start gap-3">
-            <svg
-              class="mt-0.5 h-5 w-5 flex-shrink-0 text-tangerine-500"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M5 13l4 4L19 7"></path>
-            </svg>
-            <span
-              ><strong>Resume book access</strong> to market yourself to our corporate
-              sponsors</span
-            >
-          </li>
+          {
+            membershipBenefits.map(({ summary }) => (
+              <li class="flex items-start gap-3">
+                <svg
+                  class="mt-0.5 h-5 w-5 flex-shrink-0 text-tangerine-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                <span
+                  set:html={summary.replace(
+                    /\*\*(.+?)\*\*/g,
+                    '<strong>$1</strong>'
+                  )}
+                />
+              </li>
+            ))
+          }
         </ul>
 
         <!-- Divider -->

@@ -21,6 +21,9 @@
     "*.{ts,tsx,astro,js,css,md,mdx,json}": [
       "prettier --write",
       "eslint --fix"
+    ],
+    "*.{yaml,yml}": [
+      "prettier --write"
     ]
   },
   "resolutions": {

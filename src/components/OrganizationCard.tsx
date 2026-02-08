@@ -59,7 +59,7 @@ const OrganizationCard = ({
           width={imageData?.width || 96}
           height={imageData?.height || 96}
           loading="lazy"
-          class="h-24 w-24 rounded-full object-cover mx-auto transition-transform duration-200 group-hover:scale-110"
+          class="h-24 w-24 rounded-md object-contain mx-auto transition-transform duration-200 group-hover:scale-110"
           onError={(e) => {
             e.currentTarget.style.display = 'none';
           }}

@@ -4,7 +4,11 @@ import {
 } from '@acm-uiuc/core-client';
 import { useEffect, useState, useMemo, useCallback, useRef } from 'react';
 import { ShoppingCart } from 'lucide-react';
-import { storeApiClient, membershipApiClient } from '../../api';
+import {
+  storeApiClient,
+  membershipApiClient,
+  genericApiClient,
+} from '../../api';
 import { handleResponseError } from '../../util';
 import { initMsalClient, getUserAccessToken } from '../../authConfig';
 import ErrorPopup, { useErrorPopup } from '../ErrorPopup';
@@ -67,8 +71,11 @@ const StoreItem = ({ id, currentPath }: Props) => {
   const [user, setUser] = useState<AccountInfo | null>(null);
 
   // Membership state
-  const [isPaidMember, setIsPaidMember] = useState<boolean | null>(null);
+  const [isPaidMember, setIsPaidMember] = useState<boolean | undefined>(
+    undefined
+  );
   const [isCheckingMembership, setIsCheckingMembership] = useState(false);
+  const [membershipPreloaded, setMembershipPreloaded] = useState(false);
   const activeMembershipKeyRef = useRef<string | null>(null);
   const membershipCache = useRef<Map<string, boolean>>(new Map());
 
@@ -99,11 +106,11 @@ const StoreItem = ({ id, currentPath }: Props) => {
       }
       const cacheKey = createCacheKey(lists);
       activeMembershipKeyRef.current = cacheKey;
-      setIsPaidMember(null);
       if (membershipCache.current.has(cacheKey)) {
         setIsPaidMember(membershipCache.current.get(cacheKey)!);
         return;
       }
+      setIsPaidMember(undefined);
       setIsCheckingMembership(true);
       try {
         const accessToken = await getUserAccessToken(pca);
@@ -160,6 +167,57 @@ const StoreItem = ({ id, currentPath }: Props) => {
     })();
   }, [id]);
 
+  // Pre-populate membership cache for all variants at load time
+  useEffect(() => {
+    if (!productInfo || !pca || !user || membershipPreloaded) return;
+    const variants = productInfo.variants;
+    if (!variants || variants.length === 0) {
+      setMembershipPreloaded(true);
+      return;
+    }
+    // Collect unique member list combinations
+    const uniqueLists = new Map<string, string[]>();
+    for (const variant of variants) {
+      const lists = variant.memberLists;
+      if (lists && lists.length > 0) {
+        const key = createCacheKey(lists);
+        if (!uniqueLists.has(key)) {
+          uniqueLists.set(key, lists);
+        }
+      }
+    }
+    if (uniqueLists.size === 0) {
+      setMembershipPreloaded(true);
+      return;
+    }
+    (async () => {
+      try {
+        const accessToken = await getUserAccessToken(pca);
+        if (!accessToken) {
+          setMembershipPreloaded(true);
+          return;
+        }
+        await Promise.all(
+          Array.from(uniqueLists.entries()).map(async ([key, lists]) => {
+            if (membershipCache.current.has(key)) return;
+            try {
+              const response = await membershipApiClient.apiV1MembershipGet({
+                lists,
+                xUiucToken: accessToken,
+              });
+              membershipCache.current.set(key, response.isPaidMember || false);
+            } catch {
+              membershipCache.current.set(key, false);
+            }
+          })
+        );
+      } catch {
+        // Token failure — cache stays empty, will check on demand
+      }
+      setMembershipPreloaded(true);
+    })();
+  }, [productInfo, pca, user, membershipPreloaded]);
+
   // Determine which member lists to check
   const commonMemberLists = useMemo(
     () => getAllVariantsMemberLists(productInfo?.variants),
@@ -181,7 +239,7 @@ const StoreItem = ({ id, currentPath }: Props) => {
     if (user && activeMemberLists) {
       checkMembershipStatus(activeMemberLists);
     } else if (!user) {
-      setIsPaidMember(null);
+      setIsPaidMember(undefined);
     }
   }, [user, activeMemberLists, checkMembershipStatus]);
 
@@ -323,8 +381,20 @@ const StoreItem = ({ id, currentPath }: Props) => {
       showError(400, 'Please complete the security verification.');
       return;
     }
-
     try {
+      let syncIfRequired = async () => {
+        const syncIsRequired =
+          await genericApiClient.apiV1SyncIdentityIsRequiredGet({
+            xUiucToken: accessToken,
+          });
+        if (syncIsRequired.syncRequired) {
+          await genericApiClient.apiV1SyncIdentityPost({
+            xUiucToken: accessToken,
+          });
+        }
+      };
+      const syncPromise = syncIfRequired();
+
       const checkoutResponse = await storeApiClient.apiV1StoreCheckoutPost({
         xTurnstileResponse: turnstileToken,
         xUiucToken: accessToken,
@@ -340,6 +410,7 @@ const StoreItem = ({ id, currentPath }: Props) => {
           cancelRedirPath: `/store?id=${id}`,
         },
       });
+      await syncPromise;
       window.location.replace(checkoutResponse['checkoutUrl']);
     } catch (e) {
       if (e instanceof ResponseError) {
@@ -414,9 +485,9 @@ const StoreItem = ({ id, currentPath }: Props) => {
     />
   );
 
-  if (!productInfo) {
+  if (!productInfo || (user && !membershipPreloaded)) {
     return (
-      <main className="relative flex flex-1 justify-center px-4 py-16 lg:py-24">
+      <main className="relative flex flex-1 justify-center px-4 mt-20 py-8 lg:mt-24 lg:py-12">
         <ReactNavbar
           currentPath={currentPath}
           breadcrumbs={[{ href: '/store', label: 'Store' }]}
@@ -448,7 +519,7 @@ const StoreItem = ({ id, currentPath }: Props) => {
     checkoutMode === CheckoutMode.ILLINOIS && !user && hasMemberPricing;
 
   return (
-    <main className="relative flex flex-1 justify-center px-4 py-16 lg:py-24">
+    <main className="relative flex flex-1 justify-center px-4 mt-20 py-8 lg:mt-24 lg:py-12">
       <ReactNavbar
         currentPath={currentPath}
         breadcrumbs={[
@@ -518,12 +589,18 @@ const StoreItem = ({ id, currentPath }: Props) => {
               )}
 
               {/* Pricing info - only show if user is logged in (for Illinois) or guest mode */}
-              {isCheckingMembership && selectedVariantId && (
-                <div className="mt-6 space-y-2 rounded-lg bg-surface-050 p-4">
-                  <div className="h-6 w-6 animate-spin rounded-full border-4 border-gray-200 border-t-rose-600" />
-                </div>
-              )}
+              {(isCheckingMembership ||
+                (checkoutMode === CheckoutMode.ILLINOIS &&
+                  user &&
+                  isPaidMember === undefined)) &&
+                selectedVariantId && (
+                  <div className="mt-6 space-y-2 rounded-lg bg-surface-050 p-4">
+                    <div className="h-6 w-6 animate-spin rounded-full border-4 border-gray-200 border-t-rose-600" />
+                  </div>
+                )}
               {!isCheckingMembership &&
+                (checkoutMode === CheckoutMode.GUEST ||
+                  isPaidMember !== undefined) &&
                 selectedVariant &&
                 (checkoutMode === CheckoutMode.GUEST || user) && (
                   <div className="mt-6 space-y-2 rounded-lg bg-surface-050 p-4">
@@ -676,6 +753,19 @@ const StoreItem = ({ id, currentPath }: Props) => {
                         const val = (e.target as HTMLSelectElement).value;
                         if (val !== '') {
                           setSelectedVariantId(val);
+                          // Reset membership to loading if this variant's lists aren't cached yet
+                          if (user && checkoutMode === CheckoutMode.ILLINOIS) {
+                            const variant = productInfo.variants.find(
+                              (v) => v.variantId === val
+                            );
+                            const lists = variant?.memberLists;
+                            if (lists && lists.length > 0) {
+                              const cacheKey = createCacheKey(lists);
+                              if (!membershipCache.current.has(cacheKey)) {
+                                setIsPaidMember(undefined);
+                              }
+                            }
+                          }
                         }
                       }}
                       className="w-full rounded-lg border border-navy-200 px-3 py-2 outline-none transition-colors focus:border-navy-500"
@@ -739,6 +829,17 @@ const StoreItem = ({ id, currentPath }: Props) => {
                   {/* Total price */}
                   {selectedVariant &&
                     isQuantityValid &&
+                    checkoutMode === CheckoutMode.ILLINOIS &&
+                    user &&
+                    isPaidMember === undefined && (
+                      <div className="rounded-lg bg-surface-050 p-4 flex justify-center">
+                        <div className="h-6 w-6 animate-spin rounded-full border-4 border-gray-200 border-t-rose-600" />
+                      </div>
+                    )}
+                  {selectedVariant &&
+                    isQuantityValid &&
+                    (checkoutMode === CheckoutMode.GUEST ||
+                      isPaidMember !== undefined) &&
                     (checkoutMode === CheckoutMode.GUEST || user) && (
                       <div className="rounded-lg bg-surface-050 p-4">
                         <div className="mb-2 flex items-baseline justify-between">
@@ -766,7 +867,7 @@ const StoreItem = ({ id, currentPath }: Props) => {
                             </p>
                           )}
                         {checkoutMode === CheckoutMode.ILLINOIS &&
-                          !isPaidMember &&
+                          isPaidMember === false &&
                           memberPrice !== null &&
                           nonMemberPrice !== null &&
                           nonMemberPrice > memberPrice &&
@@ -813,6 +914,9 @@ const StoreItem = ({ id, currentPath }: Props) => {
 
                   {/* Purchase button */}
                   {isFormValid &&
+                    !showSignInForPricing &&
+                    (checkoutMode === CheckoutMode.GUEST ||
+                      isPaidMember !== undefined) &&
                     (checkoutMode === CheckoutMode.ILLINOIS ? (
                       <AuthActionButton
                         icon={ShoppingCart}

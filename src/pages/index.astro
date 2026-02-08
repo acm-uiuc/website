@@ -2,6 +2,7 @@
 import { organizationApiClient } from '../api';
 import Hero from '../components/Hero.astro';
 import OrganizationList from '../components/OrganizationList.astro';
+import Sponsors from '../components/Sponsors.astro';
 import Layout from '../layouts/Layout.astro';
 
 const initialOrganizationState =
@@ -14,4 +15,5 @@ const initialOrganizationState =
 >
   <Hero />
   <OrganizationList initialOrgsList={initialOrganizationState} />
+  <Sponsors />
 </Layout>

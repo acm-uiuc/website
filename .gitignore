@@ -44,3 +44,4 @@ examples/**/env.d.ts
 *.code-workspace
 packages/astro/e2e/fixtures/cloudflare/.wrangler/deploy/config.json
 .claude/
+*:Zone.Identifier

@@ -70,7 +70,7 @@ const OrganizationCard = ({
         <h3 class="text-xl font-bold text-navy-900 mb-2 group-hover:text-navy-700">
           {organization.name}
         </h3>
-        <p class="text-md text-gray-600 line-clamp-4 flex-1">
+        <p class="text-md text-gray-600 line-clamp-8 lg:line-clamp-5 flex-1">
           {organization.description}
         </p>
       </div>

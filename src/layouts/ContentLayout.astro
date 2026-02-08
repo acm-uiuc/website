@@ -52,7 +52,7 @@ const { title, description, hideTitleOnPage } = props;
           !hideTitleOnPage && (
             <>
               <div class="grid-pattern absolute inset-0" />
-              <div class="relative z-10 container mx-auto px-3 sm:px-6 lg:px-8 pb-3 lg:pb-6">
+              <div class="relative z-10 container mx-auto px-6 sm:px-6 lg:px-8 pb-3 lg:pb-6">
                 <div class="max-w-4xl">
                   <h1 class="text-3xl font-bold tracking-tight text-white lg:text-5xl">
                     {title}
@@ -70,7 +70,7 @@ const { title, description, hideTitleOnPage } = props;
       </header>
 
       <!-- Main Content with Sidebar -->
-      <main class="container mx-auto px-2 md:px-3 py-6 lg:px-8 lg:py-12">
+      <main class="container mx-auto px-6 md:px-3 py-6 lg:px-8 lg:py-12">
         <div class="content-layout">
           <!-- Sidebar / Table of Contents -->
           <aside class="sidebar">
@@ -91,6 +91,7 @@ const { title, description, hideTitleOnPage } = props;
                 <span class="toc-title">On this page</span>
               </div>
               <ul class="toc-list" id="toc-list">
+                <div class="toc-highlight" id="toc-highlight"></div>
                 <!-- Populated by JavaScript -->
               </ul>
             </nav>
@@ -206,6 +207,7 @@ const { title, description, hideTitleOnPage } = props;
     list-style: none;
     padding: 0;
     margin: 0;
+    position: relative;
   }
 
   .toc-list :global(li) {
@@ -220,23 +222,39 @@ const { title, description, hideTitleOnPage } = props;
     color: var(--color-navy-600);
     text-decoration: none;
     border-radius: 0.5rem;
-    border-left: 3px solid transparent;
-    transition: all 0.15s ease;
+    transition: color 0.15s ease;
     line-height: 1.5;
     margin-bottom: 0.25rem;
+    position: relative;
+    z-index: 1;
   }
 
   .toc-list :global(a:hover) {
     color: var(--color-navy-800);
-    background: rgba(255, 255, 255, 0.7);
   }
 
   .toc-list :global(a.active) {
     color: var(--color-navy-900);
+  }
+
+  .toc-highlight {
+    position: absolute;
+    left: 0;
+    right: 0;
     background: white;
-    border-left-color: var(--color-tangerine-500);
-    font-weight: 600;
+    border-left: 3px solid var(--color-tangerine-500);
+    border-radius: 0.5rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition:
+      top 0.2s ease,
+      height 0.2s ease,
+      opacity 0.2s ease;
+    opacity: 0;
+    z-index: 0;
+  }
+
+  .toc-highlight.visible {
+    opacity: 1;
   }
 
   .toc-list :global(.toc-h3) {
@@ -536,30 +554,40 @@ const { title, description, hideTitleOnPage } = props;
 
     // Highlight active section on scroll
     const tocLinks = tocList.querySelectorAll('a');
+    const highlight = document.getElementById('toc-highlight')!;
 
     function updateActiveLink() {
-      const scrollPosition = window.scrollY + 120;
+      const headingArray = Array.from(headings);
+      const activeIds = new Set<string>();
 
-      let activeHeading: Element | null = null;
-
-      headings.forEach((heading) => {
+      headingArray.forEach((heading) => {
         const rect = heading.getBoundingClientRect();
-        const offsetTop = rect.top + window.scrollY;
-
-        if (offsetTop <= scrollPosition) {
-          activeHeading = heading;
+        // Only active if the heading itself is visible in the viewport
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          activeIds.add(heading.id);
         }
       });
+
+      const activeLinks: HTMLElement[] = [];
 
       tocLinks.forEach((link) => {
-        link.classList.remove('active');
-        if (
-          activeHeading &&
-          link.getAttribute('href') === `#${activeHeading.id}`
-        ) {
-          link.classList.add('active');
-        }
+        const id = link.getAttribute('href')?.slice(1) || '';
+        const isActive = activeIds.has(id);
+        link.classList.toggle('active', isActive);
+        if (isActive) activeLinks.push(link as HTMLElement);
       });
+
+      if (activeLinks.length > 0 && tocList) {
+        const listRect = tocList.getBoundingClientRect();
+        const firstRect = activeLinks[0].getBoundingClientRect();
+        const lastRect =
+          activeLinks[activeLinks.length - 1].getBoundingClientRect();
+        highlight.style.top = `${firstRect.top - listRect.top}px`;
+        highlight.style.height = `${lastRect.bottom - firstRect.top}px`;
+        highlight.classList.add('visible');
+      } else {
+        highlight.classList.remove('visible');
+      }
     }
 
     // Initial update and listen for scroll

@@ -50,28 +50,29 @@ const EventCard = ({ event }: { event: Event }) => {
       )}
 
       {event.description && (
-        <p class="mb-4 line-clamp-3 text-md text-gray-600">
+        <p class="mb-4 line-clamp-7 lg:line-clamp-4 text-md text-gray-600">
           {event.description}
         </p>
       )}
 
       <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm mt-auto">
-        <div class="flex items-center gap-1.5 text-gray-500">
+        <div class="flex items-center gap-1 text-gray-500">
           <Calendar className="text-tangerine-500 shrink-0" size={16} />
           <span class="whitespace-nowrap">{formatDate(event.start)}</span>
           <span class="text-gray-300">·</span>
           <span class="whitespace-nowrap">
             {formatTime(event.start)}
-            {event.end && (
-              <>
-                {' - '}
-                {formatDate(event.start) !== formatDate(event.end) && (
-                  <>{formatDate(event.end)} </>
-                )}
-                {formatTime(event.end)}
-              </>
-            )}
+            {event.end && ` - `}
           </span>
+          {event.end && formatDate(event.start) !== formatDate(event.end) && (
+            <>
+              <span class="whitespace-nowrap">{formatDate(event.end)}</span>
+              <span class="text-gray-300">·</span>
+            </>
+          )}
+          {event.end && (
+            <span class="whitespace-nowrap">{formatTime(event.end)}</span>
+          )}
         </div>
 
         {event.repeats && (
@@ -171,7 +172,7 @@ const UpcomingEvents = () => {
 
   return (
     <div
-      class={`grid grid-cols-1 gap-6 sm:grid-cols-${Math.min(featuredEvents.length, 2)} md:grid-cols-${Math.min(featuredEvents.length, 3)}`}
+      class={`grid grid-cols-1 gap-4 sm:grid-cols-${Math.min(featuredEvents.length, 2)} md:grid-cols-${Math.min(featuredEvents.length, 3)}`}
     >
       {featuredEvents.map((event) => (
         <EventCard event={event} />

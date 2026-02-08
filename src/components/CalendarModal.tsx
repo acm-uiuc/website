@@ -49,12 +49,12 @@ const CalendarModal = ({ googleUrl, icalUrl }: Props) => {
         <div class="fixed inset-0 z-50 flex items-center justify-center">
           {/* Backdrop */}
           <div
-            class="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            class="absolute inset-0 bg-black/60 backdrop-blur-sm animate-[fadeIn_200ms_ease-out]"
             onClick={handleClose}
           />
 
           {/* Modal */}
-          <div class="relative z-10 mx-4 w-full max-w-md rounded-2xl bg-white p-8 shadow-2xl">
+          <div class="relative z-10 mx-4 w-full max-w-lg rounded-2xl bg-white p-10 shadow-2xl animate-[popIn_200ms_ease-out]">
             {/* Close button */}
             <button
               onClick={handleClose}
@@ -93,10 +93,10 @@ const CalendarModal = ({ googleUrl, icalUrl }: Props) => {
                   />
                 </svg>
               </div>
-              <h2 class="text-xl font-bold text-navy-900">
+              <h2 class="text-2xl font-bold text-navy-900">
                 Subscribe to our calendar
               </h2>
-              <p class="mt-1 text-sm text-gray-600">Never miss an ACM event!</p>
+              <p class="mt-2 text-gray-600">Never miss an ACM event!</p>
             </div>
 
             {/* Options */}

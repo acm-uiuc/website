@@ -5,27 +5,18 @@ import { useEffect, useState } from 'preact/hooks';
 interface Props {
   discordUrl: string;
   membershipUrl: string;
+  onClose: () => void;
 }
 
-const JoinModal = ({ discordUrl, membershipUrl }: Props) => {
-  const [isOpen, setIsOpen] = useState(true);
+const JoinModal = ({ discordUrl, membershipUrl, onClose }: Props) => {
   const [step, setStep] = useState(1);
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = '';
     };
-  }, [isOpen]);
-
-  const handleClose = () => {
-    setIsOpen(false);
-    window.location.href = '/';
-  };
+  }, []);
 
   const handleDiscordClick = () => {
     window.open(discordUrl, '_blank');
@@ -34,26 +25,22 @@ const JoinModal = ({ discordUrl, membershipUrl }: Props) => {
 
   const handleMembershipClick = () => {
     window.open(membershipUrl);
-    handleClose();
+    onClose();
   };
-
-  if (!isOpen) {
-    return null;
-  }
 
   return (
     <div class="fixed inset-0 z-50 flex items-center justify-center">
       {/* Backdrop */}
       <div
-        class="absolute inset-0 bg-black/60 backdrop-blur-sm"
-        onClick={handleClose}
+        class="absolute inset-0 bg-black/60 backdrop-blur-sm animate-[fadeIn_200ms_ease-out]"
+        onClick={onClose}
       />
 
       {/* Modal */}
-      <div class="relative z-10 mx-4 w-full max-w-lg rounded-2xl bg-white p-10 shadow-2xl">
+      <div class="relative z-10 mx-4 w-full max-w-lg rounded-2xl bg-white p-10 shadow-2xl animate-[popIn_200ms_ease-out]">
         {/* Close button */}
         <button
-          onClick={handleClose}
+          onClick={onClose}
           class="absolute top-4 right-4 rounded-lg p-2 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
           aria-label="Close modal"
         >

@@ -51,7 +51,12 @@ export default function MembershipStatusPopup({
   const isPaid = displayStatus?.isPaidMember;
 
   return (
-    <NoticePopup open={Boolean(status)} onClose={onClose} maxWidth="max-w-md">
+    <NoticePopup
+      open={Boolean(status)}
+      onClose={onClose}
+      maxWidth="max-w-md"
+      closeColor="text-white"
+    >
       {/* Header */}
       <div
         className={`px-8 pt-8 pb-6 ${isPaid ? 'bg-gradient-to-br from-teal-200 to-green-700' : 'bg-gradient-to-br from-gray-400 to-gray-500'}`}
@@ -91,6 +96,7 @@ export default function MembershipStatusPopup({
                 defaultText="Add to Mobile Wallet"
                 workingText="Adding..."
                 bgColorClass="bg-navy-600 hover:bg-navy-700"
+                class="w-full"
                 onAction={async (accessToken, showError) => {
                   try {
                     const response =
@@ -117,7 +123,7 @@ export default function MembershipStatusPopup({
               />
               <button
                 onClick={onClose}
-                className="mt-3 w-full rounded-lg px-4 py-2 text-sm font-semibold text-gray-500 transition-colors hover:bg-gray-100"
+                className="mt-3 w-full rounded-lg px-4 py-2 text-sm font-semibold text-gray-500 transition-colors bg-gray-200 hover:bg-gray-300"
               >
                 Done
               </button>

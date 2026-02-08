@@ -225,7 +225,7 @@ const JoinModal = ({ discordUrl, membershipUrl }: Props) => {
             <div class="flex items-start gap-4">
               <div
                 class={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg ${
-                  step >= 2 ? 'bg-tangerine-500' : 'bg-gray-300'
+                  step >= 2 ? 'bg-tangerine-600' : 'bg-gray-300'
                 }`}
               >
                 <svg

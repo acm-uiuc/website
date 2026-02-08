@@ -31,7 +31,7 @@ export default function AuthActionButton({
   workingText,
   onAction,
   buttonClassName,
-  bgColorClass = 'bg-tangerine-500 hover:bg-tangerine-600',
+  bgColorClass = 'bg-tangerine-600 hover:bg-tangerine-700',
   textColorClass = 'text-white',
   class: className,
 }: AuthActionButtonProps) {

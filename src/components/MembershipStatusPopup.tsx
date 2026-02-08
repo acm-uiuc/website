@@ -131,7 +131,7 @@ export default function MembershipStatusPopup({
             </p>
             <a
               href="/membership"
-              className="mt-5 inline-block w-full rounded-lg bg-tangerine-500 px-4 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-tangerine-600"
+              className="mt-5 inline-block w-full rounded-lg bg-tangerine-600 px-4 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-tangerine-700"
             >
               Purchase Membership
             </a>

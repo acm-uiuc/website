@@ -40,8 +40,8 @@ for (const [path, module] of Object.entries(imageModules)) {
   try {
     const optimized = await getImage({
       src: module.default,
-      width: 256, // h-24 = 96px
-      height: 256,
+      width: 144, // h-24 = 96px
+      height: 144,
       format: 'webp',
     });
 

@@ -27,6 +27,8 @@ type Variant = Product['variants'][number];
 interface Props {
   currentPath: string;
   id: string;
+  bannerWhiteSrc?: string;
+  bannerBlueSrc?: string;
 }
 
 enum CheckoutMode {
@@ -54,7 +56,12 @@ const createCacheKey = (lists: string[]): string => {
   return [...lists].sort().join(',');
 };
 
-const StoreItem = ({ id, currentPath }: Props) => {
+const StoreItem = ({
+  id,
+  currentPath,
+  bannerWhiteSrc,
+  bannerBlueSrc,
+}: Props) => {
   const [productInfo, setProductInfo] = useState<Product>();
   const [selectedVariantId, setSelectedVariantId] = useState('');
   const [quantity, setQuantity] = useState('1');
@@ -534,6 +541,8 @@ const StoreItem = ({ id, currentPath }: Props) => {
         <ReactNavbar
           currentPath={currentPath}
           breadcrumbs={[{ href: '/store', label: 'Store' }]}
+          bannerWhiteSrc={bannerWhiteSrc}
+          bannerBlueSrc={bannerBlueSrc}
         />
 
         {/* Background decorations */}
@@ -569,6 +578,8 @@ const StoreItem = ({ id, currentPath }: Props) => {
           { href: '/store', label: 'Store' },
           { href: `/store?id=${id}`, label: productInfo.name || 'Product' },
         ]}
+        bannerWhiteSrc={bannerWhiteSrc}
+        bannerBlueSrc={bannerBlueSrc}
       />
 
       {/* Background decorations */}
@@ -946,7 +957,7 @@ const StoreItem = ({ id, currentPath }: Props) => {
                       <button
                         onClick={handleGuestCheckout}
                         disabled={!isFormValid || isLoading || isOutOfStock}
-                        className="w-full whitespace-nowrap rounded-lg bg-tangerine-500 px-6 py-3 font-semibold text-white transition-colors hover:bg-tangerine-600 disabled:cursor-not-allowed disabled:opacity-50"
+                        className="w-full whitespace-nowrap rounded-lg bg-tangerine-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-tangerine-700 disabled:cursor-not-allowed disabled:opacity-50"
                       >
                         {isLoading
                           ? 'Processing...'

@@ -1,0 +1,27 @@
+---
+import LeadershipCard from './LeadershipCard.astro';
+
+interface LeadershipMember {
+  name: string;
+  title: string;
+  image: ImageMetadata;
+}
+
+interface Props {
+  members: LeadershipMember[];
+}
+
+const { members } = Astro.props;
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+  {
+    members.map((member) => (
+      <LeadershipCard
+        name={member.name}
+        title={member.title}
+        image={member.image}
+      />
+    ))
+  }
+</div>

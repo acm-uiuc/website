@@ -1,0 +1,47 @@
+---
+import Footer from '../components/Footer.astro';
+import HeadMetadata from '../components/HeadMetadata.astro';
+import Navbar from '../components/Navbar.astro';
+
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  transparentNav?: boolean;
+}
+
+const { title, description, transparentNav = false } = Astro.props;
+const displayedTitle = title ? `${title} | ACM @ UIUC` : 'ACM @ UIUC';
+---
+
+<!doctype html>
+<html lang="en">
+  <HeadMetadata title={displayedTitle} description={description} />
+  <body class="m-0 flex min-h-screen flex-col bg-white p-0">
+    <Navbar transparent={transparentNav} />
+
+    <main class="relative flex-1">
+      <!-- Background decoration -->
+      <div class="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+          class="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-tangerine-100 opacity-50 blur-3xl"
+        >
+        </div>
+        <div
+          class="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-navy-100 opacity-50 blur-3xl"
+        >
+        </div>
+      </div>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<script>
+  import { initOrganizations } from '../stores/organization';
+
+  // Fetch org data
+  initOrganizations();
+</script>

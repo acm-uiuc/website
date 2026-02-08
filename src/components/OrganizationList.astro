@@ -1,0 +1,92 @@
+---
+import type { ApiV1OrganizationsGet200ResponseInner } from '@acm-uiuc/core-client';
+import { getImage } from 'astro:assets';
+
+import OrganizationGrid from './OrganizationGrid.tsx';
+import OrgTypeTabBar from './OrgTypeTabBar.tsx';
+import SearchFilter from './SearchFilter.tsx';
+
+interface Props {
+  initialOrgsList: ApiV1OrganizationsGet200ResponseInner[];
+}
+
+const { initialOrgsList } = Astro.props;
+
+// Filter and sort organizations at build time
+const organizations = initialOrgsList
+  .filter((org) => org.type === 'sig' || org.type === 'committee')
+  .sort((a, b) => a.id.localeCompare(b.id));
+
+// Import all logo images from src/images/logos/
+const imageModules = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/images/logos/*.{png,jpg,jpeg,webp,svg}',
+  { eager: true }
+);
+
+// Create a map of org ID to optimized image data
+const optimizedImages: Record<
+  string,
+  { src: string; width: number; height: number }
+> = {};
+
+for (const [path, module] of Object.entries(imageModules)) {
+  // Extract filename without extension (e.g., "acm" from "/src/images/logos/acm.png")
+  const filename =
+    path
+      .split('/')
+      .pop()
+      ?.replace(/\.(png|jpg|jpeg|webp|svg)$/, '') || '';
+
+  try {
+    const optimized = await getImage({
+      src: module.default,
+      width: 256, // h-24 = 96px
+      height: 256,
+      format: 'webp',
+    });
+
+    optimizedImages[filename] = {
+      src: optimized.src,
+      width: optimized.attributes.width || 96,
+      height: optimized.attributes.height || 96,
+    };
+  } catch (e) {
+    console.warn(`Failed to optimize image for ${filename}:`, e);
+  }
+}
+---
+
+<section
+  class="relative bg-gray-50 py-10 lg:py-14 overflow-hidden scroll-mt-16 lg:scroll-mt-20"
+>
+  <!-- Subtle background accents for depth -->
+  <div
+    class="absolute top-0 right-0 w-96 h-96 bg-navy-100/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"
+  >
+  </div>
+  <div
+    class="absolute bottom-0 left-0 w-80 h-80 bg-tangerine-100/40 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4"
+  >
+  </div>
+
+  <div class="relative container mx-auto px-6 lg:px-8">
+    <div class="text-center mb-2">
+      <h2 class="text-navy-900 text-3xl font-bold sm:text-4xl">Our Groups</h2>
+    </div>
+    <OrgTypeTabBar
+      client:load
+      initialCounts={{
+        sig: organizations.filter((o) => o.type === 'sig').length,
+        committee: organizations.filter((o) => o.type === 'committee').length,
+      }}
+    />
+
+    <SearchFilter client:load />
+
+    <OrganizationGrid
+      client:visible
+      initialOrgs={organizations}
+      images={optimizedImages}
+    />
+  </div>
+</section>

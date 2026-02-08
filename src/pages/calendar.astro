@@ -1,0 +1,13 @@
+---
+import { eventsApiClient } from '../api';
+import { transformEventsApiDates } from '../api/events';
+import CalendarPage from '../components/calendar/CalendarPage';
+import InteractiveLayout from '../layouts/Layout.astro';
+
+const rawEvents = await eventsApiClient.apiV1EventsGet();
+const initialEvents = transformEventsApiDates(rawEvents);
+---
+
+<InteractiveLayout title="Calendar" description="View ACM @ UIUC events">
+  <CalendarPage client:load initialEvents={initialEvents} />
+</InteractiveLayout>

@@ -1,95 +1,212 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-@keyframes rainbowBackground {
-  0% {
-    background-color: #5386e4;
-  } /* ACM Muted Primary Color */
-  33% {
-    background-color: #00635d;
-  } /* ACM Additional Color 1 */
-  66% {
-    background-color: #260c1a;
-  } /* ACM Additional Color 2 */
-  100% {
-    background-color: #0053b3;
-  } /* ACM Primary Color */
-}
+@theme {
+  /* Regal Navy - Primary brand color */
+  --color-navy-50: #e5f1ff;
+  --color-navy-100: #cce4ff;
+  --color-navy-200: #99c9ff;
+  --color-navy-300: #66adff;
+  --color-navy-400: #3392ff;
+  --color-navy-500: #0077ff;
+  --color-navy-600: #005fcc;
+  --color-navy-700: #004799;
+  --color-navy-800: #003066;
+  --color-navy-900: #001833;
+  --color-navy-950: #001124;
 
-.rainbow-background {
-  animation: rainbowBackground 20s infinite alternate;
-  position: relative;
-  overflow: hidden;
-}
+  /* Wisteria Blue - Secondary */
+  --color-wisteria-50: #e9effc;
+  --color-wisteria-100: #d3e0f8;
+  --color-wisteria-200: #a7c1f1;
+  --color-wisteria-300: #7ba2ea;
+  --color-wisteria-400: #4f83e3;
+  --color-wisteria-500: #2264dd;
+  --color-wisteria-600: #1c50b0;
+  --color-wisteria-700: #153c84;
+  --color-wisteria-800: #0e2858;
+  --color-wisteria-900: #07142c;
+  --color-wisteria-950: #050e1f;
 
-.white-text {
-  color: #f2fdff;
-}
+  /* Tangerine Dream - Accent */
+  --color-tangerine-50: #fceee9;
+  --color-tangerine-100: #f8ded3;
+  --color-tangerine-200: #f2bda6;
+  --color-tangerine-300: #eb9c7a;
+  --color-tangerine-400: #e47b4e;
+  --color-tangerine-500: #de5a21;
+  --color-tangerine-600: #b1481b;
+  --color-tangerine-700: #853614;
+  --color-tangerine-800: #59240d;
+  --color-tangerine-900: #2c1207;
+  --color-tangerine-950: #1f0d05;
 
-:root {
-  --rgb-acmdark: 62 72 111; /* #3E486F */
-  --rgb-primary: 69 119 248; /* #4577F8 */
-  --rgb-secondary: 56 98 201; /* #3862C9 */
-  --rgb-surface-000: 255 255 255; /* #FFFFFF */
-  --rgb-surface-050: 250 250 250; /* #FAFAFA */
-  --rgb-surface-100: 239 239 239; /* #EFEFEF */
-  --rgb-surface-150: 224 224 224; /* #E0E0E0 */
-  --rgb-surface-200: 189 189 189; /* #BDBDBD */
-  --rgb-surface-250: 158 158 158; /* #9E9E9E */
+  /* Muted Teal */
+  --color-teal-50: #eff5f1;
+  --color-teal-100: #dfece3;
+  --color-teal-200: #bfd9c8;
+  --color-teal-300: #9fc6ac;
+  --color-teal-400: #80b391;
+  --color-teal-500: #609f75;
+  --color-teal-600: #4d805e;
+  --color-teal-700: #396046;
+  --color-teal-800: #26402f;
+  --color-teal-900: #132017;
+  --color-teal-950: #0d1610;
 
-  --font-size-body: 1.125rem;
-  --font-size-bodylarge: 1.25rem;
-  --font-size-h1: 2.8125rem;
-  --font-size-h2: 2rem;
-  --font-size-h3: 1.75rem;
-  --font-size-h4: 1.5rem;
-  --font-size-h5: 1.25rem;
-  --font-size-h6: 1rem;
+  /* Blush Rose */
+  --color-rose-50: #f8ecef;
+  --color-rose-100: #f1dadf;
+  --color-rose-200: #e4b4bf;
+  --color-rose-300: #d68f9f;
+  --color-rose-400: #c9697f;
+  --color-rose-500: #bb4460;
+  --color-rose-600: #96364c;
+  --color-rose-700: #702939;
+  --color-rose-800: #4b1b26;
+  --color-rose-900: #250e13;
+  --color-rose-950: #1a090d;
+
+  /* Semantic colors */
+  --color-primary: #0077ff;
+  --color-primary-dark: #005fcc;
+  --color-secondary: #2264dd;
+  --color-accent: #de5a21;
+  --color-surface-000: #ffffff;
+  --color-surface-050: #f8fafc;
+  --color-surface-100: #f1f5f9;
+  --color-surface-150: #e2e8f0;
 }
 
 html {
-  --scroll-behavior: smooth !important;
-  scroll-behavior: smooth !important;
-  overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family: var(--font-dm-sans), sans-serif;
-  font-size: var(--font-size-body);
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-h1 {
-  font-size: var(--font-size-h1);
-}
-h2 {
-  font-size: var(--font-size-h2);
-}
-h3 {
-  font-size: var(--font-size-h3);
-}
-h4 {
-  font-size: var(--font-size-h4);
-}
-h5 {
-  font-size: var(--font-size-h5);
-}
-h6 {
-  font-size: var(--font-size-h6);
-}
-h1,
-h2 {
-  color: rgb(var(--rgb-acmdark));
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: 600;
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
 }
 
-.no-scroll {
-  overflow-y: hidden;
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes gradient-shift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -600px 0;
+  }
+}
+
+.animate-gradient {
+  animation: gradient-shift 6s linear infinite;
+}
+
+@keyframes color-morph {
+  0%,
+  100% {
+    color: var(--color-tangerine-400);
+  }
+  25% {
+    color: var(--color-teal-300);
+  }
+  50% {
+    color: var(--color-tangerine-300);
+  }
+  75% {
+    color: var(--color-rose-300);
+  }
+}
+
+.animate-color-morph {
+  animation: color-morph 8s ease-in-out infinite;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.4s ease-out both;
+}
+
+@keyframes drop-bounce {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(4px);
+  }
+  60% {
+    transform: translateY(-2px);
+  }
+  80% {
+    transform: translateY(1px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animate-drop-bounce {
+  animation: drop-bounce 0.6s ease-out 0.2s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-blink,
+  .animate-gradient,
+  .animate-fade-up,
+  .animate-color-morph,
+  .animate-drop-bounce {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

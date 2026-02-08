@@ -2,7 +2,7 @@
 
 View the website at [acm.illinois.edu](https://www.acm.illinois.edu/).
 
-The frontend source code for ACM's website is built mainly with TypeScript and [Next.js](https://nextjs.org/). Viewers can learn about our organization, upcoming events, Special Interest Groups, and committees. Sponsors are also listed.
+The frontend source code for ACM's website is built mainly with TypeScript and [Astro](https://astro.build/). Viewers can learn about our organization, upcoming events, Special Interest Groups, and committees.
 
 ## Contributing
 
@@ -12,19 +12,18 @@ In the project directory, you can run:
 
 Runs the app in development mode. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-The page will reload if you make edits.\
+The page will reload if you make edits.
+
 You will also see any lint errors in the console.
 
 ### `yarn build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Builds the app for production to the `build` folder.
 
-### `yarn serve`
+It correctly bundles Astro in production mode and optimizes the build for the best performance.
 
-Serves the built app in production mode. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### `yarn prettier:write`
 
-### `yarn lint`
+Runs `prettier` to format the code in the project.\
 
-Runs ESLint on the project.\
 You will see any lint errors in the console.

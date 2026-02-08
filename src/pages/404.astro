@@ -1,0 +1,128 @@
+---
+import InteractiveLayout from '../layouts/InteractiveLayout.astro';
+const headers = [
+  'This is Awkward...',
+  'Oops! Lost in Cyberspace',
+  'Nothing to See Here',
+  'Uh-oh! This Page is Missing',
+  'Whoops!',
+  'Well, This is Embarrassing...',
+  "Hmmm... That Page Doesn't Exist",
+  "Sorry, We Couldn't Find That",
+  'Dead End! No Page Here',
+  'Yikes! That Link is Broken',
+  'Gone with the Wind',
+  'This Page Took a Vacation',
+  'Houston, We Have a 404',
+  "Looks Like You're Lost",
+  'Error: Page Vanished!',
+  'Try Again Later?',
+  'The Internet Ate This Page',
+  "Welp, That Didn't Work",
+  'Where Did It Go?',
+];
+const initialHeader = headers[Math.floor(Math.random() * headers.length)];
+---
+
+<InteractiveLayout
+  title="Page Not Found"
+  description="This page could not be found."
+>
+  <div class="min-h-screen flex flex-col items-center text-white p-6 w-full">
+    <header class="flex flex-col items-center mb-6">
+      <h1
+        id="random-header"
+        class="text-2xl sm:text-4xl font-bold mt-4 text-center text-navy-800"
+      >
+        {initialHeader}
+      </h1>
+      <p class="mt-4 text-center text-rose-500">
+        The page you requested was not found.
+      </p>
+    </header>
+
+    <div
+      class="w-full max-w-2xl h-80 sm:h-96 p-4 m-4 bg-gray-800 border border-gray-700 text-white overflow-hidden rounded-md"
+    >
+      <div
+        id="terminal-text"
+        class="w-full h-full bg-transparent text-white font-mono whitespace-pre-wrap overflow-hidden"
+      >
+      </div>
+    </div>
+  </div>
+
+  <script define:vars={{ headers }}>
+    // --- Header Randomization Logic ---
+    const headerEl = document.getElementById('random-header');
+    if (headerEl) {
+      // Re-roll on client side immediately
+      headerEl.innerText = headers[Math.floor(Math.random() * headers.length)];
+    }
+
+    // --- Terminal Logic ---
+    const messages = [
+      'cat message.txt',
+      'The requested document is no more.',
+      'No file found.',
+      'Even tried multi.',
+      'Nothing helped.',
+      "I'm really depressed about this.",
+      "You see, I'm just a web server...",
+      '-- here I am, brain the size of the universe,',
+      'trying to serve you a simple web page,',
+      "and then it doesn't even exist!",
+      'Where does that leave me?!',
+      "I mean, I don't even know you.",
+      'How should I know what you wanted from me?',
+      'You honestly think I can *guess*',
+      "what someone I don't even *know*",
+      'wants to find here?',
+      '*sigh*',
+      "Man, I'm so depressed I could just cry.",
+      'And then where would we be, I ask you?',
+      "It's not pretty when a web server cries.",
+      'Now, please let me sulk alone.',
+      "I'm so depressed.",
+    ];
+
+    const terminalElement = document.getElementById('terminal-text');
+
+    if (terminalElement) {
+      let currentText = `<span style="color: #00ff00;">public@acm.illinois.edu</span>:<span style="color: #800080">~</span>$ `;
+      let index = 0;
+      let textPos = 0;
+      let showCursor = true;
+
+      const render = () => {
+        terminalElement.innerHTML = currentText + (showCursor ? ' _' : ' ');
+        terminalElement.scrollTop = terminalElement.scrollHeight;
+      };
+
+      const typeLoop = () => {
+        if (index < messages.length) {
+          if (textPos < messages[index].length) {
+            currentText += messages[index][textPos];
+            textPos++;
+            render();
+            setTimeout(typeLoop, 50);
+          } else {
+            currentText += '\n';
+            index++;
+            textPos = 0;
+            render();
+            setTimeout(typeLoop, index === 1 ? 1250 : 750);
+          }
+        }
+      };
+
+      setInterval(() => {
+        showCursor = !showCursor;
+        render();
+      }, 500);
+
+      render();
+      setTimeout(typeLoop, 50);
+    }
+  </script>
+</InteractiveLayout>

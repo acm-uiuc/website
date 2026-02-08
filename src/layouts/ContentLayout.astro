@@ -1,0 +1,576 @@
+---
+import Footer from '../components/Footer.astro';
+import HeadMetadata from '../components/HeadMetadata.astro';
+import Navbar from '../components/Navbar.astro';
+
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  hideTitleOnPage?: boolean;
+  // MDX frontmatter support
+  frontmatter?: {
+    title: string;
+    description?: string;
+    hideTitleOnPage?: boolean;
+  };
+}
+
+// Support both direct props and MDX frontmatter
+const props = Astro.props.frontmatter || Astro.props;
+const { title, description, hideTitleOnPage } = props;
+---
+
+<!doctype html>
+<html lang="en">
+  <HeadMetadata title={`${title} | ACM @ UIUC`} description={description} />
+  <body class="m-0 flex min-h-screen flex-col bg-white p-0">
+    <Navbar transparent={true} />
+    <div class="relative flex-1">
+      <!-- Page Header -->
+      <header
+        class:list={[
+          'page-header relative overflow-hidden pt-24 lg:pt-32',
+          hideTitleOnPage ? 'pb-0 lg:pb-0' : 'pb-16 lg:pb-20',
+        ]}
+      >
+        <!-- Background decoration -->
+        <div class="absolute inset-0 overflow-hidden">
+          <div class="header-gradient absolute inset-0"></div>
+          <div
+            class="absolute top-0 right-0 h-96 w-96 translate-x-1/3 -translate-y-1/2 rounded-full bg-white opacity-5 blur-3xl"
+          >
+          </div>
+          <div
+            class="absolute bottom-0 left-0 h-64 w-64 -translate-x-1/4 translate-y-1/2 rounded-full bg-white opacity-5 blur-3xl"
+          >
+          </div>
+        </div>
+
+        {
+          !hideTitleOnPage && (
+            <>
+              <div class="grid-pattern absolute inset-0" />
+              <div class="relative z-10 container mx-auto px-3 sm:px-6 lg:px-8 pb-3 lg:pb-6">
+                <div class="max-w-4xl">
+                  <h1 class="text-3xl font-bold tracking-tight text-white lg:text-5xl">
+                    {title}
+                  </h1>
+                  {description && (
+                    <p class="header-description mt-4 max-w-5xl text-lg lg:text-xl">
+                      {description}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </>
+          )
+        }
+      </header>
+
+      <!-- Main Content with Sidebar -->
+      <main class="container mx-auto px-2 md:px-3 py-6 lg:px-8 lg:py-12">
+        <div class="content-layout">
+          <!-- Sidebar / Table of Contents -->
+          <aside class="sidebar">
+            <nav class="toc-nav" aria-label="Table of contents">
+              <div class="toc-header">
+                <svg
+                  class="toc-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M4 6h16M4 12h16M4 18h10"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                </svg>
+                <span class="toc-title">On this page</span>
+              </div>
+              <ul class="toc-list" id="toc-list">
+                <!-- Populated by JavaScript -->
+              </ul>
+            </nav>
+          </aside>
+
+          <!-- Main Content -->
+          <article class="content-wrapper" id="content">
+            <slot />
+          </article>
+        </div>
+      </main>
+    </div>
+
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .header-gradient {
+    background: linear-gradient(
+      135deg,
+      var(--color-navy-800) 0%,
+      var(--color-navy-700) 40%,
+      var(--color-wisteria-700) 100%
+    );
+  }
+
+  .header-description {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .grid-pattern {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .footer-gradient {
+    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+  }
+
+  /* Content Layout with Sidebar on Left */
+  .content-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 80rem;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 1280px) {
+    .content-layout {
+      grid-template-columns: 18rem 1fr;
+      gap: 3rem;
+    }
+  }
+
+  @media (min-width: 1536px) {
+    .content-layout {
+      grid-template-columns: 20rem 1fr;
+      gap: 4rem;
+    }
+  }
+
+  /* Sidebar Styles */
+  .sidebar {
+    display: none;
+  }
+
+  @media (min-width: 1280px) {
+    .sidebar {
+      display: block;
+    }
+  }
+
+  .toc-nav {
+    position: sticky;
+    top: 6rem;
+    max-height: calc(100vh - 8rem);
+    overflow-y: auto;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, var(--color-navy-50) 0%, #f8fafc 100%);
+    border-radius: 1rem;
+    border: 1px solid var(--color-navy-100);
+  }
+
+  .toc-header {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--color-navy-100);
+  }
+
+  .toc-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--color-tangerine-500);
+    flex-shrink: 0;
+  }
+
+  .toc-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-navy-700);
+  }
+
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .toc-list :global(li) {
+    margin: 0;
+    padding: 0;
+  }
+
+  .toc-list :global(a) {
+    display: block;
+    padding: 0.625rem 1rem;
+    font-size: 0.975rem;
+    color: var(--color-navy-600);
+    text-decoration: none;
+    border-radius: 0.5rem;
+    border-left: 3px solid transparent;
+    transition: all 0.15s ease;
+    line-height: 1.5;
+    margin-bottom: 0.25rem;
+  }
+
+  .toc-list :global(a:hover) {
+    color: var(--color-navy-800);
+    background: rgba(255, 255, 255, 0.7);
+  }
+
+  .toc-list :global(a.active) {
+    color: var(--color-navy-900);
+    background: white;
+    border-left-color: var(--color-tangerine-500);
+    font-weight: 600;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .toc-list :global(.toc-h3) {
+    padding-left: 1.75rem;
+    font-size: 0.875rem;
+    color: var(--color-navy-500);
+  }
+
+  .toc-list :global(.toc-h3:hover) {
+    color: var(--color-navy-700);
+  }
+
+  .toc-list :global(.toc-h3.active) {
+    color: var(--color-navy-800);
+  }
+
+  /* Content Wrapper */
+  .content-wrapper {
+    max-width: 60rem;
+  }
+
+  /* Prose styles for content pages */
+  .content-wrapper :global(h2) {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-navy-900);
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    letter-spacing: -0.025em;
+    scroll-margin-top: 5rem;
+  }
+
+  .content-wrapper :global(h2:first-child) {
+    margin-top: 0;
+  }
+
+  .content-wrapper :global(h3) {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-navy-800);
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    scroll-margin-top: 5rem;
+  }
+
+  .content-wrapper :global(p) {
+    color: #4b5563;
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+    font-size: 1.125rem;
+  }
+
+  .content-wrapper :global(a) {
+    color: var(--color-navy-600);
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 2px solid var(--color-tangerine-300);
+    transition: all 0.15s ease;
+  }
+
+  .content-wrapper :global(a:hover) {
+    color: var(--color-navy-800);
+    border-bottom-color: var(--color-tangerine-500);
+  }
+
+  .content-wrapper :global(ul),
+  .content-wrapper :global(ol) {
+    margin-bottom: 1.25rem;
+    padding-left: 1.5rem;
+    color: #4b5563;
+  }
+
+  .content-wrapper :global(ul) {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .content-wrapper :global(ul li) {
+    position: relative;
+    padding-left: 1.5rem;
+  }
+
+  .content-wrapper :global(ul li::before) {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.75rem;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--color-tangerine-400);
+  }
+
+  .content-wrapper :global(ol) {
+    list-style-type: decimal;
+    padding-left: 1.5rem;
+  }
+
+  .content-wrapper :global(li) {
+    margin-bottom: 0.625rem;
+    line-height: 1.8;
+    font-size: 1.0625rem;
+  }
+
+  .content-wrapper :global(strong) {
+    color: var(--color-navy-800);
+    font-weight: 600;
+  }
+
+  .content-wrapper :global(blockquote) {
+    border-left: 4px solid var(--color-tangerine-400);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    background: linear-gradient(135deg, #fef7f4 0%, #fff9f7 100%);
+    border-radius: 0 0.5rem 0.5rem 0;
+  }
+
+  .content-wrapper :global(blockquote p) {
+    color: var(--color-navy-700);
+    font-style: italic;
+    margin-bottom: 0;
+  }
+
+  .content-wrapper :global(code) {
+    background-color: var(--color-navy-50);
+    color: var(--color-navy-700);
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.375rem;
+    font-size: 0.875em;
+    font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+    font-weight: 500;
+  }
+
+  .content-wrapper :global(pre) {
+    background: linear-gradient(
+      135deg,
+      var(--color-navy-900) 0%,
+      var(--color-navy-800) 100%
+    );
+    color: #e5e7eb;
+    padding: 1.25rem;
+    border-radius: 0.75rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  }
+
+  .content-wrapper :global(pre code) {
+    background-color: transparent;
+    padding: 0;
+    color: inherit;
+    font-weight: 400;
+  }
+
+  .content-wrapper :global(hr) {
+    border: none;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      var(--color-navy-100) 0%,
+      var(--color-tangerine-100) 50%,
+      var(--color-navy-100) 100%
+    );
+    margin: 3rem 0;
+    border-radius: 1px;
+  }
+
+  .content-wrapper :global(img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.75rem;
+    margin: 2rem 0;
+    box-shadow:
+      0 10px 25px -5px rgba(0, 0, 0, 0.1),
+      0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  }
+
+  .content-wrapper :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .content-wrapper :global(th),
+  .content-wrapper :global(td) {
+    padding: 0.875rem 1rem;
+    text-align: left;
+  }
+
+  .content-wrapper :global(th) {
+    background: var(--color-navy-50);
+    font-weight: 600;
+    color: var(--color-navy-900);
+    border-bottom: 2px solid var(--color-navy-100);
+  }
+
+  .content-wrapper :global(td) {
+    border-bottom: 1px solid #e5e7eb;
+    color: #4b5563;
+  }
+
+  .content-wrapper :global(tr:last-child td) {
+    border-bottom: none;
+  }
+
+  /* Card-style sections */
+  .content-wrapper :global(.card) {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .content-wrapper :global(.card:hover) {
+    border-color: var(--color-navy-200);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+</style>
+
+<script>
+  import { initOrganizations } from '../stores/organization';
+
+  // Initialize organization data on page load
+  initOrganizations();
+
+  // Handle navbar transparency on scroll
+  const navbar = document.getElementById('navbar');
+
+  function handleScroll() {
+    if (window.scrollY > 50) {
+      navbar?.classList.remove('bg-transparent');
+      navbar?.classList.add('nav-solid');
+    } else {
+      navbar?.classList.add('bg-transparent');
+      navbar?.classList.remove('nav-solid');
+    }
+  }
+
+  handleScroll();
+  window.addEventListener('scroll', handleScroll);
+
+  // Table of Contents functionality
+  function initTableOfContents() {
+    const content = document.getElementById('content');
+    const tocList = document.getElementById('toc-list');
+
+    if (!content || !tocList) return;
+
+    // Find all h2 and h3 elements in the content
+    const headings = content.querySelectorAll('h2, h3');
+
+    if (headings.length === 0) {
+      // Hide sidebar if no headings
+      const sidebar = document.querySelector('.sidebar') as HTMLElement;
+      if (sidebar) sidebar.style.display = 'none';
+      return;
+    }
+
+    // Generate IDs for headings that don't have them and build TOC
+    headings.forEach((heading, index) => {
+      if (!heading.id) {
+        // Create a slug from the heading text
+        const slug =
+          heading.textContent
+            ?.toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/(^-|-$)/g, '') || `heading-${index}`;
+        heading.id = slug;
+      }
+
+      // Create TOC item
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = `#${heading.id}`;
+      a.textContent = heading.textContent;
+
+      if (heading.tagName === 'H3') {
+        a.classList.add('toc-h3');
+      }
+
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        heading.scrollIntoView({ behavior: 'smooth' });
+        history.pushState(null, '', `#${heading.id}`);
+      });
+
+      li.appendChild(a);
+      tocList.appendChild(li);
+    });
+
+    // Highlight active section on scroll
+    const tocLinks = tocList.querySelectorAll('a');
+
+    function updateActiveLink() {
+      const scrollPosition = window.scrollY + 120;
+
+      let activeHeading: Element | null = null;
+
+      headings.forEach((heading) => {
+        const rect = heading.getBoundingClientRect();
+        const offsetTop = rect.top + window.scrollY;
+
+        if (offsetTop <= scrollPosition) {
+          activeHeading = heading;
+        }
+      });
+
+      tocLinks.forEach((link) => {
+        link.classList.remove('active');
+        if (
+          activeHeading &&
+          link.getAttribute('href') === `#${activeHeading.id}`
+        ) {
+          link.classList.add('active');
+        }
+      });
+    }
+
+    // Initial update and listen for scroll
+    updateActiveLink();
+    window.addEventListener('scroll', updateActiveLink, { passive: true });
+  }
+
+  // Initialize TOC when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTableOfContents);
+  } else {
+    initTableOfContents();
+  }
+</script>

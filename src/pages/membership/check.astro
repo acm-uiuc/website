@@ -1,0 +1,33 @@
+---
+import MembershipCheckButton from '../../components/MembershipCheckButton.tsx';
+import InteractiveLayout from '../../layouts/InteractiveLayout.astro';
+
+const breadcrumbs = [
+  { href: '/membershp/check', label: 'Check Paid Membership' },
+];
+---
+
+<InteractiveLayout
+  title="Check Paid Membership"
+  description="Check if you are a paid member of ACM @ UIUC"
+  breadcrumbs={breadcrumbs}
+>
+  <div class="relative z-10 w-full max-w-lg">
+    <div
+      class="rounded-2xl border border-gray-200 bg-white p-8 shadow-xl lg:p-10"
+    >
+      <div class="mb-6 text-center">
+        <h1 class="text-2xl font-bold text-navy-900 lg:text-3xl">
+          Check Paid Membership
+        </h1>
+        <p class="mt-2 text-gray-600">
+          Check if you are a paid member of ACM @ UIUC
+        </p>
+      </div>
+      <div class="space-y-6">
+        <!-- Purchase button -->
+        <MembershipCheckButton client:only="preact" class="w-full" />
+      </div>
+    </div>
+  </div>
+</InteractiveLayout>

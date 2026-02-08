@@ -1,0 +1,154 @@
+---
+import { Icon } from 'astro-icon/components';
+
+import { mailingListSubscriptionUrl } from '../constants';
+import CalendarModal from './CalendarModal.tsx';
+import UpcomingEvents from './UpcomingEvents.tsx';
+
+const calendarLinks = {
+  google:
+    'https://calendar.google.com/calendar/u/0/r?cid=http://ical.acm.illinois.edu/ACM',
+  ical: 'https://ical.acm.illinois.edu/ACM',
+};
+---
+
+<!-- Hero Section -->
+<div
+  class="from-navy-800 via-navy-700 to-wisteria-800 relative bg-gradient-to-br"
+>
+  <!-- Subtle accent shapes -->
+  <div class="absolute inset-0 overflow-hidden">
+    <div
+      class="from-wisteria-600/20 absolute top-0 right-0 h-full w-1/2 bg-gradient-to-l to-transparent"
+    >
+    </div>
+    <div
+      class="bg-tangerine-500/10 absolute bottom-0 left-0 h-96 w-96 -translate-x-1/2 translate-y-1/2 rounded-full blur-3xl"
+    >
+    </div>
+  </div>
+
+  <section
+    class="relative z-10 container mx-auto px-6 pt-24 pb-12 lg:px-8 lg:pt-28 lg:pb-16"
+  >
+    <div class="flex flex-col gap-10 lg:flex-row lg:items-center">
+      <!-- Text Content -->
+      <div class="flex flex-col gap-5 lg:basis-1/2 lg:pr-12">
+        <h1
+          class="text-3xl leading-[1.1] font-bold tracking-tight text-white sm:text-5xl lg:text-[3.5rem]"
+        >
+          UIUC's Hub for
+          <br />
+          <span class="text-rose-300 inline-block animate-drop-bounce"
+            >Everything CS.</span
+          >
+        </h1>
+
+        <p class="max-w-lg text-lg leading-relaxed text-white/80">
+          ACM @ UIUC brings together students who love building, learning, and
+          exploring technology. With over 50 years of history, we're a community
+          where curiosity meets collaboration.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col gap-3 pt-2 sm:flex-row">
+          <a
+            href="/join"
+            class="bg-tangerine-500 hover:bg-tangerine-600 inline-flex items-center justify-center rounded-lg px-7 py-3.5 text-base font-semibold text-white transition-colors"
+          >
+            Join ACM
+            <svg
+              class="ml-2 h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+            </svg>
+          </a>
+          <a
+            href="https://acm.gg/donate"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center rounded-lg border-2 border-white/30 px-7 py-3.5 text-base font-semibold text-white transition-colors hover:bg-white/10"
+          >
+            Donate
+          </a>
+        </div>
+
+        <!-- Social Links -->
+        <div class="flex items-center gap-4 pt-1">
+          <div class="flex gap-2">
+            <a
+              href="https://instagram.com/acm.uiuc"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="rounded-lg p-2 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+              title="Instagram"
+            >
+              <Icon name="simple-icons:instagram" size={24} />
+            </a>
+            <a
+              href="https://acm.gg/discord"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="rounded-lg p-2 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+              title="Discord"
+            >
+              <Icon name="simple-icons:discord" size={24} />
+            </a>
+            <a
+              href={mailingListSubscriptionUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="rounded-lg p-2 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+              title="Mailing List"
+            >
+              <Icon name="lucide:mail" size={24} />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Image -->
+      <div class="lg:basis-1/2">
+        <div class="relative overflow-hidden rounded-2xl shadow-2xl">
+          <picture>
+            <source type="image/webp" srcset="/images/header.webp" />
+            <img
+              src="/images/header.jpg"
+              alt="ACM @ UIUC community"
+              class="h-auto w-full object-cover"
+              loading="eager"
+            />
+          </picture>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-2 mb-4 flex flex-wrap items-end justify-between gap-4">
+      <h2 class="text-2xl font-bold text-white/100 sm:text-3xl">Up Next</h2>
+
+      <div class="flex gap-3">
+        <a
+          href="/calendar"
+          class="flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-white/20"
+        >
+          <Icon name="lucide:calendar" class="h-4 w-4" />
+          All Events
+        </a>
+        <CalendarModal
+          client:load
+          googleUrl={calendarLinks.google}
+          icalUrl={calendarLinks.ical}
+        />
+      </div>
+    </div>
+
+    <UpcomingEvents client:load />
+  </section>
+</div>

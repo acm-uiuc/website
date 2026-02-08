@@ -1,0 +1,56 @@
+---
+import InteractiveLayout from '../../layouts/InteractiveLayout.astro';
+
+const breadcrumbs = [
+  { href: '/store', label: 'Store' },
+  { href: '/store/paid', label: 'Order Received' },
+];
+---
+
+<InteractiveLayout title="Order Received" breadcrumbs={breadcrumbs}>
+  <div class="relative z-10 flex w-full max-w-lg flex-col items-center">
+    <div
+      class="w-full rounded-2xl border border-navy-200 bg-white p-8 shadow-xl lg:p-10"
+    >
+      <div class="flex flex-col items-center text-center">
+        <div
+          class="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-green-100"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-10 w-10 text-green-600"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2.5"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M5 13l4 4L19 7"></path>
+          </svg>
+        </div>
+
+        <h1 class="mb-2 text-2xl font-bold text-navy-900 lg:text-3xl">
+          Thanks for your order!
+        </h1>
+
+        <p class="text-navy-700">
+          You'll receive an email shortly with your order status and next steps.
+        </p>
+
+        <p class="mt-4 text-xs text-gray-500">
+          Don't see our email? Check your spam folder and make sure mail from
+          <span class="font-medium">sales@acm.illinois.edu</span> isn't blocked.
+        </p>
+
+        <a
+          href="/store"
+          class="mt-8 inline-flex items-center rounded-lg bg-navy-700 px-6 py-3 font-semibold text-white transition-colors hover:bg-navy-800"
+        >
+          Back to Store
+        </a>
+      </div>
+    </div>
+  </div>
+</InteractiveLayout>

@@ -1,0 +1,120 @@
+---
+import { Image } from 'astro:assets';
+import stripeLogo from '../images/sponsors/stripe.png';
+import capitaloneLogo from '../images/sponsors/capitalone.png';
+import atlassianLogo from '../images/sponsors/atlassian.png';
+import citadelLogo from '../images/sponsors/citadel.png';
+import visaLogo from '../images/sponsors/visa.png';
+
+type SponsorTier = 'standard';
+
+interface Sponsor {
+  name: string;
+  url: string;
+  logo: ImageMetadata;
+  tier: SponsorTier;
+}
+
+const defaultCardClass = 'p-3 sm:p-4';
+const defaultLogoClass = 'h-10 sm:h-16';
+
+const sponsors: Sponsor[] = [
+  {
+    name: 'Stripe',
+    url: 'https://stripe.com',
+    logo: stripeLogo,
+    tier: 'standard',
+  },
+  {
+    name: 'Capital One',
+    url: 'https://capitalone.com',
+    logo: capitaloneLogo,
+    tier: 'standard',
+  },
+  {
+    name: 'Atlassian',
+    url: 'https://atlassian.com',
+    logo: atlassianLogo,
+    tier: 'standard',
+  },
+  {
+    name: 'Citadel',
+    url: 'https://citadel.com',
+    logo: citadelLogo,
+    tier: 'standard',
+  },
+  {
+    name: 'Visa',
+    url: 'https://visa.com',
+    logo: visaLogo,
+    tier: 'standard',
+  },
+].sort((a, b) => a.name.localeCompare(b.name)) as Sponsor[];
+
+const tiers: {
+  key: SponsorTier;
+  label: string | undefined;
+  cardClass: string;
+  logoClass: string;
+}[] = [
+  {
+    key: 'standard',
+    label: undefined,
+    cardClass: defaultCardClass,
+    logoClass: defaultLogoClass,
+  },
+];
+
+const sponsorsByTier = tiers
+  .map((tier) => ({
+    ...tier,
+    sponsors: sponsors.filter((s) => s.tier === tier.key),
+  }))
+  .filter((tier) => tier.sponsors.length > 0);
+---
+
+<section class="relative bg-white py-6 lg:py-8 overflow-hidden">
+  <div class="relative container mx-auto px-6 lg:px-8">
+    <div class="text-center mb-10">
+      <h2 class="text-navy-900 text-3xl font-bold sm:text-4xl">Our Sponsors</h2>
+      <p class="mt-3 text-gray-600 text-lg max-w-2xl mx-auto">
+        We're grateful for the organizations that support us and our mission.
+      </p>
+    </div>
+
+    {
+      sponsorsByTier.map((tier) => (
+        <div class="mb-10 last:mb-0">
+          {tier.label && (
+            <h3 class="text-center text-sm font-semibold uppercase tracking-wider text-gray-400 mb-6">
+              {tier.label}
+            </h3>
+          )}
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 justify-items-center gap-4 sm:gap-6 max-w-5xl mx-auto">
+            {tier.sponsors.map((sponsor) => (
+              <a
+                href={sponsor.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class:list={[
+                  tier.cardClass,
+                  'w-full group flex items-center justify-center rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-200 hover:shadow-lg hover:border-navy-300',
+                ]}
+              >
+                <Image
+                  src={sponsor.logo}
+                  alt={sponsor.name}
+                  aria-label={`${sponsor.name} (opens in a new tab)`}
+                  class:list={[
+                    tier.logoClass,
+                    'w-full object-contain md:grayscale md:opacity-70 transition-all duration-300 group-hover:grayscale-0 group-hover:opacity-100',
+                  ]}
+                />
+              </a>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>

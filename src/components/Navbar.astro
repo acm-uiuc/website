@@ -1,0 +1,14 @@
+---
+import ReactNavbar from './generic/ReactNavbar';
+const { transparent = false, mode = 'dark', breadcrumbs } = Astro.props;
+
+const currentPath = Astro.url.pathname;
+---
+
+<ReactNavbar
+  currentPath={currentPath}
+  transparent={transparent}
+  mode={mode}
+  breadcrumbs={breadcrumbs}
+  client:load
+/>

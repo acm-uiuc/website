@@ -1,0 +1,85 @@
+---
+import { MembershipPriceCents } from '@acm-uiuc/js-shared';
+
+import MembershipPurchaseButton from '../../components/MembershipPurchaseButton.tsx';
+import InteractiveLayout from '../../layouts/InteractiveLayout.astro';
+import { membershipBenefits } from '../../constants';
+
+const breadcrumbs = [
+  { href: '/join', label: 'Join' },
+  { href: '/membership', label: 'Membership' },
+];
+---
+
+<InteractiveLayout
+  title="Become a Paid Member"
+  description="Support ACM @ UIUC and unlock exclusive perks"
+  breadcrumbs={breadcrumbs}
+>
+  <div class="relative z-10 w-full max-w-lg">
+    <div
+      class="rounded-2xl border border-gray-200 bg-white p-8 shadow-xl lg:p-10"
+    >
+      <div class="mb-6 text-center">
+        <h1 class="text-2xl font-bold text-navy-900 lg:text-3xl">
+          Become a Paid Member
+        </h1>
+        <p class="mt-2 text-gray-600">
+          Support ACM @ UIUC and unlock exclusive perks
+        </p>
+      </div>
+      <div class="space-y-6">
+        <!-- Benefits list -->
+        <ul class="space-y-3 text-gray-700">
+          {
+            membershipBenefits.map(({ summary }) => (
+              <li class="flex items-start gap-3">
+                <svg
+                  class="mt-0.5 h-5 w-5 flex-shrink-0 text-tangerine-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                <span
+                  set:html={summary.replace(
+                    /\*\*(.+?)\*\*/g,
+                    '<strong>$1</strong>'
+                  )}
+                />
+              </li>
+            ))
+          }
+        </ul>
+
+        <!-- Divider -->
+        <div class="border-t border-gray-200"></div>
+
+        <!-- Price -->
+        <div class="text-center">
+          <p class="text-md text-gray-500">Lifetime membership</p>
+          <p class="text-4xl font-bold text-navy-900">
+            ${(MembershipPriceCents / 100).toString()}
+          </p>
+        </div>
+
+        <!-- Purchase button -->
+        <MembershipPurchaseButton client:only="preact" class="w-full" />
+
+        <!-- Fine print -->
+        <p class="text-xs text-gray-500 mt-2">
+          Membership is open to all students, staff, and faculty at the
+          University of Illinois Urbana-Champaign. By becoming a member, you
+          agree to receive email communications from us. You may unsubscribe at
+          any time by clicking the unsubscribe link in any email.
+        </p>
+      </div>
+    </div>
+  </div>
+</InteractiveLayout>

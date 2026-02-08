@@ -1,0 +1,60 @@
+---
+layout: ../layouts/ContentLayout.astro
+title: About
+description: The largest student-run CS organization at the University of Illinois Urbana-Champaign.
+---
+
+import LeadershipGrid from '../components/LeadershipGrid.astro';
+import chair from '../images/leadership/chair.jpg';
+import viceChair from '../images/leadership/viceChair.jpg';
+import treasurer from '../images/leadership/treasurer.jpg';
+import secretary from '../images/leadership/secretary.jpg';
+
+## Who We Are
+
+ACM @ UIUC is the University of Illinois' student chapter of the Association for Computing Machinery, the world's largest computing society. We're a student-led 501(c)(3) nonprofit dedicated to exploring what's possible with computers and empowering students to build, learn, and connect.
+
+## What We Do
+
+We organize around Special Interest Groups (SIGs); independent teams focused on specific areas of computer science. Some SIGs build innovative projects to showcase, while others run workshops and talks to teach new skills. We also have committees that support ACM and the broader CS@UIUC community.
+
+Throughout the year, we host major events including ACM Open House (showcasing our SIGs each semester), [Reflections | Projections](https://reflectionsprojections.org) (our annual computing conference), and [HackIllinois](https://hackillinois.org) (one of the nation's largest hackathons).
+
+Beyond tech, we bring the community together through social events like picnics, Weekly Social Hour, and our semesterly bar crawl. All our events are open to every UIUC student.
+
+## Leadership
+
+Email the leadership team at officers@acm.illinois.edu.
+
+{/* Please crop images to square! Otherwise they will be blurry. */}
+
+<LeadershipGrid
+  members={[
+    {
+      name: 'Jacob Levine',
+      title: 'Chair',
+      image: chair,
+    },
+    {
+      name: 'Sherry Long',
+      title: 'Vice Chair',
+      image: viceChair,
+    },
+    {
+      name: 'Adhi Thirumala',
+      title: 'Treasurer',
+      image: treasurer,
+    },
+    {
+      name: 'Krish Gangal',
+      title: 'Secretary',
+      image: secretary,
+    },
+  ]}
+/>
+
+## Contact Us
+
+General inquries should be directed to officers@acm.illinois.edu.
+
+Corporate and partnership inquiries should be directed to corporate@acm.illinois.edu and officers@acm.illinois.edu.

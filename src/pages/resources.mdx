@@ -1,0 +1,37 @@
+---
+layout: ../layouts/ContentLayout.astro
+title: Resources
+description: Learn about resources provided to ACM @ UIUC paid members
+---
+
+import { membershipBenefits } from '../constants';
+
+## ACM Paid Member Guide
+
+If you're here to learn how to pay for membership and access all the benefits, you're in the right place! ACM Room swipe access, resume book, free printing, and discounted events are all at your fingertips!
+
+_You do **not** need to pay to participate in all of our SIGs, committees, and most of our social events._
+
+### Become a member
+
+Click [here](/membership) to pay for your membership online. Only $30 for a lifetime ACM membership → $0 per day! You'll need to pay with a credit card, debit card, or bank account.
+
+### Perks
+
+<ul>
+  {membershipBenefits.map(({ detail }) => (
+    <li
+      set:html={detail
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2">$1</a>')}
+    />
+  ))}
+</ul>
+
+## CS Cares
+
+CS CARES is a confidential resource for students to discuss concerns about potential Code of Conduct violations; feel free to ask them for guidance or support in addressing any issues inside and outside of ACM. You can find more information at https://siebelschool.illinois.edu/about/cs-cares.
+
+## Feedback
+
+We value your experience and want to create the most supportive and inclusive community possible. This [anonymous feedback form](https://acm.gg/feedback) is your opportunity to share your thoughts, concerns, or suggestions about ACM. We take every submission seriously and will ensure confidentiality. Help us create positive changes in our community!

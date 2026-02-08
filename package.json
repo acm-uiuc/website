@@ -8,7 +8,7 @@
     "astro": "astro",
     "build": "astro build",
     "dev": "astro dev",
-    "format": "prettier . --check && eslint .",
+    "format:check": "prettier . --check && eslint .",
     "format:fix": "prettier . --write && eslint . --fix",
     "postinstall": "npm run setup && husky install",
     "prepare": "husky install || true",

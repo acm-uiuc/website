@@ -5,6 +5,7 @@ import { getImage } from 'astro:assets';
 import OrganizationGrid from './OrganizationGrid.tsx';
 import OrgTypeTabBar from './OrgTypeTabBar.tsx';
 import SearchFilter from './SearchFilter.tsx';
+import type { ImageMetadata } from 'astro';
 
 interface Props {
   initialOrgsList: ApiV1OrganizationsGet200ResponseInner[];
@@ -20,7 +21,9 @@ const organizations = initialOrgsList
 // Import all logo images from src/images/logos/
 const imageModules = import.meta.glob<{ default: ImageMetadata }>(
   '/src/images/logos/*.{png,jpg,jpeg,webp,svg}',
-  { eager: true }
+  {
+    eager: true,
+  }
 );
 
 // Create a map of org ID to optimized image data

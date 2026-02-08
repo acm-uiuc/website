@@ -42,8 +42,8 @@ const OrgTypeTabBar = ({ initialCounts }: Props) => {
   const activeTab = tabs.find((t) => t.type === activeType)!;
 
   return (
-    <div ref={containerRef} class="flex flex-col items-center mb-4">
-      <div class="inline-flex rounded-lg bg-gray-200 p-1">
+    <div ref={containerRef} className="flex flex-col items-center mb-4">
+      <div className="inline-flex rounded-lg bg-gray-200 p-1">
         {tabs.map((tab) => (
           <button
             key={tab.type}
@@ -55,7 +55,7 @@ const OrgTypeTabBar = ({ initialCounts }: Props) => {
                   ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
               });
             }}
-            class={`px-6 py-2 rounded-md text-sm font-semibold transition-all duration-200 flex items-center gap-2 ${
+            className={`px-6 py-2 rounded-md text-sm font-semibold transition-all duration-200 flex items-center gap-2 ${
               activeType === tab.type
                 ? 'bg-navy-900 text-white shadow-sm'
                 : 'text-gray-600 hover:text-navy-900'
@@ -64,7 +64,7 @@ const OrgTypeTabBar = ({ initialCounts }: Props) => {
             {tab.label}
             {counts[tab.type] > 0 && (
               <span
-                class={`text-xs rounded-full px-1.5 py-0.5 font-medium ${
+                className={`text-xs rounded-full px-1.5 py-0.5 font-medium ${
                   activeType === tab.type
                     ? 'bg-white/20 text-white'
                     : 'bg-gray-300 text-gray-600'
@@ -76,7 +76,7 @@ const OrgTypeTabBar = ({ initialCounts }: Props) => {
           </button>
         ))}
       </div>
-      <p class="mt-3 text-sm text-gray-500 max-w-2xl text-center">
+      <p className="mt-3 text-sm text-gray-500 max-w-2xl text-center">
         {activeTab.description}
       </p>
     </div>

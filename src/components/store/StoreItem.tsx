@@ -432,7 +432,7 @@ const StoreItem = ({
       return;
     }
     try {
-      let syncIfRequired = async () => {
+      const syncIfRequired = async () => {
         const syncIsRequired =
           await genericApiClient.apiV1SyncIdentityIsRequiredGet({
             xUiucToken: accessToken,

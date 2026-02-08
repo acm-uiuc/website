@@ -31,7 +31,7 @@ export default function CalendarPage({ initialEvents }: CalendarPageProps) {
         const data = await eventsApiClient.apiV1EventsGet();
         setEvents(transformEventsApiDates(data));
       } catch (e) {
-        console.error('Failed to fetch calendar, falling back to SSR.');
+        console.error('Failed to fetch calendar, falling back to SSR.', e);
       }
     })();
   }, []);
@@ -52,9 +52,9 @@ export default function CalendarPage({ initialEvents }: CalendarPageProps) {
   };
 
   return (
-    <section class="mx-auto w-full px-2 py-2 md:py-6 lg:px-14 mt-20">
-      <h1 class="mb-3 text-3xl font-bold">Calendar</h1>
-      <div class="mb-2">
+    <section className="mx-auto w-full px-2 py-2 md:py-6 lg:px-14 mt-20">
+      <h1 className="mb-3 text-3xl font-bold">Calendar</h1>
+      <div className="mb-2">
         <CalendarControls
           displayDate={displayDate}
           setDisplayDate={setDisplayDate}
@@ -66,7 +66,7 @@ export default function CalendarPage({ initialEvents }: CalendarPageProps) {
             onChange={(e) =>
               setHostFilter((e.target as HTMLSelectElement).value)
             }
-            class="rounded-md border border-gray-300 px-2 py-1.5 text-sm"
+            className="rounded-md border border-gray-300 px-2 py-1.5 text-sm"
           >
             <option value="">Select host</option>
             {AllOrganizationNameList.map((org) => (
@@ -80,20 +80,20 @@ export default function CalendarPage({ initialEvents }: CalendarPageProps) {
             placeholder="Search events"
             value={filter}
             onInput={(e) => setFilter((e.target as HTMLInputElement).value)}
-            class="hidden rounded-md border border-gray-300 px-2 py-1.5 text-sm focus:border-navy-500 focus:outline-none md:block"
+            className="hidden rounded-md border border-gray-300 px-2 py-1.5 text-sm focus:border-navy-500 focus:outline-none md:block"
           />
         </CalendarControls>
       </div>
 
-      <div class="grid grid-cols-1 gap-4 xl:grid-cols-10">
-        <div class="xl:col-span-3 xl:order-last">
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-10">
+        <div className="xl:col-span-3 xl:order-last">
           <CalendarEventDetail
             event={selectedEvent}
             start={selectedStart}
             end={selectedEnd}
           />
         </div>
-        <div class="xl:col-span-7 min-w-0 w-full">
+        <div className="xl:col-span-7 min-w-0 w-full">
           <CalendarGrid
             events={events}
             filter={filter}

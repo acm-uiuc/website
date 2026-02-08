@@ -57,26 +57,26 @@ export default function CalendarControls({
   }
 
   return (
-    <div class="flex w-full flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-      <div class="text-xl font-bold">{extractLabel()}</div>
-      <div class="flex flex-wrap items-center gap-2">
+    <div className="flex w-full flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="text-xl font-bold">{extractLabel()}</div>
+      <div className="flex flex-wrap items-center gap-2">
         <button
           onClick={() => setDisplayDate(new Date())}
-          class="hidden rounded-md bg-navy-800 px-3 py-1.5 text-sm font-medium text-white hover:bg-navy-700 md:block"
+          className="hidden rounded-md bg-navy-800 px-3 py-1.5 text-sm font-medium text-white hover:bg-navy-700 md:block"
         >
           Today
         </button>
-        <div class="flex">
+        <div className="flex">
           <button
             onClick={() => changeDate(-1)}
-            class="rounded-l-md bg-navy-800 p-2 text-white hover:bg-navy-700"
+            className="rounded-l-md bg-navy-800 p-2 text-white hover:bg-navy-700"
           >
             <ChevronLeft size={16} />
           </button>
           <button
             onClick={() => changeDate(1)}
             disabled={nextDisabled}
-            class="rounded-r-md bg-navy-800 p-2 text-white hover:bg-navy-700 disabled:opacity-50"
+            className="rounded-r-md bg-navy-800 p-2 text-white hover:bg-navy-700 disabled:opacity-50"
           >
             <ChevronRight size={16} />
           </button>
@@ -86,10 +86,10 @@ export default function CalendarControls({
           onChange={(e) =>
             setView((e.target as HTMLSelectElement).value as View)
           }
-          class="rounded-md border border-gray-300 px-2 py-1.5 text-sm"
+          className="rounded-md border border-gray-300 px-2 py-1.5 text-sm"
         >
           <option value={Views.DAY}>Day View</option>
-          <option value={Views.WEEK} class="hidden md:block">
+          <option value={Views.WEEK} className="hidden md:block">
             Week View
           </option>
           <option value={Views.MONTH}>Month View</option>

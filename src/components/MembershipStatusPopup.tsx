@@ -1,13 +1,18 @@
 import { CircleCheck, CircleX, Wallet } from 'lucide-react';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import QRCode_ from 'react-qrcode-logo';
+import type { ComponentType } from 'preact';
 
 import { mobileWalletApiClient } from '../api/index.js';
 import { handleResponseError } from '../util.ts';
 import AuthActionButton from './AuthActionButton.tsx';
 import NoticePopup from './NoticePopup.tsx';
 
-const QRCode = QRCode_ as any;
+const QRCode = QRCode_ as unknown as ComponentType<{
+  value: string;
+  size?: number;
+  logoImage?: string;
+}>;
 
 export interface MembershipStatus {
   isPaidMember: boolean;
@@ -101,7 +106,9 @@ export default function MembershipStatusPopup({
                   try {
                     const response =
                       await mobileWalletApiClient.apiV2MobileWalletMembershipGet(
-                        { xUiucToken: accessToken }
+                        {
+                          xUiucToken: accessToken,
+                        }
                       );
                     const url = window.URL.createObjectURL(response);
                     const link = document.createElement('a');

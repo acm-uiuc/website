@@ -10,6 +10,7 @@ import {
 } from '../components/openHouse/data/oh_config';
 import mapHorizontal from '../images/openHouse/oh_map.svg';
 import mapVertical from '../images/openHouse/oh_map_vertical.svg';
+import type { ImageMetadata } from 'astro';
 
 // Fetch org data at build time (same pattern as home page)
 const apiOrgs = await organizationApiClient.apiV1OrganizationsGet();
@@ -17,7 +18,9 @@ const apiOrgs = await organizationApiClient.apiV1OrganizationsGet();
 // Optimize logos at build time (same pattern as OrganizationList.astro)
 const imageModules = import.meta.glob<{ default: ImageMetadata }>(
   '/src/images/logos/*.{png,jpg,jpeg,webp,svg}',
-  { eager: true }
+  {
+    eager: true,
+  }
 );
 
 const optimizedLogos: Record<string, string> = {};

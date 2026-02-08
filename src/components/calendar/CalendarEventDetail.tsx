@@ -15,7 +15,7 @@ export default function CalendarEventDetail({
 }: CalendarEventDetailProps) {
   if (!event) {
     return (
-      <p class="mt-2 pt-5 text-center text-gray-500">
+      <p className="mt-2 pt-5 text-center text-gray-500">
         Click on an event to see more details!
       </p>
     );
@@ -41,21 +41,21 @@ export default function CalendarEventDetail({
     : undefined;
 
   return (
-    <div class="mt-2 flex flex-col break-words rounded-2xl border-2 border-navy-800/10 border-t-transparent">
-      <div class="rounded-t-2xl bg-navy-800 px-4 py-2 text-center text-xl font-semibold text-white">
+    <div className="mt-2 flex flex-col break-words rounded-2xl border-2 border-navy-800/10 border-t-transparent">
+      <div className="rounded-t-2xl bg-navy-800 px-4 py-2 text-center text-xl font-semibold text-white">
         Event Information
       </div>
-      <div class="space-y-2 p-5">
-        <h4 class="text-lg font-semibold">{event.title}</h4>
+      <div className="space-y-2 p-5">
+        <h4 className="text-lg font-semibold">{event.title}</h4>
 
-        <div class="flex items-center gap-2 text-sm text-gray-700">
+        <div className="flex items-center gap-2 text-sm text-gray-700">
           <MapPin size={16} className="shrink-0" />
           {event.locationLink ? (
             <a
               href={event.locationLink}
               target="_blank"
               rel="noopener noreferrer"
-              class="text-navy-600 hover:underline"
+              className="text-navy-600 hover:underline"
             >
               {event.location}
             </a>
@@ -64,26 +64,26 @@ export default function CalendarEventDetail({
           )}
         </div>
 
-        <div class="flex items-center gap-2 text-sm text-gray-700">
+        <div className="flex items-center gap-2 text-sm text-gray-700">
           <Calendar size={16} className="shrink-0" />
           <span>{calendar}</span>
         </div>
 
         {event.host && (
-          <div class="flex items-center gap-2 text-sm text-gray-700">
+          <div className="flex items-center gap-2 text-sm text-gray-700">
             <User size={16} className="shrink-0" />
             <span>{event.host}</span>
           </div>
         )}
 
-        <p class="text-sm text-gray-600">{event.description}</p>
+        <p className="text-sm text-gray-600">{event.description}</p>
 
         {paidEventHref && (
           <a
             href={paidEventHref}
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 rounded-md bg-navy-800 px-4 py-2 text-white hover:bg-navy-700"
+            className="inline-flex items-center gap-2 rounded-md bg-navy-800 px-4 py-2 text-white hover:bg-navy-700"
           >
             <LogIn size={16} className="shrink-0" />
             <span>Register</span>

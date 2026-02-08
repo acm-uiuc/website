@@ -22,6 +22,6 @@ export default defineConfig({
   },
   integrations: [mdx(), icon(), preact({ compat: true }), compress()],
   experimental: {
-    svgo: true
-  }
+    svgo: true,
+  },
 });

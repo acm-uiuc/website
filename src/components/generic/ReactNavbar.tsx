@@ -102,9 +102,7 @@ export default function ReactNavbar({
                 width={214}
                 height={112}
                 alt="ACM @ UIUC"
-                className={`navbar-logo h-12 w-auto transition-opacity lg:h-14 ${
-                  isDarkText ? 'hidden' : 'block'
-                }`}
+                className={`navbar-logo h-12 w-auto transition-opacity lg:h-14 ${isDarkText ? 'hidden' : 'block'}`}
               />
               {/* Blue/Dark Banner (Visible in Light Mode or Solid State) */}
               <img
@@ -113,9 +111,7 @@ export default function ReactNavbar({
                 width={214}
                 height={112}
                 alt="ACM @ UIUC"
-                className={`navbar-logo-dark h-12 w-auto lg:h-14 ${
-                  isDarkText ? 'block' : 'hidden'
-                }`}
+                className={`navbar-logo-dark h-12 w-auto lg:h-14 ${isDarkText ? 'block' : 'hidden'}`}
               />
             </a>
 

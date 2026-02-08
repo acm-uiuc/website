@@ -1,4 +1,4 @@
-import { Search, X } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { useEffect, useRef, useState } from 'preact/hooks';
 
 import { setSearchQuery as updateSearchQuery } from '../stores/search';
@@ -23,8 +23,8 @@ const SearchFilter = () => {
   }, [debouncedQuery]);
 
   return (
-    <div ref={containerRef} class="max-w-2xl mx-auto mb-4">
-      <div class="relative">
+    <div ref={containerRef} className="max-w-2xl mx-auto mb-4">
+      <div className="relative">
         <Search
           className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
           size={20}
@@ -34,7 +34,7 @@ const SearchFilter = () => {
           placeholder="What are you looking for?"
           value={searchQuery}
           onInput={(e) => setSearchQuery(e.currentTarget.value)}
-          class="w-full pl-12 pr-12 py-3 rounded-lg border border-gray-300 focus:border-navy-500 focus:ring-2 focus:ring-navy-200 focus:outline-none transition-all"
+          className="w-full pl-12 pr-12 py-3 rounded-lg border border-gray-300 focus:border-navy-500 focus:ring-2 focus:ring-navy-200 focus:outline-none transition-all"
         />
       </div>
     </div>

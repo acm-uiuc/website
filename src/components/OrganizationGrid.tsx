@@ -62,18 +62,18 @@ const OrganizationGrid = ({ initialOrgs, images }: Props) => {
   }, [orgsByType, searchQuery]);
 
   return (
-    <div class="md:grid" style={{ gridTemplate: '1fr / 1fr' }}>
+    <div className="md:grid" style={{ gridTemplate: '1fr / 1fr' }}>
       {orgTypes.map((type) => {
         const orgs = orgsByType[type];
         const isActive = activeOrgType === type;
         return (
           <div
             key={type}
-            class={isActive ? '' : 'hidden'}
+            className={isActive ? '' : 'hidden'}
             style={{ gridArea: '1 / 1' }}
           >
             {orgs.length > 0 ? (
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {orgs.map((org, i) => (
                   <OrganizationCard
                     key={org.id}
@@ -84,12 +84,12 @@ const OrganizationGrid = ({ initialOrgs, images }: Props) => {
                 ))}
               </div>
             ) : (
-              <div class="text-center py-16">
+              <div className="text-center py-16">
                 <Search className="mx-auto mb-4 text-gray-300" size={48} />
-                <p class="text-lg font-medium text-gray-700">
+                <p className="text-lg font-medium text-gray-700">
                   No results found
                 </p>
-                <p class="text-sm text-gray-500 mt-1">
+                <p className="text-sm text-gray-500 mt-1">
                   Try a different search term or check the other tab.
                 </p>
               </div>

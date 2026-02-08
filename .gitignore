@@ -11,6 +11,8 @@ scripts/memory/project/src/pages/
 benchmark/projects/
 benchmark/results/
 test-results/
+playwright-report/
+playwright/.cache/
 *.log
 package-lock.json
 .turbo/

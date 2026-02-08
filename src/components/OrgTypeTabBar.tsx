@@ -55,6 +55,7 @@ const OrgTypeTabBar = ({ initialCounts }: Props) => {
                   ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
               });
             }}
+            aria-selected={activeType === tab.type}
             className={`px-6 py-2 rounded-md text-sm font-semibold transition-all duration-200 flex items-center gap-2 ${
               activeType === tab.type
                 ? 'bg-navy-900 text-white shadow-sm'

@@ -2,12 +2,7 @@ import { getOrgsByType, OrgType } from '@acm-uiuc/js-shared';
 import { format, getDay, parse, startOfWeek } from 'date-fns';
 import { enUS } from 'date-fns/locale/en-US';
 import { useEffect, useMemo, useState } from 'preact/hooks';
-import {
-  Calendar,
-  dateFnsLocalizer,
-  type NavigateAction,
-  type View,
-} from 'react-big-calendar';
+import { Calendar, dateFnsLocalizer, type View } from 'react-big-calendar';
 
 import { createRecurringEvents } from '../../api/dateutils';
 import type { Event } from '../../types/events';
@@ -137,14 +132,16 @@ export default function CalendarGrid({
     );
   };
 
-  const dummyNav = (_newDate: Date, _view: View, _action: NavigateAction) => {};
+  const dummyNav = () => {};
 
   if (!calendarHeight) {
-    return <div class="min-h-[70vh] animate-pulse rounded-lg bg-gray-200" />;
+    return (
+      <div className="min-h-[70vh] animate-pulse rounded-lg bg-gray-200" />
+    );
   }
 
   return (
-    // @ts-ignore — react-big-calendar types expect React, Preact compat works at runtime
+    // @ts-expect-error — react-big-calendar types expect React, Preact compat works at runtime
     <Calendar
       dayLayoutAlgorithm="no-overlap"
       date={displayDate}

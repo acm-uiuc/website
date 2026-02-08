@@ -38,20 +38,22 @@ export default function Dropdown({
   const label = selected?.label ?? placeholder ?? 'Select...';
 
   return (
-    <div ref={ref} class={`relative ${className}`}>
+    <div ref={ref} className={`relative ${className}`}>
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        class="flex w-full items-center justify-between gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm shadow-sm transition-colors hover:border-navy-300 focus:border-navy-500 focus:outline-none"
+        className="flex w-full items-center justify-between gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm shadow-sm transition-colors hover:border-navy-300 focus:border-navy-500 focus:outline-none"
       >
-        <span class={value ? 'text-gray-900' : 'text-gray-500'}>{label}</span>
+        <span className={value ? 'text-gray-900' : 'text-gray-500'}>
+          {label}
+        </span>
         <ChevronDown
           size={14}
           class={`text-gray-400 transition-transform ${open ? 'rotate-180' : ''}`}
         />
       </button>
       {open && (
-        <ul class="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-lg border border-gray-200 bg-white py-1 shadow-lg">
+        <ul className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-lg border border-gray-200 bg-white py-1 shadow-lg">
           {placeholder && (
             <li>
               <button
@@ -60,7 +62,7 @@ export default function Dropdown({
                   onChange('');
                   setOpen(false);
                 }}
-                class={`w-full px-3 py-1.5 text-left text-sm transition-colors hover:bg-navy-50 ${
+                className={`w-full px-3 py-1.5 text-left text-sm transition-colors hover:bg-navy-50 ${
                   !value ? 'font-medium text-navy-700' : 'text-gray-500'
                 }`}
               >
@@ -76,7 +78,7 @@ export default function Dropdown({
                   onChange(opt.value);
                   setOpen(false);
                 }}
-                class={`w-full px-3 py-1.5 text-left text-sm transition-colors hover:bg-navy-50 ${
+                className={`w-full px-3 py-1.5 text-left text-sm transition-colors hover:bg-navy-50 ${
                   opt.value === value
                     ? 'bg-navy-50 font-medium text-navy-700'
                     : 'text-gray-700'

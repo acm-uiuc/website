@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'preact/hooks';
 import StoreItem from './StoreItem';
-import type { ApiV1StoreProductsGet200ResponseProductsInner } from '@acm-uiuc/core-client';
-import ReactNavbar from '../generic/ReactNavbar';
 import StoreProducts from './StoreProducts';
-
-type Product = ApiV1StoreProductsGet200ResponseProductsInner;
 
 interface Props {
   currentPath: string;

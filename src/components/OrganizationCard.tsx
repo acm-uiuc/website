@@ -8,7 +8,7 @@ import { Globe, Link, Mail } from 'lucide-react';
 import type { JSX } from 'preact/jsx-runtime';
 
 import type { Organization } from '../stores/organization';
-import { acronyms, toTitleCase } from '../util';
+import { toTitleCase } from '../util';
 
 interface ImageData {
   src: string;
@@ -49,35 +49,35 @@ const OrganizationCard = ({
   ].filter((x) => Boolean(x) && x.type && x.url);
   return (
     <div
-      class={`group relative flex h-full flex-col rounded-xl border border-gray-200 border-t-2 border-t-transparent bg-white p-6 text-center shadow-md transition-all duration-200 hover:border-navy-300 hover:shadow-xl hover:-translate-y-0.5 ${topBorderColors[organization.type] || ''} animate-fade-up`}
+      className={`group relative flex h-full flex-col rounded-xl border border-gray-200 border-t-2 border-t-transparent bg-white p-6 text-center shadow-md transition-all duration-200 hover:border-navy-300 hover:shadow-xl hover:-translate-y-0.5 ${topBorderColors[organization.type] || ''} animate-fade-up`}
       style={{ animationDelay: `${index * 50}ms` }}
     >
-      <div class="mb-4">
+      <div className="mb-4">
         <img
           src={logoUrl}
           alt={`${organization.name} logo`}
           width={imageData?.width || 96}
           height={imageData?.height || 96}
           loading="lazy"
-          class="h-24 w-24 rounded-md object-contain mx-auto transition-transform duration-200 group-hover:scale-110"
+          className="h-24 w-24 rounded-md object-contain mx-auto transition-transform duration-200 group-hover:scale-110"
           onError={(e) => {
             e.currentTarget.style.display = 'none';
           }}
         />
       </div>
 
-      <div class="flex-1 flex flex-col">
-        <h3 class="text-xl font-bold text-navy-900 mb-2 group-hover:text-navy-700">
+      <div className="flex-1 flex flex-col">
+        <h3 className="text-xl font-bold text-navy-900 mb-2 group-hover:text-navy-700">
           {organization.name}
         </h3>
-        <p class="text-md text-gray-600 line-clamp-8 lg:line-clamp-5 flex-1">
+        <p className="text-md text-gray-600 line-clamp-8 lg:line-clamp-5 flex-1">
           {organization.description}
         </p>
       </div>
 
       {allLinks.length > 0 && (
-        <div class="mt-4 pt-4 border-t border-gray-100">
-          <div class="flex items-center justify-center gap-2">
+        <div className="mt-4 pt-4 border-t border-gray-100">
+          <div className="flex items-center justify-center gap-2">
             {allLinks.map((link) => (
               <a
                 key={`${organization.id}-${link.type}`}
@@ -85,7 +85,7 @@ const OrganizationCard = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 title={toTitleCase(link.type)}
-                class="rounded-full p-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-navy-700"
+                className="rounded-full p-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-navy-700"
               >
                 {linkIconPaths[link.type] || linkIconPaths.OTHER}
               </a>

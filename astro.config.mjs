@@ -8,6 +8,8 @@ import icon from 'astro-icon';
 
 import preact from '@astrojs/preact';
 
+import compress from 'astro-compress';
+
 // https://astro.build/config
 export default defineConfig({
   output: 'static',
@@ -18,5 +20,8 @@ export default defineConfig({
   server: {
     port: 3000,
   },
-  integrations: [mdx(), icon(), preact({ compat: true })],
+  integrations: [mdx(), icon(), preact({ compat: true }), compress()],
+  experimental: {
+    svgo: true
+  }
 });

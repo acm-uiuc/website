@@ -1,6 +1,6 @@
 import { getImage } from 'astro:assets';
-import bannerWhite from '../../images/banner-white.png';
-import bannerBlue from '../../images/banner-blue.png';
+import bannerWhite from '../../images/banner-white.svg';
+import bannerBlue from '../../images/banner-blue.svg';
 
 // Largest display size is h-14 (56px). 2x for retina = 112px height.
 const NAVBAR_IMG_HEIGHT = 112;

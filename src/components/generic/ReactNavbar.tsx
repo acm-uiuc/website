@@ -250,7 +250,7 @@ export default function ReactNavbar({
 
           {/* Mobile Menu */}
           {isMobileMenuOpen && (
-            <div className="pb-4 md:hidden">
+            <div className="pb-4 md:hidden animate-[fadeIn_400ms_ease-out]">
               <div className="flex flex-col gap-1 border-t border-gray-200 pt-2">
                 {navLinks.map((link) => {
                   const isActive =
@@ -261,8 +261,10 @@ export default function ReactNavbar({
                       href={link.href}
                       target={link.external ? '_blank' : undefined}
                       rel={link.external ? 'noopener noreferrer' : undefined}
-                      className={`rounded-lg px-4 py-3 text-base font-medium transition-colors ${
-                        isActive ? activeTextClass : baseTextClass
+                      className={`rounded-lg px-4 py-3 text-base font-medium ${
+                        isActive
+                          ? 'text-navy-900 bg-navy-100'
+                          : 'text-navy-700 hover:text-navy-900 hover:bg-navy-100'
                       }`}
                     >
                       {link.label}

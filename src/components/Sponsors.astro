@@ -85,9 +85,11 @@ const sponsorsByTier = tiers
     {
       sponsorsByTier.map((tier) => (
         <div class="mb-10 last:mb-0">
-          <h3 class="text-center text-sm font-semibold uppercase tracking-wider text-gray-400 mb-6">
-            {tier.label}
-          </h3>
+          {tier.label && (
+            <h3 class="text-center text-sm font-semibold uppercase tracking-wider text-gray-400 mb-6">
+              {tier.label}
+            </h3>
+          )}
           <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 justify-items-center gap-4 sm:gap-6 max-w-5xl mx-auto">
             {tier.sponsors.map((sponsor) => (
               <a
@@ -102,6 +104,7 @@ const sponsorsByTier = tiers
                 <Image
                   src={sponsor.logo}
                   alt={sponsor.name}
+                  aria-label={`${sponsor.name} (opens in a new tab)`}
                   class:list={[
                     tier.logoClass,
                     'w-full object-contain md:grayscale md:opacity-70 transition-all duration-300 group-hover:grayscale-0 group-hover:opacity-100',

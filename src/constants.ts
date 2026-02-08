@@ -29,7 +29,7 @@ export const membershipBenefits = [
   {
     summary: '**10% discount at Latea** when you show your membership',
     detail:
-      "**Latea Discount**: Every paid member has a 10% discount at Latea! At the counter, show your ACM membership pass (found [here](/check-membership)). This discount is subject to Latea's applicable terms and conditions.",
+      "**Latea Discount**: Every paid member has a 10% discount at Latea! At the counter, show your ACM membership pass (found [here](/membership/check)). This discount is subject to Latea's applicable terms and conditions.",
   },
 ];
 

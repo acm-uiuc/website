@@ -2,7 +2,7 @@
 
 View the website at [acm.illinois.edu](https://www.acm.illinois.edu/).
 
-The frontend source code for ACM's website is built mainly with TypeScript, [Astro](https://astro.build/), and [Preact](https://preactjs.com/). Viewers can learn about our organization, upcoming events, SIGs/Committes, become members, buy merch, and more!
+The frontend source code for ACM's website is built mainly with TypeScript, [Astro](https://astro.build/), and [Preact](https://preactjs.com/). Viewers can learn about our organization, upcoming events, SIGs/Committees, become members, buy merch, and more!
 
 ## Getting Started
 
@@ -30,4 +30,4 @@ Runs `prettier` and `eslint` to format the code in the project. These tools also
 
 We have written some basic end-to-end tests as sanity checks using Playwright. These will run on every pull request.
 
-You can also run these locally by first starting the development server with `yarn dev`, and then run the tests in a seperate terminal with `yarn test:e2e`. You may first need to install dependencies with `npx playwright install --with-deps`.
+You can also run these locally by first starting the development server with `yarn dev`, and then run the tests in a separate terminal with `yarn test:e2e`. You may first need to install dependencies with `npx playwright install --with-deps`.

@@ -104,7 +104,14 @@ jobs:
         with:
           node-version: 24.x
           cache: 'yarn'
-      - run: yarn -D
+      - name: Validate deployment URL
+        run: |
+          if [ -z "${{ needs.deploy.outputs.deployment-url }}" ]; then
+            echo "::error::deployment-url output is empty"
+            exit 1
+          fi
+      - name: Install dependencies
+        run: yarn -D
       - name: Restore Yarn Cache
         uses: actions/cache@v4
         with:

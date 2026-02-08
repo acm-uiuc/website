@@ -139,7 +139,7 @@ test.describe('Org list pre-compilation', () => {
     const visibleCards = page.locator('[data-testid="org-grid"] h3:visible');
 
     const commTab = page.getByRole('button', { name: /Committees/i });
-    await expect(commTab).toHaveClass(/bg-navy-900/);
+    await expect(commTab).toHaveAttribute('aria-selected', 'true');
     const count = await visibleCards.count();
     expect(count).toEqual(1);
 

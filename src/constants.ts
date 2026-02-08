@@ -13,6 +13,10 @@ export const membershipBenefits = [
   },
   {
     summary: '**Priority access** to corporate events',
+    detail: '',
+  },
+  {
+    summary: '**Discounts** on events and merchandise',
     detail:
       '**Discounted Events and Merch**: Already done! Your discount will be automatically applied at checkout when you use your Illinois email.',
   },

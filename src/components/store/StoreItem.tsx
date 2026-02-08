@@ -74,7 +74,6 @@ const StoreItem = ({ id, currentPath }: Props) => {
   const [isPaidMember, setIsPaidMember] = useState<boolean | undefined>(
     undefined
   );
-  const [isCheckingMembership, setIsCheckingMembership] = useState(false);
   const [membershipPreloaded, setMembershipPreloaded] = useState(false);
   const activeMembershipKeyRef = useRef<string | null>(null);
   const membershipCache = useRef<Map<string, boolean>>(new Map());
@@ -111,14 +110,13 @@ const StoreItem = ({ id, currentPath }: Props) => {
         return;
       }
       setIsPaidMember(undefined);
-      setIsCheckingMembership(true);
+
       try {
         const accessToken = await getUserAccessToken(pca);
         if (!accessToken) {
           if (activeMembershipKeyRef.current === cacheKey) {
             setIsPaidMember(false);
             activeMembershipKeyRef.current = null;
-            setIsCheckingMembership(false);
           }
           return;
         }
@@ -131,14 +129,12 @@ const StoreItem = ({ id, currentPath }: Props) => {
           membershipCache.current.set(cacheKey, result);
           setIsPaidMember(result);
           activeMembershipKeyRef.current = null;
-          setIsCheckingMembership(false);
         }
       } catch (error) {
         console.error('Failed to check membership status:', error);
         if (activeMembershipKeyRef.current === cacheKey) {
           setIsPaidMember(false);
           activeMembershipKeyRef.current = null;
-          setIsCheckingMembership(false);
         }
       }
     },
@@ -287,6 +283,53 @@ const StoreItem = ({ id, currentPath }: Props) => {
       null
     );
   }, [selectedVariantId, productInfo?.variants]);
+
+  // Price summary across all variants (shown in product info card)
+  const priceDisplay = useMemo(() => {
+    const variants = productInfo?.variants;
+    if (!variants || variants.length === 0) return null;
+
+    const nonMemberPrices = variants
+      .map((v) => v.nonmemberPriceCents)
+      .filter((p): p is number => p !== null && p !== undefined);
+    const memberPrices = variants
+      .map((v) => v.memberPriceCents)
+      .filter((p): p is number => p !== null && p !== undefined);
+
+    const formatRange = (min: number, max: number) =>
+      min === max
+        ? `$${(min / 100).toFixed(2)}`
+        : `$${(min / 100).toFixed(2)} – $${(max / 100).toFixed(2)}`;
+
+    return {
+      nonMember:
+        nonMemberPrices.length > 0
+          ? formatRange(
+              Math.min(...nonMemberPrices),
+              Math.max(...nonMemberPrices)
+            )
+          : null,
+      member:
+        memberPrices.length > 0
+          ? formatRange(Math.min(...memberPrices), Math.max(...memberPrices))
+          : null,
+    };
+  }, [productInfo?.variants]);
+
+  // Whether the user qualifies for member pricing (all variants if none selected)
+  const isMemberForAllVariants = useMemo(() => {
+    if (!membershipPreloaded || !user || !productInfo?.variants) return false;
+    return productInfo.variants.every((v) => {
+      const lists = v.memberLists;
+      if (!lists || lists.length === 0) return false;
+      const cacheKey = createCacheKey(lists);
+      return membershipCache.current.get(cacheKey) === true;
+    });
+  }, [membershipPreloaded, user, productInfo?.variants]);
+
+  const showMemberPricing =
+    checkoutMode === CheckoutMode.ILLINOIS &&
+    (selectedVariantId ? isPaidMember === true : isMemberForAllVariants);
 
   // Get max quantity for selected variant
   const getMaxQuantity = useCallback(() => {
@@ -588,59 +631,34 @@ const StoreItem = ({ id, currentPath }: Props) => {
                 </p>
               )}
 
-              {/* Pricing info - only show if user is logged in (for Illinois) or guest mode */}
-              {(isCheckingMembership ||
-                (checkoutMode === CheckoutMode.ILLINOIS &&
-                  user &&
-                  isPaidMember === undefined)) &&
-                selectedVariantId && (
+              {/* Pricing summary */}
+              {priceDisplay &&
+                (priceDisplay.member || priceDisplay.nonMember) && (
                   <div className="mt-6 space-y-2 rounded-lg bg-surface-050 p-4">
-                    <div className="h-6 w-6 animate-spin rounded-full border-4 border-gray-200 border-t-rose-600" />
-                  </div>
-                )}
-              {!isCheckingMembership &&
-                (checkoutMode === CheckoutMode.GUEST ||
-                  isPaidMember !== undefined) &&
-                selectedVariant &&
-                (checkoutMode === CheckoutMode.GUEST || user) && (
-                  <div className="mt-6 space-y-2 rounded-lg bg-surface-050 p-4">
-                    {checkoutMode === CheckoutMode.ILLINOIS &&
-                      isPaidMember &&
-                      selectedVariant.memberPriceCents !== null &&
-                      selectedVariant.memberPriceCents !== undefined && (
-                        <div className="flex items-baseline justify-between">
-                          <span className="text-sm font-medium text-navy-600">
-                            Member Price:
-                          </span>
-                          <span className="text-xl font-bold text-navy-600">
-                            $
-                            {(selectedVariant.memberPriceCents / 100).toFixed(
-                              2
-                            )}
-                          </span>
-                        </div>
-                      )}
-                    {selectedVariant.nonmemberPriceCents !== null &&
-                      selectedVariant.nonmemberPriceCents !== undefined && (
-                        <div className="flex items-baseline justify-between">
-                          <span
-                            className={`text-sm font-medium text-tangerine-600 ${checkoutMode === CheckoutMode.ILLINOIS && isPaidMember ? 'line-through' : 'text-tangerine-900'}`}
-                          >
-                            {checkoutMode === CheckoutMode.ILLINOIS &&
-                            isPaidMember
-                              ? 'Non-Member Price:'
-                              : 'Price:'}
-                          </span>
-                          <span
-                            className={`text-xl font-bold ${checkoutMode === CheckoutMode.ILLINOIS && isPaidMember ? 'text-tangerine-600 line-through' : 'text-tangerine-900'}`}
-                          >
-                            $
-                            {(
-                              selectedVariant.nonmemberPriceCents / 100
-                            ).toFixed(2)}
-                          </span>
-                        </div>
-                      )}
+                    {priceDisplay.member && (
+                      <div className="flex items-baseline justify-between">
+                        <span className="text-sm font-medium text-navy-600">
+                          Member Price:
+                        </span>
+                        <span className="text-xl font-bold text-navy-600">
+                          {priceDisplay.member}
+                        </span>
+                      </div>
+                    )}
+                    {priceDisplay.nonMember && (
+                      <div className="flex items-baseline justify-between">
+                        <span
+                          className={`text-sm font-medium ${showMemberPricing ? 'text-gray-300 line-through' : 'text-tangerine-900'}`}
+                        >
+                          {priceDisplay.member ? 'Non-Member Price:' : 'Price:'}
+                        </span>
+                        <span
+                          className={`text-xl font-bold ${showMemberPricing ? 'text-gray-300 line-through' : 'text-tangerine-900'}`}
+                        >
+                          {priceDisplay.nonMember}
+                        </span>
+                      </div>
+                    )}
                   </div>
                 )}
             </div>

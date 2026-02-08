@@ -12,6 +12,10 @@ const calendarLinks = {
     'https://calendar.google.com/calendar/u/0/r?cid=http://ical.acm.illinois.edu/ACM',
   ical: 'https://ical.acm.illinois.edu/ACM',
 };
+interface Props {
+  disableBounce?: boolean;
+}
+const { disableBounce } = Astro.props;
 ---
 
 <!-- Hero Section -->
@@ -41,7 +45,8 @@ const calendarLinks = {
         >
           UIUC's Hub for
           <br />
-          <span class="text-rose-300 inline-block animate-drop-bounce"
+          <span
+            class={`text-rose-300 inline-block ${disableBounce ? '' : 'animate-drop-bounce'}`}
             >Everything CS.</span
           >
         </h1>
@@ -53,9 +58,9 @@ const calendarLinks = {
         </p>
 
         <!-- CTA Buttons -->
-        <div class="flex flex-col gap-3 pt-2 sm:flex-row">
-          <a
-            href="/join"
+        <div class="flex flex-col gap-2 pt-2 sm:flex-row">
+          <button
+            id="hero-join-btn"
             class="bg-tangerine-600 hover:bg-tangerine-700 inline-flex items-center justify-center rounded-lg px-7 py-3.5 text-base font-semibold text-white transition-colors"
           >
             Join ACM
@@ -71,7 +76,7 @@ const calendarLinks = {
                 stroke-width="2"
                 d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
             </svg>
-          </a>
+          </button>
           <a
             href="https://acm.gg/donate"
             target="_blank"
@@ -83,7 +88,7 @@ const calendarLinks = {
         </div>
 
         <!-- Social Links -->
-        <div class="flex items-center gap-4 pt-1">
+        <div class="flex items-center gap-2">
           <div class="flex gap-2">
             <a
               href="https://instagram.com/acm.uiuc"
@@ -131,7 +136,7 @@ const calendarLinks = {
       </div>
     </div>
 
-    <div class="mt-2 mb-4 flex flex-wrap items-end justify-between gap-4">
+    <div class="mt-4 mb-4 flex flex-wrap items-end justify-between gap-4">
       <h2 class="text-2xl font-bold text-white/100 sm:text-3xl">Up Next</h2>
 
       <div class="flex gap-3">
@@ -153,3 +158,9 @@ const calendarLinks = {
     <UpcomingEvents client:load />
   </section>
 </div>
+
+<script>
+  document.getElementById('hero-join-btn')?.addEventListener('click', () => {
+    window.dispatchEvent(new CustomEvent('open-join-modal'));
+  });
+</script>

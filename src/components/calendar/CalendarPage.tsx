@@ -85,7 +85,7 @@ export default function CalendarPage({ initialEvents }: CalendarPageProps) {
         </CalendarControls>
       </div>
 
-      <div class="grid grid-cols-1 gap-6 xl:grid-cols-10">
+      <div class="grid grid-cols-1 gap-4 xl:grid-cols-10">
         <div class="xl:col-span-3 xl:order-last">
           <CalendarEventDetail
             event={selectedEvent}

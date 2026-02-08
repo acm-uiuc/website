@@ -600,7 +600,7 @@ const StoreItem = ({
                 <img
                   src={productInfo.imageUrl}
                   alt={productInfo.name || 'Product image'}
-                  className="h-full w-full object-fit"
+                  className="h-full w-full object-contain"
                 />
               ) : (
                 <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-navy-100 to-wisteria-100">

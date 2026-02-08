@@ -49,9 +49,11 @@ const OrgTypeTabBar = ({ initialCounts }: Props) => {
             key={tab.type}
             onClick={() => {
               setActiveOrgType(tab.type);
-              containerRef.current
-                ?.closest('section')
-                ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              requestAnimationFrame(() => {
+                containerRef.current
+                  ?.closest('section')
+                  ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              });
             }}
             class={`px-6 py-2 rounded-md text-sm font-semibold transition-all duration-200 flex items-center gap-2 ${
               activeType === tab.type

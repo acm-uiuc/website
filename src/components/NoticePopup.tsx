@@ -7,6 +7,7 @@ interface NoticePopupProps {
   onClose: () => void;
   children: ComponentChildren;
   maxWidth?: string;
+  closeColor?: string;
 }
 
 export default function NoticePopup({
@@ -14,6 +15,7 @@ export default function NoticePopup({
   onClose,
   children,
   maxWidth = 'max-w-sm',
+  closeColor,
 }: NoticePopupProps) {
   const [visible, setVisible] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -45,7 +47,7 @@ export default function NoticePopup({
       >
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 z-10 rounded-lg p-1.5 text-gray-400 transition-colors hover:bg-white/20 hover:text-gray-600"
+          className={`absolute top-3 right-3 z-10 rounded-lg p-1.5 ${closeColor || 'text-gray-400'} transition-colors hover:bg-white/20 hover:text-gray-600`}
           aria-label="Close"
         >
           <X className="h-5 w-5" />

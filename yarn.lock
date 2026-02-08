@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@acm-uiuc/core-client@^4.1.11":
-  version "4.1.11"
-  resolved "https://registry.npmjs.org/@acm-uiuc/core-client/-/core-client-4.1.11.tgz"
-  integrity sha512-F0VgGQv6186QZ5N4t/IQaWzrapSVPoUTT8yAwIuashQlWTxhkk195Q5HNTq3qbWYd118qxt2yswU9dywNEGqUg==
+"@acm-uiuc/core-client@^4.1.13":
+  version "4.1.13"
+  resolved "https://registry.yarnpkg.com/@acm-uiuc/core-client/-/core-client-4.1.13.tgz#9d0b5fd9457095c7bdb12535be7005b3db6bbbd4"
+  integrity sha512-nKM7eJ75SR8mzyZFetyYqmHQ43u7Vf+rIpGqVB1ppt7au0cVNTiQbbaTkl/FoeF93IFZ6E4P/QSll0lS/LPjsw==
 
 "@acm-uiuc/js-shared@^3.5.0":
   version "3.5.0"
@@ -634,17 +634,17 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/retry/-/retry-0.4.3.tgz#c2b9d2e374ee62c586d3adbea87199b1d7a7a6ba"
   integrity sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ==
 
-"@iconify-json/lucide@^1.2.88":
-  version "1.2.88"
-  resolved "https://registry.npmjs.org/@iconify-json/lucide/-/lucide-1.2.88.tgz"
-  integrity sha512-QBJq+VSj3yHXoMgf+1I4guUhXA+tpxzAt46LJdTSFN6UKy254GstTh+P/a6GD4Bvyi1fCAfi5hS/yCmu0w3mNw==
+"@iconify-json/lucide@^1.2.89":
+  version "1.2.89"
+  resolved "https://registry.yarnpkg.com/@iconify-json/lucide/-/lucide-1.2.89.tgz#e75a692b590d52028327622729bf60c63fd5c4c4"
+  integrity sha512-9rZaJZn8VBls1KZnGaFTnqqZrUkd++XB3vy9WYIMgmHHgLxQMEZXg3V+oJSEeit0kCNr/OfDBmrDwuGl/LZulA==
   dependencies:
     "@iconify/types" "*"
 
-"@iconify-json/simple-icons@^1.2.69":
-  version "1.2.69"
-  resolved "https://registry.npmjs.org/@iconify-json/simple-icons/-/simple-icons-1.2.69.tgz"
-  integrity sha512-T/rhy5n7pzE0ZOxQVlF68SNPCYYjRBpddjgjrJO5WWVRG8es5BQmvxIE9kKF+t2hhPGvuGQFpXmUyqbOtnxirQ==
+"@iconify-json/simple-icons@^1.2.70":
+  version "1.2.70"
+  resolved "https://registry.yarnpkg.com/@iconify-json/simple-icons/-/simple-icons-1.2.70.tgz#21941e2be1b67ebda9d12939da110356bfaa1493"
+  integrity sha512-CYNRCgN6nBTjN4dNkrBCjHXNR2e4hQihdsZUs/afUNFOWLSYjfihca4EFN05rRvDk4Xoy2n8tym6IxBZmcn+Qg==
   dependencies:
     "@iconify/types" "*"
 
@@ -1491,17 +1491,10 @@
   resolved "https://registry.npmjs.org/@types/react-dom/-/react-dom-19.2.3.tgz"
   integrity sha512-jp2L/eY6fn+KgVVQAOqYItbF0VY/YApe5Mz2F0aykSO8gx31bYCZyvSeYxCHKvzHG5eZjc+zyaS5BrBWya2+kQ==
 
-"@types/react@*", "@types/react@>=16.9.11":
+"@types/react@*", "@types/react@>=16.9.11", "@types/react@^19.2.13":
   version "19.2.13"
   resolved "https://registry.npmjs.org/@types/react/-/react-19.2.13.tgz"
   integrity sha512-KkiJeU6VbYbUOp5ITMIc7kBfqlYkKA5KhEHVrGMmUUMt7NeaZg65ojdPk+FtNrBAOXNVM5QM72jnADjM+XVRAQ==
-  dependencies:
-    csstype "^3.2.2"
-
-"@types/react@^19.2.11":
-  version "19.2.11"
-  resolved "https://registry.npmjs.org/@types/react/-/react-19.2.11.tgz"
-  integrity sha512-tORuanb01iEzWvMGVGv2ZDhYZVeRMrw453DCSAIn/5yvcSVnMoUMTyf33nQJLahYEnv9xqrTNbgz4qY5EfSh0g==
   dependencies:
     csstype "^3.2.2"
 

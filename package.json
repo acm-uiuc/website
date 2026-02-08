@@ -31,6 +31,7 @@
     "@icons-pack/react-simple-icons": "^13.8.0",
     "@marsidev/react-turnstile": "^1.4.2",
     "@nanostores/preact": "^1.0.0",
+    "astro-compress": "^2.3.9",
     "date-fns": "^4.1.0",
     "lucide-react": "^0.563.0",
     "nanostores": "^1.1.0",

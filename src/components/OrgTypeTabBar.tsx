@@ -8,6 +8,10 @@ import {
   type OrgType,
 } from '../stores/organization';
 
+interface Props {
+  initialCounts: Record<OrgType, number>;
+}
+
 const tabs: { type: OrgType; label: string; description: string }[] = [
   {
     type: 'sig',
@@ -23,14 +27,14 @@ const tabs: { type: OrgType; label: string; description: string }[] = [
   },
 ];
 
-const OrgTypeTabBar = () => {
+const OrgTypeTabBar = ({ initialCounts }: Props) => {
   const activeType = useStore($activeOrgType);
   const sigs = useStore($sigs);
   const committees = useStore($committees);
 
   const counts: Record<OrgType, number> = {
-    sig: sigs.length,
-    committee: committees.length,
+    sig: sigs.length || initialCounts.sig,
+    committee: committees.length || initialCounts.committee,
   };
 
   const activeTab = tabs.find((t) => t.type === activeType)!;

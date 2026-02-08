@@ -71,7 +71,13 @@ for (const [path, module] of Object.entries(imageModules)) {
     <div class="text-center mb-2">
       <h2 class="text-navy-900 text-3xl font-bold sm:text-4xl">Our Groups</h2>
     </div>
-    <OrgTypeTabBar client:load />
+    <OrgTypeTabBar
+      client:load
+      initialCounts={{
+        sig: organizations.filter((o) => o.type === 'sig').length,
+        committee: organizations.filter((o) => o.type === 'committee').length,
+      }}
+    />
 
     <SearchFilter client:load />
 

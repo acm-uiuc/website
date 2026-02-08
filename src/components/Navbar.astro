@@ -1,8 +1,10 @@
 ---
 import ReactNavbar from './generic/ReactNavbar';
-const { transparent = false, mode = 'dark', breadcrumbs } = Astro.props;
+import { optimizeNavbarImages } from './generic/optimizeNavbarImages';
 
+const { transparent = false, mode = 'dark', breadcrumbs } = Astro.props;
 const currentPath = Astro.url.pathname;
+const { bannerWhiteSrc, bannerBlueSrc } = await optimizeNavbarImages();
 ---
 
 <ReactNavbar
@@ -10,5 +12,7 @@ const currentPath = Astro.url.pathname;
   transparent={transparent}
   mode={mode}
   breadcrumbs={breadcrumbs}
+  bannerWhiteSrc={bannerWhiteSrc}
+  bannerBlueSrc={bannerBlueSrc}
   client:load
 />

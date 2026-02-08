@@ -1,9 +1,11 @@
 ---
+import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 
 import { mailingListSubscriptionUrl } from '../constants';
 import CalendarModal from './CalendarModal.tsx';
 import UpcomingEvents from './UpcomingEvents.tsx';
+import headerImage from '../images/header.jpg';
 
 const calendarLinks = {
   google:
@@ -31,7 +33,7 @@ const calendarLinks = {
   <section
     class="relative z-10 container mx-auto px-6 pt-24 pb-12 lg:px-8 lg:pt-28 lg:pb-16"
   >
-    <div class="flex flex-col gap-10 lg:flex-row lg:items-center">
+    <div class="flex flex-col-reverse gap-10 lg:flex-row lg:items-center">
       <!-- Text Content -->
       <div class="flex flex-col gap-5 lg:basis-1/2 lg:pr-12">
         <h1
@@ -54,7 +56,7 @@ const calendarLinks = {
         <div class="flex flex-col gap-3 pt-2 sm:flex-row">
           <a
             href="/join"
-            class="bg-tangerine-500 hover:bg-tangerine-600 inline-flex items-center justify-center rounded-lg px-7 py-3.5 text-base font-semibold text-white transition-colors"
+            class="bg-tangerine-600 hover:bg-tangerine-700 inline-flex items-center justify-center rounded-lg px-7 py-3.5 text-base font-semibold text-white transition-colors"
           >
             Join ACM
             <svg
@@ -117,15 +119,14 @@ const calendarLinks = {
       <!-- Hero Image -->
       <div class="lg:basis-1/2">
         <div class="relative overflow-hidden rounded-2xl shadow-2xl">
-          <picture>
-            <source type="image/webp" srcset="/images/header.webp" />
-            <img
-              src="/images/header.jpg"
-              alt="ACM @ UIUC community"
-              class="h-auto w-full object-cover"
-              loading="eager"
-            />
-          </picture>
+          <Image
+            src={headerImage}
+            alt={'ACM @ UIUC'}
+            class="h-auto max-h-md w-full lg:block"
+            loading={'eager'}
+            fetchpriority={'high'}
+            width={768}
+          />
         </div>
       </div>
     </div>

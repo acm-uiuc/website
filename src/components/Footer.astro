@@ -1,15 +1,18 @@
 ---
-
+import { Image } from 'astro:assets';
+import headerImage from '../images/banner-blue.png';
 ---
 
 <footer class="footer-gradient py-12">
   <div class="container mx-auto px-6 lg:px-8">
     <div class="flex flex-col items-center justify-between gap-6 md:flex-row">
       <div class="flex items-center gap-3">
-        <img
-          src="/images/banner-blue.png"
-          alt="ACM @ UIUC"
+        <Image
+          src={headerImage}
+          alt={'ACM @ UIUC'}
           class="h-8 w-auto"
+          loading={'eager'}
+          height={114}
         />
       </div>
       <p class="text-sm text-gray-500">

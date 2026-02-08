@@ -17,6 +17,8 @@ interface NavbarProps {
   mode?: 'dark' | 'light';
   breadcrumbs?: Breadcrumb[];
   currentPath: string;
+  bannerWhiteSrc?: string;
+  bannerBlueSrc?: string;
 }
 
 const navLinks: NavLink[] = [
@@ -32,6 +34,8 @@ export default function ReactNavbar({
   mode = 'dark',
   breadcrumbs,
   currentPath = '',
+  bannerWhiteSrc = '/images/banner-white.png',
+  bannerBlueSrc = '/images/banner-blue.png',
 }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -82,7 +86,10 @@ export default function ReactNavbar({
           <a href="/" className="flex shrink-0 items-center">
             {/* White Banner (Visible only in Dark Mode + Transparent) */}
             <img
-              src="/images/banner-white.png"
+              loading={'eager'}
+              src={bannerWhiteSrc}
+              width={214}
+              height={112}
               alt="ACM @ UIUC"
               className={`navbar-logo h-12 w-auto transition-opacity lg:h-14 ${
                 isDarkText ? 'hidden' : 'block'
@@ -90,7 +97,10 @@ export default function ReactNavbar({
             />
             {/* Blue/Dark Banner (Visible in Light Mode or Solid State) */}
             <img
-              src="/images/banner-blue.png"
+              loading={'eager'}
+              src={bannerBlueSrc}
+              width={214}
+              height={112}
               alt="ACM @ UIUC"
               className={`navbar-logo-dark h-12 w-auto lg:h-14 ${
                 isDarkText ? 'block' : 'hidden'
@@ -175,7 +185,7 @@ export default function ReactNavbar({
             ) : (
               <a
                 href="/join"
-                className="bg-tangerine-500 hover:bg-tangerine-600 text-md rounded-lg px-6 py-2.5 font-semibold text-white shadow-sm transition-all hover:shadow-md"
+                className="bg-tangerine-600 hover:bg-tangerine-700 text-md rounded-lg px-6 py-2.5 font-semibold text-white shadow-sm transition-all hover:shadow-md"
               >
                 Join Now
               </a>
@@ -262,7 +272,7 @@ export default function ReactNavbar({
               })}
               <a
                 href="/join"
-                className="bg-tangerine-500 hover:bg-tangerine-600 mt-2 rounded-lg px-4 py-3 text-center text-base font-semibold text-white transition-colors"
+                className="bg-tangerine-600 hover:bg-tangerine-700 mt-2 rounded-lg px-4 py-3 text-center text-base font-semibold text-white transition-colors"
               >
                 Join Now
               </a>

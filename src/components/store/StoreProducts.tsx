@@ -1,14 +1,15 @@
-import { useState } from 'preact/hooks';
+import { useState, useEffect } from 'preact/hooks';
 import ReactNavbar from '../generic/ReactNavbar';
 import type { Product } from '../../types/store';
 import { LoadingSpinner } from '../generic/LargeLoadingSpinner';
-import { useEffect } from 'react';
 import { storeApiClient } from '../../api';
 import { handleResponseError } from '../../util';
 import ErrorPopup, { useErrorPopup } from '../ErrorPopup';
 
 interface Props {
   currentPath: string;
+  bannerWhiteSrc?: string;
+  bannerBlueSrc?: string;
 }
 
 const StoreItemListing = (product: Product) => {
@@ -207,12 +208,18 @@ const StoreProductsInner = () => {
   );
 };
 
-const StoreProducts = ({ currentPath }: Props) => {
+const StoreProducts = ({
+  currentPath,
+  bannerWhiteSrc,
+  bannerBlueSrc,
+}: Props) => {
   return (
     <main className="relative flex flex-1 justify-center px-4 py-16 lg:py-24">
       <ReactNavbar
         currentPath={currentPath}
         breadcrumbs={[{ href: '/store', label: 'Store' }]}
+        bannerWhiteSrc={bannerWhiteSrc}
+        bannerBlueSrc={bannerBlueSrc}
       />
 
       {/* Background decorations */}

@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 
-name: 'Deployment'
+name: 'Deployment and Testing'
 on:
   push:
     branches:
@@ -95,6 +95,8 @@ jobs:
     if: github.event_name == 'pull_request'
     needs: deploy
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
@@ -113,3 +115,18 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 7
+
+  check_formatting:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+          cache: 'yarn'
+      - run: yarn -D
+      - run: yarn format:check

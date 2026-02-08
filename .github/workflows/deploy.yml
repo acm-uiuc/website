@@ -120,7 +120,7 @@ jobs:
       - name: Install dependencies
         run: yarn -D
       - run: npx playwright install --with-deps
-      - run: npx playwright test
+      - run: yarn test:e2e
         env:
           PLAYWRIGHT_BASE_URL: ${{ needs.deploy.outputs.deployment-url }}
       - uses: actions/upload-artifact@v4

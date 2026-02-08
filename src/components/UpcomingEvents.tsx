@@ -68,6 +68,7 @@ const EventCard = ({ event }: { event: Event }) => {
                 {formatDate(event.start) !== formatDate(event.end) && (
                   <>{formatDate(event.end)} </>
                 )}
+                <span class="text-gray-300 mr-1">·</span>
                 {formatTime(event.end)}
               </>
             )}

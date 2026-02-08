@@ -422,7 +422,7 @@ const StoreItem = ({
     isEmailConfirmValid,
   ]);
 
-  // Illinois checkout action (used by AuthActionButton)
+  // NetID Checkout action (used by AuthActionButton)
   const handleIllinoisCheckout = async (
     accessToken: string,
     showError: ShowErrorFunction
@@ -564,7 +564,7 @@ const StoreItem = ({
     openAtMs && openAtMs <= nowMs && (!closeAtMs || closeAtMs > nowMs);
 
   // Determine if we should show the "sign in to see pricing" prompt
-  // Show it when: Illinois checkout mode, user not logged in, and there are member lists
+  // Show it when: NetID Checkout mode, user not logged in, and there are member lists
   const hasMemberPricing =
     activeMemberLists !== null && activeMemberLists.length > 0;
   const showSignInForPricing =
@@ -697,7 +697,7 @@ const StoreItem = ({
                         : 'text-navy-600 hover:text-navy-900'
                     }`}
                   >
-                    Illinois Checkout
+                    NetID Checkout
                   </button>
                   {!productInfo.verifiedIdentityRequired && (
                     <button

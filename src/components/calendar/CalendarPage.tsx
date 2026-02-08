@@ -52,7 +52,7 @@ export default function CalendarPage({ initialEvents }: CalendarPageProps) {
   };
 
   return (
-    <section class="mx-auto w-full px-2 py-8 lg:px-4 mt-20">
+    <section class="mx-auto w-full px-2 py-8 lg:px-14 mt-20">
       <h1 class="mb-3 text-3xl font-bold">Calendar</h1>
       <div class="mb-2">
         <CalendarControls

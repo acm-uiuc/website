@@ -28,7 +28,6 @@ export default function MembershipPurchaseButton({ class: className }: Props) {
             const checkoutUrl =
               await membershipApiClient.apiV2MembershipCheckoutGet({
                 xUiucToken: accessToken,
-                force: true,
               });
             window.location.href = checkoutUrl;
           } catch (e) {

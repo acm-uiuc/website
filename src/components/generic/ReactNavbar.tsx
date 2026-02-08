@@ -34,8 +34,8 @@ export default function ReactNavbar({
   mode = 'dark',
   breadcrumbs,
   currentPath = '',
-  bannerWhiteSrc = '/images/banner-white.png',
-  bannerBlueSrc = '/images/banner-blue.png',
+  bannerWhiteSrc = '/images/banner-white.svg',
+  bannerBlueSrc = '/images/banner-blue.svg',
 }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

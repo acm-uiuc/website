@@ -19,4 +19,7 @@ export default defineConfig({
     port: 3000,
   },
   integrations: [mdx(), icon(), preact({ compat: true })],
+  experimental: {
+    svgo: true
+  }
 });

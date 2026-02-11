@@ -125,7 +125,8 @@ jobs:
             yarn-modules-${{ runner.arch }}-${{ runner.os }}-
       - name: Install dependencies
         run: yarn -D
-      - run: npx playwright install
+      - name: Install Playwright dependencies
+        run: npx playwright install --with-deps
       - run: yarn test:e2e --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
         env:
           PLAYWRIGHT_BASE_URL: ${{ needs.deploy.outputs.deployment-url }}

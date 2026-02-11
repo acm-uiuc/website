@@ -3,9 +3,9 @@
 
 
 "@acm-uiuc/core-client@^4.1.11":
-  version "4.1.11"
-  resolved "https://registry.npmjs.org/@acm-uiuc/core-client/-/core-client-4.1.11.tgz"
-  integrity sha512-F0VgGQv6186QZ5N4t/IQaWzrapSVPoUTT8yAwIuashQlWTxhkk195Q5HNTq3qbWYd118qxt2yswU9dywNEGqUg==
+  version "4.3.3"
+  resolved "https://registry.yarnpkg.com/@acm-uiuc/core-client/-/core-client-4.3.3.tgz#450ce63c1f05916181a8502fb6159bca5a53be8c"
+  integrity sha512-pfOZdxMei1YzhUFheQKL6OBlrDlFwVbFc3ULIHvttma5EGLVu6semljT/IgzA2BNuHM13qzZ6oJXqKF3Di6YWw==
 
 "@acm-uiuc/js-shared@^3.5.0":
   version "3.5.0"

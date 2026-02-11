@@ -97,7 +97,12 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        shardIndex: [1, 2, 3, 4]
+        shardTotal: [4]
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -120,15 +125,16 @@ jobs:
       - name: Install dependencies
         run: yarn -D
       - run: npx playwright install --with-deps
-      - run: yarn test:e2e
+      - run: yarn test:e2e --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
         env:
           PLAYWRIGHT_BASE_URL: ${{ needs.deploy.outputs.deployment-url }}
-      - uses: actions/upload-artifact@v4
+      - name: Upload blob report to GitHub Actions Artifacts
         if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
         with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 7
+          name: blob-report-${{ matrix.shardIndex }}
+          path: blob-report
+          retention-days: 1
 
   check_formatting:
     if: github.event_name == 'pull_request'
@@ -151,3 +157,33 @@ jobs:
             yarn-modules-${{ runner.arch }}-${{ runner.os }}-
       - run: yarn -D
       - run: yarn format:check
+
+  merge-reports:
+    if: ${{ !cancelled() }}
+    needs: [e2e]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: lts/*
+
+      - name: Install dependencies
+        run: yarn -D
+
+      - name: Download blob reports from GitHub Actions Artifacts
+        uses: actions/download-artifact@v5
+        with:
+          path: all-blob-reports
+          pattern: blob-report-*
+          merge-multiple: true
+
+      - name: Merge into HTML Report
+        run: npx playwright merge-reports --reporter html ./all-blob-reports
+
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v4
+        with:
+          name: html-report--attempt-${{ github.run_attempt }}
+          path: playwright-report
+          retention-days: 14

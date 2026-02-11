@@ -163,7 +163,7 @@ jobs:
 
   merge-reports:
     name: Merge Playwright Reports
-    if: ${{ !cancelled() }}
+    if: ${{ github.event_name == 'pull_request' && !cancelled() }}
     needs: [e2e]
     runs-on: ubuntu-latest
     permissions:

@@ -62,9 +62,15 @@ const StoreItem = ({
   bannerWhiteSrc,
   bannerBlueSrc,
 }: Props) => {
+  const urlParams = useMemo(
+    () => new URLSearchParams(window.location.search),
+    []
+  );
   const [productInfo, setProductInfo] = useState<Product>();
-  const [selectedVariantId, setSelectedVariantId] = useState('');
-  const [quantity, setQuantity] = useState('1');
+  const [selectedVariantId, setSelectedVariantId] = useState(
+    urlParams.get('variant') ?? ''
+  );
+  const [quantity, setQuantity] = useState(urlParams.get('quantity') ?? '1');
   const [checkoutMode, setCheckoutMode] = useState<CheckoutMode>(
     CheckoutMode.ILLINOIS
   );
@@ -250,7 +256,8 @@ const StoreItem = ({
   const handleLoginForPricing = async () => {
     if (!pca) return;
     try {
-      const accessToken = await getUserAccessToken(pca);
+      const returnPath = `/store?id=${id}${selectedVariantId ? `&variant=${encodeURIComponent(selectedVariantId)}` : ''}${quantity !== '1' ? `&quantity=${encodeURIComponent(quantity)}` : ''}`;
+      const accessToken = await getUserAccessToken(pca, returnPath);
       if (accessToken) {
         const account =
           pca.getActiveAccount() || pca.getAllAccounts()[0] || null;
@@ -952,6 +959,7 @@ const StoreItem = ({
                         defaultText={`Purchase for $${isPaidMember && memberPrice !== null ? memberPrice.toFixed(2) : (nonMemberPrice?.toFixed(2) ?? '0.00')}`}
                         workingText="Processing..."
                         onAction={handleIllinoisCheckout}
+                        returnPath={`/store?id=${id}&variant=${encodeURIComponent(selectedVariantId)}&quantity=${encodeURIComponent(quantity)}&authButtonClick`}
                       />
                     ) : (
                       <button

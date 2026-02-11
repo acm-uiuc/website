@@ -23,7 +23,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 24.x
+          node-version: lts/*
           cache: 'yarn'
 
       - name: Restore Yarn Cache
@@ -92,6 +92,7 @@ jobs:
           edit-mode: 'replace'
 
   e2e:
+    name: Run Playwright tests
     if: github.event_name == 'pull_request'
     needs: deploy
     runs-on: ubuntu-latest
@@ -107,7 +108,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 24.x
+          node-version: lts/*
           cache: 'yarn'
       - name: Validate deployment URL
         run: |
@@ -137,6 +138,7 @@ jobs:
           retention-days: 1
 
   check_formatting:
+    name: Check code formatting
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     permissions:
@@ -146,7 +148,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 24.x
+          node-version: lts/*
           cache: 'yarn'
       - name: Restore Yarn Cache
         uses: actions/cache@v4
@@ -159,15 +161,17 @@ jobs:
       - run: yarn format:check
 
   merge-reports:
+    name: Merge Playwright Reports
     if: ${{ !cancelled() }}
     needs: [e2e]
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
         with:
           node-version: lts/*
-
       - name: Install dependencies
         run: yarn -D
 

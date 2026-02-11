@@ -11,11 +11,22 @@ import { LoadingSpinner } from '../components/generic/LargeLoadingSpinner';
   import { initMsalClient } from '../authConfig';
 
   const pca = await initMsalClient();
-  const result = await pca.handleRedirectPromise();
-  if (result) {
-    pca.setActiveAccount(result.account);
-    window.location.replace(result.state || '/');
-  } else {
+  try {
+    const result = await pca.handleRedirectPromise();
+    if (result) {
+      pca.setActiveAccount(result.account);
+      const destination = result.state || '/';
+      // Only allow relative redirects to prevent open redirect
+      if (destination.startsWith('/') && !destination.startsWith('//')) {
+        window.location.replace(destination);
+      } else {
+        window.location.replace('/');
+      }
+    } else {
+      window.location.replace('/');
+    }
+  } catch (e) {
+    console.error('Authentication redirect failed:', e);
     window.location.replace('/');
   }
 </script>

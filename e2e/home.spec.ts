@@ -5,10 +5,11 @@ test.describe('Homepage', () => {
     await page.goto('/');
   });
 
-  test('hero renders with heading', async ({ page }) => {
-    const heading = page.locator('h1');
-    await expect(heading).toContainText("UIUC's Hub for");
-    await expect(heading).toContainText('Everything CS.');
+  test('Hero renders with heading', async ({ page }) => {
+    const heading = page.getByRole('heading', {
+      name: "UIUC's Hub for Everything CS.",
+    });
+    expect(heading).toBeVisible();
   });
 
   test('Join ACM and Donate buttons are visible', async ({ page }) => {
@@ -28,5 +29,11 @@ test.describe('Homepage', () => {
     for (const sponsor of sponsors) {
       await expect(page.locator(`img[src*="${sponsor}"]`)).toBeVisible();
     }
+  });
+  test('Copyright section is visible', async ({ page }) => {
+    const currentYear = new Date().getFullYear();
+    await expect(
+      page.getByText(`© ${currentYear} ACM @ UIUC. All rights reserved.`)
+    ).toBeVisible();
   });
 });

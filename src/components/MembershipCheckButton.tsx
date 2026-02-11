@@ -23,6 +23,7 @@ export default function MembershipCheckButton({ class: className }: Props) {
         icon={IdCard}
         defaultText="Check Membership"
         workingText="Checking..."
+        returnPath={`${window.location.href}?authButtonClick`}
         onAction={async (accessToken, showError) => {
           try {
             const response = await membershipApiClient.apiV1MembershipGet({

@@ -1,7 +1,7 @@
 import type { IPublicClientApplication } from '@azure/msal-browser';
 import type { LucideIcon } from 'lucide-react';
 import { Loader2 } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { getUserAccessToken, initMsalClient } from '../authConfig.ts';
 import ErrorPopup, { useErrorPopup } from './ErrorPopup.tsx';
@@ -19,6 +19,7 @@ interface AuthActionButtonProps {
     accessToken: string,
     showError: ShowErrorFunction
   ) => Promise<void>;
+  returnPath?: string;
   buttonClassName?: string;
   bgColorClass?: string;
   textColorClass?: string;
@@ -30,6 +31,7 @@ export default function AuthActionButton({
   defaultText,
   workingText,
   onAction,
+  returnPath,
   buttonClassName,
   bgColorClass = 'bg-tangerine-600 hover:bg-tangerine-700',
   textColorClass = 'text-white',
@@ -39,9 +41,23 @@ export default function AuthActionButton({
   const [isWorking, setIsWorking] = useState(false);
   const [pca, setPca] = useState<IPublicClientApplication>();
 
+  const autoTriggered = useRef(false);
+
   useEffect(() => {
     initMsalClient().then(setPca).catch(console.error);
   }, []);
+
+  useEffect(() => {
+    if (!pca || autoTriggered.current) return;
+    const params = new URLSearchParams(window.location.search);
+    if (!params.has('authButtonClick')) return;
+    autoTriggered.current = true;
+    params.delete('authButtonClick');
+    const qs = params.toString();
+    const newUrl = window.location.pathname + (qs ? `?${qs}` : '');
+    window.history.replaceState({}, '', newUrl);
+    handleClick();
+  }, [pca]);
 
   const handleClick = async () => {
     if (!pca) {
@@ -49,7 +65,7 @@ export default function AuthActionButton({
     }
     setIsWorking(true);
     try {
-      const accessToken = await getUserAccessToken(pca);
+      const accessToken = await getUserAccessToken(pca, returnPath);
       await onAction(accessToken, showError);
     } finally {
       setIsWorking(false);

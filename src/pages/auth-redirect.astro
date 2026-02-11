@@ -1,5 +1,21 @@
 ---
 import InteractiveLayout from '../layouts/InteractiveLayout.astro';
+import { LoadingSpinner } from '../components/generic/LargeLoadingSpinner';
 ---
 
-<InteractiveLayout title="Signing you in..." />
+<InteractiveLayout title="Signing you in...">
+  <LoadingSpinner />
+</InteractiveLayout>
+
+<script>
+  import { initMsalClient } from '../authConfig';
+
+  const pca = await initMsalClient();
+  const result = await pca.handleRedirectPromise();
+  if (result) {
+    pca.setActiveAccount(result.account);
+    window.location.replace(result.state || '/');
+  } else {
+    window.location.replace('/');
+  }
+</script>

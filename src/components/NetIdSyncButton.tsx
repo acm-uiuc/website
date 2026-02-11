@@ -34,6 +34,7 @@ export default function NetIdSyncButton() {
         icon={RefreshCcw}
         defaultText="Sync Identity"
         workingText="Syncing..."
+        returnPath="/admin/sync?authButtonClick"
         onAction={async (accessToken, showError) => {
           try {
             await genericApiClient.apiV1SyncIdentityPostRaw({

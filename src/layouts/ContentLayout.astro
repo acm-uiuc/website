@@ -54,11 +54,17 @@ const { title, description, hideTitleOnPage } = props;
               <div class="grid-pattern absolute inset-0" />
               <div class="relative z-10 container mx-auto px-6 sm:px-6 lg:px-8 pb-3 lg:pb-6">
                 <div class="max-w-4xl">
-                  <h1 class="text-3xl font-bold tracking-tight text-white lg:text-5xl">
+                  <h1
+                    class="text-3xl font-bold tracking-tight text-white lg:text-5xl"
+                    data-testid="content-title"
+                  >
                     {title}
                   </h1>
                   {description && (
-                    <p class="header-description mt-4 max-w-5xl text-lg lg:text-xl">
+                    <p
+                      class="header-description mt-4 max-w-5xl text-lg lg:text-xl"
+                      data-testid="content-description"
+                    >
                       {description}
                     </p>
                   )}

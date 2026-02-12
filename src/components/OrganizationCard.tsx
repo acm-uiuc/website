@@ -61,6 +61,14 @@ const OrganizationCard = ({
     <div
       className={`flip-card group animate-fade-up`}
       style={{ animationDelay: `${index * 50}ms` }}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          (e.currentTarget as HTMLElement).click();
+        }
+      }}
       onClick={() => {
         const next = !isFlipped;
         if (next) {
@@ -119,10 +127,12 @@ const OrganizationCard = ({
               <div className="flex items-center justify-center gap-2">
                 {allLinks.map((link) => (
                   <a
-                    key={`${organization.id}-${link.type}`}
+                    key={`${organization.id}-${link.type}-${link.url}`}
                     href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    {...(link.type !== 'EMAIL' && {
+                      target: '_blank',
+                      rel: 'noopener noreferrer',
+                    })}
                     title={toTitleCase(link.type)}
                     className="rounded-full p-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-navy-700"
                     onClick={(e) => e.stopPropagation()}
@@ -144,7 +154,7 @@ const OrganizationCard = ({
 
         {/* Back face */}
         <div
-          className="flip-card-back relative rounded-xl border border-gray-200 border-t-2 border-t-transparent bg-white p-6 text-center shadow-md"
+          className={`flip-card-back relative rounded-xl border border-gray-200 border-t-2 border-t-transparent bg-white p-6 text-center shadow-md transition-colors duration-200 hover:shadow-xl ${topBorderColors[organization.type] || ''}`}
           style={showBack ? { visibility: 'visible' } : undefined}
           aria-hidden={isFlipped ? undefined : true}
         >

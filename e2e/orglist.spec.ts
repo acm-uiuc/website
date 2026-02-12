@@ -4,6 +4,39 @@ import { getOrgsByType, OrgType } from '@acm-uiuc/js-shared';
 const sigs = getOrgsByType(OrgType.SIG);
 const committees = getOrgsByType(OrgType.COMMITTEE);
 
+const mockOrgs = [
+  {
+    id: 'S01',
+    name: 'TestSIG',
+    type: 'sig',
+    description: 'A test SIG',
+    email: 'test@example.com',
+    website: 'https://example.com',
+    leads: [
+      {
+        username: 'loba1',
+        name: 'Nikolai Lobachevsky',
+        title: 'Lead',
+        nonVotingMember: false,
+      },
+      {
+        username: 'euler2',
+        name: 'Leonard Euler',
+        title: 'Lead',
+        nonVotingMember: false,
+      },
+      { username: 'devktest3', title: 'Treasurer', nonVotingMember: true },
+    ],
+  },
+  {
+    id: 'S02',
+    name: 'NoLeadsSIG',
+    type: 'sig',
+    description: 'A SIG with no leads',
+    leads: [],
+  },
+];
+
 test.describe('Org list pre-compilation', () => {
   test('SSG cards visible while API is pending', async ({ page }) => {
     // Hold the API request open so it never resolves
@@ -148,5 +181,113 @@ test.describe('Org list pre-compilation', () => {
       const text = await visibleCards.nth(i).textContent();
       expect(text?.toLowerCase()).toContain('infrastructure committee');
     }
+  });
+});
+
+test.describe('Organization card flip', () => {
+  test('clicking a card flips it to show leads', async ({ page }) => {
+    await page.goto('/');
+
+    const card = page.locator('.flip-card').first();
+
+    // Back face should be hidden before flip
+    await expect(card.locator('.flip-card-back')).toBeHidden();
+
+    // Click to flip
+    await card.click();
+    await page.waitForTimeout(700);
+
+    // Back face should now be visible with lead data
+    const backFace = card.locator('.flip-card-back');
+    await expect(backFace).toBeVisible();
+    await expect(backFace.getByText('Leadership')).toBeVisible();
+  });
+
+  test('clicking the back flips the card back to front', async ({ page }) => {
+    await page.goto('/');
+
+    const card = page.locator('.flip-card').first();
+
+    // Flip to back
+    await card.click();
+    await page.waitForTimeout(700);
+    await expect(card.locator('.flip-card-back')).toBeVisible();
+
+    // Flip back to front
+    await card.click();
+    await page.waitForTimeout(700);
+
+    await expect(card.locator('.flip-card-front h3')).toBeVisible();
+    await expect(card.locator('.flip-card-back')).toBeHidden();
+  });
+
+  test('clicking social links does not flip the card', async ({ page }) => {
+    await page.goto('/');
+
+    const card = page.locator('.flip-card').first();
+    // Click a link inside the card (stopPropagation should prevent flip)
+    const link = card.locator('.flip-card-front a').first();
+    await expect(link).toBeVisible();
+    await link.click();
+
+    // Card should NOT have flipped
+    await expect(card.locator('.flip-card-back')).toBeHidden();
+  });
+
+  test('flip card shows tap to flip back hint', async ({ page }) => {
+    await page.goto('/');
+
+    const card = page.locator('.flip-card').first();
+    await card.click();
+    await page.waitForTimeout(700);
+
+    await expect(
+      card.locator('.flip-card-back').getByText('Tap to flip back')
+    ).toBeVisible();
+  });
+
+  test('leads without a name fall back to username', async ({ page }) => {
+    await page.route('**/api/v1/organizations', (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify(mockOrgs),
+      })
+    );
+    await page.goto('/');
+    await expect(
+      page.locator('[data-testid="org-grid"]').getByText('TestSIG')
+    ).toBeVisible();
+
+    const card = page.locator('.flip-card').first();
+    await card.click();
+    await page.waitForTimeout(700);
+
+    const backFace = card.locator('.flip-card-back');
+    // devktest3 has no name, should show username
+    await expect(backFace.getByText('devktest3')).toBeVisible();
+    await expect(backFace.getByText('Treasurer')).toBeVisible();
+  });
+
+  test('card with no leads shows fallback message', async ({ page }) => {
+    await page.route('**/api/v1/organizations', (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify(mockOrgs),
+      })
+    );
+    await page.goto('/');
+    await expect(
+      page.locator('[data-testid="org-grid"]').getByText('TestSIG')
+    ).toBeVisible();
+
+    const card = page.locator('.flip-card').nth(1);
+    await card.click();
+    await page.waitForTimeout(700);
+
+    await expect(
+      card.locator('.flip-card-back').getByText('No leads listed')
+    ).toBeVisible();
   });
 });

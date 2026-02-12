@@ -4,7 +4,7 @@ import {
   SiInstagram,
   SiSlack,
 } from '@icons-pack/react-simple-icons';
-import { Globe, Link, Mail } from 'lucide-react';
+import { Globe, Link, Mail, RotateCcw } from 'lucide-react';
 import type { JSX } from 'preact/jsx-runtime';
 import { useState } from 'preact/hooks';
 
@@ -133,11 +133,18 @@ const OrganizationCard = ({
               </div>
             </div>
           )}
+          <span className="absolute bottom-3 right-3 flex items-center gap-1 rounded-full bg-gray-100 px-2 py-1 text-gray-400 animate-flip-hint">
+            <span className="text-[10px] font-medium sm:hidden">Tap</span>
+            <span className="text-[10px] font-medium hidden sm:inline">
+              Click
+            </span>
+            <RotateCcw size={12} />
+          </span>
         </div>
 
         {/* Back face */}
         <div
-          className="flip-card-back rounded-xl border border-gray-200 border-t-2 border-t-transparent bg-white p-6 text-center shadow-md"
+          className="flip-card-back relative rounded-xl border border-gray-200 border-t-2 border-t-transparent bg-white p-6 text-center shadow-md"
           style={showBack ? { visibility: 'visible' } : undefined}
           aria-hidden={isFlipped ? undefined : true}
         >
@@ -145,9 +152,9 @@ const OrganizationCard = ({
             Leadership
           </h3>
 
-          <div className="flex-1 overflow-y-auto">
+          <div className="flex-1 overflow-y-auto mb-6">
             {leads.length > 0 ? (
-              <ul className="space-y-2 text-left">
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-left">
                 {leads.map((lead) => (
                   <li
                     key={lead.username}
@@ -169,7 +176,13 @@ const OrganizationCard = ({
             )}
           </div>
 
-          <p className="mt-4 text-xs text-gray-400">Tap to flip back</p>
+          <span className="absolute bottom-3 right-3 flex items-center gap-1 rounded-full bg-gray-100 px-2 py-1 text-gray-400">
+            <span className="text-[10px] font-medium sm:hidden">Tap</span>
+            <span className="text-[10px] font-medium hidden sm:inline">
+              Click
+            </span>
+            <RotateCcw size={12} />
+          </span>
         </div>
       </div>
     </div>

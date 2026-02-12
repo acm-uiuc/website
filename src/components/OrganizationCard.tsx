@@ -59,7 +59,7 @@ const OrganizationCard = ({
 
   return (
     <div
-      className={`flip-card animate-fade-up ${topBorderColors[organization.type] || ''}`}
+      className={`flip-card group animate-fade-up`}
       style={{ animationDelay: `${index * 50}ms` }}
       onClick={() => {
         const next = !isFlipped;
@@ -88,7 +88,7 @@ const OrganizationCard = ({
       >
         {/* Front face */}
         <div
-          className={`flip-card-front group relative flex h-full flex-col rounded-xl border border-gray-200 border-t-2 border-t-transparent bg-white p-6 text-center shadow-md transition-colors duration-200 hover:border-navy-300 hover:shadow-xl ${topBorderColors[organization.type] || ''}`}
+          className={`flip-card-front relative flex h-full flex-col rounded-xl border border-gray-200 border-t-2 border-t-transparent bg-white p-6 text-center shadow-md transition-colors duration-200 hover:shadow-xl ${topBorderColors[organization.type] || ''}`}
           aria-hidden={isFlipped ? true : undefined}
         >
           <div className="mb-4">

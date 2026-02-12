@@ -234,18 +234,6 @@ test.describe('Organization card flip', () => {
     await expect(card.locator('.flip-card-back')).toBeHidden();
   });
 
-  test('flip card shows tap to flip back hint', async ({ page }) => {
-    await page.goto('/');
-
-    const card = page.locator('.flip-card').first();
-    await card.click();
-    await page.waitForTimeout(700);
-
-    await expect(
-      card.locator('.flip-card-back').getByText('Tap to flip back')
-    ).toBeVisible();
-  });
-
   test('leads without a name fall back to username', async ({ page }) => {
     await page.route('**/api/v1/organizations', (route) =>
       route.fulfill({

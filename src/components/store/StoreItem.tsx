@@ -15,7 +15,7 @@ import ErrorPopup, { useErrorPopup } from '../ErrorPopup';
 import ReactNavbar from '../generic/ReactNavbar';
 import { LoadingSpinner } from '../generic/LargeLoadingSpinner';
 import AuthActionButton, { type ShowErrorFunction } from '../AuthActionButton';
-import { Turnstile } from '@marsidev/react-turnstile';
+import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile';
 import type {
   IPublicClientApplication,
   AccountInfo,
@@ -91,6 +91,7 @@ const StoreItem = ({
   const activeMembershipKeyRef = useRef<string | null>(null);
   const membershipCache = useRef<Map<string, boolean>>(new Map());
 
+  const turnstileRef = useRef<TurnstileInstance>(null);
   const { error, showError, clearError } = useErrorPopup();
 
   const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY!;
@@ -106,6 +107,13 @@ const StoreItem = ({
       })
       .catch(console.error);
   }, []);
+
+  // If there is only one variant, select it by default.
+  useEffect(() => {
+    if (!selectedVariantId && productInfo?.variants.length === 1) {
+      setSelectedVariantId(productInfo.variants[0].variantId ?? '');
+    }
+  }, [productInfo]);
 
   // Check membership status with specific lists (with caching)
   const checkMembershipStatus = useCallback(
@@ -935,11 +943,18 @@ const StoreItem = ({
 
                   <div className="w-full">
                     <Turnstile
+                      ref={turnstileRef}
                       id={id}
                       siteKey={turnstileSiteKey}
                       onSuccess={setTurnstileToken}
-                      onExpire={() => setTurnstileToken(undefined)}
-                      onError={() => setTurnstileToken(undefined)}
+                      onExpire={() => {
+                        setTurnstileToken(undefined);
+                        turnstileRef.current?.reset();
+                      }}
+                      onError={() => {
+                        setTurnstileToken(undefined);
+                        turnstileRef.current?.reset();
+                      }}
                       options={{
                         size: 'flexible',
                         theme: 'light',

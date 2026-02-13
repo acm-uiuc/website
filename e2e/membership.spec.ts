@@ -6,14 +6,18 @@ test.describe('Membership Purchase', () => {
   });
 
   test('Page renders with heading and perks', async ({ page }) => {
-    const heading = page.locator('h1');
-    await expect(heading).toContainText('Become a Paid Member');
+    const heading = page.getByRole('heading', {
+      name: /Become a Paid Member/i,
+    });
+    await expect(heading).toBeVisible();
 
     const perksList = page.getByTestId('membership-perks');
     await expect(perksList).toBeVisible();
+
     const listItems = perksList.locator('li');
-    expect((await listItems.all()).length).toBeGreaterThan(0);
+    await expect(listItems).not.toHaveCount(0);
   });
+
   test('Page provides purchase button which leads to login redirect', async ({
     page,
   }) => {

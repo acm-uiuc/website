@@ -6,9 +6,10 @@ test.describe('Homepage', () => {
   });
 
   test('hero renders with heading', async ({ page }) => {
-    const heading = page.locator('h1');
-    await expect(heading).toContainText("UIUC's Hub for");
-    await expect(heading).toContainText('Everything CS.');
+    const heading = page.getByRole('heading', {
+      name: /UIUC's Hub for Everything CS\./i,
+    });
+    await expect(heading).toBeVisible();
   });
 
   test('Join ACM and Donate buttons are visible', async ({ page }) => {

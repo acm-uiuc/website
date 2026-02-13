@@ -4,6 +4,7 @@ import { useEffect, useState } from 'preact/hooks';
 import { eventsApiClient } from '../api';
 import { transformEventsApiDates } from '../api/events';
 import type { Event } from '../types/events';
+import { Temporal } from 'temporal-polyfill';
 
 function formatDate(dateStr: string): string {
   const date = new Date(dateStr);
@@ -146,9 +147,17 @@ const UpcomingEvents = () => {
     const fetchEvents = async () => {
       try {
         const response = (
-          await eventsApiClient.apiV1EventsGet({ upcomingOnly: true })
+          await eventsApiClient.apiV1EventsGet({
+            upcomingOnly: true,
+            featuredOnly: true,
+          })
         )
           .filter((x) => x.featured)
+          .sort((a, b) => {
+            const aStart = Temporal.PlainDateTime.from(a.start);
+            const bStart = Temporal.PlainDateTime.from(b.start);
+            return Temporal.PlainDateTime.compare(aStart, bStart);
+          })
           .slice(0, 3);
         setFeaturedEvents(transformEventsApiDates(response));
       } catch (error) {
@@ -171,7 +180,7 @@ const UpcomingEvents = () => {
 
   return (
     <div
-      className={`grid grid-cols-1 gap-4 sm:grid-cols-${Math.min(featuredEvents.length, 2)} md:grid-cols-${Math.min(featuredEvents.length, 3)}`}
+      className={`grid grid-cols-1 gap-4 ${featuredEvents.length == 2 && 'md:grid-cols-2'} lg:grid-cols-${Math.min(featuredEvents.length, 3)}`}
     >
       {featuredEvents.map((event) => (
         <EventCard event={event} />

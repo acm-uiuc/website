@@ -1,5 +1,32 @@
 ---
 import InteractiveLayout from '../layouts/InteractiveLayout.astro';
+import { LoadingSpinner } from '../components/generic/LargeLoadingSpinner';
 ---
 
-<InteractiveLayout title="Signing you in..." />
+<InteractiveLayout title="Signing you in...">
+  <LoadingSpinner />
+</InteractiveLayout>
+
+<script>
+  import { initMsalClient } from '../authConfig';
+
+  const pca = await initMsalClient();
+  try {
+    const result = await pca.handleRedirectPromise();
+    if (result) {
+      pca.setActiveAccount(result.account);
+      const destination = result.state || '/';
+      // Only allow relative redirects to prevent open redirect
+      if (destination.startsWith('/') && !destination.startsWith('//')) {
+        window.location.replace(destination);
+      } else {
+        window.location.replace('/');
+      }
+    } else {
+      window.location.replace('/');
+    }
+  } catch (e) {
+    console.error('Authentication redirect failed:', e);
+    window.location.replace('/');
+  }
+</script>

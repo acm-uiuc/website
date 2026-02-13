@@ -29,4 +29,10 @@ test.describe('Homepage', () => {
       await expect(page.locator(`img[src*="${sponsor}"]`)).toBeVisible();
     }
   });
+  test('Copyright section is visible', async ({ page }) => {
+    const currentYear = new Date().getFullYear();
+    await expect(
+      page.getByText(`© ${currentYear} ACM @ UIUC. All rights reserved.`)
+    ).toBeVisible();
+  });
 });

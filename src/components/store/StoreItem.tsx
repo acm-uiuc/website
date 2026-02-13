@@ -15,7 +15,7 @@ import ErrorPopup, { useErrorPopup } from '../ErrorPopup';
 import ReactNavbar from '../generic/ReactNavbar';
 import { LoadingSpinner } from '../generic/LargeLoadingSpinner';
 import AuthActionButton, { type ShowErrorFunction } from '../AuthActionButton';
-import { Turnstile } from '@marsidev/react-turnstile';
+import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile';
 import type {
   IPublicClientApplication,
   AccountInfo,
@@ -62,9 +62,15 @@ const StoreItem = ({
   bannerWhiteSrc,
   bannerBlueSrc,
 }: Props) => {
+  const urlParams = useMemo(
+    () => new URLSearchParams(window.location.search),
+    []
+  );
   const [productInfo, setProductInfo] = useState<Product>();
-  const [selectedVariantId, setSelectedVariantId] = useState('');
-  const [quantity, setQuantity] = useState('1');
+  const [selectedVariantId, setSelectedVariantId] = useState(
+    urlParams.get('variant') ?? ''
+  );
+  const [quantity, setQuantity] = useState(urlParams.get('quantity') ?? '1');
   const [checkoutMode, setCheckoutMode] = useState<CheckoutMode>(
     CheckoutMode.ILLINOIS
   );
@@ -85,6 +91,7 @@ const StoreItem = ({
   const activeMembershipKeyRef = useRef<string | null>(null);
   const membershipCache = useRef<Map<string, boolean>>(new Map());
 
+  const turnstileRef = useRef<TurnstileInstance>(null);
   const { error, showError, clearError } = useErrorPopup();
 
   const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY!;
@@ -100,6 +107,13 @@ const StoreItem = ({
       })
       .catch(console.error);
   }, []);
+
+  // If there is only one variant, select it by default.
+  useEffect(() => {
+    if (!selectedVariantId && productInfo?.variants.length === 1) {
+      setSelectedVariantId(productInfo.variants[0].variantId ?? '');
+    }
+  }, [productInfo]);
 
   // Check membership status with specific lists (with caching)
   const checkMembershipStatus = useCallback(
@@ -250,7 +264,8 @@ const StoreItem = ({
   const handleLoginForPricing = async () => {
     if (!pca) return;
     try {
-      const accessToken = await getUserAccessToken(pca);
+      const returnPath = `/store?id=${id}${selectedVariantId ? `&variant=${encodeURIComponent(selectedVariantId)}` : ''}${quantity !== '1' ? `&quantity=${encodeURIComponent(quantity)}` : ''}`;
+      const accessToken = await getUserAccessToken(pca, returnPath);
       if (accessToken) {
         const account =
           pca.getActiveAccount() || pca.getAllAccounts()[0] || null;
@@ -928,11 +943,18 @@ const StoreItem = ({
 
                   <div className="w-full">
                     <Turnstile
+                      ref={turnstileRef}
                       id={id}
                       siteKey={turnstileSiteKey}
                       onSuccess={setTurnstileToken}
-                      onExpire={() => setTurnstileToken(undefined)}
-                      onError={() => setTurnstileToken(undefined)}
+                      onExpire={() => {
+                        setTurnstileToken(undefined);
+                        turnstileRef.current?.reset();
+                      }}
+                      onError={() => {
+                        setTurnstileToken(undefined);
+                        turnstileRef.current?.reset();
+                      }}
                       options={{
                         size: 'flexible',
                         theme: 'light',
@@ -952,6 +974,7 @@ const StoreItem = ({
                         defaultText={`Purchase for $${isPaidMember && memberPrice !== null ? memberPrice.toFixed(2) : (nonMemberPrice?.toFixed(2) ?? '0.00')}`}
                         workingText="Processing..."
                         onAction={handleIllinoisCheckout}
+                        returnPath={`/store?id=${id}&variant=${encodeURIComponent(selectedVariantId)}&quantity=${encodeURIComponent(quantity)}&authButtonClick`}
                       />
                     ) : (
                       <button

@@ -23,6 +23,7 @@ export default function MembershipPurchaseButton({ class: className }: Props) {
         icon={ShoppingCart}
         defaultText="Purchase Membership"
         workingText="Loading..."
+        returnPath="/membership?authButtonClick"
         onAction={async (accessToken, showError) => {
           try {
             const checkoutUrl =

@@ -1,5 +1,11 @@
 import { test, expect } from '@playwright/test';
 
+const internalPages = [
+  { href: '/about', heading: /About/i },
+  { href: '/calendar', heading: /Calendar/i },
+  { href: '/store', heading: /All Products/i },
+];
+
 test.describe('Navigation', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
@@ -24,21 +30,16 @@ test.describe('Navigation', () => {
     await expect(page.locator('nav a[href*="illinoiscs.wiki"]')).toBeVisible();
   });
 
-  test('internal nav links navigate to correct pages', async ({ page }) => {
-    const pages = [
-      { href: '/about', heading: /About/i },
-      { href: '/calendar', heading: /Calendar/i },
-    ];
-
-    for (const p of pages) {
+  for (const p of internalPages) {
+    test(`Internal nav link navigates to ${p.href}`, async ({ page }) => {
       await page.goto('/');
       await page.locator(`nav a[href="${p.href}"]`).click();
       await expect(page).toHaveURL(new RegExp(p.href));
       await expect(
         page.getByRole('heading', { name: p.heading }).first()
       ).toBeVisible();
-    }
-  });
+    });
+  }
 
   test('Join Now button opens Join modal', async ({ page }) => {
     await page.getByRole('button', { name: /Join Now/i }).click();

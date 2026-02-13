@@ -35,7 +35,8 @@ export default function CalendarControls({
 
   function changeDate(offset: number) {
     const unit = view === Views.AGENDA ? Views.MONTH : view;
-    const candidate = localizer.add(displayDate, offset, unit as string);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const candidate = localizer.add(displayDate, offset, unit as any);
     if (candidate > maxDate) {
       setDisplayDate(maxDate);
     } else {
@@ -63,6 +64,7 @@ export default function CalendarControls({
         <button
           onClick={() => setDisplayDate(new Date())}
           className="hidden rounded-md bg-navy-800 px-3 py-1.5 text-sm font-medium text-white hover:bg-navy-700 md:block"
+          data-testid="calendar-today"
         >
           Today
         </button>
@@ -70,6 +72,7 @@ export default function CalendarControls({
           <button
             onClick={() => changeDate(-1)}
             className="rounded-l-md bg-navy-800 p-2 text-white hover:bg-navy-700"
+            data-testid="calendar-back"
           >
             <ChevronLeft size={16} />
           </button>
@@ -77,6 +80,7 @@ export default function CalendarControls({
             onClick={() => changeDate(1)}
             disabled={nextDisabled}
             className="rounded-r-md bg-navy-800 p-2 text-white hover:bg-navy-700 disabled:opacity-50"
+            data-testid="calendar-forward"
           >
             <ChevronRight size={16} />
           </button>

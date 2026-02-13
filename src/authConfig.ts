@@ -1,9 +1,8 @@
 import {
-  BrowserAuthError,
   createStandardPublicClientApplication,
   InteractionRequiredAuthError,
   type IPublicClientApplication,
-  type PopupRequest,
+  type RedirectRequest,
 } from '@azure/msal-browser';
 
 export const loginRequest = {
@@ -27,32 +26,20 @@ export const initMsalClient = async () => {
 };
 
 export const getUserAccessToken = async (
-  pca: IPublicClientApplication
+  pca: IPublicClientApplication,
+  returnPath?: string
 ): Promise<string> => {
   const account = pca.getActiveAccount() || pca.getAllAccounts()[0];
-  const request: PopupRequest = {
+  const request: RedirectRequest = {
     ...loginRequest,
     account: account || undefined,
     redirectUri: '/auth-redirect',
+    state: returnPath ?? window.location.pathname + window.location.search,
   };
 
   if (!account) {
-    try {
-      const response = await pca.loginPopup(request);
-      pca.setActiveAccount(response.account);
-      return response.accessToken;
-    } catch (error) {
-      if (
-        error instanceof BrowserAuthError &&
-        error.errorCode === 'popup_window_error'
-      ) {
-        alert(
-          'Your browser is blocking popups. Please allow popups for this site and then try logging in again.'
-        );
-      }
-      console.error('MSAL login failed:', error);
-      throw error;
-    }
+    await pca.loginRedirect(request);
+    throw new Error('Redirecting to login');
   }
 
   try {
@@ -60,21 +47,8 @@ export const getUserAccessToken = async (
     return response.accessToken;
   } catch (e) {
     if (e instanceof InteractionRequiredAuthError) {
-      try {
-        const response = await pca.acquireTokenPopup(request);
-        return response.accessToken;
-      } catch (popupError) {
-        if (
-          popupError instanceof BrowserAuthError &&
-          popupError.errorCode === 'popup_window_error'
-        ) {
-          alert(
-            'Your browser is blocking popups, which are required for this action. Please allow popups for this site and try again.'
-          );
-        }
-        console.error('MSAL popup token acquisition failed:', popupError);
-        throw popupError;
-      }
+      await pca.acquireTokenRedirect(request);
+      throw new Error('Redirecting to login', { cause: e });
     }
     throw e;
   }

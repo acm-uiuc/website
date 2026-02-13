@@ -4,7 +4,7 @@ import {
   SiInstagram,
   SiSlack,
 } from '@icons-pack/react-simple-icons';
-import { Globe, Link, Mail, RotateCcw } from 'lucide-react';
+import { Globe, Link, Mail, RefreshCcw } from 'lucide-react';
 import type { JSX } from 'preact/jsx-runtime';
 import { useState } from 'preact/hooks';
 
@@ -143,12 +143,8 @@ const OrganizationCard = ({
               </div>
             </div>
           )}
-          <span className="absolute bottom-3 right-3 flex items-center gap-1 rounded-full bg-gray-100 px-2 py-1 text-gray-400 animate-flip-hint">
-            <span className="text-[10px] font-medium sm:hidden">Tap</span>
-            <span className="text-[10px] font-medium hidden sm:inline">
-              Click
-            </span>
-            <RotateCcw size={12} />
+          <span className="absolute bottom-3 right-3 flex items-center justify-center h-6 w-6 rounded-full bg-gray-100 text-gray-400 animate-flip-hint">
+            <RefreshCcw size={12} />
           </span>
         </div>
 
@@ -170,7 +166,7 @@ const OrganizationCard = ({
                     key={lead.username}
                     className="rounded-lg bg-gray-50 px-3 py-2"
                   >
-                    <p className="text-sm font-medium text-navy-900">
+                    <p className="text-sm font-medium text-navy-900 overflow-scroll">
                       {lead.name || lead.username}
                     </p>
                     {lead.title && (
@@ -186,12 +182,8 @@ const OrganizationCard = ({
             )}
           </div>
 
-          <span className="absolute bottom-3 right-3 flex items-center gap-1 rounded-full bg-gray-100 px-2 py-1 text-gray-400">
-            <span className="text-[10px] font-medium sm:hidden">Tap</span>
-            <span className="text-[10px] font-medium hidden sm:inline">
-              Click
-            </span>
-            <RotateCcw size={12} />
+          <span className="absolute bottom-3 right-3 flex items-center justify-center h-6 w-6 rounded-full bg-gray-100 text-gray-400 animate-flip-hint">
+            <RefreshCcw size={12} />
           </span>
         </div>
       </div>

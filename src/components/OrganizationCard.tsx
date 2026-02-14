@@ -166,7 +166,7 @@ const OrganizationCard = ({
                     key={lead.username}
                     className="rounded-lg bg-gray-50 px-3 py-2"
                   >
-                    <p className="text-sm font-medium text-navy-900 overflow-scroll">
+                    <p className="text-sm font-medium text-navy-900 overflow-hidden">
                       {lead.name || lead.username}
                     </p>
                     {lead.title && (

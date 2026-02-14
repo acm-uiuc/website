@@ -6,7 +6,7 @@ test.describe('Identity Sync', () => {
   });
 
   test('Page renders with heading', async ({ page }) => {
-    const heading = page.locator('h1');
+    const heading = page.getByRole('heading', { name: /Sync Identity/i });
     await expect(heading).toContainText('Sync Identity');
     const desc = page.locator('p').first();
     await expect(desc).toContainText(

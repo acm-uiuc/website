@@ -17,6 +17,10 @@ const { initialOrgsList } = Astro.props;
 const organizations = initialOrgsList
   .filter((org) => org.type === 'sig' || org.type === 'committee')
   .sort((a, b) => a.id.localeCompare(b.id));
+// .map((org) => ({
+//   ...org,
+//   leads: (org.leads || []).filter((lead) => lead.name),
+// }));
 
 // Import all logo images from src/images/logos/
 const imageModules = import.meta.glob<{ default: ImageMetadata }>(

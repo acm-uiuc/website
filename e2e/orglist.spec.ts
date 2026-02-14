@@ -234,29 +234,6 @@ test.describe('Organization card flip', () => {
     await expect(card.locator('.flip-card-back')).toBeHidden();
   });
 
-  test('leads without a name fall back to username', async ({ page }) => {
-    await page.route('**/api/v1/organizations', (route) =>
-      route.fulfill({
-        status: 200,
-        contentType: 'application/json',
-        body: JSON.stringify(mockOrgs),
-      })
-    );
-    await page.goto('/');
-    await expect(
-      page.locator('[data-testid="org-grid"]').getByText('TestSIG')
-    ).toBeVisible();
-
-    const card = page.locator('.flip-card').first();
-    await card.click();
-    await page.waitForTimeout(700);
-
-    const backFace = card.locator('.flip-card-back');
-    // devktest3 has no name, should show username
-    await expect(backFace.getByText('devktest3')).toBeVisible();
-    await expect(backFace.getByText('Treasurer')).toBeVisible();
-  });
-
   test('card with no leads shows fallback message', async ({ page }) => {
     await page.route('**/api/v1/organizations', (route) =>
       route.fulfill({

@@ -55,7 +55,7 @@ const OrganizationCard = ({
       : []),
   ].filter((x) => Boolean(x) && x.type && x.url);
 
-  const leads = organization.leads || [];
+  const leads = (organization.leads || []).filter((x) => x.name);
 
   return (
     <div

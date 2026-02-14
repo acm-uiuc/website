@@ -37,7 +37,9 @@ test.describe('Membership Check', () => {
   });
 
   test('Page renders with heading', async ({ page }) => {
-    const heading = page.locator('h1');
+    const heading = page.getByRole('heading', {
+      name: /Check Paid Membership/i,
+    });
     await expect(heading).toContainText('Check Paid Membership');
   });
   test('Page provides check button which leads to login redirect', async ({

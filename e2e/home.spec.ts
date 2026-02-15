@@ -7,6 +7,7 @@ test.describe('Homepage', () => {
 
   test('hero renders with heading', async ({ page }) => {
     const heading = page.locator('h1');
+    await expect(page).toHaveTitle('ACM @ UIUC');
     await expect(heading).toContainText("UIUC's Hub for");
     await expect(heading).toContainText('Everything CS.');
   });

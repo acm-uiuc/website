@@ -13,6 +13,7 @@ const { title = 'ACM @ UIUC', description, contentType } = Astro.props;
   <link rel="sitemap" href="/sitemap-index.xml" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta property="og:title" content={title} />
+  <title>{title}</title>
   {description && <meta name="description" content={description} />}
   {description && <meta property="og:description" content={description} />}
   {contentType && <meta property="og:type" content={contentType} />}

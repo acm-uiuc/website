@@ -10,11 +10,10 @@ const { title = 'ACM @ UIUC', description, contentType } = Astro.props;
 <head>
   <meta charset="utf-8" />
   <link rel="icon" href="/favicon.ico" />
+  <link rel="sitemap" href="/sitemap-index.xml" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="generator" content={Astro.generator} />
-  <meta name="description" content={description} />
-  <title>{title}</title>
   <meta property="og:title" content={title} />
+  {description && <meta property="description" content={description} />}
   {description && <meta property="og:description" content={description} />}
   {contentType && <meta property="og:type" content={contentType} />}
 </head>

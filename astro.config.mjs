@@ -23,9 +23,15 @@ export default defineConfig({
   server: {
     port: 3000,
   },
-  integrations: [mdx(), icon(), preact({ compat: true }), compress(), sitemap({
-    filter: (page) => !page.startsWith('https://www.acm.illinois.edu/admin/')
-  })],
+  integrations: [
+    mdx(),
+    icon(),
+    preact({ compat: true }),
+    compress(),
+    sitemap({
+      filter: (page) => !page.startsWith('https://www.acm.illinois.edu/admin/'),
+    }),
+  ],
   experimental: {
     svgo: true,
   },

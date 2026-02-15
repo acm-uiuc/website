@@ -10,6 +10,7 @@ test.describe('Homepage', () => {
       name: /UIUC's Hub for Everything CS\./i,
     });
     await expect(heading).toBeVisible();
+    await expect(page).toHaveTitle('ACM @ UIUC');
   });
 
   test('Join ACM and Donate buttons are visible', async ({ page }) => {

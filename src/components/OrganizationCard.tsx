@@ -55,7 +55,9 @@ const OrganizationCard = ({
       : []),
   ].filter((x) => Boolean(x) && x.type && x.url);
 
-  const leads = (organization.leads || []).filter((x) => x.name);
+  const leads = (organization.leads || [])
+    .filter((x) => x.name)
+    .sort((a, b) => a.name.localeCompare(b.name));
 
   return (
     <div

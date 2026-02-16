@@ -152,7 +152,7 @@ const OrganizationCard = ({
 
         {/* Back face */}
         <div
-          className={`flip-card-back relative rounded-xl border border-gray-200 border-t-2 border-t-transparent bg-white p-6 text-center shadow-md transition-colors duration-200 hover:shadow-xl ${topBorderColors[organization.type] || ''}`}
+          className={`flip-card-back relative h-full flex flex-col rounded-xl border border-gray-200 border-t-2 border-t-transparent bg-white p-6 text-center shadow-md transition-colors duration-200 hover:shadow-xl ${topBorderColors[organization.type] || ''}`}
           style={showBack ? { visibility: 'visible' } : undefined}
           aria-hidden={isFlipped ? undefined : true}
         >

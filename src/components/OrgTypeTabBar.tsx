@@ -80,6 +80,11 @@ const OrgTypeTabBar = ({ initialCounts }: Props) => {
       <p className="mt-3 text-sm text-gray-500 max-w-2xl text-center">
         {activeTab.description}
       </p>
+      <p className="mt-1 text-xs text-gray-400">
+        <span className="sm:hidden">Tap</span>
+        <span className="hidden sm:inline">Click</span>
+        {' on a card to view leadership'}
+      </p>
     </div>
   );
 };

@@ -4,6 +4,8 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
+    ignore:
+      - dependency-name: '@icons-pack/react-simple-icons' # Slack icons were removed in newer versions
     groups:
       npm-all:
         patterns:

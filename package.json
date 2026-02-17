@@ -38,7 +38,7 @@
     "@azure/msal-react": "^3.0.25",
     "@iconify-json/lucide": "^1.2.90",
     "@iconify-json/simple-icons": "^1.2.70",
-    "@icons-pack/react-simple-icons": "^13.11.2",
+    "@icons-pack/react-simple-icons": "13.8.0",
     "@marsidev/react-turnstile": "^1.4.2",
     "@nanostores/preact": "^1.0.0",
     "astro-compress": "^2.3.9",

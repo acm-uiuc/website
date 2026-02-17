@@ -15,7 +15,7 @@ import ErrorPopup, { useErrorPopup } from '../ErrorPopup';
 import ReactNavbar from '../generic/ReactNavbar';
 import { LoadingSpinner } from '../generic/LargeLoadingSpinner';
 import AuthActionButton, { type ShowErrorFunction } from '../AuthActionButton';
-import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile';
+import TurnstileWidget, { useTurnstile } from '../TurnstileWidget';
 import type {
   IPublicClientApplication,
   AccountInfo,
@@ -77,7 +77,7 @@ const StoreItem = ({
   const [email, setEmail] = useState('');
   const [emailConfirm, setEmailConfirm] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [turnstileToken, setTurnstileToken] = useState<string>();
+  const turnstile = useTurnstile();
 
   // MSAL state
   const [pca, setPca] = useState<IPublicClientApplication>();
@@ -90,8 +90,6 @@ const StoreItem = ({
   const [membershipPreloaded, setMembershipPreloaded] = useState(false);
   const activeMembershipKeyRef = useRef<string | null>(null);
   const membershipCache = useRef<Map<string, boolean>>(new Map());
-
-  const turnstileRef = useRef<TurnstileInstance>(null);
   const { error, showError, clearError } = useErrorPopup();
 
   const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY!;
@@ -442,7 +440,8 @@ const StoreItem = ({
     accessToken: string,
     showError: ShowErrorFunction
   ) => {
-    if (!turnstileToken) {
+    const freshToken = await turnstile.ensureFreshToken();
+    if (!freshToken) {
       showError(400, 'Please complete the security verification.');
       return;
     }
@@ -461,7 +460,7 @@ const StoreItem = ({
       const syncPromise = syncIfRequired();
 
       const checkoutResponse = await storeApiClient.apiV1StoreCheckoutPost({
-        xTurnstileResponse: turnstileToken,
+        xTurnstileResponse: freshToken,
         xUiucToken: accessToken,
         apiV1StoreCheckoutPostRequest: {
           items: [
@@ -478,6 +477,7 @@ const StoreItem = ({
       await syncPromise;
       window.location.replace(checkoutResponse['checkoutUrl']);
     } catch (e) {
+      turnstile.resetToken();
       if (e instanceof ResponseError) {
         const response = await e.response.json();
         showError(
@@ -498,7 +498,8 @@ const StoreItem = ({
   const handleGuestCheckout = async () => {
     setIsLoading(true);
 
-    if (!turnstileToken) {
+    const freshToken = await turnstile.ensureFreshToken();
+    if (!freshToken) {
       showError(400, 'Please complete the security verification.');
       setIsLoading(false);
       return;
@@ -506,7 +507,7 @@ const StoreItem = ({
 
     try {
       const checkoutResponse = await storeApiClient.apiV1StoreCheckoutPost({
-        xTurnstileResponse: turnstileToken,
+        xTurnstileResponse: freshToken,
         apiV1StoreCheckoutPostRequest: {
           items: [
             {
@@ -522,6 +523,7 @@ const StoreItem = ({
       });
       window.location.replace(checkoutResponse['checkoutUrl']);
     } catch (e) {
+      turnstile.resetToken();
       if (e instanceof ResponseError) {
         const response = await e.response.json();
         showError(
@@ -942,23 +944,10 @@ const StoreItem = ({
                     )}
 
                   <div className="w-full">
-                    <Turnstile
-                      ref={turnstileRef}
+                    <TurnstileWidget
                       id={id}
                       siteKey={turnstileSiteKey}
-                      onSuccess={setTurnstileToken}
-                      onExpire={() => {
-                        setTurnstileToken(undefined);
-                        turnstileRef.current?.reset();
-                      }}
-                      onError={() => {
-                        setTurnstileToken(undefined);
-                        turnstileRef.current?.reset();
-                      }}
-                      options={{
-                        size: 'flexible',
-                        theme: 'light',
-                      }}
+                      turnstile={turnstile}
                       className="w-full"
                     />
                   </div>

@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@acm-uiuc/core-client@^4.5.0":
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/@acm-uiuc/core-client/-/core-client-4.5.0.tgz#9be711cd557b133be20c24374bac71a26103bb66"
-  integrity sha512-xSlB//UOtH43KghEu6L0fjw1ikiiCPDEYwxCfewtBafkdaDrzYLs4kqSqk+wgv0LerjXyqiYsxiIeJ8LLN7eUw==
+"@acm-uiuc/core-client@^4.6.0":
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/@acm-uiuc/core-client/-/core-client-4.6.0.tgz#0fb923c24bd55d1eace864615546ca132eea83cc"
+  integrity sha512-M4Ztwh1qfeQ7dH14hixtpsh5z5i6c58K4VkWN0P/ksDqKo9bfAu0T2Ryreq9/Q3u7vlhfZdH20730zldFUxdog==
 
 "@acm-uiuc/js-shared@^3.6.0":
   version "3.6.0"
@@ -768,17 +768,17 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/retry/-/retry-0.4.3.tgz#c2b9d2e374ee62c586d3adbea87199b1d7a7a6ba"
   integrity sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ==
 
-"@iconify-json/lucide@^1.2.90":
-  version "1.2.90"
-  resolved "https://registry.yarnpkg.com/@iconify-json/lucide/-/lucide-1.2.90.tgz#b3dc79a390b1868fa95f447cf6e3becb2435a762"
-  integrity sha512-dPn1pRhfBa9KR+EVpdyM1Rvw3T36hCKYxd6TxK1ifffiNt0f5yXx8ZVhqnzPH4Vkz87yLMj5xFCXomNrnzd2kQ==
+"@iconify-json/lucide@^1.2.91":
+  version "1.2.91"
+  resolved "https://registry.yarnpkg.com/@iconify-json/lucide/-/lucide-1.2.91.tgz#a1abac5976bdbaabcef540d378e75e4afa6ab4a4"
+  integrity sha512-8fuRiK+HiNRgCKMspn9UPsDpBw0TqVTIY0LOiDbMnFxOBwAulMXIl+SVOtp4LzxNvCXB5ofYffiiFIFDitqo7w==
   dependencies:
     "@iconify/types" "*"
 
-"@iconify-json/simple-icons@^1.2.70":
-  version "1.2.70"
-  resolved "https://registry.yarnpkg.com/@iconify-json/simple-icons/-/simple-icons-1.2.70.tgz#21941e2be1b67ebda9d12939da110356bfaa1493"
-  integrity sha512-CYNRCgN6nBTjN4dNkrBCjHXNR2e4hQihdsZUs/afUNFOWLSYjfihca4EFN05rRvDk4Xoy2n8tym6IxBZmcn+Qg==
+"@iconify-json/simple-icons@^1.2.71":
+  version "1.2.71"
+  resolved "https://registry.yarnpkg.com/@iconify-json/simple-icons/-/simple-icons-1.2.71.tgz#c1f0b403688b0bd4b49d24929ab1e6634bd31ccb"
+  integrity sha512-rNoDFbq1fAYiEexBvrw613/xiUOPEu5MKVV/X8lI64AgdTzLQUUemr9f9fplxUMPoxCBP2rWzlhOEeTHk/Sf0Q==
   dependencies:
     "@iconify/types" "*"
 
@@ -4702,10 +4702,10 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
-lucide-react@^0.564.0:
-  version "0.564.0"
-  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.564.0.tgz#128013d180343927192f6b0dc4d9beb778afc33b"
-  integrity sha512-JJ8GVTQqFwuliifD48U6+h7DXEHdkhJ/E87kksGByII3qHxtPciVb8T8woQONHBQgHVOl7rSMrrip3SeVNy7Fg==
+lucide-react@^0.574.0:
+  version "0.574.0"
+  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.574.0.tgz#1871f07319ec4119a748d65eda39e51d0f81d9d2"
+  integrity sha512-dJ8xb5juiZVIbdSn3HTyHsjjIwUwZ4FNwV0RtYDScOyySOeie1oXZTymST6YPJ4Qwt3Po8g4quhYl4OxtACiuQ==
 
 luxon@^3.2.1:
   version "3.7.2"

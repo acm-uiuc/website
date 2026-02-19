@@ -22,4 +22,9 @@ export default defineConfig({
       use: { browserName: 'webkit' },
     },
   ],
+  webServer: {
+    command: 'yarn run dev',
+    url: 'http://localhost:3000',
+    reuseExistingServer: !process.env.CI,
+  },
 });

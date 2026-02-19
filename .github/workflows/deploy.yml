@@ -94,7 +94,6 @@ jobs:
   e2e:
     name: Run Playwright tests
     if: github.event_name == 'pull_request'
-    needs: deploy
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -128,8 +127,6 @@ jobs:
       - name: Install Playwright dependencies
         run: npx playwright install --with-deps
       - run: yarn test:e2e --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
-        env:
-          PLAYWRIGHT_BASE_URL: ${{ needs.deploy.outputs.deployment-url }}
       - name: Upload blob report to GitHub Actions Artifacts
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4

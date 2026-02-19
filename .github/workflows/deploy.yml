@@ -11,6 +11,7 @@ on:
 
 jobs:
   deploy:
+    name: Deploy to Cloudflare Pages
     outputs:
       deployment-url: ${{ steps.deploy.outputs.deployment-url }}
     permissions:
@@ -94,7 +95,6 @@ jobs:
   e2e:
     name: Run Playwright tests
     if: github.event_name == 'pull_request'
-    needs: deploy
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -110,12 +110,6 @@ jobs:
         with:
           node-version: lts/*
           cache: 'yarn'
-      - name: Validate deployment URL
-        run: |
-          if [ -z "${{ needs.deploy.outputs.deployment-url }}" ]; then
-            echo "::error::deployment-url output is empty"
-            exit 1
-          fi
       - name: Restore Yarn Cache
         uses: actions/cache@v4
         with:
@@ -128,8 +122,6 @@ jobs:
       - name: Install Playwright dependencies
         run: npx playwright install --with-deps
       - run: yarn test:e2e --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
-        env:
-          PLAYWRIGHT_BASE_URL: ${{ needs.deploy.outputs.deployment-url }}
       - name: Upload blob report to GitHub Actions Artifacts
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
@@ -163,7 +155,7 @@ jobs:
 
   merge-reports:
     name: Merge Playwright Reports
-    if: ${{ github.event_name == 'pull_request' && !cancelled() }}
+    if: ${{ github.event_name == 'pull_request' && !failure() && !cancelled() }}
     needs: [e2e]
     runs-on: ubuntu-latest
     permissions:

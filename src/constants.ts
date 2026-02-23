@@ -1,6 +1,8 @@
 export const mailingListSubscriptionUrl =
   'https://listmonk.acm.illinois.edu/subscription/form';
 
+export const acmRoomMapsLink = 'https://maps.app.goo.gl/nC9cJ1omGbGBtPH49';
+
 export const membershipBenefits = [
   {
     summary: '**Swipe access** to the ACM room',

@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 
-import { mailingListSubscriptionUrl } from '../constants';
+import { acmRoomMapsLink, mailingListSubscriptionUrl } from '../constants';
 import CalendarModal from './CalendarModal.tsx';
 import UpcomingEvents from './UpcomingEvents.tsx';
 import headerImage from '../images/header.jpg';
@@ -116,6 +116,15 @@ const { disableBounce } = Astro.props;
               title="Mailing List"
             >
               <Icon name="lucide:mail" size={24} />
+            </a>
+            <a
+              href={acmRoomMapsLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="rounded-lg p-2 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+              title="Navigate to ACM @ UIUC"
+            >
+              <Icon name="lucide:map-pin" size={24} />
             </a>
           </div>
         </div>

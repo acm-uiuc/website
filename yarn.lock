@@ -2,15 +2,15 @@
 # yarn lockfile v1
 
 
-"@acm-uiuc/core-client@^4.6.2":
-  version "4.6.2"
-  resolved "https://registry.yarnpkg.com/@acm-uiuc/core-client/-/core-client-4.6.2.tgz#41d152b883f056bef75622d2701d7cd814bcf4e6"
-  integrity sha512-+QegARFqtnKqrNGLyFpwWphtvHKwetNp73BgN3ua1jVt/Xr0mIOX+l7JzYLsxPLUj/hkxoreqmJ3MKpuj76i6Q==
+"@acm-uiuc/core-client@4.7.0":
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/@acm-uiuc/core-client/-/core-client-4.7.0.tgz#b30c7b53e2b7f1349c8b726429636ce1249a3b60"
+  integrity sha512-cDccwDHls2qZMhw9SiocLzV0ioUzYHUjVbWTEsWZjYr9Jmyq8USzMSe3Qxxl+E9wxuOYQCQqq9n1FHQ1Dxc61w==
 
-"@acm-uiuc/js-shared@^3.6.0":
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/@acm-uiuc/js-shared/-/js-shared-3.6.0.tgz#97d876b93450fe8e9050499fdc1f58ea4ff35e23"
-  integrity sha512-AUGrHHB5nwZv5Qdutvg3sgmD14onrtkDrvENHh1lQcN/oi/tn9lPvsuLhTs0l1NP+taakzzDOOnFDhrGE3WEyA==
+"@acm-uiuc/js-shared@^3.7.0":
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/@acm-uiuc/js-shared/-/js-shared-3.7.0.tgz#9af217cfc35d1a5db868d047b7bdfc1b4ef6cc5b"
+  integrity sha512-X1RRs41YjAmg+WCGg5a86psWv2+BPcFX4hIsjM4xE24dehvIRs579RT7kGDAzhkPHrva8iJPd2btaSb5yEBMeA==
 
 "@antfu/install-pkg@^1.0.0":
   version "1.1.0"

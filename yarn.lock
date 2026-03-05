@@ -7,10 +7,10 @@
   resolved "https://registry.yarnpkg.com/@acm-uiuc/core-client/-/core-client-4.7.0.tgz#b30c7b53e2b7f1349c8b726429636ce1249a3b60"
   integrity sha512-cDccwDHls2qZMhw9SiocLzV0ioUzYHUjVbWTEsWZjYr9Jmyq8USzMSe3Qxxl+E9wxuOYQCQqq9n1FHQ1Dxc61w==
 
-"@acm-uiuc/js-shared@^3.7.0":
-  version "3.7.0"
-  resolved "https://registry.yarnpkg.com/@acm-uiuc/js-shared/-/js-shared-3.7.0.tgz#9af217cfc35d1a5db868d047b7bdfc1b4ef6cc5b"
-  integrity sha512-X1RRs41YjAmg+WCGg5a86psWv2+BPcFX4hIsjM4xE24dehvIRs579RT7kGDAzhkPHrva8iJPd2btaSb5yEBMeA==
+"@acm-uiuc/js-shared@^3.8.0":
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/@acm-uiuc/js-shared/-/js-shared-3.8.0.tgz#bb9446c80b72938d6fa03db193dbc57597254c26"
+  integrity sha512-JMpTqunHM8h4gwHclYhimv0ej+nJaT9aLuFTPmX/SZqSVS57O5ZHAilIM7u8wNN+AaHRPiJ16RdrmrdOgTaH/A==
 
 "@antfu/install-pkg@^1.0.0":
   version "1.1.0"
@@ -775,10 +775,10 @@
   dependencies:
     "@iconify/types" "*"
 
-"@iconify-json/simple-icons@^1.2.71":
-  version "1.2.71"
-  resolved "https://registry.yarnpkg.com/@iconify-json/simple-icons/-/simple-icons-1.2.71.tgz#c1f0b403688b0bd4b49d24929ab1e6634bd31ccb"
-  integrity sha512-rNoDFbq1fAYiEexBvrw613/xiUOPEu5MKVV/X8lI64AgdTzLQUUemr9f9fplxUMPoxCBP2rWzlhOEeTHk/Sf0Q==
+"@iconify-json/simple-icons@^1.2.72":
+  version "1.2.72"
+  resolved "https://registry.yarnpkg.com/@iconify-json/simple-icons/-/simple-icons-1.2.72.tgz#9c2b310eaefe285ab0a1ca03b9a2936c48dc81fd"
+  integrity sha512-wkcixntHvaCoqPqerGrNFcHQ3Yx1ux4ZkhscCDK0DEHpP62XCH+cxq1HTsRjbUiQl/M9K8bj03HF6Wgn5iE2rQ==
   dependencies:
     "@iconify/types" "*"
 
@@ -4659,10 +4659,10 @@ lightningcss@1.31.1:
     lightningcss-win32-arm64-msvc "1.31.1"
     lightningcss-win32-x64-msvc "1.31.1"
 
-lint-staged@^16.3.1:
-  version "16.3.1"
-  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-16.3.1.tgz#ab153ee630f0e07fa35d13992af79f42cc2e67a6"
-  integrity sha512-bqvvquXzFBAlSbluugR4KXAe4XnO/QZcKVszpkBtqLWa2KEiVy8n6Xp38OeUbv/gOJOX4Vo9u5pFt/ADvbm42Q==
+lint-staged@^16.3.2:
+  version "16.3.2"
+  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-16.3.2.tgz#378b48c6c340d42eefcc8d13d198b61a562e63a9"
+  integrity sha512-xKqhC2AeXLwiAHXguxBjuChoTTWFC6Pees0SHPwOpwlvI3BH7ZADFPddAdN3pgo3aiKgPUx/bxE78JfUnxQnlg==
   dependencies:
     commander "^14.0.3"
     listr2 "^9.0.5"
@@ -4768,10 +4768,10 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
-lucide-react@^0.576.0:
-  version "0.576.0"
-  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.576.0.tgz#007a54fb388747f0833ef23cef3783a0ace7e1b4"
-  integrity sha512-koNxU14BXrxUfZQ9cUaP0ES1uyPZKYDjk31FQZB6dQ/x+tXk979sVAn9ppZ/pVeJJyOxVM8j1E+8QEuSc02Vug==
+lucide-react@^0.577.0:
+  version "0.577.0"
+  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.577.0.tgz#8ae89edd8415f99c6319a38b40d9c513f6fa5062"
+  integrity sha512-4LjoFv2eEPwYDPg/CUdBJQSDfPyzXCRrVW1X7jrx/trgxnxkHFjnVZINbzvzxjN70dxychOfg+FTYwBiS3pQ5A==
 
 luxon@^3.2.1:
   version "3.7.2"
@@ -5909,12 +5909,12 @@ prettier-plugin-astro@^0.14.1:
     prettier "^3.0.0"
     sass-formatter "^0.7.6"
 
-prettier-plugin-packagejson@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/prettier-plugin-packagejson/-/prettier-plugin-packagejson-3.0.0.tgz#11f64b463b6da8c73ce86dabde529699cde3f6d8"
-  integrity sha512-z8/QmPSqx/ANvvQMWJSkSq1+ihBXeuwDEYdjX3ZjRJ5Ty1k7vGbFQfhzk2eDe0rwS/TNyRjWK/qnjJEStAOtDw==
+prettier-plugin-packagejson@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/prettier-plugin-packagejson/-/prettier-plugin-packagejson-3.0.2.tgz#2b83040eedb275ef888d5ad544e7d51019dc1200"
+  integrity sha512-kmoj3hEynXwoHDo8ZhmWAIjRBoQWCDUVackiWfSDWdgD0rS3LGB61T9zoVbume/cotYdCoadUh4sqViAmXvpBQ==
   dependencies:
-    sort-package-json "3.6.0"
+    sort-package-json "^3.6.0"
 
 prettier-plugin-tailwindcss@^0.7.2:
   version "0.7.2"
@@ -6637,10 +6637,10 @@ sort-object-keys@^2.0.1:
   resolved "https://registry.yarnpkg.com/sort-object-keys/-/sort-object-keys-2.1.0.tgz#af24fbb7b91fcca945399a04fa900a10f9506242"
   integrity sha512-SOiEnthkJKPv2L6ec6HMwhUcN0/lppkeYuN1x63PbyPRrgSPIuBJCiYxYyvWRTtjMlOi14vQUCGUJqS6PLVm8g==
 
-sort-package-json@3.6.0:
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/sort-package-json/-/sort-package-json-3.6.0.tgz#6333552770203a712a13e148a6baf06a164cba15"
-  integrity sha512-fyJsPLhWvY7u2KsKPZn1PixbXp+1m7V8NWqU8CvgFRbMEX41Ffw1kD8n0CfJiGoaSfoAvbrqRRl/DcHO8omQOQ==
+sort-package-json@^3.6.0:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/sort-package-json/-/sort-package-json-3.6.1.tgz#901fe21d335af97d436383ac5b7c16c85cd3fac4"
+  integrity sha512-Chgejw1+10p2D0U2tB7au1lHtz6TkFnxmvZktyBCRyV0GgmF6nl1IxXxAsPtJVsUyg/fo+BfCMAVVFUVRkAHrQ==
   dependencies:
     detect-indent "^7.0.2"
     detect-newline "^4.0.1"

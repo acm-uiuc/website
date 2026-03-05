@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@acm-uiuc/core-client@4.7.0":
+"@acm-uiuc/core-client@^4.6.2":
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/@acm-uiuc/core-client/-/core-client-4.7.0.tgz#b30c7b53e2b7f1349c8b726429636ce1249a3b60"
   integrity sha512-cDccwDHls2qZMhw9SiocLzV0ioUzYHUjVbWTEsWZjYr9Jmyq8USzMSe3Qxxl+E9wxuOYQCQqq9n1FHQ1Dxc61w==
@@ -161,17 +161,17 @@
   dependencies:
     yaml "^2.5.0"
 
-"@azure/msal-browser@^4.28.2":
-  version "4.28.2"
-  resolved "https://registry.yarnpkg.com/@azure/msal-browser/-/msal-browser-4.28.2.tgz#d288a47ffca250361a86f3a7a4f1df4a79a559e0"
-  integrity sha512-6vYUMvs6kJxJgxaCmHn/F8VxjLHNh7i9wzfwPGf8kyBJ8Gg2yvBXx175Uev8LdrD1F5C4o7qHa2CC4IrhGE1XQ==
+"@azure/msal-browser@^4.29.0":
+  version "4.29.0"
+  resolved "https://registry.yarnpkg.com/@azure/msal-browser/-/msal-browser-4.29.0.tgz#6d711acd3b463b46bdae05445b83547816fb8f5c"
+  integrity sha512-/f3eHkSNUTl6DLQHm+bKecjBKcRQxbd/XLx8lvSYp8Nl/HRyPuIPOijt9Dt0sH50/SxOwQ62RnFCmFlGK+bR/w==
   dependencies:
-    "@azure/msal-common" "15.14.2"
+    "@azure/msal-common" "15.15.0"
 
-"@azure/msal-common@15.14.2":
-  version "15.14.2"
-  resolved "https://registry.yarnpkg.com/@azure/msal-common/-/msal-common-15.14.2.tgz#2055ea5340a1cb714e514b162c44911b634ee0e6"
-  integrity sha512-n8RBJEUmd5QotoqbZfd+eGBkzuFI1KX6jw2b3WcpSyGjwmzoeI/Jb99opIBPHpb8y312NB+B6+FGi2ZVSR8yfA==
+"@azure/msal-common@15.15.0":
+  version "15.15.0"
+  resolved "https://registry.yarnpkg.com/@azure/msal-common/-/msal-common-15.15.0.tgz#05e758b41923499af7ca0965edaafc28a2acf615"
+  integrity sha512-/n+bN0AKlVa+AOcETkJSKj38+bvFs78BaP4rNtv3MJCmPH0YrHiskMRe74OhyZ5DZjGISlFyxqvf9/4QVEi2tw==
 
 "@azure/msal-react@^3.0.25":
   version "3.0.25"

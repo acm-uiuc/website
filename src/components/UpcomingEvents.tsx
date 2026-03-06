@@ -6,6 +6,49 @@ import { transformEventsApiDates } from '../api/events';
 import type { Event } from '../types/events';
 import { Temporal } from 'temporal-polyfill';
 
+/**
+ * For recurring events, advances `start` (and `end`) to the next occurrence
+ * on or after today. Non-recurring events are returned unchanged.
+ */
+function getNextOccurrence(event: Event): Event {
+  if (!event.repeats) return event;
+
+  const today = Temporal.Now.plainDateISO();
+  const startDT = Temporal.PlainDateTime.from(event.start);
+  const endDT = event.end ? Temporal.PlainDateTime.from(event.end) : null;
+  const repeatEnds = event.repeatEnds
+    ? Temporal.PlainDateTime.from(event.repeatEnds)
+    : null;
+
+  const intervalDays = event.repeats === 'weekly' ? 7 : 14;
+
+  const excludedDates = new Set(event.repeatExcludes?.map(String) ?? []);
+
+  const daysBehind = startDT.toPlainDate().until(today).days;
+  const stepsNeeded = daysBehind > 0 ? Math.ceil(daysBehind / intervalDays) : 0;
+  let current = startDT.add({ days: stepsNeeded * intervalDays });
+
+  // Skip any excluded dates
+  while (excludedDates.has(current.toPlainDate().toString())) {
+    current = current.add({ days: intervalDays });
+  }
+
+  // If the next occurrence is past the recurrence end, keep the original
+  if (repeatEnds && Temporal.PlainDateTime.compare(current, repeatEnds) > 0) {
+    return event;
+  }
+
+  const duration = endDT ? startDT.until(endDT) : null;
+
+  return {
+    ...event,
+    start: current.toString({ smallestUnit: 'second' }),
+    end: duration
+      ? current.add(duration).toString({ smallestUnit: 'second' })
+      : event.end,
+  };
+}
+
 function formatDate(dateStr: string): string {
   const date = new Date(dateStr);
   return date.toLocaleDateString('en-US', {
@@ -146,20 +189,19 @@ const UpcomingEvents = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = (
-          await eventsApiClient.apiV1EventsGet({
-            upcomingOnly: true,
-            featuredOnly: true,
-          })
-        )
-          .filter((x) => x.featured)
+        const raw = await eventsApiClient.apiV1EventsGet({
+          upcomingOnly: true,
+          featuredOnly: true,
+        });
+        const response = transformEventsApiDates(raw.filter((x) => x.featured))
+          .map(getNextOccurrence)
           .sort((a, b) => {
             const aStart = Temporal.PlainDateTime.from(a.start);
             const bStart = Temporal.PlainDateTime.from(b.start);
             return Temporal.PlainDateTime.compare(aStart, bStart);
           })
           .slice(0, 3);
-        setFeaturedEvents(transformEventsApiDates(response));
+        setFeaturedEvents(response);
       } catch (error) {
         console.error('Error fetching events:', error);
       } finally {

@@ -119,8 +119,13 @@ jobs:
             yarn-modules-${{ runner.arch }}-${{ runner.os }}-
       - name: Install dependencies
         run: yarn -D
+      - name: Get Playwright version
+        id: playwright-version
+        run: |
+          PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package.json').devDependencies['@playwright/test'])")
+          echo "version=${PLAYWRIGHT_VERSION}" >> "$GITHUB_OUTPUT"
       - name: Run Playwright tests
-        uses: docker://mcr.microsoft.com/playwright:v1.59.1-noble
+        uses: docker://mcr.microsoft.com/playwright:v${{ steps.playwright-version.outputs.version }}
         with:
           args: npx playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
       - name: Upload blob report to GitHub Actions Artifacts
@@ -162,14 +167,24 @@ jobs:
     permissions:
       contents: read
     steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: 'yarn'
       - name: Download blob reports from GitHub Actions Artifacts
         uses: actions/download-artifact@v5
         with:
           path: all-blob-reports
           pattern: blob-report-*
           merge-multiple: true
+      - name: Get Playwright version
+        id: playwright-version
+        run: |
+          PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package.json').devDependencies['@playwright/test'])")
+          echo "version=${PLAYWRIGHT_VERSION}" >> "$GITHUB_OUTPUT"
       - name: Merge into HTML Report
-        uses: docker://mcr.microsoft.com/playwright:v1.59.1-noble
+        uses: docker://mcr.microsoft.com/playwright:v${{ steps.playwright-version.outputs.version }}
         with:
           args: npx playwright merge-reports --reporter html ./all-blob-reports
       - name: Upload HTML report

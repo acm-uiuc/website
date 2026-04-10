@@ -1,5 +1,5 @@
 import { SiDiscord } from '@icons-pack/react-simple-icons';
-import { LucideArrowRight } from 'lucide-react';
+import { LucideArrowRight } from 'lucide-preact';
 import { useEffect, useState } from 'preact/hooks';
 
 interface Props {

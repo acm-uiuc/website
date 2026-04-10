@@ -1,6 +1,6 @@
 import { add, format, getDay, parse, startOfWeek } from 'date-fns';
 import { enUS } from 'date-fns/locale/en-US';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-preact';
 import type { ComponentChildren } from 'preact';
 import type { View } from 'react-big-calendar';
 import { dateFnsLocalizer, Views } from 'react-big-calendar';

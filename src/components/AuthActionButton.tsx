@@ -1,6 +1,6 @@
 import type { IPublicClientApplication } from '@azure/msal-browser';
-import type { LucideIcon } from 'lucide-react';
-import { Loader2 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-preact';
+import { Loader2 } from 'lucide-preact';
 import { useEffect, useRef, useState } from 'react';
 
 import { getUserAccessToken, initMsalClient } from '../authConfig.ts';

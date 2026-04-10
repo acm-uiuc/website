@@ -4,7 +4,7 @@ import {
   SiInstagram,
   SiSlack,
 } from '@icons-pack/react-simple-icons';
-import { Globe, Link, Mail, RefreshCcw } from 'lucide-react';
+import { Globe, Link, Mail, RefreshCcw } from 'lucide-preact';
 import type { JSX } from 'preact/jsx-runtime';
 import { useState } from 'preact/hooks';
 

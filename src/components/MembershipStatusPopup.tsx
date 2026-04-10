@@ -1,4 +1,4 @@
-import { CircleCheck, CircleX, Wallet } from 'lucide-react';
+import { CircleCheck, CircleX, Wallet } from 'lucide-preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import QRCode_ from 'react-qrcode-logo';
 import type { ComponentType } from 'preact';

@@ -119,9 +119,10 @@ jobs:
             yarn-modules-${{ runner.arch }}-${{ runner.os }}-
       - name: Install dependencies
         run: yarn -D
-      - name: Install Playwright dependencies
-        run: npx playwright install --with-deps
-      - run: yarn test:e2e --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+      - name: Run Playwright tests
+        uses: docker://mcr.microsoft.com/playwright:v1.59.1-noble
+        with:
+          args: npx playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
       - name: Upload blob report to GitHub Actions Artifacts
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
@@ -161,29 +162,16 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v5
-        with:
-          node-version: lts/*
-      - name: Restore Yarn Cache
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: yarn-modules-${{ runner.arch }}-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-dev
-          restore-keys: |
-            yarn-modules-${{ runner.arch }}-${{ runner.os }}-
-      - name: Install dependencies
-        run: yarn -D
       - name: Download blob reports from GitHub Actions Artifacts
         uses: actions/download-artifact@v5
         with:
           path: all-blob-reports
           pattern: blob-report-*
           merge-multiple: true
-
       - name: Merge into HTML Report
-        run: npx playwright merge-reports --reporter html ./all-blob-reports
-
+        uses: docker://mcr.microsoft.com/playwright:v1.59.1-noble
+        with:
+          args: npx playwright merge-reports --reporter html ./all-blob-reports
       - name: Upload HTML report
         uses: actions/upload-artifact@v4
         with:

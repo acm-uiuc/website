@@ -154,15 +154,17 @@
     unist-util-visit "^5.0.0"
     vfile "^6.0.3"
 
-"@astrojs/preact@^4.1.3":
-  version "4.1.3"
-  resolved "https://registry.npmjs.org/@astrojs/preact/-/preact-4.1.3.tgz"
-  integrity sha512-Ph416wbgyumkmYr7erZ83l/d+LXdZethlHRRCbgoKEn8wo3Rkq13shKFp0QYXYSDYxVaA6UBdkdimeowy/lMLQ==
+"@astrojs/preact@^5.1.1":
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/@astrojs/preact/-/preact-5.1.1.tgz#be2366477bb410e4c9bada4b733edc080bfabd7f"
+  integrity sha512-MBZZ3BcFpzwYDlG3IXopczuG1vWiejcPUqzU8WQPwvWU1V66wBsKxtosIcqVYYdrVhIrdPxk2QMxezMFaFaaXQ==
   dependencies:
-    "@preact/preset-vite" "^2.10.2"
-    "@preact/signals" "^2.3.1"
-    preact-render-to-string "^6.6.1"
-    vite "^6.4.1"
+    "@astrojs/internal-helpers" "0.8.0"
+    "@preact/preset-vite" "^2.10.5"
+    "@preact/signals" "^2.8.2"
+    devalue "^5.6.4"
+    preact-render-to-string "^6.6.6"
+    vite "^7.3.1"
 
 "@astrojs/prism@3.3.0":
   version "3.3.0"
@@ -1315,10 +1317,10 @@
   resolved "https://registry.npmjs.org/@popperjs/core/-/core-2.11.8.tgz"
   integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
 
-"@preact/preset-vite@^2.10.2":
-  version "2.10.3"
-  resolved "https://registry.npmjs.org/@preact/preset-vite/-/preset-vite-2.10.3.tgz"
-  integrity sha512-1SiS+vFItpkNdBs7q585PSAIln0wBeBdcpJYbzPs1qipsb/FssnkUioNXuRsb8ZnU8YEQHr+3v8+/mzWSnTQmg==
+"@preact/preset-vite@^2.10.5":
+  version "2.10.5"
+  resolved "https://registry.yarnpkg.com/@preact/preset-vite/-/preset-vite-2.10.5.tgz#a0c332d42ad3471bb84310a5b270326115cfa301"
+  integrity sha512-p0vJpxiVO7KWWazWny3LUZ+saXyZKWv6Ju0bYMWNJRp2YveufRPgSUB1C4MTqGJfz07EehMgfN+AJNwQy+w6Iw==
   dependencies:
     "@babel/plugin-transform-react-jsx" "^7.27.1"
     "@babel/plugin-transform-react-jsx-development" "^7.27.1"
@@ -1326,20 +1328,22 @@
     "@rollup/pluginutils" "^5.0.0"
     babel-plugin-transform-hook-names "^1.0.2"
     debug "^4.4.3"
+    magic-string "^0.30.21"
     picocolors "^1.1.1"
     vite-prerender-plugin "^0.5.8"
+    zimmerframe "^1.1.4"
 
-"@preact/signals-core@^1.13.0":
-  version "1.13.0"
-  resolved "https://registry.npmjs.org/@preact/signals-core/-/signals-core-1.13.0.tgz"
-  integrity sha512-slT6XeTCAbdql61GVLlGU4x7XHI7kCZV5Um5uhE4zLX4ApgiiXc0UYFvVOKq06xcovzp7p+61l68oPi563ARKg==
+"@preact/signals-core@^1.14.0":
+  version "1.14.1"
+  resolved "https://registry.yarnpkg.com/@preact/signals-core/-/signals-core-1.14.1.tgz#2a5739381eca3d730519d2d447ceb8110508d0bc"
+  integrity sha512-vxPpfXqrwUe9lpjqfYNjAF/0RF/eFGeLgdJzdmIIZjpOnTmGmAB4BjWone562mJGMRP4frU6iZ6ei3PDsu52Ng==
 
-"@preact/signals@^2.3.1":
-  version "2.7.0"
-  resolved "https://registry.npmjs.org/@preact/signals/-/signals-2.7.0.tgz"
-  integrity sha512-9rQ030JhUfdBO4xlFB6Iwc/rOBi9IFXaCgu8VrFMSjAJfubGRTTxBPsgSlAF5qmWdY3C91b9kBK09mpUOMh1Rw==
+"@preact/signals@^2.8.2":
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/@preact/signals/-/signals-2.9.0.tgz#9254d557bcd707e7c5e917dd2da0062990a664cd"
+  integrity sha512-hYrY0KyUqkDgOl1qba/JGn6y81pXnurn21PMaxfcMwdncdZ3M/oVdmpTvEnsGjh48dIwDVc7bjWHqIsngSjYug==
   dependencies:
-    "@preact/signals-core" "^1.13.0"
+    "@preact/signals-core" "^1.14.0"
 
 "@prefresh/babel-plugin@0.5.2":
   version "0.5.2"
@@ -3195,15 +3199,10 @@ deterministic-object-hash@^2.0.2:
   dependencies:
     base-64 "^1.0.0"
 
-devalue@^5.6.2:
-  version "5.6.2"
-  resolved "https://registry.npmjs.org/devalue/-/devalue-5.6.2.tgz"
-  integrity sha512-nPRkjWzzDQlsejL1WVifk5rvcFi/y1onBRxjaFMjZeR9mFpqu2gmAZ9xUB9/IEanEP/vBtGeGganC/GO1fmufg==
-
-devalue@^5.6.3:
-  version "5.6.4"
-  resolved "https://registry.yarnpkg.com/devalue/-/devalue-5.6.4.tgz#aec6cdba0e4109543b40c94d46e2b87bf8af8de5"
-  integrity sha512-Gp6rDldRsFh/7XuouDbxMH3Mx8GMCcgzIb1pDTvNyn8pZGQ22u+Wa+lGV9dQCltFQ7uVw0MhRyb8XDskNFOReA==
+devalue@^5.6.2, devalue@^5.6.3, devalue@^5.6.4:
+  version "5.7.1"
+  resolved "https://registry.yarnpkg.com/devalue/-/devalue-5.7.1.tgz#93e2d9412b909a7901d7b966ebb3479d15a390fd"
+  integrity sha512-MUbZ586EgQqdRnC4yDrlod3BEdyvE4TapGYHMW2CiaW+KkkFmWEFqBUaLltEZCGi0iFXCEjRF0OjF0DV2QHjOA==
 
 devlop@^1.0.0, devlop@^1.1.0:
   version "1.1.0"
@@ -6239,10 +6238,10 @@ postcss@^8.5.6:
     picocolors "^1.1.1"
     source-map-js "^1.2.1"
 
-preact-render-to-string@^6.6.1:
-  version "6.6.5"
-  resolved "https://registry.npmjs.org/preact-render-to-string/-/preact-render-to-string-6.6.5.tgz"
-  integrity sha512-O6MHzYNIKYaiSX3bOw0gGZfEbOmlIDtDfWwN1JJdc/T3ihzRT6tGGSEWE088dWrEDGa1u7101q+6fzQnO9XCPA==
+preact-render-to-string@^6.6.6:
+  version "6.6.7"
+  resolved "https://registry.yarnpkg.com/preact-render-to-string/-/preact-render-to-string-6.6.7.tgz#b0f04fa4c00f7527faabbad52ca071ff236f2168"
+  integrity sha512-3XdbsX3+vn9dQW+jJI/FsI9rlkgl6dbeUpqLsChak6jp3j3auFqBCkno7VChbMFs5Q8ylBj6DrUkKRwtVN3nvw==
 
 preact@^10.29.1:
   version "10.29.1"
@@ -8106,6 +8105,11 @@ yoctocolors@^2.1.1:
   version "2.1.2"
   resolved "https://registry.npmjs.org/yoctocolors/-/yoctocolors-2.1.2.tgz"
   integrity sha512-CzhO+pFNo8ajLM2d2IW/R93ipy99LWjtwblvC1RsoSUMZgyLbYFr221TnSNT7GjGdYui6P459mw9JH/g/zW2ug==
+
+zimmerframe@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/zimmerframe/-/zimmerframe-1.1.4.tgz#0352b5cafad3ad4526b0a526a9a52d9c040d865b"
+  integrity sha512-B58NGBEoc8Y9MWWCQGl/gq9xBCe4IiKM0a2x7GZdQKOW5Exr8S1W24J6OgM1njK8xCRGvAJIL/MxXHf6SkmQKQ==
 
 zod-to-json-schema@^3.25.1:
   version "3.25.1"

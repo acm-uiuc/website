@@ -18,7 +18,7 @@ export default defineConfig({
   output: 'static',
   outDir: './build',
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [/** @type {any} */ (tailwindcss())],
   },
   server: {
     port: 3000,

@@ -15,7 +15,8 @@
     "prettier:write": "prettier . --write",
     "preview": "astro preview",
     "setup": "git config blame.ignoreRevsFile .git-blame-ignore-revs",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "typecheck": "astro check"
   },
   "lint-staged": {
     "*.{ts,tsx,astro,js,css,md,mdx,json}": [
@@ -76,8 +77,8 @@
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-packagejson": "^3.0.2",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "tailwindcss": "^4.1.18",
-    "typescript": "^5.9.3",
+    "tailwindcss": "^4.2.2",
+    "typescript": "^6.0.2",
     "typescript-eslint": "^8.58.1"
   }
 }

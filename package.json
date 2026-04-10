@@ -16,7 +16,7 @@
     "preview": "astro preview",
     "setup": "git config blame.ignoreRevsFile .git-blame-ignore-revs",
     "test:e2e": "playwright test",
-    "typecheck": "tsc --noemit"
+    "typecheck": "astro sync && tsc --noemit"
   },
   "lint-staged": {
     "*.{ts,tsx,astro,js,css,md,mdx,json}": [

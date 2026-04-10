@@ -1,5 +1,5 @@
 import { ResponseError } from '@acm-uiuc/core-client';
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart } from 'lucide-preact';
 import { useState } from 'react';
 
 import { membershipApiClient } from '../api/index.js';

@@ -3,7 +3,7 @@ import {
   ResponseError,
 } from '@acm-uiuc/core-client';
 import { useEffect, useState, useMemo, useCallback, useRef } from 'react';
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart } from 'lucide-preact';
 import {
   storeApiClient,
   membershipApiClient,

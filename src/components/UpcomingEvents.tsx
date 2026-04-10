@@ -1,4 +1,4 @@
-import { Calendar, Repeat } from 'lucide-react';
+import { Calendar, Repeat } from 'lucide-preact';
 import { useEffect, useState } from 'preact/hooks';
 
 import { eventsApiClient } from '../api';

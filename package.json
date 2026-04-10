@@ -43,7 +43,7 @@
     "@nanostores/preact": "^1.1.0",
     "astro-compress": "^2.4.1",
     "date-fns": "^4.1.0",
-    "lucide-react": "^0.577.0",
+    "lucide-preact": "^1.8.0",
     "nanostores": "^1.2.0",
     "preact": "^10.29.1",
     "react-big-calendar": "^1.19.4",

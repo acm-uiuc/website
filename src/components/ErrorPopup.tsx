@@ -1,4 +1,4 @@
-import { CircleAlert } from 'lucide-react';
+import { CircleAlert } from 'lucide-preact';
 import { useCallback, useState } from 'preact/hooks';
 
 import NoticePopup from './NoticePopup.tsx';

@@ -1,4 +1,4 @@
-import { IdCard } from 'lucide-react';
+import { IdCard } from 'lucide-preact';
 import { useState } from 'react';
 
 import { membershipApiClient } from '../api/index.js';

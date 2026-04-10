@@ -1,4 +1,4 @@
-import { Search } from 'lucide-react';
+import { Search } from 'lucide-preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 
 import { setSearchQuery as updateSearchQuery } from '../stores/search';

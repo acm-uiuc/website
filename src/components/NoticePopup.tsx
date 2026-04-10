@@ -1,4 +1,4 @@
-import { X } from 'lucide-react';
+import { X } from 'lucide-preact';
 import type { ComponentChildren } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 

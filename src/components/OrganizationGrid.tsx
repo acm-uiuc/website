@@ -9,7 +9,7 @@ import {
 } from '../stores/organization';
 import { $searchQuery } from '../stores/search';
 import OrganizationCard from './OrganizationCard';
-import { Search } from 'lucide-react';
+import { Search } from 'lucide-preact';
 
 interface ImageData {
   src: string;

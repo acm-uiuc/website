@@ -1,4 +1,4 @@
-import { CircleCheck, RefreshCcw } from 'lucide-react';
+import { CircleCheck, RefreshCcw } from 'lucide-preact';
 import { useState } from 'react';
 
 import { genericApiClient } from '../api/index.js';

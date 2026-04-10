@@ -4921,10 +4921,10 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
-lucide-react@^0.577.0:
-  version "0.577.0"
-  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.577.0.tgz#8ae89edd8415f99c6319a38b40d9c513f6fa5062"
-  integrity sha512-4LjoFv2eEPwYDPg/CUdBJQSDfPyzXCRrVW1X7jrx/trgxnxkHFjnVZINbzvzxjN70dxychOfg+FTYwBiS3pQ5A==
+lucide-preact@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/lucide-preact/-/lucide-preact-1.8.0.tgz#92d4b19a2f49cfd2d8d3dbbf06c13a5f2643ef23"
+  integrity sha512-va4a8kofUvE324fKPgBIewfpm9IiGm1TwMN8NoveK2wwywuZIQxsXX9IJVB0+rM1I79XBMnfWNuLjIF2LwAXiQ==
 
 luxon@^3.2.1:
   version "3.7.2"

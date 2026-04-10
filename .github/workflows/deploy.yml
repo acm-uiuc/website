@@ -131,8 +131,8 @@ jobs:
           path: blob-report
           retention-days: 1
 
-  check_formatting:
-    name: Check code formatting
+  check:
+    name: Run code checks
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     permissions:
@@ -151,8 +151,12 @@ jobs:
           key: yarn-modules-${{ runner.arch }}-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-dev
           restore-keys: |
             yarn-modules-${{ runner.arch }}-${{ runner.os }}-
-      - run: yarn -D
-      - run: yarn format:check
+      - name: Install dependencies
+        run: yarn -D
+      - name: Run type checking
+        run: yarn typecheck
+      - name: Check formatting
+        run: yarn format:check
 
   merge-reports:
     name: Merge Playwright Reports

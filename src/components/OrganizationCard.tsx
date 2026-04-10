@@ -56,7 +56,7 @@ const OrganizationCard = ({
   ].filter((x) => Boolean(x) && x.type && x.url);
 
   const leads = (organization.leads || [])
-    .filter((x) => x.name)
+    .filter((x): x is typeof x & { name: string } => Boolean(x.name))
     .sort((a, b) => a.name.localeCompare(b.name));
 
   return (

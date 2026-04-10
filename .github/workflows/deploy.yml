@@ -119,9 +119,10 @@ jobs:
             yarn-modules-${{ runner.arch }}-${{ runner.os }}-
       - name: Install dependencies
         run: yarn -D
-      - name: Install Playwright dependencies
-        run: npx playwright install --with-deps
-      - run: yarn test:e2e --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+      - name: Run Playwright tests
+        uses: docker://mcr.microsoft.com/playwright:v1.58.2-noble
+        with:
+          args: npx playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
       - name: Upload blob report to GitHub Actions Artifacts
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4

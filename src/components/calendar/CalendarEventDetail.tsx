@@ -37,7 +37,7 @@ export default function CalendarEventDetail({
         : '';
 
   const paidEventHref = event.paidEventId
-    ? `/store/item?id=${event.paidEventId}`
+    ? `/store/?id=${event.paidEventId}`
     : undefined;
 
   return (

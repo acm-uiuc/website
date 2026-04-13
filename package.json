@@ -32,13 +32,13 @@
     "react-dom": "npm:@preact/compat@latest"
   },
   "dependencies": {
-    "@acm-uiuc/core-client": "^4.8.10",
+    "@acm-uiuc/core-client": "^4.9.0",
     "@acm-uiuc/js-shared": "^3.8.3",
     "@astrojs/sitemap": "^3.7.2",
     "@azure/msal-browser": "^4.30.0",
     "@azure/msal-react": "^3.0.25",
     "@iconify-json/lucide": "^1.2.102",
-    "@iconify-json/simple-icons": "^1.2.77",
+    "@iconify-json/simple-icons": "^1.2.78",
     "@icons-pack/react-simple-icons": "13.8.0",
     "@marsidev/react-turnstile": "^1.5.0",
     "@nanostores/preact": "^1.1.0",

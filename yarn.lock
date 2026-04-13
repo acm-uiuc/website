@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@acm-uiuc/core-client@^4.8.10":
-  version "4.8.10"
-  resolved "https://registry.yarnpkg.com/@acm-uiuc/core-client/-/core-client-4.8.10.tgz#ac2db81a9af6d3cf54f954200476ab729c52884e"
-  integrity sha512-KQdValfJPNiS0nm3XG1J1IgsPJVrXmcbB+kUrjbmhIEsIyA1d9jKFSChQAy220s43Og/wIakzzujx72vuNBSUw==
+"@acm-uiuc/core-client@^4.9.0":
+  version "4.9.0"
+  resolved "https://registry.yarnpkg.com/@acm-uiuc/core-client/-/core-client-4.9.0.tgz#070675377045b7a7ff4702dfca4ab0f94b6344d0"
+  integrity sha512-vNH0+9ZGHKwmXhoJxomSrcw+vKPs+rZtYBO2f5Akbm4XNB6byfns5mFP9fa6rul5j6OhTj/5efBOZeYN9SSz0g==
 
 "@acm-uiuc/js-shared@^3.8.3":
   version "3.8.3"
@@ -797,10 +797,10 @@
   dependencies:
     "@iconify/types" "*"
 
-"@iconify-json/simple-icons@^1.2.77":
-  version "1.2.77"
-  resolved "https://registry.yarnpkg.com/@iconify-json/simple-icons/-/simple-icons-1.2.77.tgz#9f240f1d8c61e3cfb1366a1a7fc42d8b950f104b"
-  integrity sha512-oaENvo6C3BkAEWMlcQA3XemxU9v2SFOTlApSUCODAkIu1haeLCjzrmH3HgmGqjRnJjM+LevO8sA+MgdMHBFBDA==
+"@iconify-json/simple-icons@^1.2.78":
+  version "1.2.78"
+  resolved "https://registry.yarnpkg.com/@iconify-json/simple-icons/-/simple-icons-1.2.78.tgz#fb2e1eaa3eccd2649eba13c0fafdb75c917b5cf3"
+  integrity sha512-I3lkNp0Qu7q2iZWkdcf/I2hqGhzK6qxdILh9T7XqowQrnpmG/BayDsiCf6PktDoWlW0U971xA5g+panm+NFrfQ==
   dependencies:
     "@iconify/types" "*"
 

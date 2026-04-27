@@ -789,17 +789,17 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/retry/-/retry-0.4.3.tgz#c2b9d2e374ee62c586d3adbea87199b1d7a7a6ba"
   integrity sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ==
 
-"@iconify-json/lucide@^1.2.102":
-  version "1.2.102"
-  resolved "https://registry.yarnpkg.com/@iconify-json/lucide/-/lucide-1.2.102.tgz#da54be6d74077603cccc600dd5eea2263b5026af"
-  integrity sha512-Dm3EEqu5NrmzyDMB2U1+8yroEj2/dB9V4KlH0m/szwwF/ofSf0cPaGTZqkd1aExXjCor+vU53ttRMCGuXf+/cg==
+"@iconify-json/lucide@^1.2.104":
+  version "1.2.104"
+  resolved "https://registry.yarnpkg.com/@iconify-json/lucide/-/lucide-1.2.104.tgz#99534a1313e80a6700c6897989a229956d2dd23c"
+  integrity sha512-Vh4VPA/UNFhSPzEdDnSuOPA1xO6b/kI1w4SLBEiKnsFYPWimq2tVDynMgKnwddz6iZpuZfZU4PXR6kn0hJayKw==
   dependencies:
     "@iconify/types" "*"
 
-"@iconify-json/simple-icons@^1.2.79":
-  version "1.2.79"
-  resolved "https://registry.yarnpkg.com/@iconify-json/simple-icons/-/simple-icons-1.2.79.tgz#5ae688bc901d06d39f4beed8552b5aba9f8b5ba1"
-  integrity sha512-aNyO7Fd1qej9oQfIyohYFRv0lhQLaZ+6UkK1c1qwax0MDPUOZOdq65MlU500kow97pD/W+b2u1And3e25eE24Q==
+"@iconify-json/simple-icons@^1.2.80":
+  version "1.2.80"
+  resolved "https://registry.yarnpkg.com/@iconify-json/simple-icons/-/simple-icons-1.2.80.tgz#eb8c3e097fc67799f8a6cd3e3a2a88366a1a5564"
+  integrity sha512-iglncJJ6X/dVuzFDU32MrHwwo4RBwivGf108dgyYg+HKS78ifx0h7sTenpDZMVT+UhdS6CSgZcvY/SvRXlIEUg==
   dependencies:
     "@iconify/types" "*"
 
@@ -1038,10 +1038,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@marsidev/react-turnstile@^1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@marsidev/react-turnstile/-/react-turnstile-1.5.0.tgz#d1b374ca8b683a69c0b6f7ec9b151ef6ab262d21"
-  integrity sha512-Ph6mcj8u9WBDsBO7s9jKPsyRDz1sBPBJwrk+Ngx09vFInvKsQ6U6kW5amEcGq4dHOreB6DgFrOJk7/fy318YlQ==
+"@marsidev/react-turnstile@^1.5.1":
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@marsidev/react-turnstile/-/react-turnstile-1.5.1.tgz#b21cdc3c69443127b4f078dada0ac83a34a90632"
+  integrity sha512-dGZeOWEh1t9AfkR0G94k48+gciIzTNz8GhEatIGTk43ZBynWFfHxmgv1ZiSPkJBYBhSqeqfgFMp+nqFbZAViyQ==
 
 "@mdn/browser-compat-data@^3.3.14":
   version "3.3.14"
@@ -4697,10 +4697,10 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
-lucide-preact@^1.9.0:
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/lucide-preact/-/lucide-preact-1.9.0.tgz#da09df0afac324bf49ee501c76804e45bb82c1b1"
-  integrity sha512-401wEwrOEqtFqBU5y//S/3lUkY8pwlVZdC1GIavj+ul6hG/ppU/NxLlBTTO/k/24GZdKxvEKNLgFaUfwFNo4yQ==
+lucide-preact@^1.11.0:
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/lucide-preact/-/lucide-preact-1.11.0.tgz#3150137f635815769f6085fc4af6fac51b6a61e5"
+  integrity sha512-lh2HTYdGfhPQX5w1Es7zzNbReXGIebGesdGN1g4BdJmD3TKaXwklpqt2BcWyGWlXhsTb47LKAw9DdydEntE6wQ==
 
 luxon@^3.2.1:
   version "3.7.2"

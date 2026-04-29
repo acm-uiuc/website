@@ -4,6 +4,8 @@ This repository contains the ACM @ UIUC website, written with Astro, Preact, and
 
 ## Commands
 
+Packages are managed with the `yarn` package manager.
+
 ```bash
 yarn dev          # Start dev server at http://localhost:3000
 yarn build        # Production build (output: ./build)
@@ -13,7 +15,7 @@ yarn format:check # Check formatting without writing
 yarn test:e2e     # Run Playwright e2e tests
 ```
 
-E2E tests use a running dev server — either start `yarn dev` first, or Playwright will start one automatically when tests run locally. Install browser deps once with `npx playwright install --with-deps`.
+E2E tests use a running dev server — either start `yarn dev` first, or Playwright will start one automatically when tests run locally. Install browser deps once with `yarn playwright install --with-deps`.
 
 ## Architecture
 

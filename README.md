@@ -30,4 +30,4 @@ Runs `prettier` and `eslint` to format the code in the project. These tools also
 
 We have written some basic end-to-end tests as sanity checks using Playwright. These will run on every pull request.
 
-You can also run these locally by first starting the development server with `yarn dev`, and then run the tests in a separate terminal with `yarn test:e2e`. You may first need to install dependencies with `npx playwright install --with-deps`.
+You can also run these locally by first starting the development server with `yarn dev`, and then run the tests in a separate terminal with `yarn test:e2e`. You may first need to install dependencies with `yarn playwright install --with-deps`.

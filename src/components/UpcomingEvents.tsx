@@ -1,4 +1,4 @@
-import { Calendar, Repeat } from 'lucide-preact';
+import { ArrowRight, Calendar, CalendarClock, Repeat } from 'lucide-preact';
 import { useEffect, useState } from 'preact/hooks';
 
 import { eventsApiClient } from '../api';
@@ -183,9 +183,54 @@ const SkeletonCard = () => (
   <div className="animate-pulse rounded-xl border border-gray-200 bg-gray-200 p-5 h-full min-h-[200px]" />
 );
 
+const CACHE_KEY = 'acm:upcomingEvents:v1';
+const CACHE_TTL_MS = 24 * 60 * 60 * 1000;
+
+const processEvents = (raw: Event[]): Event[] =>
+  transformEventsApiDates(raw.filter((x) => x.featured))
+    .map(getNextOccurrence)
+    .sort((a, b) => {
+      const aStart = Temporal.PlainDateTime.from(a.start);
+      const bStart = Temporal.PlainDateTime.from(b.start);
+      return Temporal.PlainDateTime.compare(aStart, bStart);
+    })
+    .slice(0, 3);
+
+const readCache = (): Event[] | null => {
+  if (typeof window === 'undefined') return null;
+  try {
+    const raw = window.localStorage.getItem(CACHE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as unknown;
+    if (!parsed || typeof parsed !== 'object') return null;
+    const { ts, events } = parsed as { ts?: unknown; events?: unknown };
+    if (typeof ts !== 'number' || Date.now() - ts > CACHE_TTL_MS) return null;
+    if (!Array.isArray(events)) return null;
+    return events as Event[];
+  } catch {
+    return null;
+  }
+};
+
+const writeCache = (events: Event[]) => {
+  if (typeof window === 'undefined') return;
+  try {
+    window.localStorage.setItem(
+      CACHE_KEY,
+      JSON.stringify({ ts: Date.now(), events })
+    );
+  } catch {
+    // ignore quota / disabled storage
+  }
+};
+
 const UpcomingEvents = () => {
-  const [featuredEvents, setFeaturedEvents] = useState<Event[]>([]);
-  const [loading, setLoading] = useState(true);
+  const cached = readCache();
+  const [featuredEvents, setFeaturedEvents] = useState<Event[]>(() =>
+    cached ? processEvents(cached) : []
+  );
+  const [loading, setLoading] = useState(cached === null);
+
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -193,15 +238,8 @@ const UpcomingEvents = () => {
           upcomingOnly: true,
           featuredOnly: true,
         });
-        const response = transformEventsApiDates(raw.filter((x) => x.featured))
-          .map(getNextOccurrence)
-          .sort((a, b) => {
-            const aStart = Temporal.PlainDateTime.from(a.start);
-            const bStart = Temporal.PlainDateTime.from(b.start);
-            return Temporal.PlainDateTime.compare(aStart, bStart);
-          })
-          .slice(0, 3);
-        setFeaturedEvents(response);
+        setFeaturedEvents(processEvents(raw));
+        writeCache(raw);
       } catch (error) {
         console.error('Error fetching events:', error);
       } finally {
@@ -216,6 +254,22 @@ const UpcomingEvents = () => {
     return (
       <div className="grid grid-cols-1 gap-6">
         <SkeletonCard />
+      </div>
+    );
+  }
+
+  if (featuredEvents.length === 0) {
+    return (
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-2 rounded-lg border border-dashed border-white/25 bg-white/5 px-4 py-3 text-sm text-white/80 backdrop-blur-sm">
+        <CalendarClock className="text-tangerine-300 shrink-0" size={18} />
+        <span>No featured events right now — check back soon.</span>
+        <a
+          href="/calendar"
+          className="ml-auto inline-flex items-center gap-1 font-semibold text-white underline-offset-2 hover:underline"
+        >
+          See all events
+          <ArrowRight size={16} className="shrink-0" />
+        </a>
       </div>
     );
   }

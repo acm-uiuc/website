@@ -32,7 +32,4 @@ export default defineConfig({
       filter: (page) => !page.startsWith('https://www.acm.illinois.edu/admin/'),
     }),
   ],
-  experimental: {
-    svgo: true,
-  },
 });

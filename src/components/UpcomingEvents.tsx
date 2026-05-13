@@ -201,9 +201,12 @@ const readCache = (): Event[] | null => {
   try {
     const raw = window.localStorage.getItem(CACHE_KEY);
     if (!raw) return null;
-    const parsed = JSON.parse(raw) as { ts: number; events: Event[] };
-    if (Date.now() - parsed.ts > CACHE_TTL_MS) return null;
-    return parsed.events;
+    const parsed = JSON.parse(raw) as unknown;
+    if (!parsed || typeof parsed !== 'object') return null;
+    const { ts, events } = parsed as { ts?: unknown; events?: unknown };
+    if (typeof ts !== 'number' || Date.now() - ts > CACHE_TTL_MS) return null;
+    if (!Array.isArray(events)) return null;
+    return events as Event[];
   } catch {
     return null;
   }

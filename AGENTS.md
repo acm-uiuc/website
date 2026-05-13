@@ -59,3 +59,15 @@ This is a static Astro site (`output: 'static'`) that renders server-side on bui
 - `PUBLIC_TURNSTILE_SITE_KEY` — Cloudflare Turnstile (use `1x00000000000000000000AA` for dev bypass)
 
 **Pre-commit hooks** (husky + lint-staged) run prettier and eslint on staged files automatically.
+
+## Testing
+
+E2E tests live in `e2e/` and run with Playwright (`yarn test:e2e`). **Add Playwright coverage for every new user-facing feature or behavioral change** — empty states, error states, and the happy path. The bar is "a future change that breaks this behavior should fail a test," not "every line is covered."
+
+Conventions:
+
+- One spec file per feature/page (e.g. `e2e/upcomingEvents.spec.ts`). Group related cases in a `test.describe` block.
+- Mock the Core API with `page.route('**/api/v1/<resource>**', ...)` so tests are deterministic and don't depend on prod data. See `e2e/orglist.spec.ts` for the pattern.
+- Cover at minimum: the populated/happy-path render, the empty state, and any interactive affordance the feature adds (clicks, links, navigation).
+- Prefer role/text queries (`getByRole`, `getByText`) over CSS selectors; reserve `data-testid` for containers where text queries are ambiguous.
+- Run `yarn playwright test <spec> --project=chromium` locally before pushing.

@@ -22,6 +22,8 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - name: Enable Corepack
+        run: corepack enable
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
@@ -36,7 +38,7 @@ jobs:
             yarn-modules-${{ runner.arch }}-${{ runner.os }}-
 
       - name: Install dependencies
-        run: yarn -D
+        run: yarn install --immutable
 
       - name: Build website
         run: |
@@ -106,6 +108,8 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+      - name: Enable Corepack
+        run: corepack enable
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
@@ -118,11 +122,11 @@ jobs:
           restore-keys: |
             yarn-modules-${{ runner.arch }}-${{ runner.os }}-
       - name: Install dependencies
-        run: yarn -D
+        run: yarn install --immutable
       - name: Run Playwright tests
         uses: docker://mcr.microsoft.com/playwright:v1.59.1-noble
         with:
-          args: npx playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+          args: bash -c "corepack enable && npx playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}"
       - name: Upload blob report to GitHub Actions Artifacts
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
@@ -140,6 +144,8 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - name: Enable Corepack
+        run: corepack enable
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
@@ -152,7 +158,7 @@ jobs:
           restore-keys: |
             yarn-modules-${{ runner.arch }}-${{ runner.os }}-
       - name: Install dependencies
-        run: yarn -D
+        run: yarn install --immutable
       - name: Run type checking
         run: yarn typecheck
       - name: Check formatting

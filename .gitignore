@@ -47,3 +47,9 @@ examples/**/env.d.ts
 packages/astro/e2e/fixtures/cloudflare/.wrangler/deploy/config.json
 .claude/
 *:Zone.Identifier
+
+# Yarn v4
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+.pnp.*

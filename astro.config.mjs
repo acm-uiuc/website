@@ -12,6 +12,8 @@ import compress from 'astro-compress';
 
 import sitemap from '@astrojs/sitemap';
 
+import { svgoOptimizer } from 'astro/config';
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.acm.illinois.edu',
@@ -32,4 +34,7 @@ export default defineConfig({
       filter: (page) => !page.startsWith('https://www.acm.illinois.edu/admin/'),
     }),
   ],
+  experimental: {
+    svgOptimizer: svgoOptimizer(),
+  },
 });

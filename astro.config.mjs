@@ -25,6 +25,9 @@ export default defineConfig({
   server: {
     port: 3000,
   },
+  image: {
+    dangerouslyProcessSVG: true,
+  },
   integrations: [
     mdx(),
     icon(),

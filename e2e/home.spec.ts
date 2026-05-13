@@ -19,8 +19,15 @@ test.describe('Homepage', () => {
   });
 
   test('Join ACM button opens the Join modal', async ({ page }) => {
-    await page.locator('#hero-join-btn').click();
-    await expect(page.getByText('Join ACM @ UIUC')).toBeVisible();
+    // The hero button dispatches a custom event that the navbar listens for
+    // after it hydrates. Retry the click until the navbar's listener is
+    // registered and the modal actually opens.
+    await expect(async () => {
+      await page.locator('#hero-join-btn').click();
+      await expect(page.getByText('Join ACM @ UIUC')).toBeVisible({
+        timeout: 1000,
+      });
+    }).toPass({ timeout: 10_000 });
   });
 
   test('Sponsors section has all 5 sponsors', async ({ page }) => {

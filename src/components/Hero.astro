@@ -164,7 +164,7 @@ const { disableBounce } = Astro.props;
       </div>
     </div>
 
-    <UpcomingEvents client:load />
+    <UpcomingEvents client:only="preact" />
   </section>
 </div>
 

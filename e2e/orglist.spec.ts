@@ -134,7 +134,17 @@ test.describe('Org list pre-compilation', () => {
     const committeesTab = page.getByRole('button', {
       name: /Committees/i,
     });
-    await committeesTab.click();
+    await expect(committeesTab).toBeVisible();
+
+    // The tab is rendered in SSR HTML before its onClick is attached, so the
+    // first click may fire before OrgTypeTabBar hydrates. Retry until the
+    // active tab actually switches.
+    await expect(async () => {
+      await committeesTab.click();
+      await expect(committeesTab).toHaveAttribute('aria-selected', 'true', {
+        timeout: 1000,
+      });
+    }).toPass({ timeout: 10_000 });
 
     const cards = page.locator('[data-testid="org-grid"] h3:visible');
     await expect(cards.first()).toBeVisible();

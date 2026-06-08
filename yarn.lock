@@ -249,19 +249,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@astrojs/preact@npm:^5.1.4":
-  version: 5.1.4
-  resolution: "@astrojs/preact@npm:5.1.4"
+"@astrojs/preact@npm:^5.1.5":
+  version: 5.1.5
+  resolution: "@astrojs/preact@npm:5.1.5"
   dependencies:
     "@astrojs/internal-helpers": "npm:0.10.0"
     "@preact/preset-vite": "npm:^2.10.5"
     "@preact/signals": "npm:^2.8.2"
-    devalue: "npm:^5.6.4"
+    devalue: "npm:^5.8.1"
     preact-render-to-string: "npm:^6.6.6"
     vite: "npm:^7.3.2"
   peerDependencies:
     preact: ^10.6.5
-  checksum: 10c0/011c58d73ac720a6acc6ee88eda63e6fa92590a1a94c94a8604e59ca3a79bf634f8f7d32f681a77eba6e4da4231673861b8aa2012c6cd6a87266fbb1ae4094a5
+  checksum: 10c0/1f085b1c7ec210908a9536f5f9dd1d1f7394edfab298a3a9c0a2f5ca37199f3294237a32ae8d807727839cb0116355fc6c57c9c9074c166180cd5874eb1ebb5f
   languageName: node
   linkType: hard
 
@@ -1019,12 +1019,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@iconify-json/simple-icons@npm:^1.2.84":
-  version: 1.2.84
-  resolution: "@iconify-json/simple-icons@npm:1.2.84"
+"@iconify-json/simple-icons@npm:^1.2.85":
+  version: 1.2.85
+  resolution: "@iconify-json/simple-icons@npm:1.2.85"
   dependencies:
     "@iconify/types": "npm:*"
-  checksum: 10c0/4721f24b702c37271b842951f220fccf744059072cb5551c73b2a0c39a393efd26e42c037ae32294433f0b6ea69afeeaf643340b60ee0a1ee4c44f02cfa99797
+  checksum: 10c0/e554b55f078131984c9eee3664b9f122037a06f8c5bfeca1b3c2deb3141b49037ef0ee7022366de32ae38cbdf5e79f002422c45138876ec422c840642a09f3b9
   languageName: node
   linkType: hard
 
@@ -2230,12 +2230,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^19.2.16":
-  version: 19.2.16
-  resolution: "@types/react@npm:19.2.16"
+"@types/react@npm:^19.2.17":
+  version: 19.2.17
+  resolution: "@types/react@npm:19.2.17"
   dependencies:
     csstype: "npm:^3.2.2"
-  checksum: 10c0/96f2850b67c5aa4a695bc32eb06c7609acdda1c0c597ace21ad24a5b9e2ccbccd97c0643253579fd629789a422a3694b4bbcb26e5fc6aec5f0357820bf0ee81c
+  checksum: 10c0/bc2c4af96b3e480604424de70d5ebda90c5f4b485df471858c0bc2d7d70364b606ec3c4d8579f94f01aa0c6c0591f56bcf14cba5689f5eea4b74250ccdc3a232
   languageName: node
   linkType: hard
 
@@ -2585,23 +2585,23 @@ __metadata:
     "@acm-uiuc/js-shared": "npm:^3.8.3"
     "@astrojs/check": "npm:^0.9.9"
     "@astrojs/mdx": "npm:^5.0.6"
-    "@astrojs/preact": "npm:^5.1.4"
+    "@astrojs/preact": "npm:^5.1.5"
     "@astrojs/sitemap": "npm:^3.7.3"
     "@azure/msal-browser": "npm:^4.30.0"
     "@azure/msal-react": "npm:^3.0.25"
     "@eslint/js": "npm:^10.0.1"
     "@iconify-json/lucide": "npm:^1.2.111"
-    "@iconify-json/simple-icons": "npm:^1.2.84"
+    "@iconify-json/simple-icons": "npm:^1.2.85"
     "@icons-pack/react-simple-icons": "npm:13.8.0"
     "@marsidev/react-turnstile": "npm:^1.5.2"
     "@nanostores/preact": "npm:^1.1.0"
     "@playwright/test": "npm:^1.60.0"
     "@tailwindcss/vite": "npm:^4.3.0"
-    "@types/react": "npm:^19.2.16"
+    "@types/react": "npm:^19.2.17"
     "@types/react-big-calendar": "npm:^1.16.3"
     "@types/react-dom": "npm:^19.2.3"
     "@typescript-eslint/parser": "npm:^8.60.1"
-    astro: "npm:^6.4.2"
+    astro: "npm:^6.4.4"
     astro-compress: "npm:^2.4.1"
     astro-eslint-parser: "npm:^1.4.0"
     astro-icon: "npm:^1.1.5"
@@ -2994,9 +2994,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"astro@npm:^6.4.2":
-  version: 6.4.2
-  resolution: "astro@npm:6.4.2"
+"astro@npm:^6.4.4":
+  version: 6.4.4
+  resolution: "astro@npm:6.4.4"
   dependencies:
     "@astrojs/compiler": "npm:^4.0.0"
     "@astrojs/internal-helpers": "npm:0.10.0"
@@ -3012,7 +3012,7 @@ __metadata:
     clsx: "npm:^2.1.1"
     common-ancestor-path: "npm:^2.0.0"
     cookie: "npm:^1.1.1"
-    devalue: "npm:^5.6.3"
+    devalue: "npm:^5.8.1"
     diff: "npm:^8.0.3"
     dset: "npm:^3.1.4"
     es-module-lexer: "npm:^2.0.0"
@@ -3059,7 +3059,7 @@ __metadata:
       optional: true
   bin:
     astro: ./bin/astro.mjs
-  checksum: 10c0/33554d3c5d91d20dc493cd7e12340d5f3ce5f19c543466ab6751e58b2b2d55af81ceafcfcd2c552c03f254131273ffd388291d3cb3409168466461a3a9560a02
+  checksum: 10c0/bccd986af688b087fbf6e70c064e8b2ee5d820853bcc6a97b5b6afae20de58d8999e6c7de1c88e3a5f4e53f7bb53bb267481afc62223cfe271ae5b2eb7becd86
   languageName: node
   linkType: hard
 
@@ -3801,10 +3801,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"devalue@npm:^5.6.3, devalue@npm:^5.6.4":
+"devalue@npm:^5.6.3":
   version: 5.7.1
   resolution: "devalue@npm:5.7.1"
   checksum: 10c0/55870801e7bf4b7e8cf7feca1feae4f20bc8c361cf715a1fc5d8f595f099afa65094ce718a3cf3b149b79c78d24a0c92cf9d72125c8a10e563ebb18b23869b8a
+  languageName: node
+  linkType: hard
+
+"devalue@npm:^5.8.1":
+  version: 5.8.1
+  resolution: "devalue@npm:5.8.1"
+  checksum: 10c0/fad0c5aeb615e0ddea3385923389991652b285cd2adcd84e10f07a930f735127d94621751f7ef5249a7fe2c7c666ec7c02bb95c3901da337c91f45ef4da18dea
   languageName: node
   linkType: hard
 

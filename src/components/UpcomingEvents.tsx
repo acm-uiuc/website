@@ -1,8 +1,15 @@
-import { ArrowRight, Calendar, CalendarClock, Repeat } from 'lucide-preact';
+import {
+  ArrowRight,
+  Calendar,
+  CalendarClock,
+  Repeat,
+  Ticket,
+} from 'lucide-preact';
 import { useEffect, useState } from 'preact/hooks';
 
 import { eventsApiClient } from '../api';
 import { transformEventsApiDates } from '../api/events';
+import { rsvpUrl } from '../constants';
 import type { Event } from '../types/events';
 import { Temporal } from 'temporal-polyfill';
 
@@ -157,6 +164,21 @@ const EventCard = ({ event }: { event: Event }) => {
               <span className="max-w-[250px] truncate">{event.location}</span>
             )}
           </div>
+        )}
+
+        {event.rsvpEnabled && (
+          /* relative z-10 keeps this above the stretched card link so the
+            RSVP link wins the click instead of the card navigation. */
+          <a
+            href={rsvpUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="relative z-10 inline-flex items-center gap-1.5 rounded-full bg-navy-800 px-3 py-1 font-semibold text-white transition-colors hover:bg-navy-700"
+          >
+            <Ticket size={14} className="shrink-0" />
+            RSVP
+          </a>
         )}
       </div>
 

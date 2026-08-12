@@ -76,4 +76,64 @@ test.describe('UpcomingEvents empty state', () => {
       0
     );
   });
+
+  test('shows an RSVP link on cards for rsvpEnabled events', async ({
+    page,
+  }) => {
+    const mockEvent = {
+      id: 'evt-e2e-rsvp',
+      title: 'E2E RSVP Event',
+      description: 'A featured event with RSVPs enabled.',
+      start: futureDateTime(3),
+      end: futureDateTime(3),
+      featured: true,
+      rsvpEnabled: true,
+      host: 'ACM',
+      location: 'Siebel CS',
+    };
+
+    await page.route('**/api/v1/events**', (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify([mockEvent]),
+      })
+    );
+
+    await page.goto('/');
+
+    const rsvp = page.getByRole('link', { name: /^RSVP$/ });
+    await expect(rsvp).toBeVisible();
+    await expect(rsvp).toHaveAttribute('href', 'https://acm.gg/rsvp');
+    await expect(rsvp).toHaveAttribute('target', '_blank');
+  });
+
+  test('omits the RSVP link when rsvpEnabled is false', async ({ page }) => {
+    const mockEvent = {
+      id: 'evt-e2e-no-rsvp',
+      title: 'E2E No RSVP Event',
+      description: 'A featured event without RSVPs.',
+      start: futureDateTime(3),
+      end: futureDateTime(3),
+      featured: true,
+      rsvpEnabled: false,
+      host: 'ACM',
+      location: 'Siebel CS',
+    };
+
+    await page.route('**/api/v1/events**', (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify([mockEvent]),
+      })
+    );
+
+    await page.goto('/');
+
+    await expect(
+      page.getByRole('heading', { name: 'E2E No RSVP Event' })
+    ).toBeVisible();
+    await expect(page.getByRole('link', { name: /^RSVP$/ })).toHaveCount(0);
+  });
 });

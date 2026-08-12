@@ -124,7 +124,7 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
       - name: Run Playwright tests
-        uses: docker://mcr.microsoft.com/playwright:v1.59.1-noble
+        uses: docker://mcr.microsoft.com/playwright:v1.61.1-noble
         with:
           args: bash -c "corepack enable && npx playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}"
       - name: Upload blob report to GitHub Actions Artifacts
@@ -179,7 +179,7 @@ jobs:
           pattern: blob-report-*
           merge-multiple: true
       - name: Merge into HTML Report
-        uses: docker://mcr.microsoft.com/playwright:v1.59.1-noble
+        uses: docker://mcr.microsoft.com/playwright:v1.61.1-noble
         with:
           args: npx playwright merge-reports --reporter html ./all-blob-reports
       - name: Upload HTML report

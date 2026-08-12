@@ -1,5 +1,6 @@
-import { Calendar, LogIn, MapPin, User } from 'lucide-preact';
+import { Calendar, LogIn, MapPin, Ticket, User } from 'lucide-preact';
 
+import { rsvpUrl } from '../../constants';
 import type { Event } from '../../types/events';
 
 interface CalendarEventDetailProps {
@@ -78,17 +79,31 @@ export default function CalendarEventDetail({
 
         <p className="text-sm text-gray-600">{event.description}</p>
 
-        {paidEventHref && (
-          <a
-            href={paidEventHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-md bg-navy-800 px-4 py-2 text-white hover:bg-navy-700"
-          >
-            <LogIn size={16} className="shrink-0" />
-            <span>Register</span>
-          </a>
-        )}
+        <div className="flex flex-wrap gap-2">
+          {paidEventHref && (
+            <a
+              href={paidEventHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-md bg-navy-800 px-4 py-2 text-white hover:bg-navy-700"
+            >
+              <LogIn size={16} className="shrink-0" />
+              <span>Register</span>
+            </a>
+          )}
+
+          {event.rsvpEnabled && (
+            <a
+              href={rsvpUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-md bg-navy-800 px-3 py-1.5 text-sm text-white hover:bg-navy-700"
+            >
+              <Ticket size={14} className="shrink-0" />
+              <span>RSVP</span>
+            </a>
+          )}
+        </div>
       </div>
     </div>
   );

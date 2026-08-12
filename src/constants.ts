@@ -3,6 +3,9 @@ export const mailingListSubscriptionUrl =
 
 export const acmRoomMapsLink = 'https://maps.app.goo.gl/nC9cJ1omGbGBtPH49';
 
+/** Where users are sent to RSVP for events with `rsvpEnabled` set. */
+export const rsvpUrl = 'https://acm.gg/rsvp';
+
 export const membershipBenefits = [
   {
     summary: '**Swipe access** to the ACM room',

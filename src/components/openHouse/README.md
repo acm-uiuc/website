@@ -7,11 +7,16 @@ Interactive venue map and booth directory for ACM Open House events.
 ```
 openHouse/
   page.tsx                        # Main Preact component (client:load island)
+  VenueMap.tsx                    # Draws the floor plan from the layout config
   data/
     oh_config.ts                  # OH-specific overrides + partner org definitions
     assignments_config.json       # Maps table positions to org IDs
-    tables_config.json            # Table pixel coordinates for map click detection
+    tables_config.json            # Room layout: tables per wall + center block
+    layout.ts                     # Layout geometry + slot/entry resolution
 ```
+
+Fixture artwork (food tables, signage) lives in
+`src/images/openHouse/fixtures/`.
 
 **Entry point:** `src/pages/open-house.astro`
 
@@ -84,14 +89,81 @@ Partner orgs can have `demo_time` set directly in their `partnerOrgs` entry. Any
 
 ### Change booth/table assignments
 
-Edit `data/assignments_config.json`. Each key (`"left"`, `"right"`) is a row of tables. The array index corresponds to the table position (0 = first table in that row). The value is the org ID assigned to that table.
+Edit `data/assignments_config.json`. Each key is a section of the room
+(`"top"`, `"right"`, `"bottom"`, `"left"`, `"center"`) and the array index is
+the table position within that section, counting clockwise-ish: left-to-right
+along `top` and `bottom`, top-to-bottom along `left` and `right`, and row-major
+for `center`. The value is the org ID at that table.
 
 ```json
 {
-  "left":  ["C01", "C05", "C04", ...],
-  "right": ["C02", "C06", "C07", ...]
+  "top": ["C07", "S07", "S09", "S08", "S17", "S05", "C08", "S04"],
+  "right": [{ "label": "Partner orgs", "span": 6 }],
+  "bottom": ["S03", "S14", "S19", "S15", "S02", "S16", "S18"],
+  "left": ["S11", "S10", "S12", "S13", "S01", "S06"],
+  "center": [{ "label": "ACM", "image": "acm", "span": 2 }, null, "..."]
 }
 ```
+
+The partner orgs share one bar along the right wall rather than having
+individual tables, so no `P##` appears in the wall runs; they are still listed
+in the Partners section of the booth directory.
+
+**Leaving a table out.** A table is only drawn when its slot has an org that
+exists in the org data. To leave a gap in the middle of a run, put `null` at
+that index; to leave the end of a run empty, just make the array shorter than
+the wall's table count. Either way the floor is simply empty there — the
+remaining tables do not shift.
+
+```json
+{ "bottom": ["C02", null, "C07"] }
+```
+
+An ID that no longer resolves to an org (for example a SIG removed from the
+API) is treated the same way, so a stale entry leaves a gap rather than
+rendering a blank table.
+
+### Put something on the map that isn't a booth
+
+A slot can hold a **fixture** instead of an org ID: the "Partner orgs" bar, a
+food table, signage — anything with no entry in the org data. Fixtures carry
+their own label and image, which is what keeps them out of the `S##`/`C##`/`P##`
+ID space entirely.
+
+```json
+{ "label": "Food", "image": "burrito", "span": 3 }
+```
+
+- **`label`** (required) — the accessible name, and the visible text when no
+  image resolves.
+- **`image`** (optional) — basename of a file in
+  `src/images/openHouse/fixtures/`. See the README there. Missing images fall
+  back to the label, so the map renders before the artwork exists.
+- **`span`** (optional, default 1) — how many consecutive slots the fixture
+  covers. The slots are merged into one rectangle, gaps included, which is how
+  a whole wall becomes a single long bar.
+
+Fixtures are drawn as non-interactive labels, not buttons: they are not booths,
+so there is nothing to open when you click one.
+
+### Spans and slot numbering
+
+`span` works on org entries too, for a booth that gets a double table. In every
+case **the array index stays the table position**, so a span leaves the slots
+behind it occupied — pad them with `null` if something follows in the same run:
+
+```json
+"center": [
+  { "label": "ACM", "image": "acm", "span": 2 },
+  null,
+  { "label": "Food", "image": "burrito" }
+]
+```
+
+Here the ACM table covers slots 0 and 1, and the first burrito is at slot 2. An
+entry sitting in a slot already covered by a span is ignored, which shows up as
+a missing table on the map rather than a silent shift. Spans also stop at the
+end of their line, so a center-grid entry can never bleed into the next row.
 
 ### Add or rename a booth section
 
@@ -109,13 +181,57 @@ Add, remove, or reorder entries here. The `type` must match the org's `type` fie
 
 ## Interactive Map
 
-The map images (`oh_map.svg` for landscape, `oh_map_vertical.svg` for portrait) live in `src/images/openHouse/`. They are imported and optimized at build time in `open-house.astro` via `getImage()`, and the resulting URLs are passed to the Preact component as `mapSrc` and `mapVerticalSrc` props.
+The map is **drawn in code**, not loaded as an image. `VenueMap.tsx` reads
+`data/tables_config.json`, runs it through `computeVenueLayout()` in
+`data/layout.ts`, and renders each table as a positioned `<button>` with the
+org's logo inside. There is no image to re-export and no pixel hit detection:
+change the config and the map changes with it.
 
-When a user clicks the map, `page.tsx` translates the click coordinates into a table position using `data/tables_config.json`, then looks up the assigned org in `data/assignments_config.json`.
+Because the tables are real buttons, they are keyboard-focusable, screen-reader
+labelled (`"SIGPwny — Left wall, table 3"`), and rendered into the HTML at build
+time, so the map is visible before the JavaScript island hydrates.
 
-`tables_config.json` has `horizontal` and `vertical` variants with:
+### Changing the room shape
 
-- `image_details`: pixel dimensions of the SVG and individual table size
-- `rows`: named rows with orientation, table count, and starting pixel coordinates
+`data/tables_config.json`:
 
-If the map SVGs change, the pixel coordinates in `tables_config.json` must be updated to match.
+```json
+{
+  "walls": { "top": 8, "right": 6, "bottom": 8, "left": 6 },
+  "center": { "rows": 1, "cols": 3, "orientation": "horizontal" }
+}
+```
+
+- **`walls`** — how many table slots run along each wall. Any wall may be
+  omitted or set to `0` for a bare wall.
+- **`center`** — an optional grid of free-standing tables in the middle of the
+  room. `orientation` is the long axis of each center table and defaults to
+  `"horizontal"`. Omit `center` entirely for no center tables.
+- **`geometry`** — optional overrides for the drawing proportions
+  (`tableLength`, `tableDepth`, `gap`, `edgePad`, `aisle`). The units are
+  arbitrary and only matter relative to each other; the defaults in
+  `layout.ts` are tuned for a room roughly like this one.
+
+The room sizes itself from the table counts, so the aspect ratio follows the
+config automatically:
+
+- Each axis is sized by its longest wall, and a shorter wall is centered along
+  its own side (e.g. a 6-table wall opposite an 8-table wall sits centered).
+- Wall runs are inset by the depth of the perpendicular tables so corners never
+  overlap.
+- If the center block would not fit in the aisle between the wall runs, the
+  room grows to make space for it.
+
+### Logos on the map
+
+Map tables reuse the same optimized logos as the booth directory, so they cost
+no extra download. An org with no logo file falls back to its name in small
+type, which can truncate on the narrow side-wall tables — add
+`src/images/logos/{orgId}.png` for anything that should be recognizable on the
+map.
+
+### Mobile
+
+The map keeps a minimum width so tables stay large enough to tap, and scrolls
+horizontally below that with an on-screen hint. The booth directory underneath
+is the full list and works at any width.

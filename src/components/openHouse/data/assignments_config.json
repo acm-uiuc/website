@@ -1,37 +1,48 @@
 {
-  "left": [
-    "C01",
-    "C05",
-    "C04",
-    "C08",
-    "S02",
-    "P03",
-    "P02",
-    "P01",
-    "S17",
-    "S12",
-    "S11",
-    "P05",
-    "S08",
-    "P07",
-    "S16",
-    "S09"
-  ],
+  "top": ["C07", "S07", "S09", "S08", "S17", "S05", "C08", "S04"],
   "right": [
-    "C02",
-    "C06",
-    "C07",
-    "P08",
-    "S05",
-    "S06",
-    "S04",
-    "S10",
-    "S15",
-    "S14",
-    "S01",
-    "P04",
+    {
+      "label": "Partners",
+      "span": 6,
+      "description": "Partner organizations share this row. See the Partners list below."
+    }
+  ],
+  "bottom": [
     "S03",
-    "S13",
-    "S18"
+    "S14",
+    "S19",
+    "S15",
+    "S02",
+    "S16",
+    "S18",
+    null,
+    {
+      "label": "Entrance"
+    }
+  ],
+  "left": ["S11", "S10", "S12", "S13", "S01", "S06"],
+  "center": [
+    {
+      "label": "ACM Info",
+      "image": "acm",
+      "span": 2,
+      "description": "Get directions and ask general questions about ACM, or anything else."
+    },
+    null,
+    {
+      "label": "Food",
+      "image": "burrito",
+      "description": "For RSVP'd attendees only: Free food."
+    },
+    {
+      "label": "Food",
+      "image": "burrito",
+      "description": "For RSVP'd attendees only: Free food."
+    },
+    {
+      "label": "Food",
+      "image": "burrito",
+      "description": "For RSVP'd attendees only: Free food."
+    }
   ]
 }

@@ -8,8 +8,7 @@ import {
   partnerOrgs,
   type OHOrgData,
 } from '../components/openHouse/data/oh_config';
-import mapHorizontal from '../images/openHouse/oh_map.svg';
-import mapVertical from '../images/openHouse/oh_map_vertical.svg';
+import acmBanner from '../images/banner-blue.svg';
 import type { ImageMetadata } from 'astro';
 
 // Fetch org data at build time (same pattern as home page)
@@ -40,6 +39,39 @@ for (const [path, module] of Object.entries(imageModules)) {
     optimizedLogos[filename] = optimized.src;
   } catch (e) {
     console.warn(`Failed to optimize logo for ${filename}:`, e);
+  }
+}
+
+// Images for non-booth map items (food tables, signage). Files in
+// images/openHouse/fixtures/ are keyed by basename; site assets reused on the
+// map are registered here and can be overridden by a same-named file there.
+const fixtureModules = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/images/openHouse/fixtures/*.{png,jpg,jpeg,webp,svg}',
+  {
+    eager: true,
+  }
+);
+
+const fixtureSources: Record<string, ImageMetadata> = { acm: acmBanner };
+for (const [path, module] of Object.entries(fixtureModules)) {
+  const filename = path
+    .split('/')
+    .pop()
+    ?.replace(/\.(png|jpg|jpeg|webp|svg)$/, '');
+  if (filename) {
+    fixtureSources[filename] = module.default;
+  }
+}
+
+// Width-only optimization keeps the aspect ratio, so wide artwork such as the
+// ACM banner is not cropped to a square the way the org logos are.
+const fixtureImages: Record<string, string> = {};
+for (const [name, src] of Object.entries(fixtureSources)) {
+  try {
+    const optimized = await getImage({ src, width: 512, format: 'webp' });
+    fixtureImages[name] = optimized.src;
+  } catch (e) {
+    console.warn(`Failed to optimize map fixture image for ${name}:`, e);
   }
 }
 
@@ -85,20 +117,11 @@ for (const [id, partner] of Object.entries(partnerOrgs)) {
     logo: optimizedLogos[id],
   };
 }
-
-// Optimize map images at build time
-const optimizedMapH = await getImage({ src: mapHorizontal });
-const optimizedMapV = await getImage({ src: mapVertical });
 ---
 
 <Layout
   title="Open House"
   description="Map and event information for ACM Open House."
 >
-  <VenuePage
-    client:load
-    orgsData={orgsById}
-    mapSrc={optimizedMapH.src}
-    mapVerticalSrc={optimizedMapV.src}
-  />
+  <VenuePage client:load orgsData={orgsById} fixtureImages={fixtureImages} />
 </Layout>

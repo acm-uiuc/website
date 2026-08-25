@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'preact/hooks';
+import { useEffect, useRef, useState } from 'preact/hooks';
 import type { OHOrgData } from './data/oh_config';
 import VenueMap from './VenueMap';
 import {
@@ -226,18 +226,56 @@ export default function VenuePage({ orgsData, fixtureImages }: VenuePageProps) {
     ? resolveDetail(selectedBooth, orgsData)
     : null;
 
+  // Depend on the primitives, not on selectedDetail: resolveDetail builds a
+  // fresh object every render, which would tear down and re-run this effect
+  // (and so re-move focus) on every unrelated state change.
+  const hasDetail = selectedDetail !== null;
+  const dialogRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    if (!selectedDetail) {
+    if (!hasDetail) {
       return;
     }
+    const panel = dialogRef.current;
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    panel?.focus();
+
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setSelectedBooth(null);
+        return;
+      }
+      if (e.key !== 'Tab' || !panel) {
+        return;
+      }
+      // Keep Tab inside the dialog while it is open. The panel itself is the
+      // first stop, so shift-Tab off it wraps to the end.
+      const items = Array.from(
+        panel.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')
+      );
+      if (items.length === 0) {
+        e.preventDefault();
+        return;
+      }
+      const first = items[0];
+      const last = items[items.length - 1];
+      const active = document.activeElement;
+      if (e.shiftKey && (active === first || active === panel)) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
       }
     };
+
     window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
-  }, [selectedDetail]);
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+      // Send focus back to the map or directory button that opened the dialog.
+      previouslyFocused?.focus?.();
+    };
+  }, [selectedBooth, hasDetail]);
 
   return (
     <div className="relative w-full px-4 pt-24 md:px-8 lg:pt-32">
@@ -264,9 +302,7 @@ export default function VenuePage({ orgsData, fixtureImages }: VenuePageProps) {
 
       <p className="mb-2 text-center text-sm text-gray-500">
         Select a table for details.{' '}
-        <span className="sm:hidden">
-          Scroll the sideways to see every table.
-        </span>
+        <span className="sm:hidden">Scroll sideways to see every table.</span>
       </p>
 
       {/* Map */}
@@ -286,13 +322,15 @@ export default function VenuePage({ orgsData, fixtureImages }: VenuePageProps) {
         {selectedDetail && (
           <div
             className="fixed inset-0 z-50 flex animate-[fadeIn_200ms_ease-out] items-center justify-center bg-black/40 p-4 backdrop-blur-sm"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="booth-detail-title"
             onClick={() => setSelectedBooth(null)}
           >
             <div
-              className="w-full max-w-[500px] animate-[scaleIn_200ms_ease-out] rounded-2xl border border-navy-100 bg-white p-6 shadow-2xl"
+              ref={dialogRef}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="booth-detail-title"
+              tabIndex={-1}
+              className="w-full max-w-[500px] animate-[scaleIn_200ms_ease-out] rounded-2xl border border-navy-100 bg-white p-6 shadow-2xl focus:outline-none"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="mb-3 flex items-start justify-between gap-4">

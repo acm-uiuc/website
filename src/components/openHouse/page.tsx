@@ -348,8 +348,8 @@ export default function VenuePage({ orgsData, fixtureImages }: VenuePageProps) {
             {!collapsedSections.demos && (
               <div className="px-1 pt-2 pb-4">
                 <p className="mb-3 max-w-4xl text-sm leading-6 text-gray-500">
-                  Watch demos at the Siebel Center for Computer Science building
-                  in Room 2405.
+                  Watch demos at the Siebel Center for Computer Science, Room
+                  2405.
                 </p>
                 <ul className="divide-y divide-surface-150">
                   {demoOrgs.map(([orgId, org]) => {

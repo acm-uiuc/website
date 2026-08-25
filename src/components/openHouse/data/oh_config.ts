@@ -70,18 +70,8 @@ export const partnerOrgs: Record<string, PartnerOrg> = {
       { text: 'Application Form', url: 'https://tinyurl.com/apply-sail-26' },
     ],
   },
-  P09: {
-    name: 'CS STARS',
-    type: 'partner',
-    description: 'TODO: add description.',
-  },
   P10: {
     name: 'AI Alignment',
-    type: 'partner',
-    description: 'TODO: add description.',
-  },
-  P11: {
-    name: 'Agentic AI @ UIUC',
     type: 'partner',
     description: 'TODO: add description.',
   },

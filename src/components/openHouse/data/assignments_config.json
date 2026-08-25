@@ -1,12 +1,6 @@
 {
   "top": ["C07", "S07", "S09", "S08", "S17", "S05", "C08", "S04"],
-  "right": [
-    {
-      "label": "Partners",
-      "span": 6,
-      "description": "Partner organizations share this row. See the Partners list below."
-    }
-  ],
+  "right": ["P02", "P03", "P04", "P06", "P10"],
   "bottom": [
     "S03",
     "S14",
@@ -30,19 +24,19 @@
     },
     null,
     {
-      "label": "Food",
+      "label": "Free Food",
       "image": "burrito",
-      "description": "For RSVP'd attendees only: Free food."
+      "description": "For RSVP'd attendees only."
     },
     {
-      "label": "Food",
+      "label": "Free Food",
       "image": "burrito",
-      "description": "For RSVP'd attendees only: Free food."
+      "description": "For RSVP'd attendees only."
     },
     {
-      "label": "Food",
+      "label": "Free Food",
       "image": "burrito",
-      "description": "For RSVP'd attendees only: Free food."
+      "description": "For RSVP'd attendees only."
     }
   ]
 }

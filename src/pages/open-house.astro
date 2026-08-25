@@ -30,10 +30,12 @@ for (const [path, module] of Object.entries(imageModules)) {
       .pop()
       ?.replace(/\.(png|jpg|jpeg|webp|svg)$/, '') || '';
   try {
+    // Width only. Passing height as well lets the image service resize to
+    // fill, cropping the edges off any logo that is not square. Local sharp
+    // happens to ignore the height; CI does not.
     const optimized = await getImage({
       src: module.default,
       width: 256,
-      height: 256,
       format: 'webp',
     });
     optimizedLogos[filename] = optimized.src;

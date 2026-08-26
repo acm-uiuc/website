@@ -44,12 +44,19 @@ export const partnerOrgs: Record<string, PartnerOrg> = {
 
 ### Logos
 
-Logos are resolved at build time via `import.meta.glob` from `src/images/logos/{orgId}.{ext}` (same pattern as the home page org grid). They are optimized to 256x256 WebP. The filename must match the org ID exactly:
+Logos are resolved at build time via `import.meta.glob` from `src/images/logos/{orgId}.{ext}` (same pattern as the home page org grid). They are optimized to WebP at **256px wide, height left to follow the source aspect ratio**. The filename must match the org ID exactly:
 
 - API orgs: `src/images/logos/S01.png`, `src/images/logos/C04.png`, etc.
 - Partners: `src/images/logos/P01.png`, `src/images/logos/P02.png`, etc.
 
 If no logo file exists for an org, a fallback placeholder with the org name is shown.
+
+> **Do not pass `height` to `getImage()` here.** Giving it both dimensions lets
+> the image service resize to fill and crop the edges off any logo that is not
+> square. Local sharp happens to ignore the height, so the damage only shows up
+> in the deployed build — several logos are far from square (WCS is 3.92:1).
+> The tiles already use `object-contain`, so a non-square image is letterboxed
+> correctly on its own.
 
 ## Common Tasks
 
@@ -80,12 +87,12 @@ Add or update an entry in `ohOverrides` in `data/oh_config.ts`:
 
 ```ts
 export const ohOverrides: Record<string, OHOverride> = {
-  S13: { demo_time: '8:10 - 8:15 PM' },
-  S05: { demo_time: '8:30 - 8:35 PM' }, // new
+  S17: { demo_time: '7:00 – 7:10 PM' },
+  S13: { demo_time: '7:40 – 7:50 PM' }, // new
 };
 ```
 
-Partner orgs can have `demo_time` set directly in their `partnerOrgs` entry. Any org with a non-null `demo_time` will appear in the "Demo Schedule" modal.
+Partner orgs can have `demo_time` set directly in their `partnerOrgs` entry. Any org with a non-null `demo_time` appears in the "Demo Schedule" dropdown, which sits above the booth directory and collapses like the other sections.
 
 ### Change booth/table assignments
 
@@ -98,16 +105,26 @@ for `center`. The value is the org ID at that table.
 ```json
 {
   "top": ["C07", "S07", "S09", "S08", "S17", "S05", "C08", "S04"],
-  "right": [{ "label": "Partner orgs", "span": 6 }],
-  "bottom": ["S03", "S14", "S19", "S15", "S02", "S16", "S18"],
+  "right": ["P02", "P03", "P04", "P06", "P10"],
+  "bottom": [
+    "S03",
+    "S14",
+    "S19",
+    "S15",
+    "S02",
+    "S16",
+    "S18",
+    null,
+    { "label": "Entrance" }
+  ],
   "left": ["S11", "S10", "S12", "S13", "S01", "S06"],
-  "center": [{ "label": "ACM", "image": "acm", "span": 2 }, null, "..."]
+  "center": [{ "label": "ACM Info", "image": "acm", "span": 2 }, null, "..."]
 }
 ```
 
-The partner orgs share one bar along the right wall rather than having
-individual tables, so no `P##` appears in the wall runs; they are still listed
-in the Partners section of the booth directory.
+Partners sit on individual tables along the right wall, the same as any other
+org — their `P##` IDs go in the wall run and they pick up their logos and
+descriptions exactly like SIGs and committees do.
 
 **Leaving a table out.** A table is only drawn when its slot has an org that
 exists in the org data. To leave a gap in the middle of a run, put `null` at
@@ -125,10 +142,10 @@ rendering a blank table.
 
 ### Put something on the map that isn't a booth
 
-A slot can hold a **fixture** instead of an org ID: the "Partner orgs" bar, a
-food table, signage — anything with no entry in the org data. Fixtures carry
-their own label and image, which is what keeps them out of the `S##`/`C##`/`P##`
-ID space entirely.
+A slot can hold a **fixture** instead of an org ID: a food table, the entrance
+marker, signage — anything with no entry in the org data. Fixtures carry their
+own label and image, which is what keeps them out of the `S##`/`C##`/`P##` ID
+space entirely.
 
 ```json
 { "label": "Food", "image": "burrito", "span": 3 }
@@ -140,17 +157,27 @@ ID space entirely.
   `src/images/openHouse/fixtures/`. See the README there. Missing images fall
   back to the label, so the map renders before the artwork exists.
 - **`span`** (optional, default 1) — how many consecutive slots the fixture
-  covers. The slots are merged into one rectangle, gaps included, which is how
-  a whole wall becomes a single long bar.
+  covers. The slots are merged into one rectangle, gaps included, so a run of
+  slots can become one wide table or a whole bar along a wall.
+- **`description`** (optional) — a blurb shown in the detail dialog. **Adding
+  one is what makes the fixture clickable.**
+- **`links`** (optional) — the same `{ text, url }` list orgs use, shown in the
+  dialog under the description.
 
-Fixtures are drawn as non-interactive labels, not buttons: they are not booths,
-so there is nothing to open when you click one.
+A fixture with no `description` has nothing to show, so it renders as an inert
+label rather than a button — that is the right shape for pure signage like the
+`Entrance` marker. Give it a description and it becomes a real button, keyboard
+focusable and screen-reader labelled like a booth.
 
 ### Spans and slot numbering
 
-`span` works on org entries too, for a booth that gets a double table. In every
-case **the array index stays the table position**, so a span leaves the slots
-behind it occupied — pad them with `null` if something follows in the same run:
+`span` is a **fixture-only** field. An org entry is a bare ID string, so there is
+nowhere to put one and a booth always covers exactly one slot; to give an org a
+double table, place a fixture over it instead.
+
+In every case **the array index stays the table position**, so a span leaves the
+slots behind it occupied — pad them with `null` if something follows in the same
+run:
 
 ```json
 "center": [
@@ -167,17 +194,32 @@ end of their line, so a center-grid entry can never bleed into the next row.
 
 ### Add or rename a booth section
 
-The booth directory sections (Committees, SIGs, Partners) are driven by the `boothSections` array in `page.tsx`:
+The booth directory sections (SIGs, Committees, Partners) are driven by the `boothSections` array in `page.tsx`:
 
 ```ts
 const boothSections: { title: string; type: OrgType }[] = [
-  { title: 'Committees', type: 'committee' },
   { title: 'Special Interest Groups', type: 'sig' },
+  { title: 'Committees', type: 'committee' },
   { title: 'Partners', type: 'partner' },
 ];
 ```
 
 Add, remove, or reorder entries here. The `type` must match the org's `type` field.
+
+## Before the Event
+
+Things in the page that are deliberately temporary:
+
+- **Work-in-progress banner.** `page.tsx` opens with a tangerine notice saying
+  the layout is not final, tagged with a `Remove this block` comment. Delete the
+  whole `<div>` once the floor plan is locked.
+- **Placeholder copy.** Search the component and `data/oh_config.ts` for `TODO`.
+  Any partner added without a real blurb carries `TODO: add description.`, which
+  renders verbatim in the detail dialog.
+- **Layout churn.** The venue map has changed shape several times. Re-check
+  `data/tables_config.json` against the final floor plan before the event; the
+  wall counts and the assignments are separate files and can drift apart, and a
+  wall count that shrinks silently drops the tables past the end of the run.
 
 ## Interactive Map
 
@@ -197,8 +239,8 @@ time, so the map is visible before the JavaScript island hydrates.
 
 ```json
 {
-  "walls": { "top": 8, "right": 6, "bottom": 8, "left": 6 },
-  "center": { "rows": 1, "cols": 3, "orientation": "horizontal" }
+  "walls": { "top": 9, "right": 6, "bottom": 9, "left": 6 },
+  "center": { "rows": 1, "cols": 5, "orientation": "horizontal" }
 }
 ```
 
@@ -216,7 +258,7 @@ The room sizes itself from the table counts, so the aspect ratio follows the
 config automatically:
 
 - Each axis is sized by its longest wall, and a shorter wall is centered along
-  its own side (e.g. a 6-table wall opposite an 8-table wall sits centered).
+  its own side (e.g. a 6-table wall opposite a 9-table wall sits centered).
 - Wall runs are inset by the depth of the perpendicular tables so corners never
   overlap.
 - If the center block would not fit in the aisle between the wall runs, the

@@ -1,42 +1,20 @@
 {
-  "top": ["C07", "S07", "S09", "S08", "S17", "S05", "C08", "S04"],
-  "right": ["P02", "P03", "P04", "P06", "P10"],
-  "bottom": [
-    "S03",
-    "S14",
-    "S19",
-    "S15",
-    "S02",
-    "S16",
-    "S18",
-    null,
-    {
-      "label": "Entrance"
-    }
-  ],
+  "top": [null, null, "C07", "S07", "S09", "S08", "S17", "S05", "C08", null],
+  "right": ["P02", "P03", "P04", "P06", "S04", null],
+  "bottom": [null, "S03", "S14", "S19", "S15", "S02", "S16", "S18", null, null],
   "left": ["S11", "S10", "S12", "S13", "S01", "S06"],
   "center": [
     {
-      "label": "ACM Info",
-      "image": "acm",
+      "label": "Free Food",
+      "image": "burrito",
       "span": 2,
-      "description": "Get directions and ask general questions about ACM, or anything else."
+      "description": "For RSVP'd attendees only."
     },
     null,
     {
-      "label": "Free Food",
-      "image": "burrito",
-      "description": "For RSVP'd attendees only."
-    },
-    {
-      "label": "Free Food",
-      "image": "burrito",
-      "description": "For RSVP'd attendees only."
-    },
-    {
-      "label": "Free Food",
-      "image": "burrito",
-      "description": "For RSVP'd attendees only."
+      "label": "ACM Info",
+      "image": "acm",
+      "description": "Get directions and ask general questions about ACM, or anything else."
     }
   ]
 }

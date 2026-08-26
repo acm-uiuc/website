@@ -1,13 +1,13 @@
 {
   "walls": {
-    "top": 9,
+    "top": 10,
     "right": 6,
-    "bottom": 9,
+    "bottom": 10,
     "left": 6
   },
   "center": {
     "rows": 1,
-    "cols": 5,
+    "cols": 3,
     "orientation": "horizontal"
   }
 }

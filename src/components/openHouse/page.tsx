@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 import type { OHOrgData } from './data/oh_config';
 import VenueMap from './VenueMap';
 import {
@@ -226,56 +226,57 @@ export default function VenuePage({ orgsData, fixtureImages }: VenuePageProps) {
     ? resolveDetail(selectedBooth, orgsData)
     : null;
 
-  // Depend on the primitives, not on selectedDetail: resolveDetail builds a
-  // fresh object every render, which would tear down and re-run this effect
-  // (and so re-move focus) on every unrelated state change.
+  // Depend on the primitive, not on selectedDetail: resolveDetail builds a
+  // fresh object every render, which would tear down and re-run this effect on
+  // every unrelated state change.
   const hasDetail = selectedDetail !== null;
-  const dialogRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!hasDetail) {
       return;
     }
-    const panel = dialogRef.current;
-    const previouslyFocused = document.activeElement as HTMLElement | null;
-    panel?.focus();
-
+    // The panel is deliberately non-modal: the map stays live behind it so a
+    // different booth can be picked in one click. That rules out a focus trap
+    // and stealing focus -- focus stays on the table or tile that was clicked,
+    // which is also the element the map is highlighting. The panel announces
+    // itself through aria-live instead.
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setSelectedBooth(null);
-        return;
-      }
-      if (e.key !== 'Tab' || !panel) {
-        return;
-      }
-      // Keep Tab inside the dialog while it is open. The panel itself is the
-      // first stop, so shift-Tab off it wraps to the end.
-      const items = Array.from(
-        panel.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')
-      );
-      if (items.length === 0) {
-        e.preventDefault();
-        return;
-      }
-      const first = items[0];
-      const last = items[items.length - 1];
-      const active = document.activeElement;
-      if (e.shiftKey && (active === first || active === panel)) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && active === last) {
-        e.preventDefault();
-        first.focus();
       }
     };
-
     window.addEventListener('keydown', onKeyDown);
-    return () => {
-      window.removeEventListener('keydown', onKeyDown);
-      // Send focus back to the map or directory button that opened the dialog.
-      previouslyFocused?.focus?.();
-    };
-  }, [selectedBooth, hasDetail]);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [hasDetail]);
+
+  // The selection may not be on the map: presenting-only partners and any org
+  // left out of assignments_config are in the directory only. Rather than
+  // re-deriving which entries got drawn, ask the DOM -- that is accurate for
+  // free when a slot is span-swallowed or past the end of a wall run.
+  const [onMap, setOnMap] = useState(false);
+  useEffect(() => {
+    setOnMap(
+      Boolean(selectedBooth) &&
+        document.getElementById(`booth-${selectedBooth}`) !== null
+    );
+  }, [selectedBooth]);
+
+  const jumpToBooth = () => {
+    const table = document.getElementById(`booth-${selectedBooth}`);
+    if (!table) {
+      return;
+    }
+    const reduced = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+    // `center` on both axes clears the panel pinned to the bottom, and scrolls
+    // the map's own horizontal scroller as well as the page.
+    table.scrollIntoView({
+      behavior: reduced ? 'auto' : 'smooth',
+      block: 'center',
+      inline: 'center',
+    });
+  };
 
   return (
     <div className="relative w-full px-4 pt-24 md:px-8 lg:pt-32">
@@ -321,17 +322,15 @@ export default function VenuePage({ orgsData, fixtureImages }: VenuePageProps) {
             directory well below the map. */}
         {selectedDetail && (
           <div
-            className="fixed inset-0 z-50 flex animate-[fadeIn_200ms_ease-out] items-center justify-center bg-black/40 p-4 backdrop-blur-sm"
-            onClick={() => setSelectedBooth(null)}
+            // pointer-events-none so this full-width strip does not swallow
+            // clicks aimed at the map behind it.
+            className="pointer-events-none fixed inset-x-0 bottom-0 z-50 flex justify-center px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
           >
             <div
-              ref={dialogRef}
-              role="dialog"
-              aria-modal="true"
+              role="region"
               aria-labelledby="booth-detail-title"
-              tabIndex={-1}
-              className="w-full max-w-[500px] animate-[scaleIn_200ms_ease-out] rounded-2xl border border-navy-100 bg-white p-6 shadow-2xl focus:outline-none"
-              onClick={(e) => e.stopPropagation()}
+              aria-live="polite"
+              className="pointer-events-auto max-h-[45vh] w-full max-w-2xl animate-[slideUp_220ms_cubic-bezier(0.16,1,0.3,1)] overflow-y-auto overscroll-contain rounded-2xl border border-navy-100 bg-white p-5 shadow-[0_-6px_30px_rgba(15,23,42,0.18)]"
             >
               <div className="mb-3 flex items-start justify-between gap-4">
                 <h2
@@ -353,9 +352,32 @@ export default function VenuePage({ orgsData, fixtureImages }: VenuePageProps) {
                 {selectedDetail.description}
               </p>
 
-              {selectedDetail.links && selectedDetail.links.length > 0 && (
-                <div className="mt-4 flex flex-wrap gap-3">
-                  {selectedDetail.links.map((link, index: number) => (
+              {(onMap ||
+                (selectedDetail.links && selectedDetail.links.length > 0)) && (
+                <div className="mt-4 flex flex-wrap items-center gap-3">
+                  {onMap && (
+                    <button
+                      type="button"
+                      onClick={jumpToBooth}
+                      className="inline-flex cursor-pointer items-center gap-1.5 rounded-lg border border-navy-200 bg-white px-3 py-2 text-sm font-medium text-navy-700 transition-colors hover:bg-navy-50"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="size-4"
+                      >
+                        <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+                        <circle cx="12" cy="10" r="3" />
+                      </svg>
+                      Jump to booth
+                    </button>
+                  )}
+                  {selectedDetail.links?.map((link, index: number) => (
                     <a
                       key={index}
                       href={link.url}

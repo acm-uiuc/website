@@ -116,6 +116,7 @@ export default function VenueMap({
     return (
       <button
         key={placement.key}
+        id={`booth-${placement.key}`}
         type="button"
         onClick={() => onSelect(placement.key)}
         aria-label={`${fixture.label} — ${sectionLabels[placement.section]}`}
@@ -147,6 +148,9 @@ export default function VenueMap({
     return (
       <button
         key={placement.key}
+        // Lets the detail panel find and scroll to this table. The id matches
+        // whatever value onSelect passes, so booths and fixtures share it.
+        id={`booth-${orgId}`}
         type="button"
         onClick={() => onSelect(orgId)}
         aria-label={`${org.name} — ${sectionLabels[placement.section]}, table ${placement.index + 1}`}

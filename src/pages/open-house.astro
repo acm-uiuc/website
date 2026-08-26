@@ -8,8 +8,7 @@ import {
   partnerOrgs,
   type OHOrgData,
 } from '../components/openHouse/data/oh_config';
-import mapHorizontal from '../images/openHouse/oh_map.svg';
-import mapVertical from '../images/openHouse/oh_map_vertical.svg';
+import acmBanner from '../images/banner-blue.svg';
 import type { ImageMetadata } from 'astro';
 
 // Fetch org data at build time (same pattern as home page)
@@ -31,15 +30,59 @@ for (const [path, module] of Object.entries(imageModules)) {
       .pop()
       ?.replace(/\.(png|jpg|jpeg|webp|svg)$/, '') || '';
   try {
+    // Width only. Passing height as well lets the image service resize to
+    // fill, cropping the edges off any logo that is not square. Local sharp
+    // happens to ignore the height; CI does not.
+    //
+    // 160 rather than 256: the map draws these at roughly 40-64px and the
+    // directory at 90px, so 256 was mostly wasted bytes. The map's logos are
+    // all above the fold and cannot be lazy-loaded, and they were 194 KB of
+    // eager payload -- about seven seconds before the last one painted on a
+    // slow 3G connection. This keeps every use at 1.8x or better.
     const optimized = await getImage({
       src: module.default,
-      width: 256,
-      height: 256,
+      width: 160,
       format: 'webp',
     });
     optimizedLogos[filename] = optimized.src;
   } catch (e) {
     console.warn(`Failed to optimize logo for ${filename}:`, e);
+  }
+}
+
+// Images for non-booth map items (food tables, signage). Files in
+// images/openHouse/fixtures/ are keyed by basename; site assets reused on the
+// map are registered here and can be overridden by a same-named file there.
+const fixtureModules = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/images/openHouse/fixtures/*.{png,jpg,jpeg,webp,svg}',
+  {
+    eager: true,
+  }
+);
+
+const fixtureSources: Record<string, ImageMetadata> = { acm: acmBanner };
+for (const [path, module] of Object.entries(fixtureModules)) {
+  const filename = path
+    .split('/')
+    .pop()
+    ?.replace(/\.(png|jpg|jpeg|webp|svg)$/, '');
+  if (filename) {
+    fixtureSources[filename] = module.default;
+  }
+}
+
+// Width-only optimization keeps the aspect ratio, so wide artwork such as the
+// ACM banner is not cropped to a square the way the org logos are.
+const fixtureImages: Record<string, string> = {};
+for (const [name, src] of Object.entries(fixtureSources)) {
+  try {
+    // 320 matches the largest fixture's on-screen size at 2x DPR. At 512 the
+    // burrito was the slowest map image to arrive and visibly painted in
+    // half-decoded before it finished.
+    const optimized = await getImage({ src, width: 320, format: 'webp' });
+    fixtureImages[name] = optimized.src;
+  } catch (e) {
+    console.warn(`Failed to optimize map fixture image for ${name}:`, e);
   }
 }
 
@@ -85,20 +128,11 @@ for (const [id, partner] of Object.entries(partnerOrgs)) {
     logo: optimizedLogos[id],
   };
 }
-
-// Optimize map images at build time
-const optimizedMapH = await getImage({ src: mapHorizontal });
-const optimizedMapV = await getImage({ src: mapVertical });
 ---
 
 <Layout
   title="Open House"
   description="Map and event information for ACM Open House."
 >
-  <VenuePage
-    client:load
-    orgsData={orgsById}
-    mapSrc={optimizedMapH.src}
-    mapVerticalSrc={optimizedMapV.src}
-  />
+  <VenuePage client:load orgsData={orgsById} fixtureImages={fixtureImages} />
 </Layout>

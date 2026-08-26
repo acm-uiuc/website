@@ -1,46 +1,109 @@
 import { useEffect, useState } from 'preact/hooks';
-import type { JSX } from 'preact';
 import type { OHOrgData } from './data/oh_config';
-import * as tablesConfigDataRaw from './data/tables_config.json';
-import * as assignmentsConfigDataRaw from './data/assignments_config.json';
+import VenueMap from './VenueMap';
+import {
+  collectFixtures,
+  type AssignmentConfig,
+  type VenueLayoutConfig,
+} from './data/layout';
+import tablesConfigDataRaw from './data/tables_config.json';
+import assignmentsConfigDataRaw from './data/assignments_config.json';
 
-interface ImageDetails {
-  im_height: number;
-  im_width: number;
-  table_height: number;
-  table_width: number;
-}
-
-interface RowConfig {
-  orientation: 'vertical' | 'horizontal';
-  num_tables: number;
-  start_x: number;
-  start_y: number;
-}
-
-interface LayoutConfig {
-  image_details: ImageDetails;
-  rows: Record<string, RowConfig>;
-}
-
-interface TableLayoutConfig {
-  horizontal: LayoutConfig;
-  vertical: LayoutConfig;
-}
-
-type AssignmentConfig = Record<string, string[]>;
-
-const tablesConfigData = tablesConfigDataRaw as unknown as TableLayoutConfig;
-const assignmentsConfigData =
+// Default imports, not `import * as`: a namespace object carries a `default`
+// key alongside the JSON keys, which breaks anything that iterates the config.
+const layoutConfig = tablesConfigDataRaw as unknown as VenueLayoutConfig;
+const assignmentsConfig =
   assignmentsConfigDataRaw as unknown as AssignmentConfig;
 
+/** Non-booth map items, keyed the same way the map keys its placements. */
+const fixturesByKey = collectFixtures(assignmentsConfig);
+
+interface BoothDetail {
+  name: string;
+  description: string;
+  links?: { text: string; url: string }[];
+}
+
+/**
+ * A selection is either an org ID or a fixture key. Fixture keys look like
+ * `center-2`, so they cannot collide with the `S##`/`C##`/`P##` org IDs.
+ */
+function resolveDetail(
+  selected: string,
+  orgsData: Record<string, OHOrgData>
+): BoothDetail | null {
+  const org = orgsData[selected];
+  if (org) {
+    return { name: org.name, description: org.description, links: org.links };
+  }
+  const fixture = fixturesByKey[selected];
+  if (fixture?.description) {
+    return {
+      name: fixture.label,
+      description: fixture.description,
+      links: fixture.links,
+    };
+  }
+  return null;
+}
+
 type OrgType = 'committee' | 'sig' | 'partner';
+
+/** Collapsible sections in the directory below the map. */
+type SectionKey = OrgType | 'demos';
 
 const boothSections: { title: string; type: OrgType }[] = [
   { title: 'Special Interest Groups', type: 'sig' },
   { title: 'Committees', type: 'committee' },
   { title: 'Partners', type: 'partner' },
 ];
+
+interface SectionHeaderProps {
+  title: string;
+  count: number;
+  collapsed: boolean;
+  onToggle: () => void;
+}
+
+/**
+ * Collapsible section heading. The heading wraps a real button rather than
+ * carrying the click itself, which keeps the document outline while giving the
+ * toggle proper keyboard and screen-reader behaviour.
+ */
+const SectionHeader = ({
+  title,
+  count,
+  collapsed,
+  onToggle,
+}: SectionHeaderProps) => (
+  <h3>
+    <button
+      type="button"
+      onClick={onToggle}
+      aria-expanded={!collapsed}
+      className="group flex w-full cursor-pointer items-baseline gap-3 border-b border-surface-150 pb-2 text-left transition-colors hover:border-navy-200"
+    >
+      <span className="text-sm font-semibold tracking-[0.12em] text-navy-700 uppercase transition-colors group-hover:text-navy-900">
+        {title}
+      </span>
+      <span className="text-xs text-gray-400 tabular-nums">{count}</span>
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+        className={`ml-auto size-4 self-center text-gray-400 transition-transform duration-300 group-hover:text-navy-600 ${
+          collapsed ? '-rotate-90' : ''
+        }`}
+      >
+        <path d="m6 9 6 6 6-6" />
+      </svg>
+    </button>
+  </h3>
+);
 
 interface BoothSectionProps {
   title: string;
@@ -60,37 +123,37 @@ const BoothSection = ({
   onToggle,
   selectedBooth,
   handleBoothSelect,
-}: BoothSectionProps) => (
-  <div className="flex flex-col gap-2">
-    <h3
-      className="flex cursor-pointer items-center justify-between rounded-xl border border-navy-100 bg-gradient-to-br from-navy-50 to-surface-100 px-4 py-3 text-lg font-semibold text-navy-800 select-none transition-all hover:from-navy-100 hover:to-surface-150"
-      onClick={onToggle}
-    >
-      {title}
-      <span
-        className={`ml-2.5 text-xs transition-transform duration-300 ${collapsed ? '-rotate-90' : ''}`}
-      >
-        ▼
-      </span>
-    </h3>
-    {!collapsed && (
-      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-4 p-4 md:gap-2">
-        {Object.keys(orgsData)
-          .filter((orgId) => orgsData[orgId].type === type)
-          .map((orgId) => {
+}: BoothSectionProps) => {
+  const orgIds = Object.keys(orgsData).filter(
+    (orgId) => orgsData[orgId].type === type
+  );
+
+  return (
+    <div className="flex flex-col gap-2">
+      <SectionHeader
+        title={title}
+        count={orgIds.length}
+        collapsed={collapsed}
+        onToggle={onToggle}
+      />
+      {!collapsed && (
+        <div className="mx-auto flex max-w-7xl flex-wrap items-start justify-center gap-4 p-4 md:gap-2">
+          {orgIds.map((orgId) => {
             const org = orgsData[orgId];
             return (
-              <div
+              <button
                 key={orgId}
-                className="flex w-[90px] cursor-pointer flex-col items-center gap-2 md:w-[70px] md:gap-1"
+                type="button"
                 onClick={() => handleBoothSelect(orgId)}
+                aria-pressed={selectedBooth === orgId}
+                className="flex w-[90px] cursor-pointer flex-col items-center gap-2 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-600 md:w-[70px] md:gap-1"
               >
                 {org.logo ? (
                   <img
                     src={org.logo}
-                    alt={org.name}
-                    width={90}
-                    height={90}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
                     className={`size-[90px] max-h-[90px] max-w-[90px] rounded-xl border-3 object-contain transition-all duration-300 hover:scale-110 md:size-[70px] md:max-h-[70px] md:max-w-[70px] ${
                       selectedBooth === orgId
                         ? 'scale-110 border-navy-500 bg-navy-50 shadow-[0_0_15px_rgba(0,119,255,0.4)]'
@@ -99,80 +162,35 @@ const BoothSection = ({
                   />
                 ) : (
                   <div
-                    className={`flex size-[90px] items-center justify-center rounded-xl border-3 bg-navy-50 text-center text-xs font-medium text-navy-600 transition-all duration-300 hover:scale-110 md:size-[70px] ${
+                    aria-hidden="true"
+                    className={`flex size-[90px] items-center justify-center rounded-xl border-3 bg-navy-50 text-2xl font-semibold text-navy-400 transition-all duration-300 hover:scale-110 md:size-[70px] ${
                       selectedBooth === orgId
                         ? 'scale-110 border-navy-500 shadow-[0_0_15px_rgba(0,119,255,0.4)]'
                         : 'border-transparent'
                     }`}
                   >
-                    {org.name}
+                    {org.name.charAt(0)}
                   </div>
                 )}
-                <span className="h-[30px] max-w-[90px] text-center text-sm text-navy-700 md:max-w-[70px] md:text-xs">
+                <span className="min-h-[30px] max-w-[90px] text-center text-sm text-navy-700 md:max-w-[70px] md:text-xs">
                   {org.name}
                 </span>
-              </div>
+              </button>
             );
           })}
-      </div>
-    )}
-  </div>
-);
+        </div>
+      )}
+    </div>
+  );
+};
 
 interface VenuePageProps {
   orgsData: Record<string, OHOrgData>;
-  mapSrc: string;
-  mapVerticalSrc: string;
+  fixtureImages: Record<string, string>;
 }
 
-export default function VenuePage({
-  orgsData,
-  mapSrc,
-  mapVerticalSrc,
-}: VenuePageProps) {
+export default function VenuePage({ orgsData, fixtureImages }: VenuePageProps) {
   const [selectedBooth, setSelectedBooth] = useState<string | null>(null);
-  const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
-  const [isVertical, setIsVertical] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return window.matchMedia('(orientation: portrait)').matches;
-    }
-    return false;
-  });
-
-  const svgLayoutData = isVertical
-    ? tablesConfigData.vertical
-    : tablesConfigData.horizontal;
-
-  useEffect(() => {
-    if (typeof window === 'undefined') {
-      return;
-    }
-
-    const mql = window.matchMedia('(orientation: portrait)');
-
-    const handleOrientationChange = (
-      e: MediaQueryListEvent | MediaQueryList
-    ) => {
-      setIsVertical(e.matches);
-    };
-
-    setIsVertical(mql.matches);
-
-    if (mql.addEventListener) {
-      mql.addEventListener('change', handleOrientationChange);
-    } else if (mql.addListener) {
-      mql.addListener(handleOrientationChange);
-    }
-
-    return () => {
-      if (mql.removeEventListener) {
-        mql.removeEventListener('change', handleOrientationChange);
-      } else if (mql.removeListener) {
-        mql.removeListener(handleOrientationChange);
-      }
-    };
-  }, []);
-
   const handleBoothSelect = (booth: string) => {
     if (selectedBooth === booth) {
       setSelectedBooth(null);
@@ -182,173 +200,137 @@ export default function VenuePage({
   };
 
   const [collapsedSections, setCollapsedSections] = useState<
-    Record<OrgType, boolean>
+    Record<SectionKey, boolean>
   >({
+    demos: false,
     committee: false,
     sig: false,
     partner: false,
   });
 
-  const toggleSection = (type: OrgType) => {
+  const toggleSection = (key: SectionKey) => {
     setCollapsedSections((prev) => ({
       ...prev,
-      [type]: !prev[type],
+      [key]: !prev[key],
     }));
   };
 
-  const handleClick = (event: JSX.TargetedMouseEvent<HTMLButtonElement>) => {
-    const box = event.currentTarget.getBoundingClientRect();
-    const xnorm =
-      ((event.clientX - box.left) / box.width) *
-      svgLayoutData.image_details.im_width;
-    const ynorm =
-      ((event.clientY - box.top) / box.height) *
-      svgLayoutData.image_details.im_height;
-    let row_selected: string | null = null;
-    let idx_selected = -1;
+  const demoOrgs = Object.entries(orgsData)
+    .filter(([, org]) => org.demo_time != null)
+    .sort(([, a], [, b]) =>
+      (a.demo_time ?? '') > (b.demo_time ?? '') ? 1 : -1
+    );
+  const selectedDetail = selectedBooth
+    ? resolveDetail(selectedBooth, orgsData)
+    : null;
 
-    for (const row in svgLayoutData.rows) {
-      const row_info = svgLayoutData.rows[row];
-      if (row_info.orientation === 'vertical') {
-        if (
-          xnorm >= row_info.start_x &&
-          xnorm <=
-            row_info.start_x + svgLayoutData.image_details.table_height &&
-          ynorm >= row_info.start_y &&
-          ynorm <=
-            row_info.start_y +
-              row_info.num_tables * svgLayoutData.image_details.table_width
-        ) {
-          row_selected = row;
-          idx_selected = Math.floor(
-            (ynorm - row_info.start_y) / svgLayoutData.image_details.table_width
-          );
-          break;
-        }
-      }
-      if (row_info.orientation === 'horizontal') {
-        if (
-          xnorm >= row_info.start_x &&
-          xnorm <=
-            row_info.start_x +
-              row_info.num_tables * svgLayoutData.image_details.table_width &&
-          ynorm >= row_info.start_y &&
-          ynorm <= row_info.start_y + svgLayoutData.image_details.table_height
-        ) {
-          row_selected = row;
-          idx_selected = Math.floor(
-            (xnorm - row_info.start_x) / svgLayoutData.image_details.table_width
-          );
-          break;
-        }
-      }
-    }
+  // Depend on the primitive, not on selectedDetail: resolveDetail builds a
+  // fresh object every render, which would tear down and re-run this effect on
+  // every unrelated state change.
+  const hasDetail = selectedDetail !== null;
 
-    if (row_selected && assignmentsConfigData[row_selected]?.[idx_selected]) {
-      setSelectedBooth(assignmentsConfigData[row_selected][idx_selected]);
-    } else {
-      setSelectedBooth(null);
+  useEffect(() => {
+    if (!hasDetail) {
+      return;
     }
+    // The panel is deliberately non-modal: the map stays live behind it so a
+    // different booth can be picked in one click. That rules out a focus trap
+    // and stealing focus -- focus stays on the table or tile that was clicked,
+    // which is also the element the map is highlighting. The panel announces
+    // itself through aria-live instead.
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSelectedBooth(null);
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [hasDetail]);
+
+  // The selection may not be on the map: presenting-only partners and any org
+  // left out of assignments_config are in the directory only. Rather than
+  // re-deriving which entries got drawn, ask the DOM -- that is accurate for
+  // free when a slot is span-swallowed or past the end of a wall run.
+  const [onMap, setOnMap] = useState(false);
+  useEffect(() => {
+    setOnMap(
+      Boolean(selectedBooth) &&
+        document.getElementById(`booth-${selectedBooth}`) !== null
+    );
+  }, [selectedBooth]);
+
+  const jumpToBooth = () => {
+    const table = document.getElementById(`booth-${selectedBooth}`);
+    if (!table) {
+      return;
+    }
+    const reduced = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+    // `center` on both axes clears the panel pinned to the bottom, and scrolls
+    // the map's own horizontal scroller as well as the page.
+    table.scrollIntoView({
+      behavior: reduced ? 'auto' : 'smooth',
+      block: 'center',
+      inline: 'center',
+    });
   };
-
-  const hasDemos = Object.values(orgsData).some((org) => org.demo_time != null);
 
   return (
     <div className="relative w-full px-4 pt-24 md:px-8 lg:pt-32">
-      {/* Calendar Modal */}
-      {isCalendarModalOpen && (
-        <div
-          className="fixed inset-0 z-50 flex animate-[fadeIn_200ms_ease-out] items-center justify-center bg-black/40 backdrop-blur-sm"
-          onClick={() => setIsCalendarModalOpen(false)}
-        >
-          <div
-            className="w-[90%] max-w-[600px] animate-[scaleIn_200ms_ease-out] rounded-2xl bg-white p-6 shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h3 className="text-xl font-bold text-navy-900">
-              Demo Room Schedule – SCCS 2405
-            </h3>
-            <div className="my-4 flex flex-col gap-3">
-              {Object.entries(orgsData)
-                .filter(([, org]) => org.demo_time != null)
-                .sort(([, a], [, b]) =>
-                  (a.demo_time ?? '') > (b.demo_time ?? '') ? 1 : -1
-                )
-                .map(([orgId, org]) => {
-                  const handleTableItemClick = () => {
-                    if (selectedBooth !== orgId) {
-                      handleBoothSelect(orgId);
-                    }
-                    setIsCalendarModalOpen(false);
-                  };
-                  const handleTableItemKeyDown = (
-                    e: JSX.TargetedKeyboardEvent<HTMLDivElement>
-                  ) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      handleTableItemClick();
-                    }
-                  };
-                  return (
-                    <div
-                      key={orgId}
-                      className="flex cursor-pointer items-center justify-between rounded-xl border border-navy-100 bg-surface-050 px-4 py-3 transition-all hover:border-navy-200 hover:bg-navy-50"
-                      role="button"
-                      tabIndex={0}
-                      onClick={handleTableItemClick}
-                      onKeyDown={handleTableItemKeyDown}
-                    >
-                      <span className="mr-4 font-semibold text-navy-800">
-                        {org.name}
-                      </span>
-                      <span className="text-sm text-gray-500">
-                        {org.demo_time}
-                      </span>
-                    </div>
-                  );
-                })}
-            </div>
-            <button
-              className="mt-4 w-full cursor-pointer rounded-lg bg-navy-600 py-2.5 font-medium text-white transition-colors hover:bg-navy-700"
-              onClick={() => setIsCalendarModalOpen(false)}
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
+      {/* Intro */}
+      <header className="mx-auto mb-6 max-w-3xl px-4 text-center">
+        <h1 className="text-3xl font-bold text-navy-900 sm:text-4xl">
+          ACM Open House
+        </h1>
+        <p className="mt-3 leading-7 text-gray-600">
+          Meet the special interest groups, committees, and partner orgs that
+          make up ACM @ UIUC and grab some food.
+        </p>
+      </header>
+
+      <p className="mb-2 text-center text-sm text-gray-500">
+        Select a table for details.{' '}
+        <span className="sm:hidden">Scroll sideways to see every table.</span>
+      </p>
 
       {/* Map */}
       <div className="relative mx-auto w-full">
-        <button
-          type="button"
-          onClick={handleClick}
-          aria-label="Interactive venue map. Click to select a booth."
-          className={`block w-full cursor-pointer border-none bg-transparent p-0 transition-[filter] duration-300 ${selectedBooth ? 'blur-[3px] brightness-95' : ''}`}
-        >
-          <picture>
-            <source srcSet={mapVerticalSrc} media="(orientation: portrait)" />
-            <img
-              src={mapSrc}
-              className="mx-auto block w-full"
-              alt="Map of event venue showing booth locations"
-            />
-          </picture>
-        </button>
+        <VenueMap
+          layoutConfig={layoutConfig}
+          assignments={assignmentsConfig}
+          orgsData={orgsData}
+          fixtureImages={fixtureImages}
+          selectedBooth={selectedBooth}
+          onSelect={handleBoothSelect}
+        />
 
-        {/* Booth Details Overlay */}
-        {selectedBooth && orgsData[selectedBooth] && (
+        <p className="mt-2 text-center text-sm text-gray-500">
+          Can&apos;t find an org? A few are tabling in the hallway outside CIF
+          0035.
+        </p>
+
+        {/* Booth details. Fixed to the viewport rather than the map, so the card
+            is visible wherever the selection was made — including from the
+            directory well below the map. */}
+        {selectedDetail && (
           <div
-            className="absolute inset-0 flex items-center justify-center"
-            onClick={() => setSelectedBooth(null)}
+            // pointer-events-none so this full-width strip does not swallow
+            // clicks aimed at the map behind it.
+            className="pointer-events-none fixed inset-x-0 bottom-0 z-50 flex justify-center px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
           >
             <div
-              className="w-[90%] max-w-[500px] animate-[scaleIn_200ms_ease-out] rounded-2xl border border-navy-100 bg-white p-6 shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
+              role="region"
+              aria-labelledby="booth-detail-title"
+              aria-live="polite"
+              className="pointer-events-auto max-h-[45vh] w-full max-w-2xl animate-[slideUp_220ms_cubic-bezier(0.16,1,0.3,1)] overflow-y-auto overscroll-contain rounded-2xl border border-navy-100 bg-white p-5 shadow-[0_-6px_30px_rgba(15,23,42,0.18)]"
             >
               <div className="mb-3 flex items-start justify-between gap-4">
-                <h2 className="text-2xl font-bold text-navy-900">
-                  {orgsData[selectedBooth].name}
+                <h2
+                  id="booth-detail-title"
+                  className="text-2xl font-bold text-navy-900"
+                >
+                  {selectedDetail.name}
                 </h2>
                 <button
                   type="button"
@@ -360,27 +342,47 @@ export default function VenuePage({
                 </button>
               </div>
               <p className="leading-7 text-gray-600">
-                {orgsData[selectedBooth].description}
+                {selectedDetail.description}
               </p>
 
-              {orgsData[selectedBooth].links &&
-                orgsData[selectedBooth].links.length > 0 && (
-                  <div className="mt-4 flex flex-wrap gap-3">
-                    {orgsData[selectedBooth].links.map(
-                      (link, index: number) => (
-                        <a
-                          key={index}
-                          href={link.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="rounded-lg bg-navy-600 px-4 py-2 text-sm font-medium text-white no-underline transition-colors hover:bg-navy-700"
-                        >
-                          {link.text}
-                        </a>
-                      )
-                    )}
-                  </div>
-                )}
+              {(onMap ||
+                (selectedDetail.links && selectedDetail.links.length > 0)) && (
+                <div className="mt-4 flex flex-wrap items-center gap-3">
+                  {onMap && (
+                    <button
+                      type="button"
+                      onClick={jumpToBooth}
+                      className="inline-flex cursor-pointer items-center gap-1.5 rounded-lg border border-navy-200 bg-white px-3 py-2 text-sm font-medium text-navy-700 transition-colors hover:bg-navy-50"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="size-4"
+                      >
+                        <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+                        <circle cx="12" cy="10" r="3" />
+                      </svg>
+                      Jump to booth
+                    </button>
+                  )}
+                  {selectedDetail.links?.map((link, index: number) => (
+                    <a
+                      key={index}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rounded-lg bg-navy-600 px-4 py-2 text-sm font-medium text-white no-underline transition-colors hover:bg-navy-700"
+                    >
+                      {link.text}
+                    </a>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -388,14 +390,64 @@ export default function VenuePage({
 
       {/* Booth Type Sections */}
       <div className="mx-auto flex w-[90%] max-w-7xl flex-col gap-3 px-4 pt-4 pb-8">
-        {hasDemos && (
-          <button
-            type="button"
-            className="self-center rounded-lg border border-navy-200 bg-navy-50 px-5 py-2 text-sm font-semibold text-navy-700 transition-colors hover:bg-navy-100"
-            onClick={() => setIsCalendarModalOpen(true)}
-          >
-            View Demo Schedule
-          </button>
+        {demoOrgs.length > 0 && (
+          <div className="flex flex-col gap-2">
+            <SectionHeader
+              title="Demo Schedule"
+              count={demoOrgs.length}
+              collapsed={collapsedSections.demos}
+              onToggle={() => toggleSection('demos')}
+            />
+            {!collapsedSections.demos && (
+              <div className="px-1 pt-2 pb-4">
+                <p className="mb-3 max-w-4xl text-sm leading-6 text-gray-500">
+                  Watch demos in CIF lecture halls 0027 and 1025.
+                </p>
+                <ul className="divide-y divide-surface-150">
+                  {demoOrgs.map(([orgId, org]) => {
+                    const isSelected = selectedBooth === orgId;
+                    return (
+                      <li key={orgId}>
+                        <button
+                          type="button"
+                          onClick={() => handleBoothSelect(orgId)}
+                          aria-pressed={isSelected}
+                          className={`flex w-full cursor-pointer items-center gap-3 border-l-2 px-3 py-2.5 text-left transition-colors sm:gap-4 ${
+                            isSelected
+                              ? 'border-navy-500 bg-navy-50'
+                              : 'border-transparent hover:bg-surface-050'
+                          }`}
+                        >
+                          <span className="w-24 shrink-0 text-xs text-gray-500 tabular-nums sm:w-32 sm:text-sm">
+                            {org.demo_time}
+                          </span>
+                          {org.logo ? (
+                            <img
+                              src={org.logo}
+                              alt=""
+                              loading="lazy"
+                              decoding="async"
+                              className="size-7 shrink-0 object-contain"
+                            />
+                          ) : (
+                            <span
+                              aria-hidden="true"
+                              className="flex size-7 shrink-0 items-center justify-center rounded bg-navy-50 text-xs font-semibold text-navy-400"
+                            >
+                              {org.name.charAt(0)}
+                            </span>
+                          )}
+                          <span className="text-sm font-medium text-navy-800">
+                            {org.name}
+                          </span>
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
+          </div>
         )}
         {boothSections.map(({ title, type }) => (
           <BoothSection

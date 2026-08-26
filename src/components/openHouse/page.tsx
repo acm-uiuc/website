@@ -280,16 +280,6 @@ export default function VenuePage({ orgsData, fixtureImages }: VenuePageProps) {
 
   return (
     <div className="relative w-full px-4 pt-24 md:px-8 lg:pt-32">
-      {/* Work-in-progress notice. Remove this block once the venue layout is
-          final — see README. */}
-      <div className="mx-auto mb-8 max-w-3xl rounded-xl border-2 border-tangerine-300 bg-tangerine-50 px-5 py-4 text-left">
-        <p className="text-lg font-bold text-tangerine-800">Work in progress</p>
-        <p className="mt-1 leading-6 text-tangerine-900/80">
-          The venue layout is still being finalized. Table positions and
-          assignments on this map are not final and will change.
-        </p>
-      </div>
-
       {/* Intro */}
       <header className="mx-auto mb-6 max-w-3xl px-4 text-center">
         <h1 className="text-3xl font-bold text-navy-900 sm:text-4xl">
@@ -316,6 +306,11 @@ export default function VenuePage({ orgsData, fixtureImages }: VenuePageProps) {
           selectedBooth={selectedBooth}
           onSelect={handleBoothSelect}
         />
+
+        <p className="mt-2 text-center text-sm text-gray-500">
+          Can&apos;t find an org? A few are tabling in the hallway outside CIF
+          0035.
+        </p>
 
         {/* Booth details. Fixed to the viewport rather than the map, so the card
             is visible wherever the selection was made — including from the
@@ -408,8 +403,7 @@ export default function VenuePage({ orgsData, fixtureImages }: VenuePageProps) {
             {!collapsedSections.demos && (
               <div className="px-1 pt-2 pb-4">
                 <p className="mb-3 max-w-4xl text-sm leading-6 text-gray-500">
-                  Watch demos at the Siebel Center for Computer Science, Room
-                  2405.
+                  Watch demos in CIF lecture halls 0027 and 1025.
                 </p>
                 <ul className="divide-y divide-surface-150">
                   {demoOrgs.map(([orgId, org]) => {

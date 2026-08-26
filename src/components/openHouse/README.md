@@ -159,7 +159,7 @@ space entirely.
 - **`span`** (optional, default 1) — how many consecutive slots the fixture
   covers. The slots are merged into one rectangle, gaps included, so a run of
   slots can become one wide table or a whole bar along a wall.
-- **`description`** (optional) — a blurb shown in the detail dialog. **Adding
+- **`description`** (optional) — a blurb shown in the detail panel. **Adding
   one is what makes the fixture clickable.**
 - **`links`** (optional) — the same `{ text, url }` list orgs use, shown in the
   dialog under the description.
@@ -210,12 +210,9 @@ Add, remove, or reorder entries here. The `type` must match the org's `type` fie
 
 Things in the page that are deliberately temporary:
 
-- **Work-in-progress banner.** `page.tsx` opens with a tangerine notice saying
-  the layout is not final, tagged with a `Remove this block` comment. Delete the
-  whole `<div>` once the floor plan is locked.
 - **Placeholder copy.** Search the component and `data/oh_config.ts` for `TODO`.
   Any partner added without a real blurb carries `TODO: add description.`, which
-  renders verbatim in the detail dialog.
+  renders verbatim in the detail panel.
 - **Layout churn.** The venue map has changed shape several times. Re-check
   `data/tables_config.json` against the final floor plan before the event; the
   wall counts and the assignments are separate files and can drift apart, and a

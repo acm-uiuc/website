@@ -1,8 +1,8 @@
 {
-  "top": [null, null, "C07", "S07", "S09", "S08", "S17", "S05", "C08", null],
-  "right": ["P02", "P03", "P04", "P06", "S04", null],
-  "bottom": [null, "S03", "S14", "S19", "S15", "S02", "S16", "S18", null, null],
-  "left": ["S11", "S10", "S12", "S13", "S01", "S06"],
+  "top": [null, null, "S11", "S09", "S08", "S17", "S05", "C08", "S04"],
+  "right": ["P05", "P03", "P09", "P06", "P07", "P02"],
+  "bottom": ["S06", "S03", "S14", "S19", "S15", "S02", "S16", "S18", null],
+  "left": ["S10", "S12", "C07", "S07", "S13", "S01"],
   "center": [
     {
       "label": "Free Food",
@@ -12,9 +12,9 @@
     },
     null,
     {
-      "label": "ACM Info",
+      "label": "Committees and Info Booth",
       "image": "acm",
-      "description": "Get directions and ask general questions about ACM, or anything else."
+      "description": "Meet the ACM committees, get directions, and ask general questions about ACM."
     }
   ]
 }

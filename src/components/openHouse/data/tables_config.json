@@ -1,8 +1,8 @@
 {
   "walls": {
-    "top": 10,
+    "top": 9,
     "right": 6,
-    "bottom": 10,
+    "bottom": 9,
     "left": 6
   },
   "center": {

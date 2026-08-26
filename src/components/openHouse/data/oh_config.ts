@@ -28,11 +28,20 @@ export interface OHOrgData {
 
 /** Overrides for API orgs. Keyed by org ID. */
 export const ohOverrides: Record<string, OHOverride> = {
-  S17: { demo_time: '7:00 – 7:10 PM' },
-  S13: { demo_time: '7:40 – 7:50 PM' },
+  S17: { demo_time: '7:05 – 7:15 PM' }, // SIGRobotics
+  C08: { demo_time: '7:20 – 7:30 PM' }, // HackIllinois
+  S03: { demo_time: '7:35 – 7:45 PM' }, // GameBuilders
+  S13: { demo_time: '7:50 – 8:00 PM' }, // SIGecom
 };
 
-/** Partner organizations not in the API. Keyed by partner ID. */
+/**
+ * Partner organizations not in the API. Keyed by partner ID.
+ *
+ * IDs are stable across years, so an org that came back keeps the ID (and the
+ * logo file) it had before. Entries tagged `presenting only` are confirmed for
+ * the event but are not getting a table, so they belong in this directory but
+ * not in assignments_config.json.
+ */
 export const partnerOrgs: Record<string, PartnerOrg> = {
   P02: {
     name: 'Women in Computer Science',
@@ -61,6 +70,13 @@ export const partnerOrgs: Record<string, PartnerOrg> = {
       "Women in CyberSecurity (WiCyS) is UIUC's very own student chapter of the national organization dedicated to bringing together women in cybersecurity from academia, research and industry to share knowledge, experience, networking and mentoring. Our organization provides resources for women interested in cybersecurity through tech talks, workshops, networking opportunities, research, conferences, and leadership opportunities.",
     links: [{ text: 'Linktree', url: 'https://linktr.ee/wicys_illinois' }],
   },
+  P05: {
+    name: 'QueerCoded',
+    type: 'partner',
+    description:
+      'QueerCoded is a new student org for LGBTQ+ students and allies in computer science. We aim to provide a safe and welcoming community for LGBTQ+ students in computer science and adjacent fields to talk about their experiences and interests in CS. We will have a room in the Siebel basement (room number TBD) open to all, come visit us and join us at upcoming social events! As we are new, we are looking for passionate student leaders to help run QueerCoded, please email al68@illinois.edu if you are interested!',
+    links: [{ text: 'Discord', url: 'https://discord.gg/47eqFA8Jcp' }],
+  },
   P06: {
     name: 'CS Sail',
     type: 'partner',
@@ -70,8 +86,39 @@ export const partnerOrgs: Record<string, PartnerOrg> = {
       { text: 'Application Form', url: 'https://tinyurl.com/apply-sail-26' },
     ],
   },
+  P07: {
+    name: 'Project: Code',
+    type: 'partner',
+    description:
+      'Project: Code is an RSO that connects students with interesting project ideas to students who want to work on interesting projects!',
+    links: [{ text: 'Website', url: 'https://projectcodeuiuc.org/' }],
+  },
+  P09: {
+    name: 'CS STARS',
+    type: 'partner',
+    description: 'TODO: add description.',
+  },
+  /** presenting only -- no table. */
   P10: {
     name: 'AI Alignment',
+    type: 'partner',
+    description: 'TODO: add description.',
+  },
+  /** presenting only -- no table. */
+  P11: {
+    name: 'Agentic AI @ UIUC',
+    type: 'partner',
+    description: 'TODO: add description.',
+  },
+  /** presenting only -- no table. */
+  P12: {
+    name: 'Illini Solar Car',
+    type: 'partner',
+    description: 'TODO: add description.',
+  },
+  /** presenting only -- no table. */
+  P13: {
+    name: 'Women in Data Science',
     type: 'partner',
     description: 'TODO: add description.',
   },

@@ -33,9 +33,15 @@ for (const [path, module] of Object.entries(imageModules)) {
     // Width only. Passing height as well lets the image service resize to
     // fill, cropping the edges off any logo that is not square. Local sharp
     // happens to ignore the height; CI does not.
+    //
+    // 160 rather than 256: the map draws these at roughly 40-64px and the
+    // directory at 90px, so 256 was mostly wasted bytes. The map's logos are
+    // all above the fold and cannot be lazy-loaded, and they were 194 KB of
+    // eager payload -- about seven seconds before the last one painted on a
+    // slow 3G connection. This keeps every use at 1.8x or better.
     const optimized = await getImage({
       src: module.default,
-      width: 256,
+      width: 160,
       format: 'webp',
     });
     optimizedLogos[filename] = optimized.src;

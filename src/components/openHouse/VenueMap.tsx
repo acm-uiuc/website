@@ -167,8 +167,9 @@ export default function VenueMap({
           <img
             src={org.logo}
             alt=""
-            width={64}
-            height={64}
+            // No width/height: the box is fixed by CSS, so declaring a square
+            // ratio only tells the browser to draw non-square art stretched
+            // until the real dimensions arrive.
             decoding="async"
             className="size-full object-contain"
           />

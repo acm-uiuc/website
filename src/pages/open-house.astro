@@ -76,7 +76,10 @@ for (const [path, module] of Object.entries(fixtureModules)) {
 const fixtureImages: Record<string, string> = {};
 for (const [name, src] of Object.entries(fixtureSources)) {
   try {
-    const optimized = await getImage({ src, width: 512, format: 'webp' });
+    // 320 matches the largest fixture's on-screen size at 2x DPR. At 512 the
+    // burrito was the slowest map image to arrive and visibly painted in
+    // half-decoded before it finished.
+    const optimized = await getImage({ src, width: 320, format: 'webp' });
     fixtureImages[name] = optimized.src;
   } catch (e) {
     console.warn(`Failed to optimize map fixture image for ${name}:`, e);

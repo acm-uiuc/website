@@ -152,8 +152,6 @@ const BoothSection = ({
                   <img
                     src={org.logo}
                     alt=""
-                    width={90}
-                    height={90}
                     loading="lazy"
                     decoding="async"
                     className={`size-[90px] max-h-[90px] max-w-[90px] rounded-xl border-3 object-contain transition-all duration-300 hover:scale-110 md:size-[70px] md:max-h-[70px] md:max-w-[70px] ${
@@ -427,8 +425,6 @@ export default function VenuePage({ orgsData, fixtureImages }: VenuePageProps) {
                             <img
                               src={org.logo}
                               alt=""
-                              width={28}
-                              height={28}
                               loading="lazy"
                               decoding="async"
                               className="size-7 shrink-0 object-contain"

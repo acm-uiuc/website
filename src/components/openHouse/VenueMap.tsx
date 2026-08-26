@@ -50,6 +50,9 @@ export default function VenueMap({
 }: VenueMapProps) {
   const layout = computeVenueLayout(layoutConfig);
   const placements = resolvePlacements(layout, assignments);
+  // Everything unpicked steps back while a table is open, so the selected one
+  // reads at a glance rather than being hunted for.
+  const anySelected = selectedBooth !== null;
 
   const boxStyle = (placement: Placement) => ({
     left: `${(placement.x / layout.width) * 100}%`,
@@ -125,10 +128,12 @@ export default function VenueMap({
         // Fixtures are not scaled on hover the way booth tiles are: they range
         // from a single slot to a whole wall, and growing a wall-length bar
         // pushes it outside the room outline.
-        className={`${tableBase} cursor-pointer bg-surface-100 transition-colors duration-200 focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-600 ${
+        className={`${tableBase} cursor-pointer bg-surface-100 transition-all duration-200 focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-600 ${
           isSelected
-            ? 'border-navy-500 shadow-[0_0_12px_rgba(0,119,255,0.5)]'
-            : 'border-surface-150 hover:border-navy-300 hover:bg-surface-150'
+            ? 'z-20 border-navy-600 ring-3 ring-navy-500/45 shadow-[0_0_0_2px_rgba(255,255,255,0.9),0_4px_18px_rgba(0,119,255,0.55)]'
+            : anySelected
+              ? 'border-surface-150 opacity-70 hover:opacity-100'
+              : 'border-surface-150 hover:border-navy-300 hover:bg-surface-150'
         }`}
         style={boxStyle(placement)}
       >
@@ -158,8 +163,10 @@ export default function VenueMap({
         title={org.name}
         className={`${tableBase} cursor-pointer transition-all duration-200 hover:z-10 hover:scale-110 focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-600 ${
           isSelected
-            ? 'z-10 scale-110 border-navy-500 bg-navy-50 shadow-[0_0_12px_rgba(0,119,255,0.5)]'
-            : 'border-navy-300 bg-white'
+            ? 'z-20 scale-[1.28] border-navy-600 bg-navy-50 ring-3 ring-navy-500/45 shadow-[0_0_0_2px_rgba(255,255,255,0.9),0_4px_18px_rgba(0,119,255,0.55)]'
+            : anySelected
+              ? 'border-navy-200 bg-white opacity-70 hover:opacity-100'
+              : 'border-navy-300 bg-white'
         }`}
         style={boxStyle(placement)}
       >

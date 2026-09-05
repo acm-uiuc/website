@@ -7,11 +7,6 @@ import CalendarModal from './CalendarModal.tsx';
 import UpcomingEvents from './UpcomingEvents.tsx';
 import headerImage from '../images/header.jpg';
 
-const calendarLinks = {
-  google:
-    'https://calendar.google.com/calendar/u/0/r?cid=http://ical.acm.illinois.edu/ACM',
-  ical: 'https://ical.acm.illinois.edu/ACM',
-};
 interface Props {
   disableBounce?: boolean;
 }
@@ -146,7 +141,7 @@ const { disableBounce } = Astro.props;
     </div>
 
     <div class="mt-4 mb-4 flex flex-wrap items-end justify-between gap-4">
-      <h2 class="text-2xl font-bold text-white/100 sm:text-3xl">Up Next</h2>
+      <h2 class="text-2xl font-bold text-white sm:text-3xl">Up Next</h2>
 
       <div class="flex gap-3">
         <a
@@ -156,11 +151,7 @@ const { disableBounce } = Astro.props;
           <Icon name="lucide:calendar" class="h-4 w-4" />
           All Events
         </a>
-        <CalendarModal
-          client:load
-          googleUrl={calendarLinks.google}
-          icalUrl={calendarLinks.ical}
-        />
+        <CalendarModal client:load host="ACM" showFullCalendarLink />
       </div>
     </div>
 

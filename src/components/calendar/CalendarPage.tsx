@@ -6,6 +6,7 @@ import { Views } from 'react-big-calendar';
 import { eventsApiClient } from '../../api';
 import { transformEventsApiDates } from '../../api/events';
 import type { Event } from '../../types/events';
+import CalendarModal from '../CalendarModal';
 import CalendarControls from './CalendarControls';
 import CalendarEventDetail from './CalendarEventDetail';
 import CalendarGrid, { type ExpandedEvent } from './CalendarGrid';
@@ -87,6 +88,17 @@ export default function CalendarPage({ initialEvents }: CalendarPageProps) {
 
       <div className="grid grid-cols-1 gap-4 xl:grid-cols-10">
         <div className="xl:col-span-3 xl:order-last">
+          <div className="relative mb-3">
+            <CalendarModal
+              host={hostFilter}
+              buttonClassName="flex w-full items-center justify-center gap-2 rounded-md bg-navy-800 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-navy-700"
+              buttonLabel={
+                hostFilter
+                  ? `Add ${hostFilter} to Calendar`
+                  : 'Add All Events to Calendar'
+              }
+            />
+          </div>
           <CalendarEventDetail
             event={selectedEvent}
             start={selectedStart}

@@ -1,12 +1,48 @@
 import { useEffect, useState } from 'preact/hooks';
 
+const ICAL_BASE_URL = 'https://ical.acm.illinois.edu';
+
+export const icalFeedUrl = (host?: string) =>
+  host ? `${ICAL_BASE_URL}/${encodeURIComponent(host)}` : `${ICAL_BASE_URL}/`;
+
+export const googleCalendarUrl = (host?: string) =>
+  `https://calendar.google.com/calendar/u/0/r?cid=${encodeURIComponent(
+    icalFeedUrl(host).replace(/^https:/, 'http:')
+  )}`;
+
 interface Props {
-  googleUrl: string;
-  icalUrl: string;
+  host?: string;
+  buttonLabel?: string;
+  buttonClassName?: string;
+  showFullCalendarLink?: boolean;
 }
 
-const CalendarModal = ({ googleUrl, icalUrl }: Props) => {
+const CalendarModal = ({
+  host,
+  buttonLabel = 'Add to Calendar',
+  buttonClassName = 'flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-white/20',
+  showFullCalendarLink = false,
+}: Props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const icalUrl = icalFeedUrl(host);
+  const googleUrl = googleCalendarUrl(host);
+  // The 'ACM' feed is the main org's own events, not every event across the club.
+  const headings =
+    host === 'ACM'
+      ? {
+          title: 'Subscribe to major events',
+          subtitle:
+            'Club-wide ACM @ UIUC events, kept up to date automatically.',
+        }
+      : host
+        ? {
+            title: `Subscribe to ${host} events`,
+            subtitle: `Every ${host} event, kept up to date automatically.`,
+          }
+        : {
+            title: 'Subscribe to our calendar',
+            subtitle: 'Every ACM @ UIUC event, kept up to date automatically.',
+          };
 
   useEffect(() => {
     if (isOpen) {
@@ -27,7 +63,8 @@ const CalendarModal = ({ googleUrl, icalUrl }: Props) => {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-white/20"
+        className={buttonClassName}
+        data-testid="add-to-calendar"
       >
         <svg
           className="h-4 w-4"
@@ -42,7 +79,7 @@ const CalendarModal = ({ googleUrl, icalUrl }: Props) => {
             d="M12 4v16m8-8H4"
           />
         </svg>
-        Add to Calendar
+        {buttonLabel}
       </button>
 
       {isOpen && (
@@ -94,9 +131,9 @@ const CalendarModal = ({ googleUrl, icalUrl }: Props) => {
                 </svg>
               </div>
               <h2 className="text-2xl font-bold text-navy-900">
-                Subscribe to our calendar
+                {headings.title}
               </h2>
-              <p className="mt-2 text-gray-600">Never miss an ACM event!</p>
+              <p className="mt-2 text-gray-600">{headings.subtitle}</p>
             </div>
 
             {/* Options */}
@@ -181,8 +218,52 @@ const CalendarModal = ({ googleUrl, icalUrl }: Props) => {
                   />
                 </svg>
               </a>
+
+              {showFullCalendarLink && (
+                <a
+                  href="/calendar"
+                  className="flex w-full items-center gap-4 rounded-xl border-2 border-dashed border-gray-200 p-4 transition-all hover:border-tangerine-500 hover:bg-tangerine-50"
+                >
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-gray-100">
+                    <svg
+                      className="h-5 w-5 text-gray-500"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M4 6a2 2 0 012-2h3a2 2 0 012 2v3a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM13 6a2 2 0 012-2h3a2 2 0 012 2v3a2 2 0 01-2 2h-3a2 2 0 01-2-2V6zM4 15a2 2 0 012-2h3a2 2 0 012 2v3a2 2 0 01-2 2H6a2 2 0 01-2-2v-3zM13 15a2 2 0 012-2h3a2 2 0 012 2v3a2 2 0 01-2 2h-3a2 2 0 01-2-2v-3z"
+                      />
+                    </svg>
+                  </div>
+                  <div className="flex-1 text-left">
+                    <h3 className="font-semibold text-navy-900">
+                      Subscribe by SIG or committee
+                    </h3>
+                    <p className="text-sm text-gray-500">
+                      Visit our full calendar
+                    </p>
+                  </div>
+                  <svg
+                    className="h-5 w-5 text-gray-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </a>
+              )}
             </div>
-            <p className={'text-xs mt-2 text-gray-500 text-center'}>
+            <p className={'text-xs mt-4 text-gray-500 text-center'}>
               Not using one of these clients? Add{' '}
               <a
                 href={icalUrl}

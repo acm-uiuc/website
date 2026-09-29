@@ -31,11 +31,6 @@ export const membershipBenefits = [
     detail:
       '**Resume Book**: add your resume to [our resume book](https://resumes.acm.illinois.edu) to share your resume with our corporate sponsors. The more detail, the better!',
   },
-  {
-    summary: '**10% discount at Latea** when you show your membership',
-    detail:
-      "**Latea Discount**: Every paid member has a 10% discount at Latea! At the counter, show your ACM membership pass (found [here](/membership/check)). This discount is subject to Latea's applicable terms and conditions.",
-  },
 ];
 
 export const typewriterMessages = [
